@@ -32,7 +32,7 @@ export interface WaitlistEntry {
   selectedAddOns: string[];
   paymentId: string;
   orderId: string;
-  paymentStatus: 'paid' | 'pending' | 'failed' | 'Guest_Lead';
+  paymentStatus: 'paid' | 'pending' | 'failed' | 'Guest_Lead' | 'Lead_Submitted' | 'Callback_Requested';
   depositAmount: number; // 1000 or 0 for guest
   createdAt: string; // ISO string
 }

@@ -19,15 +19,70 @@ import {
   User,
   Users2,
   Gift,
-  Sparkles
+  Sparkles,
+  Lock,
+  LogOut,
+  AlertCircle
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loginEmail, setLoginEmail] = useState<string>('');
+  const [loginPassword, setLoginPassword] = useState<string>('');
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
+
+  // Dashboard Data State
   const [leads, setLeads] = useState<WaitlistEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [districtFilter, setDistrictFilter] = useState<string>('all');
   const [planFilter, setPlanFilter] = useState<string>('all');
+
+  // Check auth session on mount
+  useEffect(() => {
+    const savedAuth = typeof window !== 'undefined' ? sessionStorage.getItem('thanal_admin_auth') : null;
+    if (savedAuth === 'true') {
+      setIsAuthenticated(true);
+      loadLeads();
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    setIsLoggingIn(true);
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Invalid email or password');
+      }
+
+      sessionStorage.setItem('thanal_admin_auth', 'true');
+      setIsAuthenticated(true);
+      loadLeads();
+    } catch (err: any) {
+      setLoginError(err?.message || 'Authentication failed');
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('thanal_admin_auth');
+    setIsAuthenticated(false);
+    setLoginPassword('');
+  };
 
   const loadLeads = async () => {
     setIsLoading(true);
@@ -41,19 +96,92 @@ export default function AdminDashboardPage() {
     }
   };
 
-  useEffect(() => {
-    loadLeads();
-  }, []);
+  // If NOT Authenticated, render Admin Login Screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white font-sans flex items-center justify-center p-4 selection:bg-[#E66323] selection:text-white">
+        <div className="bg-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-2xl relative">
+          
+          <div className="text-center space-y-4 mb-8">
+            <Link href="/" className="inline-block hover:opacity-90 transition">
+              <img 
+                src="/images/logo.png" 
+                alt="Thanal Eldercare" 
+                className="h-16 w-auto mx-auto object-contain" 
+              />
+            </Link>
+            <div>
+              <h2 className="text-2xl font-extrabold text-white tracking-tight">Admin Portal Access</h2>
+              <p className="text-sm text-slate-400 mt-1">
+                Enter your credentials to manage Thanal leads
+              </p>
+            </div>
+          </div>
+
+          {loginError && (
+            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-semibold flex items-center gap-2.5">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                Admin Email Address
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="info@zynthexion.com"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                className="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                placeholder="••••••••••••"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                className="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-sm"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoggingIn}
+              className="w-full py-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-base shadow-lg shadow-[#E66323]/25 transition flex items-center justify-center gap-2 disabled:opacity-50"
+            >
+              <Lock className="w-4 h-4 text-white" />
+              <span>{isLoggingIn ? 'Authenticating...' : 'Sign In to Portal'}</span>
+            </button>
+          </form>
+
+          <div className="mt-8 text-center border-t border-slate-800/80 pt-5">
+            <Link 
+              href="/" 
+              className="text-xs font-bold text-slate-400 hover:text-white transition inline-flex items-center gap-1.5"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Return to Landing Page</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Compute Metrics
-  const totalDepositsCollected = leads
-    .filter(l => l.paymentStatus === 'paid')
-    .reduce((sum, l) => sum + (l.depositAmount || 1000), 0);
-
-  const totalPaidLeadsCount = leads.filter(l => l.paymentStatus === 'paid').length;
-  const totalGuestLeadsCount = leads.filter(l => l.paymentStatus === 'Guest_Lead').length;
-  const targetPilotCapacity = 40;
-  const capacityPercentage = Math.round((totalPaidLeadsCount / targetPilotCapacity) * 100);
+  const totalLeadsCount = leads.length;
+  const totalPaidLeadsCount = leads.filter(l => l.paymentStatus === 'paid' || l.paymentStatus === 'Lead_Submitted').length;
+  const totalCallbackCount = leads.filter(l => l.paymentStatus === 'Callback_Requested').length;
 
   // Filtered list
   const filteredLeads = leads.filter(lead => {
@@ -115,7 +243,7 @@ export default function AdminDashboardPage() {
                 className="h-8 w-auto object-contain inline-block" 
               />
               <span className="text-slate-400 font-light">|</span>
-              <span>Admin Waitlist Portal</span>
+              <span>Admin Lead Portal</span>
             </h1>
           </div>
 
@@ -138,73 +266,51 @@ export default function AdminDashboardPage() {
               <Download className="w-4 h-4 stroke-[2.5]" />
               <span>Export CSV</span>
             </button>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="px-3 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 transition flex items-center gap-1.5 text-xs font-bold"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
           </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         {/* Metric Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Primary Metric Card */}
-          <div className="p-7 rounded-2xl bg-white border border-slate-200 relative overflow-hidden shadow-md">
-            <div className="absolute top-0 right-0 p-4 opacity-15">
-              <IndianRupee className="w-20 h-20 text-emerald-400" />
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+            <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">
+              Total Captured Leads
+            </p>
+            <h2 className="text-3xl font-extrabold text-white">{totalLeadsCount}</h2>
+            <p className="text-xs text-slate-400 mt-2">Registered via website & WhatsApp inquiries</p>
+          </div>
+
+          <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
             <p className="text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-wider mb-2">
-              Total Deposits Collected (₹)
+              Form Lead Submissions
             </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              ₹{totalDepositsCollected.toLocaleString()}
+            <h2 className="text-3xl font-extrabold text-white flex items-center gap-2">
+              <CheckCircle2 className="w-7 h-7 text-emerald-400" />
+              {totalPaidLeadsCount}
             </h2>
-            <div className="mt-4 flex items-center gap-2 text-xs sm:text-sm text-slate-300 font-semibold">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Fully Refundable Deposits in Escrow</span>
-            </div>
+            <p className="text-xs text-slate-400 mt-2">Ready for Care Manager contact</p>
           </div>
 
-          {/* Metric Card 2 */}
           <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-            <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">
-              Pilot Capacity Reserved
+            <p className="text-xs sm:text-sm font-bold text-[#E66323] uppercase tracking-wider mb-2">
+              WhatsApp Care Manager Enquiries
             </p>
-            <div className="flex items-baseline gap-2">
-              <h2 className="text-3xl font-extrabold text-white">{totalPaidLeadsCount}</h2>
-              <span className="text-slate-300 text-base font-bold">/ {targetPilotCapacity} spots</span>
-            </div>
-            <div className="w-full bg-slate-950 rounded-full h-3 mt-4 overflow-hidden border border-slate-800">
-              <div 
-                className="bg-emerald-400 h-full rounded-full transition-all duration-500" 
-                style={{ width: `${Math.min(capacityPercentage, 100)}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Metric Card 3 */}
-          <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-            <p className="text-xs sm:text-sm font-bold text-teal-400 uppercase tracking-wider mb-2">
-              Free Guest Leads Registered
-            </p>
-            <h2 className="text-3xl font-extrabold text-white flex items-center gap-2.5">
-              <Gift className="w-7 h-7 text-teal-400" />
-              {totalGuestLeadsCount}
+            <h2 className="text-3xl font-extrabold text-white flex items-center gap-2">
+              <MessageCircle className="w-7 h-7 text-[#25D366]" />
+              {totalCallbackCount}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 mt-2 font-medium">
-              Pay-As-You-Go leads captured
-            </p>
-          </div>
-
-          {/* Metric Card 4 */}
-          <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-            <p className="text-xs sm:text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">
-              Top Subscription Tier
-            </p>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
-              Active Care (Couples)
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 mt-2 font-medium">
-              ₹10,500/mo ($125 USD)
-            </p>
+            <p className="text-xs text-slate-400 mt-2">Direct WhatsApp care manager inquiries</p>
           </div>
         </div>
 
@@ -217,7 +323,7 @@ export default function AdminDashboardPage() {
               placeholder="Search customer name, NRK location..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-emerald-500"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-[#E66323]"
             />
           </div>
 
@@ -225,7 +331,7 @@ export default function AdminDashboardPage() {
             <select
               value={districtFilter}
               onChange={(e) => setDistrictFilter(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500 font-medium"
+              className="px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-[#E66323] font-medium"
             >
               <option value="all">All Parent Districts</option>
               <option value="Kannur">Kannur (Phase 1)</option>
@@ -233,18 +339,6 @@ export default function AdminDashboardPage() {
               <option value="Kasaragod">Kasaragod</option>
               <option value="Ernakulam">Ernakulam</option>
               <option value="Thrissur">Thrissur</option>
-            </select>
-
-            <select
-              value={planFilter}
-              onChange={(e) => setPlanFilter(e.target.value)}
-              className="px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:border-emerald-500 font-medium"
-            >
-              <option value="all">All Plans</option>
-              <option value="safety_net">Safety Net</option>
-              <option value="active_care">Active Care</option>
-              <option value="comprehensive_care">Comprehensive Care</option>
-              <option value="guest">Guest / Pay-As-You-Go</option>
             </select>
           </div>
         </div>
@@ -264,27 +358,24 @@ export default function AdminDashboardPage() {
                 <tr className="bg-slate-950 text-slate-300 uppercase tracking-wider text-xs border-b border-slate-800">
                   <th className="py-4 px-6 font-bold">Date</th>
                   <th className="py-4 px-6 font-bold">Customer Name</th>
-                  <th className="py-4 px-6 font-bold">WhatsApp</th>
+                  <th className="py-4 px-6 font-bold">WhatsApp Number</th>
                   <th className="py-4 px-6 font-bold">NRK Location</th>
-                  <th className="py-4 px-6 font-bold">Parent's District</th>
-                  <th className="py-4 px-6 font-bold">Coverage</th>
-                  <th className="py-4 px-6 font-bold">Selected Plan</th>
-                  <th className="py-4 px-6 font-bold">Add-Ons</th>
-                  <th className="py-4 px-6 font-bold text-right">Payment Status</th>
+                  <th className="py-4 px-6 font-bold">Parent's Area in Kannur</th>
+                  <th className="py-4 px-6 font-bold text-right">Lead Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/80">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={9} className="py-14 text-center text-slate-400">
-                      <RefreshCw className="w-7 h-7 text-emerald-400 animate-spin mx-auto mb-3" />
+                    <td colSpan={6} className="py-14 text-center text-slate-400">
+                      <RefreshCw className="w-7 h-7 text-[#E66323] animate-spin mx-auto mb-3" />
                       Loading waitlist records...
                     </td>
                   </tr>
                 ) : filteredLeads.length === 0 ? (
                   <tr>
-                    <td colSpan={9} className="py-14 text-center text-slate-400">
-                      No leads match your current search/filter criteria.
+                    <td colSpan={6} className="py-14 text-center text-slate-400">
+                      No leads match your current search criteria.
                     </td>
                   </tr>
                 ) : (
@@ -295,10 +386,8 @@ export default function AdminDashboardPage() {
                       year: 'numeric'
                     });
 
-                    const whatsappClean = lead.whatsappNumber.replace(/[^0-9+]/g, '');
-                    const isGuest = lead.selectedPlan === 'guest' || lead.paymentStatus === 'Guest_Lead';
-                    const planObj = isGuest ? GUEST_PLAN : PLANS.find(p => p.id === lead.selectedPlan);
-                    const isCouple = lead.parentMode === 'couple';
+                    const whatsappClean = lead.whatsappNumber.replace(/[^0-9]/g, '');
+                    const isCallback = lead.paymentStatus === 'Callback_Requested';
 
                     return (
                       <tr 
@@ -323,12 +412,12 @@ export default function AdminDashboardPage() {
                         {/* WhatsApp Quick Action Link */}
                         <td className="py-4 px-6 whitespace-nowrap">
                           <a
-                            href={`https://wa.me/${whatsappClean.replace('+', '')}`}
+                            href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent(`Hi ${lead.fullName}, thank you for reaching out to Thanal Eldercare. I am your Care Manager.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-bold hover:underline"
+                            className="inline-flex items-center gap-2 text-[#25D366] hover:underline font-bold"
                           >
-                            <MessageCircle className="w-4 h-4 fill-emerald-500/20" />
+                            <MessageCircle className="w-4 h-4 fill-[#25D366]/20" />
                             <span>{lead.whatsappNumber}</span>
                           </a>
                         </td>
@@ -341,68 +430,24 @@ export default function AdminDashboardPage() {
                           </span>
                         </td>
 
-                        {/* Parent District */}
+                        {/* Parent District / Town */}
                         <td className="py-4 px-6 whitespace-nowrap">
-                          <span className={`font-bold ${
-                            lead.parentDistrict === 'Kannur' 
-                              ? 'text-emerald-400' 
-                              : 'text-slate-300'
-                          }`}>
-                            {lead.parentDistrict}
+                          <span className="font-bold text-emerald-400">
+                            {lead.parentDistrict || 'Kannur'}
                           </span>
                         </td>
 
-                        {/* Coverage Mode */}
-                        <td className="py-4 px-6 whitespace-nowrap">
-                          {isCouple ? (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-bold">
-                              <Users2 className="w-3.5 h-3.5 text-amber-400" />
-                              Both Parents
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700 text-xs font-medium">
-                              <User className="w-3.5 h-3.5 text-slate-400" />
-                              Single Parent
-                            </span>
-                          )}
-                        </td>
-
-                        {/* Selected Plan */}
-                        <td className="py-4 px-6 text-slate-200 whitespace-nowrap">
-                          <div className="font-bold text-white">
-                            {lead.selectedPlanName || planObj?.name || lead.selectedPlan}
-                          </div>
-                        </td>
-
-                        {/* Add-ons Badges */}
-                        <td className="py-4 px-6">
-                          <div className="flex flex-wrap gap-1.5">
-                            {lead.selectedAddOns && lead.selectedAddOns.length > 0 ? (
-                              lead.selectedAddOns.map((addOnId) => {
-                                const addOn = ADD_ONS.find(a => a.id === addOnId);
-                                return (
-                                  <span key={addOnId} className="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 border border-slate-700 text-xs font-medium">
-                                    {addOn ? addOn.name : addOnId}
-                                  </span>
-                                );
-                              })
-                            ) : (
-                              <span className="text-slate-400 italic text-xs">None</span>
-                            )}
-                          </div>
-                        </td>
-
-                        {/* Payment Status Badge */}
+                        {/* Lead Status Badge */}
                         <td className="py-4 px-6 text-right whitespace-nowrap">
-                          {isGuest ? (
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/40 text-teal-300 font-extrabold text-xs shadow-sm">
-                              <Gift className="w-4 h-4 text-teal-400" />
-                              Free Guest Lead
+                          {isCallback ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/40 text-[#25D366] font-extrabold text-xs shadow-sm">
+                              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                              Care Manager Request
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 font-extrabold text-xs shadow-sm">
                               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                              Paid ₹1,000
+                              Lead Submitted
                             </span>
                           )}
                         </td>

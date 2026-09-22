@@ -37,8 +37,8 @@ export default function LandingPage() {
   // Lead Form State
   const [fullName, setFullName] = useState<string>('');
   const [whatsappNumber, setWhatsappNumber] = useState<string>('');
-  const [nrkLocation, setNrkLocation] = useState<string>('Dubai, UAE');
-  const [parentTown, setParentTown] = useState<string>('Kannur');
+  const [nrkLocation, setNrkLocation] = useState<string>('');
+  const [parentTown, setParentTown] = useState<string>('');
 
   // UI & Workflow State
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -615,9 +615,6 @@ export default function LandingPage() {
                     onChange={(e) => setParentTown(e.target.value)}
                     className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-base"
                   />
-                  <p className="text-xs text-slate-500 font-medium pt-1.5 leading-tight">
-                    Initial pilot launch limited to families within a 5 km radius of partner hospital facilities.
-                  </p>
                 </div>
               </div>
 
@@ -798,18 +795,24 @@ export default function LandingPage() {
             </div>
 
             <div className="flex flex-col gap-3.5">
-              <Link
-                href="/admin"
-                className="w-full py-3.5 rounded-xl bg-[#E66323] text-white font-bold text-base hover:bg-[#d55516] transition block shadow-md"
+              <button
+                type="button"
+                onClick={() => {
+                  setSuccessModal(false);
+                  if (typeof window !== 'undefined') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+                className="w-full py-3.5 rounded-xl bg-[#E66323] text-white font-bold text-base hover:bg-[#d55516] transition block shadow-md hover:scale-[1.01] active:scale-[0.99]"
               >
-                View Lead on Admin Dashboard
-              </Link>
+                Back to Home
+              </button>
               <button
                 type="button"
                 onClick={() => setSuccessModal(false)}
                 className="w-full py-3 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold hover:bg-slate-200 transition"
               >
-                Close & Return
+                Close Window
               </button>
             </div>
           </div>
