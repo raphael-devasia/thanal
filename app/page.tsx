@@ -68,7 +68,7 @@ export default function LandingPage() {
     return true;
   };
 
-  // Primary Action: Paid ₹1,000 Deposit Checkout Flow via Razorpay
+  // Primary Action: Submit Lead Form (No online payment required)
   const handleDepositPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -78,66 +78,18 @@ export default function LandingPage() {
     setIsSubmitting(true);
 
     try {
-      // 1. Generate Order ID
-      const res = await fetch('/api/razorpay', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1000 })
-      });
+      const leadId = `LEAD_${Date.now().toString(36)}`;
+      const orderId = `ord_${Date.now().toString(36)}`;
 
-      const orderData = await res.json();
-      if (!orderData.success) {
-        throw new Error(orderData.message || 'Could not initiate payment order.');
-      }
-
-      const { orderId, amount, key } = orderData;
-
-      // 2. Persist Lead to Database FIRST (status: 'Initiated') before launching checkout
-      await recordLeadInDatabase(`PENDING_${Date.now().toString(36)}`, orderId, 'Initiated', 1000, false, true);
-
-      // 3. Launch Razorpay Payment Modal
-      const options = {
-        key: key || 'rzp_test_mock12345',
-        amount: amount,
-        currency: 'INR',
-        name: 'Thanal Eldercare',
-        description: 'Kannur Pilot Deposit - Inaugural Spot Lock',
-        order_id: orderId.startsWith('order_mock_') ? undefined : orderId,
-        prefill: {
-          name: fullName,
-          contact: whatsappNumber
-        },
-        theme: {
-          color: '#E66323'
-        },
-        handler: async function (response: any) {
-          const payId = response.razorpay_payment_id || `pay_mock_${Date.now().toString(36)}`;
-          await recordLeadInDatabase(payId, orderId, 'paid', 1000, false);
-        },
-        modal: {
-          ondismiss: function () {
-            setIsSubmitting(false);
-          }
-        }
-      };
-
-      if (typeof window !== 'undefined' && window.Razorpay && !orderId.startsWith('order_mock_')) {
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-      } else {
-        setTimeout(async () => {
-          const mockPaymentId = `pay_simulated_${Date.now().toString(36)}`;
-          await recordLeadInDatabase(mockPaymentId, orderId, 'paid', 1000, false);
-        }, 1200);
-      }
+      await recordLeadInDatabase(leadId, orderId, 'Lead_Submitted', 0, false);
     } catch (err: any) {
-      console.error('Payment error:', err);
-      setErrorMessage(err?.message || 'Payment initiation failed. Please try again.');
+      console.error('Lead submission error:', err);
+      setErrorMessage(err?.message || 'Lead registration failed. Please try again.');
       setIsSubmitting(false);
     }
   };
 
-  // Secondary Action: Care Manager Callback Request Flow
+  // Secondary Action: Talk to Care Manager First (WhatsApp & Lead Email Dispatch)
   const handleCallbackRequest = async () => {
     setErrorMessage(null);
     if (!validateInputs()) return;
@@ -145,12 +97,21 @@ export default function LandingPage() {
     setIsSubmitting(true);
 
     try {
-      const mockPayId = `CALLBACK_${Date.now().toString(36)}`;
-      const mockOrderId = `req_${Date.now().toString(36)}`;
+      const leadId = `WA_CARE_${Date.now().toString(36)}`;
+      const orderId = `wa_ord_${Date.now().toString(36)}`;
 
-      await recordLeadInDatabase(mockPayId, mockOrderId, 'Callback_Requested', 0, true);
+      // 1. Record lead & dispatch email notification to info@zynthexion.com
+      await recordLeadInDatabase(leadId, orderId, 'Callback_Requested', 0, true);
+
+      // 2. Open WhatsApp with pre-filled message including form data
+      const messageText = `Hi Thanal Team, I would like to talk to you about Thanal.\n\nHere are my details:\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parent's Town in Kannur: ${parentTown || 'Kannur'}`;
+      const waUrl = `https://wa.me/919496097611?text=${encodeURIComponent(messageText)}`;
+
+      if (typeof window !== 'undefined') {
+        window.open(waUrl, '_blank');
+      }
     } catch (err: any) {
-      setErrorMessage(err?.message || 'Failed to submit call request. Please try again.');
+      setErrorMessage(err?.message || 'Failed to submit request. Please try again.');
       setIsSubmitting(false);
     }
   };
@@ -158,10 +119,9 @@ export default function LandingPage() {
   const recordLeadInDatabase = async (
     paymentId: string,
     orderId: string,
-    status: 'paid' | 'Callback_Requested' | 'Initiated',
-    depositAmount: number,
-    isCallback: boolean = false,
-    isInitialSaveOnly: boolean = false
+    status: 'paid' | 'Callback_Requested' | 'Initiated' | 'Lead_Submitted',
+    depositAmount: number = 0,
+    isCallback: boolean = false
   ) => {
     try {
       const payload = {
@@ -172,8 +132,8 @@ export default function LandingPage() {
         parentMode: 'single',
         selectedPlan: isCallback ? 'callback_request' : 'active_care',
         selectedPlanName: isCallback
-          ? 'Inaugural Pilot Lead (Callback Requested)'
-          : 'Inaugural Pilot Plan (₹7,000/mo)',
+          ? 'Inaugural Pilot Lead (WhatsApp Care Manager Inquiry)'
+          : 'Thanal Inaugural Pilot Plan',
         selectedAddOns: [],
         paymentId,
         orderId,
@@ -192,18 +152,12 @@ export default function LandingPage() {
         throw new Error(data.message || 'Lead registration failed.');
       }
 
-      if (!isInitialSaveOnly) {
-        setPaymentDetails({ paymentId, orderId, isCallback });
-        setSuccessModal(true);
-      }
+      setPaymentDetails({ paymentId, orderId, isCallback });
+      setSuccessModal(true);
     } catch (err: any) {
-      if (!isInitialSaveOnly) {
-        setErrorMessage(err?.message || 'Registration failed. Please contact Thanal support.');
-      }
+      setErrorMessage(err?.message || 'Registration failed. Please contact Thanal support.');
     } finally {
-      if (!isInitialSaveOnly) {
-        setIsSubmitting(false);
-      }
+      setIsSubmitting(false);
     }
   };
 
@@ -671,11 +625,11 @@ export default function LandingPage() {
               <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-3">
                 <div className="flex justify-between items-center text-slate-700 font-medium">
                   <span>Selected Coverage:</span>
-                  <span className="font-bold text-[#044749]">Thanal Inaugural Pilot Plan (₹7,000/mo at Launch)</span>
+                  <span className="font-bold text-[#044749]">Thanal Inaugural Pilot Plan</span>
                 </div>
                 <div className="pt-3 border-t border-slate-200 flex justify-between items-center text-base">
-                  <span className="font-bold text-[#044749]">Deposit Amount Due Today:</span>
-                  <span className="font-extrabold text-xl text-[#E66323]">₹1,000 INR (100% Refundable Deposit)</span>
+                  <span className="font-bold text-[#044749]">Online Payment:</span>
+                  <span className="font-extrabold text-lg text-[#E66323]">Zero Payment Required Today</span>
                 </div>
               </div>
 
@@ -688,9 +642,9 @@ export default function LandingPage() {
                 >
                   <Lock className="w-5 h-5 text-white" />
                   {isSubmitting ? (
-                    <span>Processing Registration...</span>
+                    <span>Registering Interest...</span>
                   ) : (
-                    <span>Pay ₹1,000 Deposit & Lock Spot #12 of 40</span>
+                    <span>Reserve Your Spot for Inaugural Launch</span>
                   )}
                 </button>
 
@@ -699,9 +653,9 @@ export default function LandingPage() {
                     type="button"
                     onClick={handleCallbackRequest}
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#044749] hover:text-[#E66323] transition underline underline-offset-4"
+                    className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#044749] hover:text-[#E66323] transition underline underline-offset-4"
                   >
-                    <PhoneCall className="w-4 h-4 text-[#E66323]" />
+                    <MessageCircle className="w-5 h-5 text-[#25D366]" />
                     <span>Talk to a Care Manager First</span>
                   </button>
                 </div>
@@ -709,10 +663,10 @@ export default function LandingPage() {
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-1">
                   <p className="text-sm text-[#044749] font-bold flex items-center justify-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-[#E66323] shrink-0" />
-                    <span>100% Fully Refundable if you change your mind before launch.</span>
+                    <span>No Payment Required Today • Free Consultation</span>
                   </p>
                   <p className="text-xs text-slate-500 font-medium">
-                    Secured by Razorpay • 256-bit Encrypted Payment • Instant Electronic Receipt
+                    Our local Kannur Care Manager will contact you directly to discuss your family's needs.
                   </p>
                 </div>
               </div>
@@ -816,29 +770,29 @@ export default function LandingPage() {
             </div>
 
             <h3 className="text-3xl font-extrabold text-[#044749] mb-2">
-              {paymentDetails.isCallback ? 'Call Request Received!' : 'Spot Secured!'}
+              {paymentDetails.isCallback ? 'WhatsApp Connected & Lead Sent!' : 'Spot Reserved!'}
             </h3>
             <p className="text-slate-600 text-base mb-6 leading-relaxed">
               {paymentDetails.isCallback ? (
-                <>Thank you <strong>{fullName}</strong>. Our local Kannur Care Manager will reach out to your WhatsApp number (<strong>{whatsappNumber}</strong>) shortly to answer all your questions.</>
+                <>Thank you <strong>{fullName}</strong>. Your details have been sent to <strong>info@zynthexion.com</strong> and WhatsApp has opened. Our local Kannur Care Manager will chat with you shortly.</>
               ) : (
-                <>Thank you <strong>{fullName}</strong>. Your deposit of <strong>₹1,000 INR</strong> has been received and your spot is locked.</>
+                <>Thank you <strong>{fullName}</strong>. Your spot reservation request has been received and emailed to <strong>info@zynthexion.com</strong>. Our Care Manager will contact your WhatsApp number (<strong>{whatsappNumber}</strong>) shortly.</>
               )}
             </p>
 
             <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-left text-sm text-slate-700 space-y-2.5 mb-7">
               <div className="flex justify-between">
-                <span>Reference Code:</span>
+                <span>Reference Lead ID:</span>
                 <span className="font-mono text-[#E66323] font-bold">{paymentDetails.paymentId}</span>
               </div>
               <div className="flex justify-between">
                 <span>Parent's Location:</span>
-                <span className="text-[#044749] font-bold">{parentTown}</span>
+                <span className="text-[#044749] font-bold">{parentTown || 'Kannur'}</span>
               </div>
               <div className="flex justify-between">
                 <span>Status:</span>
                 <span className="text-[#E66323] font-bold">
-                  {paymentDetails.isCallback ? 'Care Manager Call Pending' : 'Paid & Confirmed'}
+                  {paymentDetails.isCallback ? 'WhatsApp Chat Initiated' : 'Lead Registered'}
                 </span>
               </div>
             </div>
