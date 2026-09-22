@@ -165,9 +165,9 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-[#E66323] selection:text-white">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
-      {/* 1. HEADER (Logo + Direct 'Reserve Spot' Action) */}
-      <header className="absolute top-0 left-0 right-0 z-40 bg-transparent">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-24 sm:h-28 flex items-center justify-between relative">
+      {/* 1. HEADER (White Navbar active ONLY on Medium screens between 768px and 1404px) */}
+      <header className="absolute top-0 left-0 right-0 z-40 bg-transparent min-[768px]:max-[1404px]:fixed min-[768px]:max-[1404px]:z-50 min-[768px]:max-[1404px]:bg-white/95 min-[768px]:max-[1404px]:backdrop-blur-md min-[768px]:max-[1404px]:border-b min-[768px]:max-[1404px]:border-slate-100 min-[768px]:max-[1404px]:shadow-sm transition-all">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between relative">
 
           {/* Centered Logo on Mobile, Left-aligned on Desktop */}
           <div className="flex-1 md:flex-initial flex justify-center md:justify-start md:mr-auto -ml-0 md:-ml-6 lg:-ml-8">
@@ -175,7 +175,7 @@ export default function LandingPage() {
               <img
                 src="/images/logo.png"
                 alt="Thanal Eldercare Concierge"
-                className="h-16 sm:h-20 lg:h-24 w-auto object-contain"
+                className="h-14 sm:h-18 lg:h-20 w-auto object-contain"
               />
             </Link>
           </div>
@@ -186,13 +186,13 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center gap-6">
               <a
                 href="#everything-you-get"
-                className="inline-flex items-center text-sm font-bold text-[#E66323] hover:text-[#d55516] transition"
+                className="inline-flex items-center text-sm font-bold text-[#E66323] min-[768px]:max-[1404px]:text-[#044749] hover:text-[#d55516] transition"
               >
                 What You Get
               </a>
               <a
                 href="#pricing-section"
-                className="inline-flex items-center text-sm font-bold text-[#E66323] hover:text-[#d55516] transition"
+                className="inline-flex items-center text-sm font-bold text-[#E66323] min-[768px]:max-[1404px]:text-[#044749] hover:text-[#d55516] transition"
               >
                 Pilot Pricing
               </a>
@@ -209,7 +209,7 @@ export default function LandingPage() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/90 shadow-md border border-slate-200 text-[#044749] hover:text-[#E66323] transition focus:outline-none z-50 absolute right-4"
+              className="md:hidden p-2 rounded-xl bg-slate-50 border border-slate-200 text-[#044749] hover:text-[#E66323] transition focus:outline-none z-50 absolute right-4"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6 text-[#E66323]" /> : <Menu className="w-6 h-6 text-[#044749]" />}
@@ -219,7 +219,7 @@ export default function LandingPage() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-x-0 top-24 z-50 bg-white/98 backdrop-blur-xl border-b border-slate-200 px-6 py-8 flex flex-col justify-between shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="md:hidden fixed inset-x-0 top-20 sm:top-24 z-50 bg-white/98 backdrop-blur-xl border-b border-slate-200 px-6 py-8 flex flex-col justify-between shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
             <div className="flex flex-col space-y-4 text-center">
               <a
                 href="#everything-you-get"
@@ -249,7 +249,7 @@ export default function LandingPage() {
       </header>
 
       {/* 2. HERO SECTION (Emotional Hook + 40-Family Scarcity Pill) */}
-      <section className="relative overflow-hidden bg-white min-h-screen flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16">
+      <section className="relative overflow-hidden bg-white min-h-screen flex items-center pt-28 pb-12 lg:pt-32 lg:pb-16">
         {/* Sweeping Orange Background Image */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
           <img
@@ -260,10 +260,10 @@ export default function LandingPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 lg:py-20 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-12 gap-8 min-[1140px]:gap-12 items-center">
 
-            {/* Left Column: 3 Regular Hexagons with Equal Spacing & All Sides Equal */}
-            <div className="hidden lg:flex lg:col-span-6 justify-center lg:justify-start relative py-6">
+            {/* Left Column: 3 Regular Hexagons (Disappears below 1140px width) */}
+            <div className="hidden min-[1140px]:flex min-[1140px]:col-span-6 justify-center min-[1140px]:justify-start relative py-6">
               <div className="relative w-[544px] h-[546px]">
                 {/* Regular Hexagon 1 (Top Left) */}
                 <div
@@ -304,14 +304,14 @@ export default function LandingPage() {
             </div>
 
             {/* Right Column: Scarcity Pill, Headline & Copy */}
-            <div className="lg:col-span-6 text-left text-white space-y-6 pt-4 lg:pt-0">
+            <div className="col-span-12 min-[1140px]:col-span-6 text-left text-white space-y-6 pt-4 min-[1140px]:pt-0">
               {/* Scarcity Pill */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDF3EB] border border-[#E66323]/25 text-[#E66323] text-xs sm:text-sm font-semibold tracking-wide shadow-sm">
                 <Sparkles className="w-4 h-4 text-[#E66323]" />
                 <span>Exclusive Pilot Launch • First 40 Families Only</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.18]">
+              <h1 className="text-3xl sm:text-4xl min-[1140px]:text-5xl font-extrabold text-white tracking-tight leading-[1.18]">
                 When your parents need help back home, who is standing beside them?
               </h1>
 

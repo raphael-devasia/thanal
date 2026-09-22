@@ -6,8 +6,8 @@ export default function RefundPolicyPage() {
   return (
     <div className="min-h-screen bg-white text-slate-800 font-sans px-4 py-12">
       <div className="max-w-4xl mx-auto space-y-8">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#E66323] hover:underline"
         >
           <ArrowLeft className="w-4 h-4" /> Return to Thanal
@@ -34,7 +34,7 @@ export default function RefundPolicyPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">2. Refund Processing Time</h2>
             <p className="leading-relaxed">
-              Refund requests initiated via WhatsApp support (+91 98000 12345) or email (support@thanal.care) will be processed back to your original Razorpay payment method within 5–7 business days.
+              Refund requests initiated via WhatsApp support (+91 94960 97611) or email (info@zynthexion.com) will be processed back to your original Razorpay payment method within 5–7 business days.
             </p>
           </section>
 
