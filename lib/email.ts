@@ -135,3 +135,147 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
     return { success: false, message: error?.message || 'Email dispatch failed' };
   }
 }
+
+export interface LuxuryInquiryEmailData {
+  fullName: string;
+  whatsappNumber: string;
+  email?: string;
+  currentLocation: string;
+  inquiryFor: string;
+  villaType: string;
+  timeline: string;
+  notes?: string;
+  inquiryId?: string;
+}
+
+export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Promise<{ success: boolean; message?: string }> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const recipientEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@zynthexion.com';
+  
+  if (!apiKey) {
+    console.warn('RESEND_API_KEY is not configured in environment variables. Email notification skipped.');
+    return { success: false, message: 'RESEND_API_KEY environment variable missing' };
+  }
+
+  const subjectText = `🏡 LUXURY SENIOR LIVING INQUIRY: ${data.fullName} (${data.currentLocation})`;
+
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+          .header { background: #044749; color: #ffffff; padding: 28px 24px; text-align: center; }
+          .header h1 { margin: 0; font-size: 22px; font-weight: 800; }
+          .badge { display: inline-block; background: #E66323; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; }
+          .content { padding: 28px 24px; }
+          .field-group { margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
+          .field-group:last-child { border-bottom: none; }
+          .label { font-size: 11px; font-weight: 700; color: #044749; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+          .value { font-size: 15px; font-weight: 600; color: #1e293b; }
+          .cta-box { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px; padding: 18px; margin-top: 24px; text-align: center; }
+          .wa-btn { display: inline-block; background: #25D366; color: #ffffff; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
+          .footer { background: #f8fafc; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Thanal Luxury Living Inquiry</h1>
+            <div class="badge">Brochure & Tour Request</div>
+          </div>
+          <div class="content">
+            <div class="field-group">
+              <div class="label">Client Full Name</div>
+              <div class="value">${data.fullName}</div>
+            </div>
+            
+            <div class="field-group">
+              <div class="label">WhatsApp Contact</div>
+              <div class="value"><a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}" style="color: #E66323; text-decoration: none;">${data.whatsappNumber}</a></div>
+            </div>
+
+            ${data.email ? `
+            <div class="field-group">
+              <div class="label">Email Address</div>
+              <div class="value">${data.email}</div>
+            </div>` : ''}
+
+            <div class="field-group">
+              <div class="label">Current Location / Country</div>
+              <div class="value">${data.currentLocation}</div>
+            </div>
+
+            <div class="field-group">
+              <div class="label">Inquiring For</div>
+              <div class="value">${data.inquiryFor}</div>
+            </div>
+
+            <div class="field-group">
+              <div class="label">Preferred Residence Type</div>
+              <div class="value">${data.villaType}</div>
+            </div>
+
+            <div class="field-group">
+              <div class="label">Anticipated Move-In Timeline</div>
+              <div class="value">${data.timeline}</div>
+            </div>
+
+            ${data.notes ? `
+            <div class="field-group">
+              <div class="label">Special Requests or Healthcare Notes</div>
+              <div class="value" style="font-weight: 400; color: #334155; line-height: 1.5;">${data.notes}</div>
+            </div>` : ''}
+
+            <div class="cta-box">
+              <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Concierge Action</div>
+              <div style="font-size: 13px; color: #c2410c;">Connect with this prospective resident on WhatsApp:</div>
+              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for your interest in Thanal Luxury Senior Living in Kerala. I am your Estate Concierge.`)}" class="wa-btn" target="_blank">
+                Chat on WhatsApp with ${data.fullName}
+              </a>
+            </div>
+          </div>
+          <div class="footer">
+            Received via Thanal Luxury Living • Zynthexion Technologies Pvt. Ltd.
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'info@zynthexion.com';
+
+  const sendWithEmail = async (sender: string) => {
+    return await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: `Thanal Luxury Living <${sender}>`,
+        to: [recipientEmail],
+        subject: subjectText,
+        html: htmlContent
+      })
+    });
+  };
+
+  try {
+    let response = await sendWithEmail(fromEmail);
+    if (!response.ok) {
+      response = await sendWithEmail('onboarding@resend.dev');
+    }
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      const errText = await response.text();
+      return { success: false, message: errText };
+    }
+  } catch (error: any) {
+    return { success: false, message: error?.message || 'Email dispatch failed' };
+  }
+}

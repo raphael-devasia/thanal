@@ -287,6 +287,12 @@ export default function LandingPage() {
             >
               Care Plans
             </a>
+            <Link
+              href="/luxury-living"
+              className="text-xs sm:text-sm font-bold text-[#E66323] hover:text-[#d55516] transition flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-50 border border-orange-200/80 hover:bg-orange-100/70 shadow-xs"
+            >
+              <span>Luxury Living</span>
+            </Link>
             <a
               href="#faqs-section"
               className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition"
@@ -363,6 +369,13 @@ export default function LandingPage() {
                 >
                   Care Plans & Pricing
                 </a>
+                <Link
+                  href="/luxury-living"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-bold text-[#E66323] hover:text-[#d55516] py-2 px-3 rounded-lg bg-orange-50 border border-orange-200/80 flex items-center justify-between transition"
+                >
+                  <span>Luxury Living</span>
+                </Link>
                 <a
                   href="#faqs-section"
                   onClick={() => setMobileMenuOpen(false)}
@@ -1172,10 +1185,12 @@ export default function LandingPage() {
               {/* Table Header */}
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/70">
-                  <th className="py-5 px-6 font-bold text-slate-500 uppercase tracking-wider text-xs w-1/4">
+                  <th className="py-5 px-6 font-bold text-slate-500 uppercase tracking-wider text-xs w-1/4 align-top">
+                    <div className="h-6 mb-2" />
                     Care Features
                   </th>
-                  <th className="py-5 px-6 w-1/4">
+                  <th className="py-5 px-6 w-1/4 align-top">
+                    <div className="h-6 mb-2" />
                     <div className="space-y-1">
                       <p className="font-extrabold text-base text-[#044749]">Plan 1: Essential</p>
                       <p className="text-xs text-slate-500">For independent parents</p>
@@ -1185,10 +1200,13 @@ export default function LandingPage() {
                       </div>
                     </div>
                   </th>
-                  <th className="py-5 px-6 w-1/4 bg-orange-50/40 border-x border-[#E66323]/30 relative">
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E66323] text-white text-[10px] font-extrabold uppercase px-3 py-0.5 rounded-full shadow-xs">
-                      Most Chosen
-                    </span>
+                  <th className="py-5 px-6 w-1/4 bg-orange-50/50 border-x-2 border-[#E66323]/50 align-top">
+                    <div className="h-6 mb-2 flex items-center">
+                      <span className="inline-flex items-center gap-1 bg-[#E66323] text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
+                        <Sparkles className="w-3 h-3 text-white" />
+                        <span>Most Chosen</span>
+                      </span>
+                    </div>
                     <div className="space-y-1">
                       <p className="font-extrabold text-base text-[#E66323]">Plan 2: Care Plus</p>
                       <p className="text-xs text-slate-600">Active health support</p>
@@ -1198,7 +1216,8 @@ export default function LandingPage() {
                       </div>
                     </div>
                   </th>
-                  <th className="py-5 px-6 w-1/4">
+                  <th className="py-5 px-6 w-1/4 align-top">
+                    <div className="h-6 mb-2" />
                     <div className="space-y-1">
                       <p className="font-extrabold text-base text-[#044749]">Plan 3: Comfort</p>
                       <p className="text-xs text-slate-500">High-attention coordination</p>
@@ -1663,7 +1682,7 @@ export default function LandingPage() {
       </section>
 
       {/* 10. COMPACT RESPONSIVE FOOTER */}
-      <footer className="relative bg-[#044749] text-white pt-20 sm:pt-32 lg:pt-44 pb-12 sm:pb-16 flex flex-col justify-end items-center overflow-hidden">
+      <footer className="relative bg-gradient-to-b from-teal-950 via-[#044749] to-[#033739] text-white pt-20 sm:pt-32 lg:pt-44 pb-12 sm:pb-16 flex flex-col justify-end items-center overflow-hidden">
         {/* SVG Wave */}
         <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none leading-none z-10">
           <svg
@@ -1673,6 +1692,13 @@ export default function LandingPage() {
           >
             <path d="M0,0 H1320 s-742.122,227.93 -923.3,237.008 S0,21.994 0,21.994 Z" />
           </svg>
+        </div>
+
+        {/* Ambient Decorative Background Glow (Yellow / Amber Light matching the Hero) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden opacity-25">
+          <div className="absolute -top-12 left-1/4 w-[420px] h-[420px] rounded-full bg-amber-400 blur-3xl" />
+          <div className="absolute bottom-4 right-10 w-96 h-96 rounded-full bg-amber-300 blur-3xl" />
+          <div className="absolute -bottom-10 left-10 w-80 h-80 rounded-full bg-emerald-400 blur-3xl" />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 w-full">
@@ -1726,6 +1752,10 @@ export default function LandingPage() {
               </a>
 
               <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1.5 text-xs sm:text-sm text-teal-100 font-semibold">
+                <Link href="/luxury-living" className="text-amber-300 hover:text-white font-bold transition">
+                  Luxury Senior Living
+                </Link>
+                <span>•</span>
                 <Link href="/terms" className="hover:text-[#E66323] transition">
                   Terms
                 </Link>
