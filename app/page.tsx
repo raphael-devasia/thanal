@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 import Script from 'next/script';
 import Link from 'next/link';
 import {
-  KERALA_DISTRICTS,
-  POPULAR_NRK_LOCATIONS
-} from '@/types/waitlist';
-import {
   ShieldCheck,
   CheckCircle2,
   Sparkles,
@@ -24,32 +20,67 @@ import {
   AlertCircle,
   Menu,
   X,
-  MessageCircle
+  MessageCircle,
+  FileText,
+  ChevronDown,
+  Clock,
+  ShoppingBag,
+  Smartphone,
+  Home,
+  Award,
+  HelpCircle,
+  Calendar,
+  Building2,
+  Play,
+  Volume2,
+  CheckCheck,
+  MapPin,
+  Car,
+  Heart,
+  SlidersHorizontal,
+  ChevronRight
 } from 'lucide-react';
-
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
+import {
+  PLANS,
+  ParentMode,
+  POPULAR_NRK_LOCATIONS,
+  KERALA_DISTRICTS
+} from '@/types/waitlist';
 
 export default function LandingPage() {
+  // Plan Toggle & Selection State
+  const [parentMode, setParentMode] = useState<ParentMode>('single');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'quarterly'>('monthly');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('care_plus');
+
+  // Interactive Pillars Tab State
+  const [activePillarTab, setActivePillarTab] = useState<'all' | 'vitality' | 'joy' | 'ease'>('all');
+
   // Lead Form State
   const [fullName, setFullName] = useState<string>('');
   const [whatsappNumber, setWhatsappNumber] = useState<string>('');
   const [nrkLocation, setNrkLocation] = useState<string>('');
   const [parentTown, setParentTown] = useState<string>('');
+  const [additionalNotes, setAdditionalNotes] = useState<string>('');
 
   // UI & Workflow State
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successModal, setSuccessModal] = useState<boolean>(false);
+  const [isPlayingAudioDemo, setIsPlayingAudioDemo] = useState<boolean>(false);
   const [paymentDetails, setPaymentDetails] = useState<{
     paymentId: string;
     orderId: string;
     isCallback?: boolean;
   } | null>(null);
+
+  // FAQ Accordion State (open question indices)
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaqIndex(openFaqIndex === idx ? null : idx);
+  };
 
   // Form Validation Helper
   const validateInputs = () => {
@@ -65,11 +96,29 @@ export default function LandingPage() {
       setErrorMessage('Please enter your current expat location (e.g. Dubai, UAE).');
       return false;
     }
+    if (!parentTown.trim()) {
+      setErrorMessage("Please enter your parent's city or town in Kerala (e.g. Kochi, Ernakulam, Thrissur).");
+      return false;
+    }
     return true;
   };
 
-  // Primary Action: Submit Lead Form (No online payment required)
-  const handleDepositPayment = async (e: React.FormEvent) => {
+  const getActivePlanName = () => {
+    const plan = PLANS.find((p) => p.id === selectedPlanId);
+    return plan ? plan.name : 'Thanal Care Plus Plan';
+  };
+
+  // Scroll to Form and select plan
+  const handleSelectPlan = (planId: string) => {
+    setSelectedPlanId(planId);
+    const elem = document.getElementById('checkout-section');
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Primary Action: Submit Care Spot Registration (Zero online payment today)
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -78,18 +127,18 @@ export default function LandingPage() {
     setIsSubmitting(true);
 
     try {
-      const leadId = `LEAD_${Date.now().toString(36)}`;
+      const leadId = `THANAL_${Date.now().toString(36)}`;
       const orderId = `ord_${Date.now().toString(36)}`;
 
       await recordLeadInDatabase(leadId, orderId, 'Lead_Submitted', 0, false);
     } catch (err: any) {
       console.error('Lead submission error:', err);
-      setErrorMessage(err?.message || 'Lead registration failed. Please try again.');
+      setErrorMessage(err?.message || 'Reservation failed. Please try again.');
       setIsSubmitting(false);
     }
   };
 
-  // Secondary Action: Talk to Care Manager First (WhatsApp & Lead Email Dispatch)
+  // Secondary Action: Talk to Care Manager First on WhatsApp
   const handleCallbackRequest = async () => {
     setErrorMessage(null);
     if (!validateInputs()) return;
@@ -100,11 +149,11 @@ export default function LandingPage() {
       const leadId = `WA_CARE_${Date.now().toString(36)}`;
       const orderId = `wa_ord_${Date.now().toString(36)}`;
 
-      // 1. Record lead & dispatch email notification to info@zynthexion.com
       await recordLeadInDatabase(leadId, orderId, 'Callback_Requested', 0, true);
 
-      // 2. Open WhatsApp with pre-filled message including form data
-      const messageText = `Hi Thanal Team, I would like to talk to you about Thanal.\n\nHere are my details:\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parent's Town in Kannur: ${parentTown || 'Kannur'}`;
+      const planName = getActivePlanName();
+      const messageText = `Hi Thanal Care Team,\n\nI would like to inquire about Thanal eldercare for my parents in Kerala.\n\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parents' Location: ${parentTown}\n• Interested Plan: ${planName} (${parentMode === 'couple' ? 'Couple Plan' : 'Single Parent'})\n• Billing Preference: ${billingCycle === 'quarterly' ? 'Quarterly (10% Off)' : 'Monthly'}\n${additionalNotes ? `• Notes: ${additionalNotes}\n` : ''}\nPlease let me know when we can connect.`;
+
       const waUrl = `https://wa.me/919496097611?text=${encodeURIComponent(messageText)}`;
 
       if (typeof window !== 'undefined') {
@@ -128,12 +177,10 @@ export default function LandingPage() {
         fullName,
         whatsappNumber,
         nrkLocation,
-        parentDistrict: parentTown || 'Kannur',
-        parentMode: 'single',
-        selectedPlan: isCallback ? 'callback_request' : 'active_care',
-        selectedPlanName: isCallback
-          ? 'Inaugural Pilot Lead (WhatsApp Care Manager Inquiry)'
-          : 'Thanal Inaugural Pilot Plan',
+        parentDistrict: parentTown,
+        parentMode,
+        selectedPlan: selectedPlanId,
+        selectedPlanName: `${getActivePlanName()} (${parentMode === 'couple' ? 'Couple' : 'Single'}, ${billingCycle})`,
         selectedAddOns: [],
         paymentId,
         orderId,
@@ -148,8 +195,9 @@ export default function LandingPage() {
       });
 
       const data = await res.json();
+
       if (!data.success) {
-        throw new Error(data.message || 'Lead registration failed.');
+        throw new Error(data.message || 'Registration failed.');
       }
 
       setPaymentDetails({ paymentId, orderId, isCallback });
@@ -161,509 +209,1451 @@ export default function LandingPage() {
     }
   };
 
+  const faqs = [
+    {
+      q: 'What is a Care Buddy, and how is Thanal different from a home nurse or agency maid?',
+      a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments, coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
+    },
+    {
+      q: 'What happens during a medical emergency?',
+      a: 'In an acute emergency, our protocol is immediate and swift: the ambulance is dispatched first, while your dedicated Care Buddy rushes directly to the hospital or your parents’ home. The Buddy assists with admission formalities, communicates with the emergency room doctors, keeps you immediately informed via phone and WhatsApp, and helps determine whether you need to book a flight home. Backup support is maintained 24/7 by our founder and care operations team.'
+    },
+    {
+      q: 'Can our parents consult their existing family doctor or preferred hospital in Kerala?',
+      a: 'Absolutely yes. While we partner with anchor hospitals in Kochi (such as Aster Medcity, Amrita, Lakeshore, Rajagiri, Medical Trust, and Lourdes) for priority access and OPD coordination, your parents’ trusted family doctor of choice is always respected and prioritized. Your Care Buddy will escort them to their preferred clinic or hospital anywhere in the service area.'
+    },
+    {
+      q: 'How do you keep children abroad updated across different time zones (Gulf, UK, US, Australia)?',
+      a: "Unlike generic apps that require logging into an unfamiliar portal, Thanal is WhatsApp-first. After every visit or hospital consult, your Care Buddy sends a 60-second Malayalam or English voice note and high-resolution photos of prescriptions or test slips. In addition, we schedule regular parent-and-child video calls hosted by the Care Buddy at a fixed day and time tailored to your international time zone."
+    },
+    {
+      q: 'How does the couple discount work for both parents?',
+      a: 'We offer a straightforward, transparent 25% discount on the second parent for all plans. For example, on the Care Plus plan (₹11,000/month for a single parent), coverage for both parents is ₹19,250/month (₹11,000 + ₹8,250). Both parents receive comprehensive wellness monitoring, hospital accompaniment, and companionship.'
+    },
+    {
+      q: 'What is your refund and cancellation policy?',
+      a: 'We operate on a 3-month initial commitment to establish a meaningful, dependable relationship with your parents and build their complete Care Passport. If your family wishes to withdraw for any reason, we provide a 100% pro-rata refund for all unused full months. There are zero cancellation penalties.'
+    },
+    {
+      q: 'How are hospital bills, pharmacy refills, and taxi fares billed?',
+      a: 'With 100% financial transparency. Thanal never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, medications, and taxi fares are paid directly at actuals to the service providers. For transport, your Care Buddy rides in the same vehicle so there is never a second fare. For overseas children who prefer not to deal in local cash, we offer an optional prepaid travel and pharmacy wallet reconciled monthly with receipts.'
+    },
+    {
+      q: 'How are Care Buddies vetted and trained?',
+      a: 'Every Thanal team member undergoes mandatory local police verification, government identity validation, and caregiver credential checks. Before their first solo visit, they complete a 2 to 3 week intensive training curriculum covering elder psychology, dementia basics, vital signs monitoring, safe physical transfers, first aid & CPR, data privacy, and emergency drills.'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-[#E66323] selection:text-white">
+    <div className="min-h-screen bg-slate-50/60 text-slate-800 font-sans selection:bg-[#E66323] selection:text-white overflow-x-hidden w-full max-w-full pb-24 sm:pb-0">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
-      {/* 1. HEADER (White Navbar active ONLY on Medium screens between 768px and 1404px) */}
-      <header className="absolute top-0 left-0 right-0 z-40 bg-transparent min-[768px]:max-[1404px]:fixed min-[768px]:max-[1404px]:z-50 min-[768px]:max-[1404px]:bg-white/95 min-[768px]:max-[1404px]:backdrop-blur-md min-[768px]:max-[1404px]:border-b min-[768px]:max-[1404px]:border-slate-100 min-[768px]:max-[1404px]:shadow-sm transition-all">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between relative">
+      {/* 1. COMPACT RESPONSIVE HEADER */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all shadow-xs">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link href="/" className="inline-block hover:opacity-90 transition">
+            <img
+              src="/images/logo.png"
+              alt="Thanal Eldercare Concierge"
+              className="h-10 sm:h-14 lg:h-16 w-auto object-contain"
+            />
+          </Link>
 
-          {/* Centered Logo on Mobile, Left-aligned on Desktop */}
-          <div className="flex-1 md:flex-initial flex justify-center md:justify-start md:mr-auto -ml-0 md:-ml-6 lg:-ml-8">
-            <Link href="/" className="inline-block hover:opacity-90 transition">
-              <img
-                src="/images/logo.png"
-                alt="Thanal Eldercare Concierge"
-                className="h-14 sm:h-18 lg:h-20 w-auto object-contain"
-              />
-            </Link>
-          </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            <a
+              href="#care-buddy-concept"
+              className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition"
+            >
+              The Care Buddy
+            </a>
+            <a
+              href="#whatsapp-experience"
+              className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition flex items-center gap-1.5"
+            >
+              <span>Live Updates</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            </a>
+            <a
+              href="#three-pillars"
+              className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition"
+            >
+              Our 3 Pillars
+            </a>
+            <a
+              href="#pricing-section"
+              className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition"
+            >
+              Care Plans
+            </a>
+            <a
+              href="#faqs-section"
+              className="text-sm font-semibold text-slate-700 hover:text-[#044749] transition"
+            >
+              FAQs
+            </a>
+            <a
+              href="#checkout-section"
+              className="text-xs sm:text-sm font-bold px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white transition flex items-center gap-2 shadow-md shadow-[#E66323]/25 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>Reserve Spot</span>
+              <ArrowRight className="w-4 h-4 text-white" />
+            </a>
+          </nav>
 
-          {/* Right Navigation & Mobile Hamburger Button */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
-              <a
-                href="#everything-you-get"
-                className="inline-flex items-center text-sm font-bold text-[#E66323] min-[768px]:max-[1404px]:text-[#044749] hover:text-[#d55516] transition"
-              >
-                What You Get
-              </a>
-              <a
-                href="#pricing-section"
-                className="inline-flex items-center text-sm font-bold text-[#E66323] min-[768px]:max-[1404px]:text-[#044749] hover:text-[#d55516] transition"
-              >
-                Pilot Pricing
-              </a>
-              <a
-                href="#checkout-section"
-                className="text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white transition flex items-center gap-2 shadow-lg shadow-[#E66323]/25 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <span>Reserve Your Spot</span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </a>
-            </div>
+          {/* Mobile Right Controls: WhatsApp Quick Icon + Hamburger */}
+          <div className="flex items-center gap-2.5 md:hidden">
+            <a
+              href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle className="w-5 h-5 text-[#25D366]" />
+            </a>
 
-            {/* Mobile Hamburger Toggle Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-50 border border-slate-200 text-[#044749] hover:text-[#E66323] transition focus:outline-none z-50 absolute right-4"
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-[#044749] hover:text-[#E66323] transition focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-[#E66323]" /> : <Menu className="w-6 h-6 text-[#044749]" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-[#E66323]" /> : <Menu className="w-5 h-5 text-[#044749]" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation Drawer with Backdrop */}
         {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-x-0 top-20 sm:top-24 z-50 bg-white/98 backdrop-blur-xl border-b border-slate-200 px-6 py-8 flex flex-col justify-between shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
-            <div className="flex flex-col space-y-4 text-center">
-              <a
-                href="#everything-you-get"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-bold text-[#044749] hover:text-[#E66323] py-2.5 border-b border-slate-100 transition"
-              >
-                What You Get
-              </a>
-              <a
-                href="#pricing-section"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-bold text-[#044749] hover:text-[#E66323] py-2.5 border-b border-slate-100 transition"
-              >
-                Pilot Pricing
-              </a>
-              <a
-                href="#checkout-section"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-4 w-full py-3.5 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-base transition flex items-center justify-center gap-2 shadow-lg shadow-[#E66323]/25"
-              >
-                <span>Reserve Your Spot</span>
-                <ArrowRight className="w-5 h-5 text-white" />
-              </a>
+          <>
+            <div
+              className="md:hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div className="md:hidden fixed inset-x-0 top-16 z-50 bg-white border-b border-slate-200 px-5 py-5 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="flex flex-col space-y-2.5">
+                <a
+                  href="#care-buddy-concept"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-slate-800 hover:text-[#044749] py-2 px-3 rounded-lg hover:bg-slate-50 transition"
+                >
+                  The Care Buddy
+                </a>
+                <a
+                  href="#whatsapp-experience"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-slate-800 hover:text-[#044749] py-2 px-3 rounded-lg hover:bg-slate-50 transition flex items-center justify-between"
+                >
+                  <span>Live WhatsApp Updates</span>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Demo</span>
+                </a>
+                <a
+                  href="#three-pillars"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-slate-800 hover:text-[#044749] py-2 px-3 rounded-lg hover:bg-slate-50 transition"
+                >
+                  Our 3 Pillars
+                </a>
+                <a
+                  href="#pricing-section"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-slate-800 hover:text-[#044749] py-2 px-3 rounded-lg hover:bg-slate-50 transition"
+                >
+                  Care Plans & Pricing
+                </a>
+                <a
+                  href="#faqs-section"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold text-slate-800 hover:text-[#044749] py-2 px-3 rounded-lg hover:bg-slate-50 transition"
+                >
+                  Frequently Asked Questions
+                </a>
+                <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+                  <a
+                    href="#checkout-section"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-3 rounded-xl bg-[#E66323] text-white font-bold text-sm text-center flex items-center justify-center gap-2 shadow-md shadow-[#E66323]/25"
+                  >
+                    <span>Reserve Spot</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </a>
+                  <a
+                    href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20care%20for%20my%20parents%20in%20Kerala."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-2.5 rounded-xl bg-slate-100 text-[#044749] font-bold text-xs text-center flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                    <span>Talk to Care Manager on WhatsApp</span>
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </header>
 
-      {/* 2. HERO SECTION (Emotional Hook + 40-Family Scarcity Pill) */}
-      <section className="relative overflow-hidden bg-white min-h-screen flex items-center pt-28 pb-12 lg:pt-32 lg:pb-16">
-        {/* Sweeping Orange Background Image */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          <img
-            src="/images/hero_thanal.png"
-            alt="Hero background curve"
-            className="w-full h-full object-cover object-right"
-          />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 lg:py-20 w-full">
-          <div className="grid grid-cols-12 gap-8 min-[1140px]:gap-12 items-center">
-
-            {/* Left Column: 3 Regular Hexagons (Disappears below 1140px width) */}
-            <div className="hidden min-[1140px]:flex min-[1140px]:col-span-6 justify-center min-[1140px]:justify-start relative py-6">
-              <div className="relative w-[544px] h-[546px]">
-                {/* Regular Hexagon 1 (Top Left) */}
-                <div
-                  className="absolute top-0 left-0 w-[260px] h-[300px] shadow-2xl transition-transform hover:scale-105 overflow-hidden"
-                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
-                >
-                  <img
-                    src="/images/hero1.png"
-                    alt="Thanal Eldercare Companion 1"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Regular Hexagon 2 (Top Right) */}
-                <div
-                  className="absolute top-0 left-[284px] w-[260px] h-[300px] shadow-2xl transition-transform hover:scale-105 overflow-hidden"
-                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
-                >
-                  <img
-                    src="/images/hero2.png"
-                    alt="Thanal Eldercare Companion 2"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Regular Hexagon 3 (Bottom Center - Equal Spacing from Both) */}
-                <div
-                  className="absolute top-[246px] left-[142px] w-[260px] h-[300px] shadow-2xl transition-transform hover:scale-105 overflow-hidden"
-                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
-                >
-                  <img
-                    src="/images/hero3.jpg"
-                    alt="Thanal Eldercare Companion 3"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Scarcity Pill, Headline & Copy */}
-            <div className="col-span-12 min-[1140px]:col-span-6 text-left text-white space-y-6 pt-4 min-[1140px]:pt-0">
-              {/* Scarcity Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDF3EB] border border-[#E66323]/25 text-[#E66323] text-xs sm:text-sm font-semibold tracking-wide shadow-sm">
-                <Sparkles className="w-4 h-4 text-[#E66323]" />
-                <span>Exclusive Pilot Launch • First 40 Families Only</span>
+      {/* 2. HERO SECTION (Clean, Responsive, Mobile-First) */}
+      <section className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/50">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-12 gap-8 lg:gap-14 items-center">
+            
+            {/* Left Column: Typography & Action on Desktop / Top on Mobile */}
+            <div className="col-span-12 lg:col-span-6 space-y-5 sm:space-y-6 text-left">
+              {/* Location Badge */}
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-orange-50 border border-[#E66323]/30 text-[#E66323] text-xs font-bold tracking-tight">
+                <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                <span>Available in Kochi</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl min-[1140px]:text-5xl font-extrabold text-white tracking-tight leading-[1.18]">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2]">
                 When your parents need help back home, who is standing beside them?
               </h1>
 
-              <p className="text-white/95 text-base sm:text-lg leading-relaxed font-normal max-w-xl">
-                You are building a future across oceans, but home never leaves your mind. When unexpected hospital lines, complicated prescriptions, or sudden emergencies arise, frantic long-distance phone calls simply aren’t enough. Thanal steps in as your trusted family proxy on the ground—handling doctor visits, daily care, and hospital runs with real-time updates sent straight to your phone.
+              <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-normal">
+                You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
               </p>
 
-              <div className="pt-2">
+              <div className="bg-emerald-50/80 border border-emerald-200/80 p-3.5 sm:p-4 rounded-2xl">
+                <p className="text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed font-medium">
+                  <strong className="text-[#044749]">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749]">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
+                </p>
+              </div>
+
+              {/* CTAs */}
+              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <a
-                  href="#checkout-section"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#044749] hover:bg-[#033436] text-white font-extrabold text-base sm:text-lg shadow-2xl transition-all hover:scale-[1.03] active:scale-[0.98]"
+                  href="#pricing-section"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-[#E66323]/25 transition hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>Reserve Your Spot</span>
-                  <ArrowRight className="w-5 h-5 text-[#E66323]" />
+                  <span>Explore Care Plans</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+
+                <a
+                  href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-white hover:bg-slate-50 text-[#044749] border border-slate-300 font-bold text-sm sm:text-base transition shadow-xs hover:border-[#044749]/40"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Chat on WhatsApp</span>
                 </a>
               </div>
 
+              {/* Trust Indicators (Flex wrap on mobile for zero cut-off) */}
+              <div className="pt-3 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-700 font-medium">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Named Care Buddy</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Zero Medical Kickbacks</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Pro-Rata Refund Guarantee</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Visual Showcase (Both Desktop Hexagons & Mobile Interactive Card) */}
+            <div className="col-span-12 lg:col-span-6 flex flex-col items-center lg:items-end">
+              {/* Desktop Hexagon Composition */}
+              <div className="hidden lg:block relative w-[500px] h-[500px]">
+                <div className="absolute inset-0 bg-[#E66323]/5 rounded-full blur-3xl pointer-events-none" />
+
+                {/* Hexagon 1 */}
+                <div
+                  className="absolute top-0 left-0 w-[240px] h-[275px] shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden border border-white/60"
+                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+                >
+                  <img src="/images/hero1.png" alt="Care Buddy visiting" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Hexagon 2 */}
+                <div
+                  className="absolute top-0 left-[250px] w-[240px] h-[275px] shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden border border-white/60"
+                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+                >
+                  <img src="/images/hero2.png" alt="Senior companionship" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Hexagon 3 */}
+                <div
+                  className="absolute top-[225px] left-[125px] w-[240px] h-[275px] shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden border border-white/60"
+                  style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+                >
+                  <img src="/images/hero3.jpg" alt="OPD accompaniment" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Floating Live Badge */}
+                <div className="absolute -bottom-2 -left-2 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl p-3.5 shadow-xl animate-float-gentle flex items-center gap-3 z-20">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+                    <CheckCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <p className="text-xs font-bold text-slate-800">Care Buddy on Ground • Kochi</p>
+                    </div>
+                    <p className="text-[11px] text-slate-500">OPD Queues handled • Meds verified</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile / Tablet Friendly Live Card */}
+              <div className="w-full max-w-sm sm:max-w-md lg:hidden bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-xl relative overflow-hidden">
+                <div className="flex items-center gap-3 mb-3.5">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#E66323] shrink-0">
+                    <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-[#044749] text-xs sm:text-sm">Care Buddy Anjali</span>
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#E66323]" />
+                    </div>
+                    <p className="text-[11px] text-slate-500 truncate">Visiting parents in Kakkanad, Kochi</p>
+                  </div>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full shrink-0">
+                    Active
+                  </span>
+                </div>
+
+                {/* Interactive Simulated Audio Note */}
+                <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
+                    className="w-9 h-9 rounded-full bg-[#044749] text-white flex items-center justify-center shrink-0 shadow-xs"
+                    aria-label="Play audio briefing"
+                  >
+                    {isPlayingAudioDemo ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+                  </button>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between text-[11px] text-slate-600 font-medium mb-1">
+                      <span className="truncate">Post-Consult Voice Briefing</span>
+                      <span className="text-slate-400 shrink-0 ml-1">0:48</span>
+                    </div>
+                    <div className="flex items-center gap-0.5 sm:gap-1 h-4">
+                      {[40, 75, 50, 90, 60, 30, 85, 45, 95, 70, 35, 80, 50, 65].map((val, i) => (
+                        <div
+                          key={i}
+                          className={`flex-1 rounded-full ${
+                            isPlayingAudioDemo ? 'bg-[#E66323] animate-pulse' : 'bg-slate-300'
+                          }`}
+                          style={{ height: `${val}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-500 mt-2 text-center">
+                  Instant Malayalam/English audio notes sent directly to your WhatsApp abroad.
+                </p>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 3. WHAT YOU GET (4 Visual Care Cards) */}
-      <section id="everything-you-get" className="py-20 lg:py-26 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">
-            Full Service Breakdown
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-5">
-            Everything Your Family Receives with Thanal
-          </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
-            4 core pillars of complete end-to-end operational care so you never have to guess about your parent's health again.
-          </p>
-        </div>
-
-        {/* 4 Care Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
-          {/* Card 1 */}
-          <div className="p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#E66323]/50 transition flex flex-col justify-between shadow-md group">
-            <div>
-              <div className="w-14 h-14 rounded-xl bg-[#E66323]/10 border border-[#E66323]/20 flex items-center justify-center text-[#E66323] mb-5 group-hover:scale-110 transition-transform">
-                <Stethoscope className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-[#044749] mb-3">1. Door-to-Door Hospital Escort</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-                AC pickup from home in Kannur, token queue navigation, waiting beside them during doctor consults, and safe return home.
-              </p>
-            </div>
-            <ul className="text-xs sm:text-sm text-slate-700 space-y-2.5 pt-4 border-t border-slate-200 font-semibold">
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> AC Vehicle Pickup & Drop</li>
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> Token & Billing Queue Support</li>
-            </ul>
-          </div>
-
-          {/* Card 2 */}
-          <div className="p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#E66323]/50 transition flex flex-col justify-between shadow-md group">
-            <div>
-              <div className="w-14 h-14 rounded-xl bg-[#044749]/10 border border-[#044749]/20 flex items-center justify-center text-[#044749] mb-5 group-hover:scale-110 transition-transform">
-                <Mic className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-[#044749] mb-3">2. Instant Voice & WhatsApp Updates</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-                60-second Malayalam/English audio summaries recorded immediately after doctor consults + clear prescription photos sent directly to your phone.
-              </p>
-            </div>
-            <ul className="text-xs sm:text-sm text-slate-700 space-y-2.5 pt-4 border-t border-slate-200 font-semibold">
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> 60-Sec Post-Consult Voice Briefing</li>
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> Instant Scanned Prescription Upload</li>
-            </ul>
-          </div>
-
-          {/* Card 3 */}
-          <div className="p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#E66323]/50 transition flex flex-col justify-between shadow-md group">
-            <div>
-              <div className="w-14 h-14 rounded-xl bg-[#E66323]/10 border border-[#E66323]/20 flex items-center justify-center text-[#E66323] mb-5 group-hover:scale-110 transition-transform">
-                <Activity className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-[#044749] mb-3">3. At-Home Care & Vitals Audits</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-                Routine home health checks (BP, Sugar, SpO2) by trained care professionals + chronic medicine refills delivered straight to their door.
-              </p>
-            </div>
-            <ul className="text-xs sm:text-sm text-slate-700 space-y-2.5 pt-4 border-t border-slate-200 font-semibold">
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> In-Home Vitals & Wellness Checks</li>
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> Monthly Chronic Medicine Refills</li>
-            </ul>
-          </div>
-
-          {/* Card 4 */}
-          <div className="p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#E66323]/50 transition flex flex-col justify-between shadow-md group">
-            <div>
-              <div className="w-14 h-14 rounded-xl bg-[#044749]/10 border border-[#044749]/20 flex items-center justify-center text-[#044749] mb-5 group-hover:scale-110 transition-transform">
-                <Ambulance className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-[#044749] mb-3">4. 24/7 Rapid SOS Support</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-                Dedicated Kannur emergency helpline with fast ambulance dispatch and instant hospital admission coordination for children abroad.
-              </p>
-            </div>
-            <ul className="text-xs sm:text-sm text-slate-700 space-y-2.5 pt-4 border-t border-slate-200 font-semibold">
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> Dedicated 24/7 Emergency Helpline</li>
-              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#E66323] shrink-0" /> Hospital Admission Coordination</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. THE 3-STEP PILOT JOURNEY & PILOT PRICING */}
-      <section id="pricing-section" className="py-20 bg-slate-50 border-t border-slate-200">
+      {/* 3. LIVE WHATSAPP EXPERIENCE (Mobile Friendly Timeline) */}
+      <section id="whatsapp-experience" className="py-14 sm:py-20 bg-white border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 3-Step Journey Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#044749] mb-4">
-              How Thanal Works in 3 Simple Steps
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold px-3 py-1 rounded-full mb-2.5 inline-block uppercase tracking-wider">
+              No Complex Portals • Just WhatsApp
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] mb-3">
+              Here is What You Receive on Your Phone
             </h2>
-            <p className="text-slate-600 text-base sm:text-lg">
-              Simple, transparent, and built specifically for NRK families abroad.
+            <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
+              Whether you are at work in Dubai, London, or Dallas, you receive timely voice briefings, verified prescription scans, and photo updates directly from your parents’ Care Buddy.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-16">
-            <div className="relative p-7 rounded-2xl bg-white border border-slate-200 shadow-md">
-              <div className="w-12 h-12 rounded-full bg-[#E66323] text-white font-black flex items-center justify-center text-xl mb-5 shadow-sm">
-                1
+          {/* Interactive Chat Mockup with Responsive Padding */}
+          <div className="max-w-xl mx-auto bg-slate-100 rounded-2xl sm:rounded-3xl border border-slate-300 shadow-xl overflow-hidden">
+            {/* Header */}
+            <div className="bg-[#075E54] text-white p-3.5 sm:p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 overflow-hidden border border-white/40 shrink-0">
+                  <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1 truncate">
+                    <span>Thanal Care Buddy</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                  </h4>
+                  <p className="text-[10px] text-emerald-200 truncate">Assigned to Amma & Achan (Kochi)</p>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-[#044749] mb-2">Reserve Pilot Spot</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Pay a ₹1,000 INR fully refundable deposit to secure 1 of 40 Phase 1 pilot spots in Kannur.
-              </p>
+              <span className="text-[10px] bg-black/25 px-2 py-0.5 rounded-full text-white/90 shrink-0">
+                11:45 AM IST
+              </span>
             </div>
 
-            <div className="relative p-7 rounded-2xl bg-white border border-slate-200 shadow-md">
-              <div className="w-12 h-12 rounded-full bg-[#044749] text-white font-black flex items-center justify-center text-xl mb-5 shadow-sm">
-                2
+            {/* Chat Messages */}
+            <div className="p-3 sm:p-5 space-y-3 bg-[#EFEAE2] min-h-[300px]">
+              {/* Message 1 */}
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl rounded-tl-none p-3 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs text-slate-800 space-y-1">
+                  <p className="font-bold text-[#044749]">Care Buddy Anjali:</p>
+                  <p className="leading-relaxed">Namaskaram Ramesh! I picked up Amma from home on time. We have arrived at Aster Medcity for her 11 AM cardiology check-up. Queue token is #14.</p>
+                  <span className="text-[10px] text-slate-400 block text-right">10:48 AM</span>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-[#044749] mb-2">Parent Onboarding Visit</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Our local Care Manager visits your parents in Kannur to complete medical history mapping and introduce their dedicated companion.
-              </p>
+
+              {/* Message 2: Voice Note */}
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl rounded-tl-none p-3 max-w-[95%] sm:max-w-[88%] shadow-xs space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
+                      className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition"
+                    >
+                      {isPlayingAudioDemo ? <Volume2 className="w-4 h-4 text-emerald-200" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+                    </button>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1 h-5">
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-1' : 'h-2'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-2' : 'h-3'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-3' : 'h-5'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-4' : 'h-3'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-5' : 'h-4'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-2' : 'h-2'}`} />
+                        <div className={`w-1 rounded-full bg-emerald-600 ${isPlayingAudioDemo ? 'animate-wave-4' : 'h-3'}`} />
+                      </div>
+                      <div className="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                        <span>🎙️ 0:58 Voice Note</span>
+                        <span>11:32 AM</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-600 italic bg-slate-50 p-2 rounded-lg border border-slate-100">
+                    "Dr. Menon reviewed Amma's ECG and BP (125/82). All clear! He slightly adjusted the morning tablet timing. Full audio summary above."
+                  </p>
+                </div>
+              </div>
+
+              {/* Message 3: Prescription */}
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl rounded-tl-none p-3 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1.5">
+                  <div className="flex items-center gap-2 bg-emerald-50 text-emerald-800 p-2 rounded-xl border border-emerald-100 font-medium text-xs">
+                    <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span className="truncate">Prescription_Aster_Nov06.pdf</span>
+                  </div>
+                  <p className="text-slate-700 leading-relaxed">Uploaded to your Care Passport. Monthly medicine refills ordered for home delivery.</p>
+                  <span className="text-[10px] text-slate-400 block text-right">11:40 AM</span>
+                </div>
+              </div>
             </div>
 
-            <div className="relative p-7 rounded-2xl bg-white border border-slate-200 shadow-md">
-              <div className="w-12 h-12 rounded-full bg-[#E66323] text-white font-black flex items-center justify-center text-xl mb-5 shadow-sm">
-                3
-              </div>
-              <h3 className="text-lg font-bold text-[#044749] mb-2">Total Peace of Mind</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Receive instant WhatsApp voice briefings after every hospital visit while your parents receive royal treatment back home.
+            <div className="bg-white p-3 text-center border-t border-slate-200">
+              <p className="text-xs text-slate-600 font-medium">
+                No passwords to remember. You stay informed where you already spend your day.
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Single Pilot Spotlight Box */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-white border-2 border-[#E66323] shadow-2xl shadow-[#E66323]/15 max-w-4xl mx-auto relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-[#E66323] text-white text-xs uppercase font-extrabold tracking-wider px-5 py-2 rounded-bl-2xl shadow-md">
-              Phase 1 Inaugural Offer
+      {/* 4. THE CARE BUDDY CONCEPT */}
+      <section id="care-buddy-concept" className="py-14 sm:py-20 lg:py-26 bg-slate-50 border-t border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+            <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
+              The Heart of Thanal
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-5">
+              Not an Agency Maid. Not a Distant Call Center.<br className="hidden sm:inline" />
+              Meet Your Parents' <span className="text-[#E66323]">Care Buddy</span>.
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-base lg:text-lg leading-relaxed">
+              At Thanal, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground, knowing your parents’ health, quirks, favorite routines, and doctors by heart.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center mb-4">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">1. A Dedicated Family Face</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                No rotating strangers. A single named Care Buddy is assigned to your parents, building genuine trust, warmth, and continuity of care visit after visit.
+              </p>
             </div>
 
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div className="space-y-4 max-w-xl">
-                <span className="text-xs sm:text-sm font-bold text-[#E66323] uppercase tracking-wider block">
-                  Kannur Operations Pilot
-                </span>
-                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#044749]">
-                  Inaugural Pilot Pricing
-                </h3>
-                <div className="flex items-baseline gap-3">
-                  <span className="text-4xl sm:text-5xl font-black text-[#044749]">₹7,000</span>
-                  <span className="text-slate-500 font-bold text-lg">/ month</span>
-                  <span className="text-xs sm:text-sm text-slate-500 font-semibold">(~$85 USD / month)</span>
+            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center mb-4">
+                <Mic className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">2. WhatsApp-First Updates</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                A 60-second Malayalam or English voice note and prescription photo sent to your phone right after every doctor consult. No confusing portals to log into.
+              </p>
+            </div>
+
+            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center mb-4">
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">3. Digital Care Passport</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                One secure digital folder with ID copies, medication histories, insurance files, allergy notes, and doctor contacts, always accessible to you abroad.
+              </p>
+            </div>
+
+            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center mb-4">
+                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">4. Rigorously Vetted & Trained</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Police-verified, identity-authenticated, and trained in elder communication, vital signs, first aid, safe transfers, and strict data privacy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. THREE PILLARS (Vitality & Care • Joy & Connection • Ease & Security) */}
+      <section id="three-pillars" className="py-14 sm:py-20 lg:py-26 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="bg-[#E66323]/10 text-[#E66323] border border-[#E66323]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
+            Comprehensive Service Scope
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-5">
+            The Three Pillars of Thanal Care
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
+            A comprehensive, personalized eldercare framework tailored specifically for Kerala households and NRK families abroad.
+          </p>
+
+          {/* Responsive Filter Tabs (horizontal scrollable on tiny screens, flex on desktop) */}
+          <div className="mt-6 flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar">
+            <button
+              type="button"
+              onClick={() => setActivePillarTab('all')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                activePillarTab === 'all'
+                  ? 'bg-[#044749] text-white shadow-xs'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              All 3 Pillars
+            </button>
+            <button
+              type="button"
+              onClick={() => setActivePillarTab('vitality')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                activePillarTab === 'vitality'
+                  ? 'bg-[#044749] text-white shadow-xs'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Vitality & Care
+            </button>
+            <button
+              type="button"
+              onClick={() => setActivePillarTab('joy')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                activePillarTab === 'joy'
+                  ? 'bg-[#E66323] text-white shadow-xs'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Joy & Connection
+            </button>
+            <button
+              type="button"
+              onClick={() => setActivePillarTab('ease')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                activePillarTab === 'ease'
+                  ? 'bg-[#044749] text-white shadow-xs'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Ease & Security
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Pillar 1: Vitality & Care */}
+          {(activePillarTab === 'all' || activePillarTab === 'vitality') && (
+            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-slate-200/90 hover:border-[#044749] transition-all shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-teal-50 text-[#044749] rounded-lg">
+                    Pillar 01
+                  </span>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center">
+                    <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
                 </div>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-                  Includes complete hospital escorts, monthly vitals audits, medicine delivery, and 24/7 emergency dispatch.
+
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Vitality & Care</h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
+                  Proactive healthcare coordination and hospital accompaniment so you never worry about OPD lines, medicine delays, or hospital visits.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0" />
-                    <span>Door-to-Door AC Escorts</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0" />
-                    <span>60-Sec WhatsApp Voice Notes</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0" />
-                    <span>Monthly Medicine Delivery</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0" />
-                    <span>24/7 SOS Emergency Response</span>
-                  </div>
-                </div>
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Door-to-Door OPD Escort:</strong> Home pickup, queue navigation, beside the doctor, and safe return.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Doctor of Choice:</strong> Anchor Kochi partners (Aster, Amrita, Lakeshore, Rajagiri) or family doctor.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Medicine Checks & Refills:</strong> Proactive reordering and doorstep delivery for chronic prescriptions.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>24/7 Rapid Emergency Response:</strong> Immediate ambulance dispatch and Care Buddy presence at hospital.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Home Lab & Nursing Referrals:</strong> Blood tests and physiotherapy delivered via verified partners.</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="flex flex-col items-center lg:items-end justify-center gap-4 text-center lg:text-right pt-6 lg:pt-0 border-t lg:border-t-0 border-slate-200">
-                <a
-                  href="#checkout-section"
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-base sm:text-lg shadow-xl shadow-[#E66323]/25 transition hover:scale-[1.02] active:scale-[0.98] inline-flex items-center justify-center gap-2"
-                >
-                  <span>Lock In Spot #12 of 40</span>
-                  <ArrowRight className="w-5 h-5 text-white" />
-                </a>
-                <p className="text-xs text-slate-500 max-w-xs font-medium leading-relaxed">
-                  (Couple coverage available during onboarding. Fully refundable ₹1,000 deposit locks in launch pricing).
+              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
+                Medical expenses, labs & taxi fares paid directly at actuals with zero commission markup.
+              </div>
+            </div>
+          )}
+
+          {/* Pillar 2: Joy & Connection */}
+          {(activePillarTab === 'all' || activePillarTab === 'joy') && (
+            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-[#E66323] shadow-xl flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-[#E66323] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-bl-xl uppercase tracking-wider">
+                Signature Core
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-orange-50 text-[#E66323] rounded-lg">
+                    Pillar 02
+                  </span>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center">
+                    <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Joy & Connection</h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
+                  Our signature companionship core. Genuine human warmth, intellectual engagement, and community links to combat loneliness.
                 </p>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Companion Afternoon Tasters:</strong> Dedicated 2 to 3 hour visits included in every plan to read, chat, and relax.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Personal Shopper Service:</strong> Accompaniment for local grocery/textile shopping or online ordering assistance.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Technology Mentorship:</strong> Friendly coaching on WhatsApp, international video calls, YouTube, and UPI.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Celebrations on Your Behalf:</strong> Birthday surprises, anniversary cakes, and festival treats organized for you.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Community & Faith Links:</strong> Visits to church, temple, mosque, parish groups, and local cultural clubs.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-[#E66323] font-bold">
+                Full 22-Day Daily Companion Plan launching soon for parents living alone.
+              </div>
+            </div>
+          )}
+
+          {/* Pillar 3: Ease & Security */}
+          {(activePillarTab === 'all' || activePillarTab === 'ease') && (
+            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-slate-200/90 hover:border-[#044749] transition-all shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-teal-50 text-[#044749] rounded-lg">
+                    Pillar 03
+                  </span>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center">
+                    <Home className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Ease & Security</h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
+                  Taking care of daily chores, home maintenance, and tedious paperwork so your parents can live in security and ease.
+                </p>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Errands & Bill Payments:</strong> Utility bills, local government paperwork, courier pickups, and bank errands.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Pension & NRI Paperwork:</strong> Life Certificate (Jeevan Pramaan) verification, Aadhaar, and NRO/NRE banking.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Home Safety & Fall Audit:</strong> In-home audit at start, advising on grab bars, non-slip mats, and night lights.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Trusted Handyman Pool:</strong> Verified electricians, plumbers, AC technicians, and deep-cleaning referrals.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
+                    <span><strong>Property & Tenant Support:</strong> Periodic checks and updates for vacant family properties in Kerala.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
+                Handyman, repair, and specialist services paid directly to verified local vendors.
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* 6. CARE PLANS & PRICING (Mobile Friendly Toggles & Cards) */}
+      <section id="pricing-section" className="py-14 sm:py-20 lg:py-26 bg-slate-50 border-t border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+            <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
+              Transparent Care Membership
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-4">
+              Care Plans Built Around Your Parents' Needs
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-base mb-6 sm:mb-8">
+              No hidden fees. Zero medical commissions. 3-month minimum commitment with a 100% pro-rata refund for unused full months.
+            </p>
+
+            {/* Mobile-Adaptive Controls: Full-width clean grid on small screens, centered flex on desktop */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md sm:max-w-none mx-auto">
+              {/* Parent Mode Toggle */}
+              <div className="w-full sm:w-auto grid grid-cols-2 p-1 rounded-xl bg-white border border-slate-300 shadow-2xs">
+                <button
+                  type="button"
+                  onClick={() => setParentMode('single')}
+                  className={`py-2 px-3 sm:px-5 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer text-center ${
+                    parentMode === 'single'
+                      ? 'bg-[#044749] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  Single Parent
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setParentMode('couple')}
+                  className={`py-2 px-3 sm:px-5 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer text-center flex items-center justify-center gap-1 ${
+                    parentMode === 'couple'
+                      ? 'bg-[#E66323] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <span>Both Parents</span>
+                  <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-bold">
+                    25% Off
+                  </span>
+                </button>
+              </div>
+
+              {/* Billing Cycle Toggle */}
+              <div className="w-full sm:w-auto grid grid-cols-2 p-1 rounded-xl bg-white border border-slate-300 shadow-2xs">
+                <button
+                  type="button"
+                  onClick={() => setBillingCycle('monthly')}
+                  className={`py-2 px-3 sm:px-4 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer text-center ${
+                    billingCycle === 'monthly'
+                      ? 'bg-slate-800 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  Monthly
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBillingCycle('quarterly')}
+                  className={`py-2 px-3 sm:px-4 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer text-center flex items-center justify-center gap-1 ${
+                    billingCycle === 'quarterly'
+                      ? 'bg-emerald-700 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <span>Quarterly</span>
+                  <span className="text-[10px] bg-emerald-500/30 text-emerald-100 font-extrabold px-1.5 py-0.2 rounded-full">
+                    -10%
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Plans Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+            {PLANS.filter((p) => !p.comingSoon).map((plan) => {
+              const basePrice = parentMode === 'couple' ? plan.pricePerMonthCouple : plan.pricePerMonthSingle;
+              const finalPrice = billingCycle === 'quarterly' ? Math.round(basePrice * 0.9) : basePrice;
+              const baseUsd = parentMode === 'couple' ? plan.usdPriceCouple : plan.usdPriceSingle;
+              const finalUsd = billingCycle === 'quarterly' ? Math.round(baseUsd * 0.9) : baseUsd;
+
+              return (
+                <div
+                  key={plan.id}
+                  className={`rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-8 flex flex-col justify-between transition-all bg-white relative ${
+                    plan.popular
+                      ? 'border-2 border-[#E66323] shadow-xl scale-[1.01] sm:scale-[1.02]'
+                      : 'border border-slate-200 shadow-sm hover:border-slate-300'
+                  }`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E66323] text-white text-[11px] uppercase font-extrabold px-3 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                      Most Popular for NRKs
+                    </div>
+                  )}
+
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-black text-[#044749] mb-1">{plan.name}</h3>
+                    <p className="text-xs text-[#E66323] font-bold mb-3">{plan.tagline}</p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 font-normal min-h-[40px]">
+                      {plan.description}
+                    </p>
+
+                    <div className="pb-5 mb-5 border-b border-slate-100">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl sm:text-4xl font-black text-[#044749]">₹{finalPrice.toLocaleString('en-IN')}</span>
+                        <span className="text-slate-500 font-bold text-xs sm:text-sm">/ month</span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-1 font-semibold">
+                        (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 mb-5 bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-100 text-xs">
+                      <div className="flex items-center gap-2 font-bold text-[#044749]">
+                        <Clock className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                        <span>{plan.touchpoints}</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-bold text-[#044749]">
+                        <Stethoscope className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                        <span>{plan.hospitalHours}</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-bold text-[#044749]">
+                        <HeartHandshake className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                        <span>{plan.companionTasters}</span>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-2.5 text-xs text-slate-700 mb-6">
+                      {plan.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#E66323] shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPlan(plan.id)}
+                      className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
+                        plan.popular
+                          ? 'bg-[#E66323] hover:bg-[#d55516] text-white shadow-md shadow-[#E66323]/25 active:scale-[0.98]'
+                          : 'bg-[#044749] hover:bg-[#033436] text-white active:scale-[0.98]'
+                      }`}
+                    >
+                      <span>Choose {plan.name.split(':')[0]}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Phase 2 Companion Preview Card */}
+          <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-dashed border-[#044749]/40 shadow-xs max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+            <div className="space-y-1.5 text-center md:text-left">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 text-[#044749] text-[11px] font-extrabold uppercase tracking-wider">
+                <Sparkles className="w-3 h-3 text-[#E66323]" />
+                <span>Launching Soon</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-extrabold text-[#044749]">
+                Plan 4: The 22-Day Signature Companion Plan
+              </h3>
+              <p className="text-slate-600 text-xs sm:text-sm max-w-xl">
+                For parents living alone who need daily conversation, companionship, and stimulation. 22 days a month × 3 hours daily (66 companion hours/mo). ₹20,000/mo. Early member families get priority enrollment.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handleSelectPlan('companion')}
+              className="w-full md:w-auto px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#044749] font-bold text-xs sm:text-sm whitespace-nowrap transition cursor-pointer"
+            >
+              Join Waitlist
+            </button>
+          </div>
+
+          {/* Commercial & Operational Rules */}
+          <div className="mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 max-w-5xl mx-auto">
+            <h4 className="text-xs sm:text-sm font-bold text-[#044749] uppercase tracking-wider mb-3 flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#E66323]" />
+              <span>Transparent Commercial Rules & Overtime Policy</span>
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-xs text-slate-600">
+              <div>
+                <p className="font-bold text-slate-800 mb-1">3-Month Minimum & Pro-Rata Refund</p>
+                <p>Initial enrollment is 3 months to map medical history and build a routine. 100% pro-rata refund on unused full months if your family withdraws.</p>
+              </div>
+              <div>
+                <p className="font-bold text-slate-800 mb-1">Taxi Transport at Actuals</p>
+                <p>Plan fee covers the Care Buddy’s time. Taxi fares are paid at partner rate card actuals. Your Care Buddy rides in the same car with zero double fare.</p>
+              </div>
+              <div>
+                <p className="font-bold text-slate-800 mb-1">Hospital Overtime Policy</p>
+                <p>Trips include 4 to 6 hrs of Care Buddy accompaniment. Beyond that, buddy time is billed at a modest ₹200/hr (in 30-min blocks), communicated beforehand.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. STREAMLINED WAITLIST FORM (Name, WhatsApp, Location, Parent Town) */}
-      <section id="checkout-section" className="w-full bg-white py-20 lg:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#E66323]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* 7. COMPARISON MATRIX (Modern Bespoke Design) */}
+      <section className="py-16 sm:py-24 bg-white relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
+              Transparent Membership Matrix
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-3">
+              Compare Care Plans Side-by-Side
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-base max-w-xl mx-auto">
+              Everything included in each membership tier. Every plan includes our 3-month commitment with a 100% pro-rata refund guarantee.
+            </p>
 
-            <div className="text-center max-w-xl mx-auto mb-10">
-              <span className="inline-block bg-[#E66323]/10 text-[#E66323] border border-[#E66323]/20 text-xs sm:text-sm font-bold px-4 py-1 rounded-full mb-3 uppercase tracking-wider">
-                Phase 1 Pilot Registration
+            {/* Mobile Swipe Hint */}
+            <div className="sm:hidden mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-[#E66323] bg-orange-50 px-3 py-1 rounded-full border border-[#E66323]/20">
+              <span>Swipe horizontally to compare tiers</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-x-auto -mx-2 sm:mx-0">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[700px]">
+              {/* Table Header */}
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50/70">
+                  <th className="py-5 px-6 font-bold text-slate-500 uppercase tracking-wider text-xs w-1/4">
+                    Care Features
+                  </th>
+                  <th className="py-5 px-6 w-1/4">
+                    <div className="space-y-1">
+                      <p className="font-extrabold text-base text-[#044749]">Plan 1: Essential</p>
+                      <p className="text-xs text-slate-500">For independent parents</p>
+                      <div className="pt-2">
+                        <span className="text-2xl font-black text-[#044749]">₹7,000</span>
+                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                      </div>
+                    </div>
+                  </th>
+                  <th className="py-5 px-6 w-1/4 bg-orange-50/40 border-x border-[#E66323]/30 relative">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E66323] text-white text-[10px] font-extrabold uppercase px-3 py-0.5 rounded-full shadow-xs">
+                      Most Chosen
+                    </span>
+                    <div className="space-y-1">
+                      <p className="font-extrabold text-base text-[#E66323]">Plan 2: Care Plus</p>
+                      <p className="text-xs text-slate-600">Active health support</p>
+                      <div className="pt-2">
+                        <span className="text-2xl font-black text-[#044749]">₹11,000</span>
+                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                      </div>
+                    </div>
+                  </th>
+                  <th className="py-5 px-6 w-1/4">
+                    <div className="space-y-1">
+                      <p className="font-extrabold text-base text-[#044749]">Plan 3: Comfort</p>
+                      <p className="text-xs text-slate-500">High-attention coordination</p>
+                      <div className="pt-2">
+                        <span className="text-2xl font-black text-[#044749]">₹15,000</span>
+                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+
+              {/* Table Body Categorized */}
+              <tbody className="divide-y divide-slate-100 text-slate-700">
+                {/* Category 1: Healthcare & Hospital */}
+                <tr className="bg-slate-50/50">
+                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                    <Stethoscope className="w-4 h-4 text-[#E66323]" />
+                    <span>Healthcare & Hospital OPD Accompaniment</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Hospital OPD Escort Trips</td>
+                  <td className="py-4 px-6">1 trip / month (up to 4 hrs)</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 trips / month (up to 5 hrs each)</td>
+                  <td className="py-4 px-6">3 trips / month (up to 6 hrs each)</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">24/7 Rapid SOS Emergency</td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Buddy rushes to hospital</span>
+                  </td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>Buddy rushes to hospital</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Buddy rushes to hospital</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Doctor Consult / Tele-Consult</td>
+                  <td className="py-4 px-6 text-slate-500">Facilitated on request</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">1 planned consult / quarter</td>
+                  <td className="py-4 px-6">2 planned consults / quarter</td>
+                </tr>
+
+                {/* Category 2: Companionship */}
+                <tr className="bg-slate-50/50">
+                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                    <HeartHandshake className="w-4 h-4 text-[#E66323]" />
+                    <span>Companionship & Touchpoints</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Care Buddy In-Person Visits</td>
+                  <td className="py-4 px-6">1 visit / week (~1.5 hrs)</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 visits / week (~1.5 hrs each)</td>
+                  <td className="py-4 px-6">3 visits / week (~1.5 hrs each)</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Companion Afternoon Tasters</td>
+                  <td className="py-4 px-6">1 afternoon / month</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 afternoons / month</td>
+                  <td className="py-4 px-6">4 afternoons / month (weekly)</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Phone Wellness Calls</td>
+                  <td className="py-4 px-6">1 call / week</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 calls / week</td>
+                  <td className="py-4 px-6">3 calls / week</td>
+                </tr>
+
+                {/* Category 3: Family Reporting & Transparency */}
+                <tr className="bg-slate-50/50">
+                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                    <MessageCircle className="w-4 h-4 text-[#E66323]" />
+                    <span>Family Updates & Reporting</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Family WhatsApp Reporting</td>
+                  <td className="py-4 px-6">Monthly report & emergency alerts</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Voice note & photos after each visit</td>
+                  <td className="py-4 px-6">Voice note after each visit + weekly summary</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Digital Care Passport</td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Included</span>
+                  </td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>Included</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Included</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Home Safety & Fall Audit</td>
+                  <td className="py-4 px-6">At enrollment</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">At enrollment, then yearly</td>
+                  <td className="py-4 px-6">At enrollment, then every 6 months</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-6 font-semibold text-slate-900">Errands & Pension Paperwork</td>
+                  <td className="py-4 px-6">2 errands / month</td>
+                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Included (reasonable use)</td>
+                  <td className="py-4 px-6">Included (reasonable use)</td>
+                </tr>
+
+                {/* Bottom Action Row */}
+                <tr className="bg-slate-50/70">
+                  <td className="py-5 px-6 font-bold text-slate-500">Select Tier</td>
+                  <td className="py-5 px-6">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPlan('essential')}
+                      className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
+                    >
+                      Choose Plan 1
+                    </button>
+                  </td>
+                  <td className="py-5 px-6 bg-orange-50/40 border-x border-[#E66323]/30">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPlan('care_plus')}
+                      className="w-full py-2.5 px-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-bold text-xs transition cursor-pointer shadow-md shadow-[#E66323]/25"
+                    >
+                      Choose Plan 2
+                    </button>
+                  </td>
+                  <td className="py-5 px-6">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPlan('comfort')}
+                      className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
+                    >
+                      Choose Plan 3
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FAQ ACCORDION */}
+      <section id="faqs-section" className="py-14 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
+          <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
+            Clear Answers
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-3">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-base">
+            Everything you need to know about Thanal care operations, pricing, and emergency procedures.
+          </p>
+        </div>
+
+        <div className="space-y-3 sm:space-y-4">
+          {faqs.map((faq, idx) => {
+            const isOpen = openFaqIndex === idx;
+            return (
+              <div
+                key={idx}
+                className="rounded-xl sm:rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all shadow-2xs"
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(idx)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-3 font-bold text-sm sm:text-base text-[#044749] hover:text-[#E66323] transition focus:outline-none cursor-pointer"
+                >
+                  <span className="leading-snug">{faq.q}</span>
+                  <ChevronDown
+                    className={`w-4 h-4 sm:w-5 sm:h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-[#E66323]' : ''
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 9. LUXURY CONCIERGE RESERVATION FORM */}
+      <section id="checkout-section" className="w-full bg-gradient-to-b from-slate-50 via-slate-100/60 to-slate-50 py-16 sm:py-24 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
+            {/* Ambient Corner Glow */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#E66323]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#044749]/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10 relative z-10">
+              <span className="inline-flex items-center gap-1.5 bg-[#E66323]/10 text-[#E66323] border border-[#E66323]/25 text-xs font-bold px-3.5 py-1 rounded-full mb-3 uppercase tracking-wider shadow-2xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#E66323]" />
+                <span>Available in Kochi</span>
               </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] mb-3">
-                Reserve Your Spot for the Inaugural Launch
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] mb-2 tracking-tight">
+                Reserve Your Parents' Care Spot
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base">
-                Lock in 1 of 40 pilot spots with a 100% refundable ₹1,000 deposit, or request a call from our Care Manager.
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                Zero upfront payment required today. Submit your family details below or chat with our Care Manager over WhatsApp to review your parents' unique needs.
               </p>
             </div>
 
-            <form onSubmit={handleDepositPayment} className="space-y-6 max-w-2xl mx-auto">
+            <form onSubmit={handleLeadSubmit} className="space-y-6 max-w-2xl mx-auto relative z-10">
               {errorMessage && (
-                <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-center gap-3">
-                  <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
+                <div className="p-3.5 sm:p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in">
+                  <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-rose-600 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-[#044749] uppercase tracking-wider mb-2">
-                    Your Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Ramesh Kumar"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-base"
-                  />
+              {/* Section 1: Child Living Abroad */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-xs font-extrabold text-[#044749] uppercase tracking-wider">
+                  <span className="w-5 h-5 rounded-full bg-[#044749] text-white flex items-center justify-center text-[10px]">1</span>
+                  <span>Your Details (Child Abroad)</span>
                 </div>
 
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-[#044749] uppercase tracking-wider mb-2">
-                    WhatsApp Number (with Country Code) *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="e.g. +971 50 123 4567"
-                    value={whatsappNumber}
-                    onChange={(e) => setWhatsappNumber(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-base"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Your Full Name *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Ramesh Kumar"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-2 focus:ring-[#E66323]/15 text-base transition"
+                      />
+                      <Users className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      WhatsApp Number *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. +971 50 123 4567"
+                        value={whatsappNumber}
+                        onChange={(e) => setWhatsappNumber(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-2 focus:ring-[#E66323]/15 text-base transition"
+                      />
+                      <MessageCircle className="w-4 h-4 text-emerald-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Your Overseas Location *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        list="nrk-locations"
+                        placeholder="e.g. Dubai, London, Dallas"
+                        value={nrkLocation}
+                        onChange={(e) => setNrkLocation(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-2 focus:ring-[#E66323]/15 text-base transition"
+                      />
+                      <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                    <datalist id="nrk-locations">
+                      {POPULAR_NRK_LOCATIONS.map((loc, idx) => (
+                        <option key={idx} value={loc} />
+                      ))}
+                    </datalist>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      Parents' Town in Kerala *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Kochi, Ernakulam, Kakkanad"
+                        value={parentTown}
+                        onChange={(e) => setParentTown(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-2 focus:ring-[#E66323]/15 text-base transition"
+                      />
+                      <MapPin className="w-4 h-4 text-[#E66323] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-[#044749] uppercase tracking-wider mb-2">
-                    Current Expat Location (City / Country) *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    list="nrk-locations"
-                    placeholder="e.g. Dubai, London, Dallas"
-                    value={nrkLocation}
-                    onChange={(e) => setNrkLocation(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-base"
-                  />
-                  <datalist id="nrk-locations">
-                    {POPULAR_NRK_LOCATIONS.map((loc, idx) => (
-                      <option key={idx} value={loc} />
-                    ))}
-                  </datalist>
+              {/* Section 2: Interactive Plan & Scope Selection */}
+              <div className="space-y-4 pt-2 border-t border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-[#044749] uppercase tracking-wider">
+                    <span className="w-5 h-5 rounded-full bg-[#044749] text-white flex items-center justify-center text-[10px]">2</span>
+                    <span>Select Care Tier & Coverage</span>
+                  </div>
+
+                  {/* Coverage Pill Switcher */}
+                  <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setParentMode('single')}
+                      className={`px-3 py-1 rounded-lg font-bold transition cursor-pointer ${
+                        parentMode === 'single' ? 'bg-white text-[#044749] shadow-xs' : 'text-slate-600'
+                      }`}
+                    >
+                      Single
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setParentMode('couple')}
+                      className={`px-3 py-1 rounded-lg font-bold transition cursor-pointer flex items-center gap-1 ${
+                        parentMode === 'couple' ? 'bg-[#E66323] text-white shadow-xs' : 'text-slate-600'
+                      }`}
+                    >
+                      <span>Couple</span>
+                      <span className="text-[10px] bg-white/20 px-1 rounded-full font-bold">25% Off</span>
+                    </button>
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-[#044749] uppercase tracking-wider mb-2">
-                    Parent's Town / Area in Kannur *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g., Payyannur, Taliparamba, Kannur City"
-                    value={parentTown}
-                    onChange={(e) => setParentTown(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-1 focus:ring-[#E66323] text-base"
-                  />
+                {/* Visual Interactive Plan Selection Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {PLANS.filter((p) => !p.comingSoon).map((plan) => {
+                    const isSelected = selectedPlanId === plan.id;
+                    const price = parentMode === 'couple' ? plan.pricePerMonthCouple : plan.pricePerMonthSingle;
+
+                    return (
+                      <div
+                        key={plan.id}
+                        onClick={() => setSelectedPlanId(plan.id)}
+                        className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer relative ${
+                          isSelected
+                            ? 'border-[#E66323] bg-orange-50/40 shadow-sm'
+                            : 'border-slate-200 bg-white hover:border-slate-300'
+                        }`}
+                      >
+                        {plan.popular && (
+                          <span className="absolute -top-2.5 right-3 bg-[#E66323] text-white text-[9px] font-black uppercase px-2 py-0.2 rounded-full">
+                            Popular
+                          </span>
+                        )}
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-extrabold text-xs text-[#044749]">{plan.name.split(':')[1] || plan.name}</span>
+                          {isSelected ? (
+                            <CheckCircle2 className="w-4 h-4 text-[#E66323]" />
+                          ) : (
+                            <div className="w-4 h-4 rounded-full border border-slate-300" />
+                          )}
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-lg font-black text-[#044749]">₹{price.toLocaleString('en-IN')}</span>
+                          <span className="text-[10px] text-slate-500 font-medium">/ mo</span>
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">{plan.tagline}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Plan Summary Box */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-3">
+              {/* Section 3: Notes */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Special Requirements / Medical Context (Optional)
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="e.g. Mother needs diabetic OPD accompaniment; Father needs regular BP checks."
+                  value={additionalNotes}
+                  onChange={(e) => setAdditionalNotes(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#E66323] focus:ring-2 focus:ring-[#E66323]/15 text-sm transition"
+                />
+              </div>
+
+              {/* Bespoke Reservation Slip Summary */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-teal-50/70 via-slate-50 to-orange-50/50 border border-slate-200 text-xs sm:text-sm space-y-2.5 relative">
                 <div className="flex justify-between items-center text-slate-700 font-medium">
-                  <span>Selected Coverage:</span>
-                  <span className="font-bold text-[#044749]">Thanal Inaugural Pilot Plan</span>
+                  <span className="text-slate-500">Selected Tier:</span>
+                  <span className="font-extrabold text-[#044749] text-right truncate ml-2">
+                    {getActivePlanName()} ({parentMode === 'couple' ? 'Couple Plan' : 'Single Parent'})
+                  </span>
                 </div>
-                <div className="pt-3 border-t border-slate-200 flex justify-between items-center text-base">
-                  <span className="font-bold text-[#044749]">Online Payment:</span>
-                  <span className="font-extrabold text-lg text-[#E66323]">Zero Payment Required Today</span>
+                <div className="pt-2 border-t border-dashed border-slate-300 flex justify-between items-center text-xs sm:text-sm">
+                  <span className="font-bold text-[#044749]">Upfront Payment Today:</span>
+                  <span className="font-black text-base text-emerald-700 flex items-center gap-1">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>₹0 (Free Consultation)</span>
+                  </span>
                 </div>
               </div>
 
               {/* Submission Actions */}
-              <div className="space-y-4">
+              <div className="space-y-3 pt-2">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4.5 px-6 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-lg shadow-xl shadow-[#E66323]/25 transition flex items-center justify-center gap-2 disabled:opacity-50 hover:scale-[1.01] active:scale-[0.99]"
+                  className="w-full py-4 px-6 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-base shadow-xl shadow-[#E66323]/25 transition flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99] cursor-pointer"
                 >
-                  <Lock className="w-5 h-5 text-white" />
+                  <Lock className="w-4 h-4 text-white" />
                   {isSubmitting ? (
                     <span>Registering Interest...</span>
                   ) : (
-                    <span>Reserve Your Spot for Inaugural Launch</span>
+                    <span>Reserve Care Spot for Parents</span>
                   )}
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
 
-                <div className="text-center pt-1">
+                <div className="text-center">
                   <button
                     type="button"
                     onClick={handleCallbackRequest}
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#044749] hover:text-[#E66323] transition underline underline-offset-4"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#044749] hover:text-[#E66323] transition underline underline-offset-4 cursor-pointer py-1"
                   >
-                    <MessageCircle className="w-5 h-5 text-[#25D366]" />
-                    <span>Talk to a Care Manager First</span>
+                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                    <span>Talk to a Care Manager First on WhatsApp</span>
                   </button>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-1">
-                  <p className="text-sm text-[#044749] font-bold flex items-center justify-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-[#E66323] shrink-0" />
-                    <span>No Payment Required Today • Free Consultation</span>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-0.5">
+                  <p className="text-xs text-[#044749] font-bold flex items-center justify-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-[#E66323] shrink-0" />
+                    <span>Zero Obligation • Direct Care Manager Review</span>
                   </p>
-                  <p className="text-xs text-slate-500 font-medium">
-                    Our local Kannur Care Manager will contact you directly to discuss your family's needs.
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Our local Care Manager will reach out via WhatsApp to discuss your parents' routine.
                   </p>
                 </div>
               </div>
@@ -672,45 +1662,45 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FOOTER & LEGAL (2-Column Layout) */}
-      <footer className="relative bg-[#044749] text-white pt-36 pb-12 sm:pb-16 lg:pt-48 lg:pb-20 min-h-[480px] lg:min-h-[580px] flex flex-col justify-end items-center overflow-hidden">
-        {/* Footer SVG Wave Background */}
+      {/* 10. COMPACT RESPONSIVE FOOTER */}
+      <footer className="relative bg-[#044749] text-white pt-20 sm:pt-32 lg:pt-44 pb-12 sm:pb-16 flex flex-col justify-end items-center overflow-hidden">
+        {/* SVG Wave */}
         <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none leading-none z-10">
           <svg
             viewBox="0 0 1320 241"
-            className="w-full h-16 sm:h-24 lg:h-32 block fill-white"
+            className="w-full h-10 sm:h-16 lg:h-24 block fill-slate-50"
             preserveAspectRatio="none"
           >
             <path d="M0,0 H1320 s-742.122,227.93 -923.3,237.008 S0,21.994 0,21.994 Z" />
           </svg>
         </div>
 
-        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-16 relative z-10 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center md:items-start">
-            {/* Left Column: Brand & Company Description */}
-            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+            {/* Left Column */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-3.5">
               <Link href="/" className="inline-block hover:opacity-90 transition">
                 <img
                   src="/images/logo.png"
                   alt="Thanal Eldercare Concierge"
-                  className="h-16 sm:h-20 lg:h-24 w-auto object-contain mx-auto md:mx-0"
+                  className="h-12 sm:h-16 lg:h-20 w-auto object-contain brightness-110"
                 />
               </Link>
-              <p className="text-white font-bold text-base sm:text-lg">
+              <p className="text-white font-bold text-sm sm:text-base">
                 Thanal is a product of{' '}
-                <a 
-                  href="https://zynthexion.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://zynthexion.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#E66323] hover:underline"
                 >
                   Zynthexion Technologies Pvt. Ltd.
                 </a>
               </p>
-              <p className="max-w-lg text-teal-100 leading-relaxed text-sm sm:text-base">
-                Dedicated eldercare accompaniment across Kerala. Bridging the distance for families abroad with ethical, zero-commission healthcare logistics and complete peace of mind.
+              <p className="max-w-lg text-teal-100/90 leading-relaxed text-xs sm:text-sm">
+                Dedicated CareBuddy eldercare accompaniment across Kerala. Bridging the distance for NRK families abroad with empathetic companionship, zero-commission healthcare logistics, and complete peace of mind.
               </p>
-              <div className="text-xs text-teal-200/90 space-y-1 pt-2 font-normal border-t border-teal-800/60 w-full">
+              <div className="text-[11px] sm:text-xs text-teal-200/80 space-y-0.5 pt-2 font-normal border-t border-teal-800/60 w-full">
                 <p className="font-bold text-teal-100">Registered Office:</p>
                 <p className="font-semibold text-white">Zynthexion Technologies Private Limited</p>
                 <p>Suite No. A96, Door No. 63/700, D Space, 6th Floor, Sky Tower,</p>
@@ -718,39 +1708,38 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Column: WhatsApp Contact, Legal Links & Copyright */}
-            <div className="flex flex-col items-center md:items-end justify-between h-full space-y-6 text-center md:text-right pt-4 md:pt-0">
-              
-              {/* WhatsApp Contact Section */}
+            {/* Right Column */}
+            <div className="flex flex-col items-center md:items-end justify-between h-full space-y-5 text-center md:text-right pt-2 md:pt-0">
               <a
                 href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20would%20like%20to%20know%20more%20about%20your%20care%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center md:items-end gap-1.5 hover:opacity-90 transition text-center md:text-right"
+                className="group flex flex-col items-center md:items-end gap-1 hover:opacity-90 transition text-center md:text-right"
               >
-                <div className="flex items-center gap-2 text-white font-bold text-base sm:text-lg">
-                  <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#25D366] shrink-0" />
+                <div className="flex items-center gap-1.5 text-white font-bold text-sm sm:text-base">
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#25D366] shrink-0" />
                   <span>Message us on WhatsApp</span>
                 </div>
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#E66323] tracking-tight group-hover:underline">
+                <span className="text-xl sm:text-2xl font-black text-[#E66323] tracking-tight group-hover:underline">
                   +91 9496097611
                 </span>
               </a>
 
-              {/* Policy Links */}
-              <div className="flex flex-col items-center md:items-end gap-3 text-sm sm:text-base text-teal-100 font-bold">
+              <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1.5 text-xs sm:text-sm text-teal-100 font-semibold">
                 <Link href="/terms" className="hover:text-[#E66323] transition">
-                  Terms & Conditions
+                  Terms
                 </Link>
+                <span>•</span>
                 <Link href="/privacy" className="hover:text-[#E66323] transition">
-                  Privacy Policy
+                  Privacy
                 </Link>
+                <span>•</span>
                 <Link href="/refund-policy" className="hover:text-[#E66323] transition">
-                  Refund & Cancellation Policy
+                  Refund Policy
                 </Link>
               </div>
 
-              <p className="text-xs sm:text-sm text-teal-300 pt-4 border-t border-teal-800/80 w-full md:w-auto text-center md:text-right">
+              <p className="text-[11px] sm:text-xs text-teal-300 pt-3 border-t border-teal-800/80 w-full md:w-auto text-center md:text-right">
                 © {new Date().getFullYear()} Thanal. All rights reserved.
               </p>
             </div>
@@ -758,43 +1747,67 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* SUCCESS CONFIRMATION MODAL */}
+      {/* 11. SMART MOBILE FLOATING QUICK ACTION BAR (Hides on Checkout section) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 px-3 sm:hidden shadow-2xl flex items-center gap-2">
+        <a
+          href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20inquire%20about%20care%20for%20my%20parents%20in%20Kerala."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 py-2.5 px-2 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs"
+        >
+          <MessageCircle className="w-4 h-4 text-white" />
+          <span>Chat on WhatsApp</span>
+        </a>
+        <a
+          href="#checkout-section"
+          className="flex-1 py-2.5 px-2 rounded-xl bg-[#E66323] text-white font-bold text-xs flex items-center justify-center gap-1 shadow-xs shadow-[#E66323]/25"
+        >
+          <span>Reserve Spot</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      {/* 12. SUCCESS CONFIRMATION MODAL */}
       {successModal && paymentDetails && (
         <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-7 sm:p-9 max-w-lg w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
-            <div className="w-18 h-18 rounded-full bg-[#E66323]/10 border border-[#E66323] flex items-center justify-center text-[#E66323] mx-auto mb-5">
-              <CheckCircle2 className="w-12 h-12" />
+          <div className="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-6 sm:p-9 max-w-lg w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-[#E66323]/10 border border-[#E66323] flex items-center justify-center text-[#E66323] mx-auto mb-4">
+              <CheckCircle2 className="w-8 h-8 sm:w-12 sm:h-12" />
             </div>
 
-            <h3 className="text-3xl font-extrabold text-[#044749] mb-2">
-              {paymentDetails.isCallback ? 'WhatsApp Connected & Lead Sent!' : 'Spot Reserved!'}
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#044749] mb-2">
+              {paymentDetails.isCallback ? 'WhatsApp Connected & Request Sent!' : 'Care Spot Reserved!'}
             </h3>
-            <p className="text-slate-600 text-base mb-6 leading-relaxed">
+            <p className="text-slate-600 text-xs sm:text-sm mb-5 leading-relaxed">
               {paymentDetails.isCallback ? (
-                <>Thank you <strong>{fullName}</strong>. Your details have been sent to <strong>info@zynthexion.com</strong> and WhatsApp has opened. Our local Kannur Care Manager will chat with you shortly.</>
+                <>Thank you <strong>{fullName}</strong>. Your inquiry has been sent to our Care Operations team at <strong>info@zynthexion.com</strong> and WhatsApp has opened. Our Care Manager will connect with you shortly.</>
               ) : (
-                <>Thank you <strong>{fullName}</strong>. Your spot reservation request has been received and emailed to <strong>info@zynthexion.com</strong>. Our Care Manager will contact your WhatsApp number (<strong>{whatsappNumber}</strong>) shortly.</>
+                <>Thank you <strong>{fullName}</strong>. Your spot reservation has been received. Our Care Manager will contact your WhatsApp number (<strong>{whatsappNumber}</strong>) to understand your parents' needs and introduce our team.</>
               )}
             </p>
 
-            <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-left text-sm text-slate-700 space-y-2.5 mb-7">
+            <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 border border-slate-200 text-left text-xs sm:text-sm text-slate-700 space-y-2 mb-5">
               <div className="flex justify-between">
-                <span>Reference Lead ID:</span>
+                <span>Reference ID:</span>
                 <span className="font-mono text-[#E66323] font-bold">{paymentDetails.paymentId}</span>
               </div>
               <div className="flex justify-between">
-                <span>Parent's Location:</span>
-                <span className="text-[#044749] font-bold">{parentTown || 'Kannur'}</span>
+                <span>Parents' Location:</span>
+                <span className="text-[#044749] font-bold">{parentTown}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Selected Plan:</span>
+                <span className="text-[#044749] font-bold">{getActivePlanName()}</span>
               </div>
               <div className="flex justify-between">
                 <span>Status:</span>
                 <span className="text-[#E66323] font-bold">
-                  {paymentDetails.isCallback ? 'WhatsApp Chat Initiated' : 'Lead Registered'}
+                  {paymentDetails.isCallback ? 'WhatsApp Chat Initiated' : 'Care Spot Registered'}
                 </span>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3.5">
+            <div className="flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => {
@@ -803,14 +1816,14 @@ export default function LandingPage() {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className="w-full py-3.5 rounded-xl bg-[#E66323] text-white font-bold text-base hover:bg-[#d55516] transition block shadow-md hover:scale-[1.01] active:scale-[0.99]"
+                className="w-full py-3 rounded-xl bg-[#E66323] text-white font-bold text-sm hover:bg-[#d55516] transition block shadow-sm hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
               >
                 Back to Home
               </button>
               <button
                 type="button"
                 onClick={() => setSuccessModal(false)}
-                className="w-full py-3 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold hover:bg-slate-200 transition"
+                className="w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200 transition cursor-pointer"
               >
                 Close Window
               </button>

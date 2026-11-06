@@ -33,10 +33,10 @@ export async function POST(req: Request) {
       fullName,
       whatsappNumber,
       nrkLocation,
-      parentDistrict: parentDistrict || 'Kannur',
+      parentDistrict: parentDistrict || 'Kochi / Ernakulam',
       parentMode: parentMode || 'single',
-      selectedPlan: selectedPlan || 'active_care',
-      selectedPlanName: selectedPlanName || 'Thanal Inaugural Pilot Plan',
+      selectedPlan: selectedPlan || 'care_plus',
+      selectedPlanName: selectedPlanName || 'Thanal Care Plan',
       selectedAddOns: selectedAddOns || [],
       paymentId: paymentId || `lead_${Date.now()}`,
       orderId: orderId || `lead_ord_${Date.now()}`,
@@ -53,9 +53,9 @@ export async function POST(req: Request) {
       fullName,
       whatsappNumber,
       nrkLocation,
-      parentTown: parentDistrict || 'Kannur',
+      parentTown: parentDistrict || 'Kochi / Ernakulam',
       leadType: isCallback ? 'Callback_Requested' : 'Lead_Submitted',
-      selectedPlanName: selectedPlanName || 'Thanal Inaugural Pilot Plan',
+      selectedPlanName: selectedPlanName || 'Thanal Care Plan',
       leadId
     }).catch((emailErr) => {
       console.error('Async lead email sending error:', emailErr);

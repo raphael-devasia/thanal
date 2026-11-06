@@ -27,14 +27,14 @@ export default function RefundPolicyPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">1. Waitlist Deposit Refund</h2>
             <p className="leading-relaxed">
-              The ₹1,000 INR pilot deposit is 100% fully refundable. If you change your mind for any reason before service activation in Kannur, you may request a complete refund.
+              The ₹1,000 INR reservation deposit is 100% fully refundable. If you change your mind for any reason before service activation in Kochi, you may request a complete refund.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">2. Refund Processing Time</h2>
             <p className="leading-relaxed">
-              Refund requests initiated via WhatsApp support (+91 94960 97611) or email (info@zynthexion.com) will be processed back to your original Razorpay payment method within 5–7 business days.
+              Refund requests initiated via WhatsApp support (+91 94960 97611) or email (info@zynthexion.com) will be processed back to your original Razorpay payment method within 5 to 7 business days.
             </p>
           </section>
 

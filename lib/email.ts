@@ -72,7 +72,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
 
             <div class="field-group">
               <div class="label">Selected Coverage Plan</div>
-              <div class="value">${data.selectedPlanName || 'Thanal Inaugural Pilot Plan'}</div>
+              <div class="value">${data.selectedPlanName || 'Thanal Care Plan'}</div>
             </div>
 
             <div class="cta-box">

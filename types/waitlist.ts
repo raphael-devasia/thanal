@@ -1,15 +1,20 @@
 export type ParentMode = 'single' | 'couple';
 
 export interface PlanOption {
-  id: 'safety_net' | 'active_care' | 'comprehensive_care' | 'guest';
+  id: 'essential' | 'care_plus' | 'comfort' | 'companion' | 'safety_net' | 'active_care' | 'comprehensive_care' | 'guest';
   name: string;
+  tagline?: string;
   pricePerMonthSingle: number;
   pricePerMonthCouple: number;
   usdPriceSingle: number;
   usdPriceCouple: number;
   description: string;
+  touchpoints?: string;
+  hospitalHours?: string;
+  companionTasters?: string;
   features: string[];
   popular?: boolean;
+  comingSoon?: boolean;
   isGuest?: boolean;
 }
 
@@ -25,7 +30,7 @@ export interface WaitlistEntry {
   fullName: string;
   whatsappNumber: string;
   nrkLocation: string; // e.g. Dubai, UAE
-  parentDistrict: string; // default "Kannur"
+  parentDistrict: string; // e.g. Kochi, Ernakulam, Thrissur, Kannur
   parentMode: ParentMode; // 'single' | 'couple'
   selectedPlan: string;
   selectedPlanName?: string;
@@ -33,54 +38,101 @@ export interface WaitlistEntry {
   paymentId: string;
   orderId: string;
   paymentStatus: 'paid' | 'pending' | 'failed' | 'Guest_Lead' | 'Lead_Submitted' | 'Callback_Requested';
-  depositAmount: number; // 1000 or 0 for guest
+  depositAmount: number; // 0 for free consultation / registration
   createdAt: string; // ISO string
 }
 
 export const PLANS: PlanOption[] = [
   {
-    id: 'safety_net',
-    name: 'Safety Net Plan',
-    pricePerMonthSingle: 2500,
-    pricePerMonthCouple: 3750,
-    usdPriceSingle: 30,
-    usdPriceCouple: 45,
-    description: 'Essential emergency backup & digital vitals tracking for peace of mind.',
+    id: 'essential',
+    name: 'Plan 1: Essential',
+    tagline: 'Reliable Safety Net & Medical Escort',
+    pricePerMonthSingle: 7000,
+    pricePerMonthCouple: 12250, // 25% discount on second parent (7000 + 5250)
+    usdPriceSingle: 85,
+    usdPriceCouple: 145,
+    description: 'Ideal for independent parents who need a reliable emergency backup, regular wellness checks, and hospital OPD accompaniment.',
+    touchpoints: '3 to 4 touchpoints / mo (1 weekly buddy visit + 1 call/wk)',
+    hospitalHours: '1 hospital trip / mo (up to 4 hours buddy accompaniment)',
+    companionTasters: '1 Companion Afternoon taster / month',
     features: [
-      '24/7 SOS Dispatch & Emergency Triage',
-      'Digital EMR (Health Records) Vault',
-      '1 Monthly Comprehensive Vitals Audit'
+      '1 Weekly Care Buddy in-person check-in (1.5 hrs)',
+      '1 Hospital OPD Escort trip / month (up to 4 hrs buddy time)',
+      '1 Companion Afternoon taster session per month',
+      '24/7 SOS Emergency Response (Buddy rushes to hospital)',
+      'Care Passport digital folder & monthly health report',
+      '2 Errands or bill payment runs per month',
+      'Initial Home Safety & fall-prevention audit'
     ]
   },
   {
-    id: 'active_care',
-    name: 'Active Care Plan',
-    pricePerMonthSingle: 7000,
-    pricePerMonthCouple: 10500,
-    usdPriceSingle: 85,
-    usdPriceCouple: 125,
-    description: 'Complete hands-on assistance for regular clinic visits and medication management.',
+    id: 'care_plus',
+    name: 'Plan 2: Care Plus',
+    tagline: 'Active Health Management & Hospital Support',
+    pricePerMonthSingle: 11000,
+    pricePerMonthCouple: 19250, // 25% discount on second parent (11000 + 8250)
+    usdPriceSingle: 135,
+    usdPriceCouple: 230,
+    description: 'Designed for parents with chronic health needs who require frequent check-ins, routine hospital visits, and instant WhatsApp voice updates.',
+    touchpoints: '10 to 12 in-person visits (~18-20 hrs with parent / mo)',
+    hospitalHours: '2 hospital trips / mo (up to 5 hours buddy accompaniment each)',
+    companionTasters: '2 Companion Afternoon tasters / month',
     features: [
-      'Everything in Safety Net Plan',
-      '2 Scheduled Hospital OPD Escorts/mo',
-      'Doorstep Pharmacy Refills & Delivery'
+      '2 Weekly Care Buddy visits (1.5 hrs each) + 2 calls/wk',
+      '2 Hospital OPD Escort trips / month (up to 5 hrs buddy time each)',
+      '2 Companion Afternoon tasters per month',
+      '1 Planned Doctor consult or tele-consult per quarter',
+      'Instant WhatsApp voice notes & prescription photos after each visit',
+      'Doorstep medicine stock checks & refill management',
+      'Errands & bill payments included (reasonable use)',
+      'Annual home safety & fall-prevention audit'
     ],
     popular: true
   },
   {
-    id: 'comprehensive_care',
-    name: 'Comprehensive Care Plan',
+    id: 'comfort',
+    name: 'Plan 3: Comfort',
+    tagline: 'High-Attention Coordination & Companionship',
     pricePerMonthSingle: 15000,
-    pricePerMonthCouple: 21500,
+    pricePerMonthCouple: 26250, // 25% discount on second parent (15000 + 11250)
     usdPriceSingle: 180,
-    usdPriceCouple: 260,
-    description: 'Dedicated 1-on-1 care management with weekly visits and priority support.',
+    usdPriceCouple: 315,
+    description: 'Complete hands-on attention for parents needing frequent in-person contact, intensive hospital coordination, and rich companion engagement.',
+    touchpoints: '16 to 19 in-person visits (~30 hrs with parent / mo)',
+    hospitalHours: '3 hospital trips / mo (up to 6 hours buddy accompaniment each)',
+    companionTasters: '4 Companion Afternoon tasters / month',
     features: [
-      'Everything in Active Care Plan',
-      '4 Scheduled Hospital OPD Escorts/mo',
-      'Weekly Home Health & Vitals Audits',
-      '24/7 Dedicated Care Manager (Malayalam & English)'
+      '3 Weekly Care Buddy visits (1.5 hrs each) + 3 calls/wk',
+      '3 Hospital OPD Escort trips / month (up to 6 hrs buddy time each)',
+      '4 Companion Afternoon tasters per month (weekly companionship)',
+      '2 Planned Doctor consults or tele-consults per quarter',
+      'WhatsApp update after every visit + weekly summary + monthly report',
+      'Full errand running, bank & pension life certificate assistance',
+      'Home safety audit every 6 months'
     ]
+  },
+  {
+    id: 'companion',
+    name: 'Plan 4: Companion',
+    tagline: 'Signature Daily Companionship (Launching Soon)',
+    pricePerMonthSingle: 20000,
+    pricePerMonthCouple: 35000,
+    usdPriceSingle: 240,
+    usdPriceCouple: 420,
+    description: 'For parents living alone who seek daily warmth, meaningful conversation, hobbies, and activities. 22 days × 3 hours dedicated companion time.',
+    touchpoints: '26 in-person visits (70 to 75 hrs with parent / mo)',
+    hospitalHours: '2 hospital trips / mo (up to 6 hours buddy time each)',
+    companionTasters: 'Full daily service (22 days × 3 hrs = 66 hrs companionship)',
+    features: [
+      '22 Days a month × 3 hours daily dedicated companionship (66 hrs)',
+      '1 Care Buddy coordination visit + daily check-in calls',
+      '2 Hospital OPD escort trips / month (up to 6 hrs each)',
+      'Monthly scheduled parent-and-child video call hosted by the buddy',
+      'Personal Shopper service (accompanied shopping or online ordering)',
+      'Memory games, reading aloud, light walks & tech mentoring',
+      'Priority upgrade access for founding members'
+    ],
+    comingSoon: true
   }
 ];
 

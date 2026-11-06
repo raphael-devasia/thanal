@@ -20,9 +20,9 @@ export default function TermsPage() {
 
         <div className="text-sm space-y-6 text-slate-700">
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">1. Introduction & Pilot Scope</h2>
+            <h2 className="text-lg font-bold text-[#044749]">1. Introduction & Service Scope</h2>
             <p className="leading-relaxed">
-              Welcome to Thanal. By placing a refundable deposit of ₹1,000 INR or registering a Guest Account, you agree to these Terms & Conditions. Thanal operates an operational pilot capped at 40 families in Kannur, Kerala.
+              Welcome to Thanal. By placing a refundable deposit of ₹1,000 INR or registering a Guest Account, you agree to these Terms & Conditions. Thanal operates an exclusive care network capped at 40 families in Kochi, Kerala.
             </p>
           </section>
 
@@ -34,16 +34,16 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">3. Pilot Deposit & Subscriptions</h2>
+            <h2 className="text-lg font-bold text-[#044749]">3. Reservation Deposit & Subscriptions</h2>
             <p className="leading-relaxed">
-              The ₹1,000 INR pilot reservation deposit guarantees your family’s priority onboarding spot for the Kannur launch. Full monthly plan billing (Safety Net, Active Care, or Comprehensive Care) commences only upon active service activation.
+              The ₹1,000 INR reservation deposit guarantees your family’s priority onboarding spot for the Kochi launch. Full monthly plan billing commences only upon active service activation.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">4. Governing Law</h2>
             <p className="leading-relaxed">
-              These terms are governed by the laws of India, under the jurisdiction of courts in Kannur, Kerala.
+              These terms are governed by the laws of India, under the jurisdiction of courts in Kochi, Kerala.
             </p>
           </section>
         </div>
