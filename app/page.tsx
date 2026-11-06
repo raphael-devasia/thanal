@@ -54,7 +54,13 @@ export default function LandingPage() {
   const [selectedPlanId, setSelectedPlanId] = useState<string>('care_plus');
 
   // Interactive Pillars Tab State
-  const [activePillarTab, setActivePillarTab] = useState<'all' | 'vitality' | 'joy' | 'ease'>('all');
+  const [activePillarTab, setActivePillarTab] = useState<'vitality' | 'joy' | 'ease'>('vitality');
+
+  // Matrix Collapsible Drawer State
+  const [showCompareMatrix, setShowCompareMatrix] = useState<boolean>(false);
+
+  // Quick Plan Recommender State
+  const [recommenderChoice, setRecommenderChoice] = useState<'routine' | 'chronic' | 'intensive' | null>(null);
 
   // Lead Form State
   const [fullName, setFullName] = useState<string>('');
@@ -738,213 +744,323 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 5. THREE PILLARS (Vitality & Care • Joy & Connection • Ease & Security) */}
+      {/* 5. THREE PILLARS (Interactive Visual Life Showcase) */}
       <section id="three-pillars" className="py-14 sm:py-20 lg:py-26 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <span className="bg-[#E66323]/10 text-[#E66323] border border-[#E66323]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
             Comprehensive Service Scope
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-5">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-4">
             The Three Pillars of Thanal Care
           </h2>
-          <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
+          <p className="text-slate-600 text-xs sm:text-base leading-relaxed max-w-2xl mx-auto">
             A comprehensive, personalized eldercare framework tailored specifically for Kerala households and NRK families abroad.
           </p>
 
-          {/* Responsive Filter Tabs (horizontal scrollable on tiny screens, flex on desktop) */}
-          <div className="mt-6 flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar">
-            <button
-              type="button"
-              onClick={() => setActivePillarTab('all')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-                activePillarTab === 'all'
-                  ? 'bg-[#044749] text-white shadow-xs'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              All 3 Pillars
-            </button>
+          {/* Interactive Pillar Selector Tabs */}
+          <div className="mt-6 sm:mt-8 inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200 max-w-full overflow-x-auto no-scrollbar">
             <button
               type="button"
               onClick={() => setActivePillarTab('vitality')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activePillarTab === 'vitality'
-                  ? 'bg-[#044749] text-white shadow-xs'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#044749] text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Vitality & Care
+              <Stethoscope className="w-4 h-4 text-emerald-400" />
+              <span>Vitality & Care</span>
             </button>
+
             <button
               type="button"
               onClick={() => setActivePillarTab('joy')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activePillarTab === 'joy'
-                  ? 'bg-[#E66323] text-white shadow-xs'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#E66323] text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Joy & Connection
+              <HeartHandshake className="w-4 h-4 text-amber-300" />
+              <span>Joy & Connection</span>
+              <span className="hidden sm:inline text-[9px] uppercase px-1.5 py-0.5 rounded-full bg-white/20 text-white font-extrabold">Core</span>
             </button>
+
             <button
               type="button"
               onClick={() => setActivePillarTab('ease')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activePillarTab === 'ease'
-                  ? 'bg-[#044749] text-white shadow-xs'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#044749] text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Ease & Security
+              <Home className="w-4 h-4 text-teal-300" />
+              <span>Ease & Security</span>
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Pillar 1: Vitality & Care */}
-          {(activePillarTab === 'all' || activePillarTab === 'vitality') && (
-            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-slate-200/90 hover:border-[#044749] transition-all shadow-md flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-teal-50 text-[#044749] rounded-lg">
-                    Pillar 01
-                  </span>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center">
-                    <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6" />
+        {/* Dynamic Interactive Stage Card */}
+        <div className="bg-white rounded-3xl border-2 border-slate-200/90 shadow-xl overflow-hidden">
+          {activePillarTab === 'vitality' && (
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-10 lg:p-12 items-center animate-in fade-in duration-200">
+              {/* Left Column: Narrative & Key Features */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-[#044749] text-xs font-bold">
+                  <Stethoscope className="w-4 h-4 text-[#044749]" />
+                  <span>Pillar 01 : Healthcare Coordination & Hospital Escorts</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#044749] leading-tight">
+                  Proactive Healthcare Coordination & Door-to-Door Hospital Accompaniment
+                </h3>
+
+                <p className="text-slate-600 text-xs sm:text-sm sm:leading-relaxed">
+                  Never worry about long OPD queues, medicine delays, or lonely hospital visits. Your Care Buddy picks up your parents from home in an AC taxi, navigates hospital registration, stays beside the doctor during consultation, records audio notes, and safely escorts them home.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Doctor of Choice</p>
+                    <p className="text-[11px] text-slate-600">Anchor Kochi partners (Aster Medcity, Amrita, Lakeshore, Rajagiri) or your family doctor.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Medicine Checks & Refills</p>
+                    <p className="text-[11px] text-slate-600">Proactive stock auditing and doorstep refills for chronic prescriptions.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">24/7 Rapid SOS Emergency</p>
+                    <p className="text-[11px] text-slate-600">Immediate ambulance dispatch and Care Buddy presence at hospital beside parents.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Home Lab & Nursing</p>
+                    <p className="text-[11px] text-slate-600">Verified partner referrals for at-home blood tests, ECG, and physiotherapy.</p>
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Vitality & Care</h3>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
-                  Proactive healthcare coordination and hospital accompaniment so you never worry about OPD lines, medicine delays, or hospital visits.
-                </p>
-
-                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Door-to-Door OPD Escort:</strong> Home pickup, queue navigation, beside the doctor, and safe return.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Doctor of Choice:</strong> Anchor Kochi partners (Aster, Amrita, Lakeshore, Rajagiri) or family doctor.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Medicine Checks & Refills:</strong> Proactive reordering and doorstep delivery for chronic prescriptions.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>24/7 Rapid Emergency Response:</strong> Immediate ambulance dispatch and Care Buddy presence at hospital.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Home Lab & Nursing Referrals:</strong> Blood tests and physiotherapy delivered via verified partners.</span>
-                  </li>
-                </ul>
+                <div className="p-3.5 rounded-xl bg-orange-50/80 border border-[#E66323]/25 text-[11px] text-slate-700 font-medium flex items-center gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-[#E66323] shrink-0" />
+                  <span>Medical expenses, diagnostic labs, and taxi fares paid directly at actuals with zero commission markup.</span>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
-                Medical expenses, labs & taxi fares paid directly at actuals with zero commission markup.
+              {/* Right Column: Simulated Live Hospital Escort Slip */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl sm:rounded-3xl bg-slate-900 text-white p-6 sm:p-7 shadow-2xl border border-slate-800 space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-xs font-bold text-emerald-400">Live Hospital Escort</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">Aster Medcity, Kochi</span>
+                  </div>
+
+                  <div className="space-y-3 text-xs">
+                    <div className="flex items-start gap-3">
+                      <span className="text-[11px] font-mono text-[#E66323] font-bold w-16 shrink-0">08:30 AM</span>
+                      <div>
+                        <p className="font-bold text-white">Home Pickup in AC Taxi</p>
+                        <p className="text-[11px] text-slate-400">Morning BP checked: 126/82. Car AC set to parent preference.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-[11px] font-mono text-[#E66323] font-bold w-16 shrink-0">09:15 AM</span>
+                      <div>
+                        <p className="font-bold text-white">Fast-Track Registration</p>
+                        <p className="text-[11px] text-slate-400">Queue token handled by Buddy while parents seated in lounge.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-[11px] font-mono text-[#E66323] font-bold w-16 shrink-0">10:00 AM</span>
+                      <div>
+                        <p className="font-bold text-white">Doctor Consultation</p>
+                        <p className="text-[11px] text-slate-400">Care Buddy beside parents taking detailed consultation notes.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-[11px] font-mono text-[#E66323] font-bold w-16 shrink-0">10:45 AM</span>
+                      <div>
+                        <p className="font-bold text-white">Pharmacy Pickup & WhatsApp Report</p>
+                        <p className="text-[11px] text-slate-400">New prescription photos sent to family group on WhatsApp.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Care Buddy:</span>
+                    <span className="text-amber-300 font-bold">Anoop K. (Assigned Escort)</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Pillar 2: Joy & Connection */}
-          {(activePillarTab === 'all' || activePillarTab === 'joy') && (
-            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-[#E66323] shadow-xl flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-[#E66323] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-bl-xl uppercase tracking-wider">
-                Signature Core
-              </div>
+          {activePillarTab === 'joy' && (
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-10 lg:p-12 items-center animate-in fade-in duration-200">
+              {/* Left Column: Narrative & Key Features */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-[#E66323] text-xs font-bold">
+                  <HeartHandshake className="w-4 h-4 text-[#E66323]" />
+                  <span>Pillar 02 : Signature Companionship Core</span>
+                </div>
 
-              <div>
-                <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-orange-50 text-[#E66323] rounded-lg">
-                    Pillar 02
-                  </span>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center">
-                    <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6" />
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#044749] leading-tight">
+                  Combating Loneliness Through Genuine Warmth, Conversation & Community
+                </h3>
+
+                <p className="text-slate-600 text-xs sm:text-sm sm:leading-relaxed">
+                  Medical logistics is only half the battle. Thanal provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Companion Afternoon Tasters</p>
+                    <p className="text-[11px] text-slate-600">Dedicated 2 to 3 hour unhurried visits included in every plan to read, chat, and relax.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Personal Shopper Service</p>
+                    <p className="text-[11px] text-slate-600">Accompanied trips for local grocery/textile shopping or online ordering assistance.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Technology Mentorship</p>
+                    <p className="text-[11px] text-slate-600">Friendly coaching on WhatsApp, international video calls, YouTube, and UPI payments.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Celebrations & Faith Links</p>
+                    <p className="text-[11px] text-slate-600">Birthday surprises, festival treats, and visits to temple, church, mosque, or clubs.</p>
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Joy & Connection</h3>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
-                  Our signature companionship core. Genuine human warmth, intellectual engagement, and community links to combat loneliness.
-                </p>
-
-                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Companion Afternoon Tasters:</strong> Dedicated 2 to 3 hour visits included in every plan to read, chat, and relax.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Personal Shopper Service:</strong> Accompaniment for local grocery/textile shopping or online ordering assistance.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Technology Mentorship:</strong> Friendly coaching on WhatsApp, international video calls, YouTube, and UPI.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Celebrations on Your Behalf:</strong> Birthday surprises, anniversary cakes, and festival treats organized for you.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Community & Faith Links:</strong> Visits to church, temple, mosque, parish groups, and local cultural clubs.</span>
-                  </li>
-                </ul>
+                <div className="p-3.5 rounded-xl bg-orange-50/80 border border-[#E66323]/25 text-[11px] text-slate-700 font-medium flex items-center gap-2.5">
+                  <Sparkles className="w-4 h-4 text-[#E66323] shrink-0" />
+                  <span>Full 22-Day Daily Companion Plan launching soon for parents living alone.</span>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-[#E66323] font-bold">
-                Full 22-Day Daily Companion Plan launching soon for parents living alone.
+              {/* Right Column: Simulated Live Companion Snapshot */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl sm:rounded-3xl bg-[#044749] text-white p-6 sm:p-7 shadow-2xl border border-teal-800 space-y-4">
+                  <div className="flex items-center justify-between border-b border-teal-800 pb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="text-xs font-bold text-amber-300">Companion Afternoon Visit</span>
+                    </div>
+                    <span className="text-[10px] text-teal-200 font-mono">2.5 Hour Session</span>
+                  </div>
+
+                  <div className="space-y-3 text-xs">
+                    <div className="p-3 rounded-xl bg-white/10 border border-white/15 space-y-1">
+                      <p className="font-bold text-white flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Afternoon Tea & Mathrubhumi Editorial</span>
+                      </p>
+                      <p className="text-[11px] text-teal-100">Care Buddy Lakshmi shared unhurried tea and discussed world news.</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/10 border border-white/15 space-y-1">
+                      <p className="font-bold text-white flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Grandchildren Video Call Hosted</span>
+                      </p>
+                      <p className="text-[11px] text-teal-100">Set up WhatsApp video call with grandchildren in Dubai on iPad.</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/10 border border-white/15 space-y-1">
+                      <p className="font-bold text-white flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Gentle Garden Walk & Temple Visit</span>
+                      </p>
+                      <p className="text-[11px] text-teal-100">Accompanied evening walk and peaceful local temple darshan.</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-teal-800 flex items-center justify-between text-[11px]">
+                    <span className="text-teal-200">Audio Voice Note:</span>
+                    <span className="text-amber-300 font-bold">Sent to Rahul (Dubai)</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Pillar 3: Ease & Security */}
-          {(activePillarTab === 'all' || activePillarTab === 'ease') && (
-            <div className="p-5 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl bg-white border-2 border-slate-200/90 hover:border-[#044749] transition-all shadow-md flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <span className="text-[11px] uppercase font-extrabold px-2.5 py-0.5 bg-teal-50 text-[#044749] rounded-lg">
-                    Pillar 03
-                  </span>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center">
-                    <Home className="w-5 h-5 sm:w-6 sm:h-6" />
+          {activePillarTab === 'ease' && (
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-10 lg:p-12 items-center animate-in fade-in duration-200">
+              {/* Left Column: Narrative & Key Features */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-[#044749] text-xs font-bold">
+                  <Home className="w-4 h-4 text-[#044749]" />
+                  <span>Pillar 03 : Daily Chores, Home Safety & Paperwork</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#044749] leading-tight">
+                  Zero Chores Burden, Home Safety Fall Audits & Bureaucracy Handled
+                </h3>
+
+                <p className="text-slate-600 text-xs sm:text-sm sm:leading-relaxed">
+                  Taking care of tedious bureaucracy and physical home maintenance so your parents can live in security and ease without stress, slippery bathroom risks, or endless government office queues.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Errands & Bill Payments</p>
+                    <p className="text-[11px] text-slate-600">Utility bills, local government paperwork, courier pickups, and bank errands.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Pension & NRI Paperwork</p>
+                    <p className="text-[11px] text-slate-600">Life Certificate (Jeevan Pramaan) verification, Aadhaar updates, and NRO/NRE banking.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Home Safety & Fall Audit</p>
+                    <p className="text-[11px] text-slate-600">In-home audit advising on grab bars, non-slip mats, night lights, and clear pathways.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <p className="font-bold text-xs text-[#044749] mb-1">Trusted Handyman Pool</p>
+                    <p className="text-[11px] text-slate-600">Verified electricians, plumbers, AC technicians, and deep-cleaning referrals.</p>
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#044749] mb-2 sm:mb-3">Ease & Security</h3>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-normal">
-                  Taking care of daily chores, home maintenance, and tedious paperwork so your parents can live in security and ease.
-                </p>
-
-                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Errands & Bill Payments:</strong> Utility bills, local government paperwork, courier pickups, and bank errands.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Pension & NRI Paperwork:</strong> Life Certificate (Jeevan Pramaan) verification, Aadhaar, and NRO/NRE banking.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Home Safety & Fall Audit:</strong> In-home audit at start, advising on grab bars, non-slip mats, and night lights.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Trusted Handyman Pool:</strong> Verified electricians, plumbers, AC technicians, and deep-cleaning referrals.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#E66323] shrink-0 mt-0.5" />
-                    <span><strong>Property & Tenant Support:</strong> Periodic checks and updates for vacant family properties in Kerala.</span>
-                  </li>
-                </ul>
+                <div className="p-3.5 rounded-xl bg-orange-50/80 border border-[#E66323]/25 text-[11px] text-slate-700 font-medium flex items-center gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-[#E66323] shrink-0" />
+                  <span>Handyman, repair, and specialist services paid directly to verified local vendors.</span>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
-                Handyman, repair, and specialist services paid directly to verified local vendors.
+              {/* Right Column: Simulated Live Home Safety Audit Card */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl sm:rounded-3xl bg-slate-900 text-white p-6 sm:p-7 shadow-2xl border border-slate-800 space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-xs font-bold text-emerald-400">Home Safety & Audit Card</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">Score: 96 / 100</span>
+                  </div>
+
+                  <div className="space-y-3 text-xs">
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-between">
+                      <span className="text-slate-300">Bathroom Grab Bars:</span>
+                      <span className="font-bold text-emerald-400">Installed & Verified</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-between">
+                      <span className="text-slate-300">Non-Slip Wet Mats:</span>
+                      <span className="font-bold text-emerald-400">Placed in Shower Area</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-between">
+                      <span className="text-slate-300">Jeevan Pramaan (Pension):</span>
+                      <span className="font-bold text-emerald-400">Digital Biometric Done</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-between">
+                      <span className="text-slate-300">Inverter & AC Servicing:</span>
+                      <span className="font-bold text-amber-300">Completed by Handyman</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Next Review:</span>
+                    <span className="text-emerald-400 font-bold">Scheduled in 6 Months</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -1025,6 +1141,87 @@ export default function LandingPage() {
                 </button>
               </div>
             </div>
+
+            {/* 15-Second Plan Recommender Widget */}
+            <div className="mt-8 mb-6 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-sm max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 border border-orange-200/60 text-[#E66323] text-xs font-bold mb-3">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>15-Second Plan Finder</span>
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1">
+                Not sure which plan matches your parents' needs?
+              </h3>
+              <p className="text-xs text-slate-500 mb-5">
+                Click your parents' primary situation to highlight the recommended care tier:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 max-w-3xl mx-auto text-left">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPlanId('essential');
+                    setRecommenderChoice('routine');
+                  }}
+                  className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer ${
+                    selectedPlanId === 'essential'
+                      ? 'bg-[#044749] text-white border-[#044749] shadow-md ring-2 ring-[#044749]/20'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full mb-1">
+                    <span className="font-extrabold">Emergency Safety Net</span>
+                    {selectedPlanId === 'essential' && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                  </div>
+                  <span className="text-[11px] font-normal opacity-85 leading-relaxed">
+                    Independent parents who need 24/7 SOS backup, weekly check-in, and 1 hospital OPD escort per month.
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPlanId('care_plus');
+                    setRecommenderChoice('chronic');
+                  }}
+                  className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer relative ${
+                    selectedPlanId === 'care_plus'
+                      ? 'bg-[#E66323] text-white border-[#E66323] shadow-md ring-2 ring-[#E66323]/20'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full mb-1">
+                    <span className="font-extrabold flex items-center gap-1.5">
+                      <span>Active Health Support</span>
+                      <span className="text-[9px] bg-white text-[#E66323] px-1.5 py-0.2 rounded-full uppercase font-black">Most NRKs</span>
+                    </span>
+                    {selectedPlanId === 'care_plus' && <Check className="w-3.5 h-3.5 text-white" />}
+                  </div>
+                  <span className="text-[11px] font-normal opacity-85 leading-relaxed">
+                    Chronic conditions (BP, diabetes, cardiac) needing 2 visits/week, medicine refills & WhatsApp updates.
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPlanId('comfort');
+                    setRecommenderChoice('intensive');
+                  }}
+                  className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer ${
+                    selectedPlanId === 'comfort'
+                      ? 'bg-[#044749] text-white border-[#044749] shadow-md ring-2 ring-[#044749]/20'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full mb-1">
+                    <span className="font-extrabold">High Attention & Warmth</span>
+                    {selectedPlanId === 'comfort' && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                  </div>
+                  <span className="text-[11px] font-normal opacity-85 leading-relaxed">
+                    Parents needing 3 visits/week, intensive hospital visits, weekly companion afternoons, and bank paperwork.
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Plans Grid */}
@@ -1082,8 +1279,9 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    <ul className="space-y-2.5 text-xs text-slate-700 mb-6">
-                      {plan.features.map((feat, idx) => (
+                    {/* Key Tier Highlights */}
+                    <ul className="space-y-2 text-xs text-slate-700 mb-6">
+                      {plan.features.slice(3).map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-[#E66323] shrink-0 mt-0.5" />
                           <span>{feat}</span>
@@ -1159,219 +1357,248 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. COMPARISON MATRIX (Modern Bespoke Design) */}
-      <section className="py-16 sm:py-24 bg-white relative">
+      {/* 7. COMPARISON MATRIX (Modern Interactive Collapsible Drawer) */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center max-w-2xl mx-auto">
             <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
               Transparent Membership Matrix
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-3">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#044749] tracking-tight mb-2">
               Compare Care Plans Side-by-Side
             </h2>
-            <p className="text-slate-600 text-xs sm:text-base max-w-xl mx-auto">
-              Everything included in each membership tier. Every plan includes our 3-month commitment with a 100% pro-rata refund guarantee.
+            <p className="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto mb-6">
+              Every plan includes our 3-month commitment with a 100% pro-rata refund guarantee. Click below to inspect all 20+ granular features.
             </p>
 
-            {/* Mobile Swipe Hint */}
-            <div className="sm:hidden mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-[#E66323] bg-orange-50 px-3 py-1 rounded-full border border-[#E66323]/20">
-              <span>Swipe horizontally to compare tiers</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+            {/* Collapsible Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setShowCompareMatrix(!showCompareMatrix)}
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white border-2 border-[#044749] text-[#044749] hover:bg-[#044749] hover:text-white font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>{showCompareMatrix ? 'Hide Side-by-Side Comparison Matrix' : 'View Full Side-by-Side Comparison Matrix (All 20+ Features)'}</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showCompareMatrix ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+
+          {/* Expandable Table Content */}
+          {showCompareMatrix && (
+            <div className="mt-10 animate-in fade-in zoom-in-95 duration-300">
+              {/* Mobile Swipe Hint */}
+              <div className="sm:hidden mb-4 text-center">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#E66323] bg-orange-50 px-3 py-1 rounded-full border border-[#E66323]/20">
+                  <span>Swipe horizontally to compare tiers</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+
+              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-x-auto -mx-2 sm:mx-0">
+                <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[700px]">
+                  {/* Table Header */}
+                  <thead>
+                    <tr className="border-b border-slate-200 bg-slate-50/70">
+                      <th className="py-5 px-6 font-bold text-slate-500 uppercase tracking-wider text-xs w-1/4 align-top">
+                        <div className="h-6 mb-2" />
+                        Care Features
+                      </th>
+                      <th className="py-5 px-6 w-1/4 align-top">
+                        <div className="h-6 mb-2" />
+                        <div className="space-y-1">
+                          <p className="font-extrabold text-base text-[#044749]">Plan 1: Essential</p>
+                          <p className="text-xs text-slate-500">For independent parents</p>
+                          <div className="pt-2">
+                            <span className="text-2xl font-black text-[#044749]">₹7,000</span>
+                            <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                          </div>
+                        </div>
+                      </th>
+                      <th className="py-5 px-6 w-1/4 bg-orange-50/50 border-x-2 border-[#E66323]/50 align-top">
+                        <div className="h-6 mb-2 flex items-center">
+                          <span className="inline-flex items-center gap-1 bg-[#E66323] text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
+                            <Sparkles className="w-3 h-3 text-white" />
+                            <span>Most Chosen</span>
+                          </span>
+                        </div>
+                        <div className="space-y-1">
+                          <p className="font-extrabold text-base text-[#E66323]">Plan 2: Care Plus</p>
+                          <p className="text-xs text-slate-600">Active health support</p>
+                          <div className="pt-2">
+                            <span className="text-2xl font-black text-[#044749]">₹11,000</span>
+                            <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                          </div>
+                        </div>
+                      </th>
+                      <th className="py-5 px-6 w-1/4 align-top">
+                        <div className="h-6 mb-2" />
+                        <div className="space-y-1">
+                          <p className="font-extrabold text-base text-[#044749]">Plan 3: Comfort</p>
+                          <p className="text-xs text-slate-500">High-attention coordination</p>
+                          <div className="pt-2">
+                            <span className="text-2xl font-black text-[#044749]">₹15,000</span>
+                            <span className="text-slate-500 text-xs font-medium"> / mo</span>
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  {/* Table Body Categorized */}
+                  <tbody className="divide-y divide-slate-100 text-slate-700">
+                    {/* Category 1: Healthcare & Hospital */}
+                    <tr className="bg-slate-50/50">
+                      <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                        <Stethoscope className="w-4 h-4 text-[#E66323]" />
+                        <span>Healthcare & Hospital OPD Accompaniment</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Hospital OPD Escort Trips</td>
+                      <td className="py-4 px-6">1 trip / month (up to 4 hrs)</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 trips / month (up to 5 hrs each)</td>
+                      <td className="py-4 px-6">3 trips / month (up to 6 hrs each)</td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">24/7 Rapid SOS Emergency</td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Buddy rushes to hospital</span>
+                      </td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
+                        <div className="flex items-center gap-1.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Buddy rushes to hospital</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Buddy rushes to hospital</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Doctor Consult / Tele-Consult</td>
+                      <td className="py-4 px-6 text-slate-500">Facilitated on request</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">1 planned consult / quarter</td>
+                      <td className="py-4 px-6">2 planned consults / quarter</td>
+                    </tr>
+
+                    {/* Category 2: Companionship */}
+                    <tr className="bg-slate-50/50">
+                      <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                        <HeartHandshake className="w-4 h-4 text-[#E66323]" />
+                        <span>Companionship & Touchpoints</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Care Buddy In-Person Visits</td>
+                      <td className="py-4 px-6">1 visit / week (~1.5 hrs)</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 visits / week (~1.5 hrs each)</td>
+                      <td className="py-4 px-6">3 visits / week (~1.5 hrs each)</td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Companion Afternoon Tasters</td>
+                      <td className="py-4 px-6">1 afternoon / month</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 afternoons / month</td>
+                      <td className="py-4 px-6">4 afternoons / month (weekly)</td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Phone Wellness Calls</td>
+                      <td className="py-4 px-6">1 call / week</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 calls / week</td>
+                      <td className="py-4 px-6">3 calls / week</td>
+                    </tr>
+
+                    {/* Category 3: Family Reporting & Transparency */}
+                    <tr className="bg-slate-50/50">
+                      <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
+                        <MessageCircle className="w-4 h-4 text-[#E66323]" />
+                        <span>Family Updates & Reporting</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Family WhatsApp Reporting</td>
+                      <td className="py-4 px-6">Monthly report & emergency alerts</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Voice note & photos after each visit</td>
+                      <td className="py-4 px-6">Voice note after each visit + weekly summary</td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Digital Care Passport</td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Included</span>
+                      </td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
+                        <div className="flex items-center gap-1.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Included</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Included</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Home Safety & Fall Audit</td>
+                      <td className="py-4 px-6">At enrollment</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">At enrollment, then yearly</td>
+                      <td className="py-4 px-6">At enrollment, then every 6 months</td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-6 font-semibold text-slate-900">Errands & Pension Paperwork</td>
+                      <td className="py-4 px-6">2 errands / month</td>
+                      <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Included (reasonable use)</td>
+                      <td className="py-4 px-6">Included (reasonable use)</td>
+                    </tr>
+
+                    {/* Bottom Action Row */}
+                    <tr className="bg-slate-50/70">
+                      <td className="py-5 px-6 font-bold text-slate-500">Select Tier</td>
+                      <td className="py-5 px-6">
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPlan('essential')}
+                          className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
+                        >
+                          Choose Plan 1
+                        </button>
+                      </td>
+                      <td className="py-5 px-6 bg-orange-50/40 border-x border-[#E66323]/30">
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPlan('care_plus')}
+                          className="w-full py-2.5 px-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-bold text-xs transition cursor-pointer shadow-md shadow-[#E66323]/25"
+                        >
+                          Choose Plan 2
+                        </button>
+                      </td>
+                      <td className="py-5 px-6">
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPlan('comfort')}
+                          className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
+                        >
+                          Choose Plan 3
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Close Button at bottom */}
+              <div className="mt-6 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowCompareMatrix(false)}
+                  className="text-xs font-bold text-slate-500 hover:text-[#044749] transition inline-flex items-center gap-1.5 cursor-pointer py-1.5 px-4 rounded-lg hover:bg-slate-100"
+                >
+                  <ChevronDown className="w-3.5 h-3.5 rotate-180" />
+                  <span>Hide Comparison Table</span>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-x-auto -mx-2 sm:mx-0">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[700px]">
-              {/* Table Header */}
-              <thead>
-                <tr className="border-b border-slate-200 bg-slate-50/70">
-                  <th className="py-5 px-6 font-bold text-slate-500 uppercase tracking-wider text-xs w-1/4 align-top">
-                    <div className="h-6 mb-2" />
-                    Care Features
-                  </th>
-                  <th className="py-5 px-6 w-1/4 align-top">
-                    <div className="h-6 mb-2" />
-                    <div className="space-y-1">
-                      <p className="font-extrabold text-base text-[#044749]">Plan 1: Essential</p>
-                      <p className="text-xs text-slate-500">For independent parents</p>
-                      <div className="pt-2">
-                        <span className="text-2xl font-black text-[#044749]">₹7,000</span>
-                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
-                      </div>
-                    </div>
-                  </th>
-                  <th className="py-5 px-6 w-1/4 bg-orange-50/50 border-x-2 border-[#E66323]/50 align-top">
-                    <div className="h-6 mb-2 flex items-center">
-                      <span className="inline-flex items-center gap-1 bg-[#E66323] text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
-                        <Sparkles className="w-3 h-3 text-white" />
-                        <span>Most Chosen</span>
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="font-extrabold text-base text-[#E66323]">Plan 2: Care Plus</p>
-                      <p className="text-xs text-slate-600">Active health support</p>
-                      <div className="pt-2">
-                        <span className="text-2xl font-black text-[#044749]">₹11,000</span>
-                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
-                      </div>
-                    </div>
-                  </th>
-                  <th className="py-5 px-6 w-1/4 align-top">
-                    <div className="h-6 mb-2" />
-                    <div className="space-y-1">
-                      <p className="font-extrabold text-base text-[#044749]">Plan 3: Comfort</p>
-                      <p className="text-xs text-slate-500">High-attention coordination</p>
-                      <div className="pt-2">
-                        <span className="text-2xl font-black text-[#044749]">₹15,000</span>
-                        <span className="text-slate-500 text-xs font-medium"> / mo</span>
-                      </div>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-
-              {/* Table Body Categorized */}
-              <tbody className="divide-y divide-slate-100 text-slate-700">
-                {/* Category 1: Healthcare & Hospital */}
-                <tr className="bg-slate-50/50">
-                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
-                    <Stethoscope className="w-4 h-4 text-[#E66323]" />
-                    <span>Healthcare & Hospital OPD Accompaniment</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Hospital OPD Escort Trips</td>
-                  <td className="py-4 px-6">1 trip / month (up to 4 hrs)</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 trips / month (up to 5 hrs each)</td>
-                  <td className="py-4 px-6">3 trips / month (up to 6 hrs each)</td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">24/7 Rapid SOS Emergency</td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Buddy rushes to hospital</span>
-                  </td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Buddy rushes to hospital</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Buddy rushes to hospital</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Doctor Consult / Tele-Consult</td>
-                  <td className="py-4 px-6 text-slate-500">Facilitated on request</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">1 planned consult / quarter</td>
-                  <td className="py-4 px-6">2 planned consults / quarter</td>
-                </tr>
-
-                {/* Category 2: Companionship */}
-                <tr className="bg-slate-50/50">
-                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
-                    <HeartHandshake className="w-4 h-4 text-[#E66323]" />
-                    <span>Companionship & Touchpoints</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Care Buddy In-Person Visits</td>
-                  <td className="py-4 px-6">1 visit / week (~1.5 hrs)</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 visits / week (~1.5 hrs each)</td>
-                  <td className="py-4 px-6">3 visits / week (~1.5 hrs each)</td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Companion Afternoon Tasters</td>
-                  <td className="py-4 px-6">1 afternoon / month</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 afternoons / month</td>
-                  <td className="py-4 px-6">4 afternoons / month (weekly)</td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Phone Wellness Calls</td>
-                  <td className="py-4 px-6">1 call / week</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">2 calls / week</td>
-                  <td className="py-4 px-6">3 calls / week</td>
-                </tr>
-
-                {/* Category 3: Family Reporting & Transparency */}
-                <tr className="bg-slate-50/50">
-                  <td colSpan={4} className="py-3 px-6 text-xs font-extrabold text-[#044749] uppercase tracking-wider flex items-center gap-1.5">
-                    <MessageCircle className="w-4 h-4 text-[#E66323]" />
-                    <span>Family Updates & Reporting</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Family WhatsApp Reporting</td>
-                  <td className="py-4 px-6">Monthly report & emergency alerts</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Voice note & photos after each visit</td>
-                  <td className="py-4 px-6">Voice note after each visit + weekly summary</td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Digital Care Passport</td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Included</span>
-                  </td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold bg-orange-50/20 border-x border-[#E66323]/20">
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Included</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6 text-emerald-700 font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Included</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Home Safety & Fall Audit</td>
-                  <td className="py-4 px-6">At enrollment</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">At enrollment, then yearly</td>
-                  <td className="py-4 px-6">At enrollment, then every 6 months</td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-slate-900">Errands & Pension Paperwork</td>
-                  <td className="py-4 px-6">2 errands / month</td>
-                  <td className="py-4 px-6 font-bold text-[#044749] bg-orange-50/20 border-x border-[#E66323]/20">Included (reasonable use)</td>
-                  <td className="py-4 px-6">Included (reasonable use)</td>
-                </tr>
-
-                {/* Bottom Action Row */}
-                <tr className="bg-slate-50/70">
-                  <td className="py-5 px-6 font-bold text-slate-500">Select Tier</td>
-                  <td className="py-5 px-6">
-                    <button
-                      type="button"
-                      onClick={() => handleSelectPlan('essential')}
-                      className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
-                    >
-                      Choose Plan 1
-                    </button>
-                  </td>
-                  <td className="py-5 px-6 bg-orange-50/40 border-x border-[#E66323]/30">
-                    <button
-                      type="button"
-                      onClick={() => handleSelectPlan('care_plus')}
-                      className="w-full py-2.5 px-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-bold text-xs transition cursor-pointer shadow-md shadow-[#E66323]/25"
-                    >
-                      Choose Plan 2
-                    </button>
-                  </td>
-                  <td className="py-5 px-6">
-                    <button
-                      type="button"
-                      onClick={() => handleSelectPlan('comfort')}
-                      className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 hover:border-[#044749] text-[#044749] font-bold text-xs transition cursor-pointer shadow-2xs"
-                    >
-                      Choose Plan 3
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          )}
         </div>
       </section>
 
