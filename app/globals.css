@@ -69,5 +69,19 @@ body {
   animation: pulseSlow 3s ease-in-out infinite;
 }
 
+/* Mobile-friendly utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ergonomic touch feel */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 

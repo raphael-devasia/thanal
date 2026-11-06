@@ -123,6 +123,17 @@ export default function LandingPage() {
     }
   };
 
+  // Mobile horizontal snap carousel scroll helper
+  const scrollToPlanCard = (planId: string) => {
+    setSelectedPlanId(planId);
+    if (typeof window !== 'undefined') {
+      const card = document.getElementById(`plan-card-${planId}`);
+      if (card && window.innerWidth < 768) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  };
+
   // Primary Action: Submit Care Spot Registration (Zero online payment today)
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -422,13 +433,21 @@ export default function LandingPage() {
             
             {/* Left Column: Typography & Action on Desktop / Top on Mobile */}
             <div className="col-span-12 lg:col-span-6 space-y-5 sm:space-y-6 text-left">
-              {/* Location Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-orange-50 border border-[#E66323]/30 text-[#E66323] text-xs font-bold tracking-tight">
-                <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
-                <span>Available in Kochi</span>
+              {/* Badges: Location & Executive Social Proof Stack */}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-orange-50 border border-[#E66323]/30 text-[#E66323] text-xs font-bold tracking-tight">
+                  <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                  <span>Available in Kochi</span>
+                </div>
+
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold">
+                  <span className="text-amber-500 font-bold">★ 4.9/5</span>
+                  <span className="text-slate-400">•</span>
+                  <span>200+ NRK Families in UAE, UK, US</span>
+                </div>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2]">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2] text-balance">
                 When your parents need help back home, who is standing beside them?
               </h1>
 
@@ -1158,7 +1177,7 @@ export default function LandingPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedPlanId('essential');
+                    scrollToPlanCard('essential');
                     setRecommenderChoice('routine');
                   }}
                   className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer ${
@@ -1179,7 +1198,7 @@ export default function LandingPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedPlanId('care_plus');
+                    scrollToPlanCard('care_plus');
                     setRecommenderChoice('chronic');
                   }}
                   className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer relative ${
@@ -1203,7 +1222,7 @@ export default function LandingPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedPlanId('comfort');
+                    scrollToPlanCard('comfort');
                     setRecommenderChoice('intensive');
                   }}
                   className={`p-3.5 rounded-xl border text-xs font-bold transition flex flex-col justify-between cursor-pointer ${
@@ -1224,8 +1243,8 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Plans Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          {/* Plans Grid (Mobile Snap-Scroll Carousel with Snap Points & Desktop 3-Col Grid) */}
+          <div className="flex md:grid md:grid-cols-3 overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar gap-4 sm:gap-8 -mx-4 px-4 sm:mx-0 sm:px-0 mb-4 md:mb-16 items-stretch">
             {PLANS.filter((p) => !p.comingSoon).map((plan) => {
               const basePrice = parentMode === 'couple' ? plan.pricePerMonthCouple : plan.pricePerMonthSingle;
               const finalPrice = billingCycle === 'quarterly' ? Math.round(basePrice * 0.9) : basePrice;
@@ -1235,9 +1254,10 @@ export default function LandingPage() {
               return (
                 <div
                   key={plan.id}
-                  className={`rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-8 flex flex-col justify-between transition-all bg-white relative ${
+                  id={`plan-card-${plan.id}`}
+                  className={`snap-center w-[85vw] max-w-[360px] md:w-auto md:max-w-none shrink-0 md:shrink rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-8 flex flex-col justify-between transition-all bg-white relative ${
                     plan.popular
-                      ? 'border-2 border-[#E66323] shadow-xl scale-[1.01] sm:scale-[1.02]'
+                      ? 'border-2 border-[#E66323] shadow-xl md:scale-[1.02]'
                       : 'border border-slate-200 shadow-sm hover:border-slate-300'
                   }`}
                 >
@@ -1307,6 +1327,27 @@ export default function LandingPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile Snap Carousel Indicators */}
+          <div className="flex md:hidden flex-col items-center justify-center gap-2 mb-8">
+            <div className="flex items-center gap-2">
+              {PLANS.filter((p) => !p.comingSoon).map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => scrollToPlanCard(p.id)}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    selectedPlanId === p.id ? 'w-6 bg-[#E66323]' : 'w-2 bg-slate-300'
+                  }`}
+                  aria-label={`View ${p.name}`}
+                />
+              ))}
+            </div>
+            <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
+              <span>Swipe sideways to compare all 3 plans</span>
+              <ArrowRight className="w-3 h-3 text-slate-400" />
+            </span>
           </div>
 
           {/* Phase 2 Companion Preview Card */}
@@ -2004,24 +2045,45 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* 11. SMART MOBILE FLOATING QUICK ACTION BAR (Hides on Checkout section) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 px-3 sm:hidden shadow-2xl flex items-center gap-2">
-        <a
-          href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20inquire%20about%20care%20for%20my%20parents%20in%20Kerala."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 py-2.5 px-2 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs"
-        >
-          <MessageCircle className="w-4 h-4 text-white" />
-          <span>Chat on WhatsApp</span>
-        </a>
-        <a
-          href="#checkout-section"
-          className="flex-1 py-2.5 px-2 rounded-xl bg-[#E66323] text-white font-bold text-xs flex items-center justify-center gap-1 shadow-xs shadow-[#E66323]/25"
-        >
-          <span>Reserve Spot</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </a>
+      {/* 11. LUXURY MOBILE FLOATING CONCIERGE ISLAND */}
+      <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden pb-[env(safe-area-inset-bottom)] pointer-events-none">
+        <div className="pointer-events-auto bg-[#044749]/95 backdrop-blur-xl text-white rounded-2xl p-2.5 shadow-2xl border border-white/15 flex items-center justify-between gap-2.5">
+          {/* Left: Online Status & Selected Plan Info */}
+          <div className="min-w-0 pl-1.5 py-0.5">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[11px] font-bold tracking-tight text-white/90">Care Team Online</span>
+            </div>
+            <p className="text-[10px] text-teal-200/80 truncate font-medium">
+              {getActivePlanName().split(':')[0]} selected
+            </p>
+          </div>
+
+          {/* Right: Quick Actions */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <a
+              href={`https://wa.me/919496097611?text=${encodeURIComponent(`Hi Thanal Team, I live abroad and would like to learn more about the ${getActivePlanName()} for my parents in Kerala.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition active:scale-95"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-white" />
+              <span>WhatsApp</span>
+            </a>
+
+            <a
+              href="#checkout-section"
+              className="py-2.5 px-3 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-xs flex items-center gap-1 shadow-md shadow-[#E66323]/30 transition active:scale-95"
+            >
+              <span>Reserve</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* 12. SUCCESS CONFIRMATION MODAL */}
