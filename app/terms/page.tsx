@@ -1,53 +1,146 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans px-4 py-12">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <Link 
-          href="/" 
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#E66323] hover:underline"
-        >
-          <ArrowLeft className="w-4 h-4" /> Return to Bornsai
-        </Link>
+    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans">
+      {/* Top Header */}
+      <header className="border-b border-[#122617]/10 bg-[#122617] text-[#EBF2E8] py-6 px-4 sm:px-8">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Return to Bornsai</span>
+          </Link>
+          <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
+        </div>
+      </header>
 
-        <div className="border-b border-slate-200 pb-6">
-          <h1 className="text-3xl font-extrabold text-[#044749] mb-2">Terms & Conditions</h1>
-          <p className="text-xs text-slate-500">Last updated: August 8, 2026 • Zynthexion Technologies Pvt. Ltd.</p>
+      {/* Main Container */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-8 py-10 sm:py-16 space-y-10">
+        <div className="border-b border-[#122617]/15 pb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#183825]/10 text-[#122617] text-xs font-bold mb-3 uppercase tracking-wider">
+            <FileText className="w-4 h-4 text-[#183825]" />
+            <span>Membership Terms of Service</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#122617] tracking-tight mb-2">
+            Terms & Conditions
+          </h1>
+          <p className="text-xs sm:text-sm text-[#2D4533]">
+            Last updated: November 2026 • Governed by the laws of India under jurisdiction of courts in Kochi, Kerala.
+          </p>
         </div>
 
-        <div className="text-sm space-y-6 text-slate-700">
-          <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">1. Introduction & Service Scope</h2>
-            <p className="leading-relaxed">
-              Welcome to Bornsai. By placing a refundable deposit of ₹1,000 INR or registering a Guest Account, you agree to these Terms & Conditions. Bornsai operates an exclusive care network capped at 40 families in Kochi, Kerala.
+        <div className="space-y-8 text-sm text-[#243B2B] leading-relaxed">
+          {/* Section 1 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">1</span>
+              <span>Scope of Service & Care Buddy Role</span>
+            </h2>
+            <p>
+              Bornsai (a product of Zynthexion Technologies Private Limited) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
+            </p>
+            <p>
+              <strong>Non-Emergency Disclaimer:</strong> Bornsai is an elder assistance and hospital accompaniment service. Bornsai is not a licensed hospital, ambulance service, or acute emergency room. In acute life-threatening emergencies, local emergency services (108) are dispatched first, while your Care Buddy rushes to assist at the hospital or home.
             </p>
           </section>
 
-          <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">2. Eldercare Escort Services</h2>
-            <p className="leading-relaxed">
-              Bornsai provides non-emergency OPD hospital escorts, medical appointment accompaniment, vitals audits, and pharmacy delivery. Bornsai is not a hospital or emergency room substitute; for acute medical emergencies, local emergency services (108) must be dispatched.
+          {/* Section 2 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">2</span>
+              <span>Zero Upfront Online Payment & Enrollment</span>
+            </h2>
+            <p>
+              Submitting an enrollment request on Bornsai requires ₹0 payment today. Registration initiates a complimentary consultation call with our Care Operations Manager on WhatsApp to review your parents' location, routine, and medical needs before any formal billing occurs.
             </p>
           </section>
 
-          <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">3. Reservation Deposit & Subscriptions</h2>
-            <p className="leading-relaxed">
-              The ₹1,000 INR reservation deposit guarantees your family’s priority onboarding spot for the Kochi launch. Full monthly plan billing commences only upon active service activation.
+          {/* Section 3 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">3</span>
+              <span>Commitment, Refund & Cancellation Policy</span>
+            </h2>
+            <p>
+              To ensure continuity of care and build a trusted relationship between your parents and their named Care Buddy, Bornsai operates on an initial <strong>3-month minimum commitment</strong>.
+            </p>
+            <p>
+              If your family decides to discontinue service for any reason, you may submit a cancellation request with <strong>15 days notice</strong>. All unused full calendar months will be refunded pro-rata with zero penalty fees.
             </p>
           </section>
 
-          <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#044749]">4. Governing Law</h2>
-            <p className="leading-relaxed">
-              These terms are governed by the laws of India, under the jurisdiction of courts in Kochi, Kerala.
+          {/* Section 4 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">4</span>
+              <span>Plan Pausing Policy</span>
+            </h2>
+            <p>
+              Families traveling overseas for family visits or facing prolonged hospitalization may pause their active membership. A pause request requires <strong>7 days advance notice</strong> and can range from <strong>14 to 60 calendar days</strong>. All membership billing and visit allocations are completely frozen during the pause period and resume upon the agreed date.
+            </p>
+          </section>
+
+          {/* Section 5 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">5</span>
+              <span>Pricing, Taxes, and What is Not Included</span>
+            </h2>
+            <p>
+              Membership plan prices cover the dedicated Care Buddy's professional time, coordination, and regular visits. Membership fees are exclusive of applicable 18% GST (added at billing).
+            </p>
+            <div className="p-4 rounded-xl bg-white border border-[#183825]/15 space-y-1.5 text-xs">
+              <p className="font-bold text-[#183825]">What is Not Included in the Monthly Membership Fee:</p>
+              <ul className="list-disc pl-5 space-y-1 text-[#2D4533]">
+                <li>Doctor and specialist consultation fees.</li>
+                <li>Hospital admission, diagnostic lab tests, ECG, and imaging fees.</li>
+                <li>Prescription medications and medical supplies.</li>
+                <li>Taxi transportation fares (billed directly at partner rate actuals, buddy rides in the same vehicle).</li>
+                <li>Buddy overtime beyond the included plan hours (billed at ₹350/hour actuals in 30-minute blocks, confirmed beforehand).</li>
+              </ul>
+            </div>
+            <p className="text-xs text-[#2D4533]">
+              Bornsai maintains a strict zero-commission policy: we never accept referral fees or kickbacks from hospitals, pharmacies, or diagnostic labs. Families pay direct actuals.
+            </p>
+          </section>
+
+          {/* Section 6 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">6</span>
+              <span>Parental Dignity & Safety</span>
+            </h2>
+            <p>
+              Every Care Buddy is background-checked and police-verified. Care Buddies operate with total respect for parental autonomy, religious preferences, and personal dignity. Bornsai reserves the right to suspend services if buddy safety is compromised.
+            </p>
+          </section>
+
+          {/* Section 7 */}
+          <section className="space-y-2.5">
+            <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">7</span>
+              <span>Governing Law and Dispute Resolution</span>
+            </h2>
+            <p>
+              These terms are governed by the laws of India. Any legal dispute or claim arising out of or related to Bornsai services will be subject to the exclusive jurisdiction of the competent courts in Kochi, Kerala.
             </p>
           </section>
         </div>
-      </div>
+
+        {/* Footer Link */}
+        <div className="pt-8 border-t border-[#122617]/15 flex items-center justify-between text-xs text-[#2D4533]">
+          <Link href="/" className="font-bold text-[#183825] hover:underline flex items-center gap-1.5">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Bornsai Home</span>
+          </Link>
+          <span>Bornsai • A Zynthexion Product</span>
+        </div>
+      </main>
     </div>
   );
 }

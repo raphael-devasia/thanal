@@ -9,7 +9,7 @@
   --primary-light: #F9F8F3;
   --primary-accent: #F5D328;
   --primary-accent-hover: #FFE342;
-  --secondary-accent: #C4CD62;
+  --secondary-accent: #E8F0C8;
   --text-dark: #122617;
   --text-light: #FFFFFF;
   --text-muted-dark: #374F3E;
@@ -24,7 +24,7 @@
   --color-primary-light: #F9F8F3;
   --color-primary-accent: #F5D328;
   --color-primary-accent-hover: #FFE342;
-  --color-secondary-accent: #C4CD62;
+  --color-secondary-accent: #E8F0C8;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

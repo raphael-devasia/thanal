@@ -38,8 +38,7 @@ import {
   Car,
   Heart,
   SlidersHorizontal,
-  ChevronRight,
-  Star
+  ChevronRight
 } from 'lucide-react';
 import {
   PLANS,
@@ -47,7 +46,6 @@ import {
   POPULAR_NRK_LOCATIONS,
   KERALA_DISTRICTS
 } from '@/types/waitlist';
-import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 import GradientText from '@/components/GradientText';
 import DepthCarousel from '@/components/DepthCarousel';
 
@@ -106,6 +104,7 @@ export default function LandingPage() {
   const [nrkLocation, setNrkLocation] = useState<string>('');
   const [parentTown, setParentTown] = useState<string>('');
   const [additionalNotes, setAdditionalNotes] = useState<string>('');
+  const [consentAgreed, setConsentAgreed] = useState<boolean>(false);
 
   // UI & Workflow State
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -142,6 +141,10 @@ export default function LandingPage() {
     }
     if (!parentTown.trim()) {
       setErrorMessage("Please enter your parent's city or town in Kerala (e.g. Kochi, Ernakulam, Thrissur).");
+      return false;
+    }
+    if (!consentAgreed) {
+      setErrorMessage('Please accept the consent terms and Privacy Policy before continuing.');
       return false;
     }
     return true;
@@ -266,7 +269,7 @@ export default function LandingPage() {
 
   const faqs = [
     {
-      q: 'What is a Care Buddy, and how is Bornsai different from a home nurse or agency maid?',
+      q: 'What is a Care Buddy, and how is Bornsai different from an agency?',
       a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments, coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
     },
     {
@@ -275,7 +278,7 @@ export default function LandingPage() {
     },
     {
       q: 'Can our parents consult their existing family doctor or preferred hospital in Kerala?',
-      a: 'Absolutely yes. While we partner with anchor hospitals in Kochi (such as Aster Medcity, Amrita, Lakeshore, Rajagiri, Medical Trust, and Lourdes) for priority access and OPD coordination, your parents’ trusted family doctor of choice is always respected and prioritized. Your Care Buddy will escort them to their preferred clinic or hospital anywhere in the service area.'
+      a: 'Absolutely yes. We accompany parents to hospitals across Kochi, such as Aster Medcity, Amrita, Lakeshore, Rajagiri, Medical Trust, and Lourdes (named only to show where we accompany families; no affiliation implied), or to your family doctor of choice. Your parents’ trusted family doctor of choice is always respected and prioritized. Your Care Buddy will escort them to their preferred clinic or hospital anywhere in the service area.'
     },
     {
       q: 'How do you keep children abroad updated across different time zones (Gulf, UK, US, Australia)?',
@@ -286,8 +289,8 @@ export default function LandingPage() {
       a: 'We offer a straightforward, transparent 25% discount on the second parent for all plans. For example, on the Care Plus plan (₹11,000/month for a single parent), coverage for both parents is ₹19,250/month (₹11,000 + ₹8,250). Both parents receive comprehensive wellness monitoring, hospital accompaniment, and companionship.'
     },
     {
-      q: 'What is your refund and cancellation policy?',
-      a: 'We operate on a 3-month initial commitment to establish a meaningful, dependable relationship with your parents and build their complete Care Passport. If your family wishes to withdraw for any reason, we provide a 100% pro-rata refund for all unused full months. There are zero cancellation penalties.'
+      q: 'What is your refund, pause, and cancellation policy?',
+      a: 'We operate on a 3-month minimum commitment to establish a dependable care routine and build your parents’ Care Passport. If you need to cancel, provide 15 days notice and all unused full months are refunded pro-rata. If your family is traveling or your parents have a prolonged hospital stay, you can pause membership for 14 to 60 days with 7 days notice, freezing all billing until care resumes.'
     },
     {
       q: 'How are hospital bills, pharmacy refills, and taxi fares billed?',
@@ -549,52 +552,39 @@ export default function LandingPage() {
             <div className="col-span-12 lg:col-span-6 text-left">
               {/* DESKTOP HERO VIEW (hidden on mobile, visible on lg) */}
               <div className="hidden lg:block space-y-6">
-                {/* Badges: Location & Executive Social Proof Stack */}
+                {/* Badges: Founding Status */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold tracking-tight">
-                    <MapPin className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                    <span>Available in Kochi</span>
-                  </div>
-
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] text-xs font-semibold">
-                    <span className="text-[#F5D328] font-bold">★ 4.9/5</span>
-                    <span className="text-[#F5D328]/50">•</span>
-                    <span>200+ NRK Families in UAE, UK, US</span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] text-xs font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                    <span>Now enrolling founding families in Kochi</span>
                   </div>
                 </div>
 
                 <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2] text-white text-balance">
-                  When your parents need help back home, <span className="font-courgette italic text-[#C4CD62] font-normal">who is standing beside them?</span>
+                  When your parents need help back home, who is <span className="font-courgette italic text-[#E8F0C8] text-[1.08em] font-medium tracking-wide">beside them?</span>
                 </h1>
 
-                <p className="text-[#EBF2E8]/85 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                  You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
+                <p className="text-[#EBF2E8]/90 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
+                  <strong className="text-[#F5D328]">Bornsai</strong> pairs your parents with a dedicated <strong className="text-[#F5D328]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
                 </p>
 
-                <div className="bg-[#183825]/90 border border-[#F5D328]/30 p-4 rounded-2xl">
-                  <p className="text-[#EBF2E8] text-sm md:text-base leading-relaxed font-medium">
-                    <strong className="text-[#F5D328]">Bornsai</strong> pairs your parents with a dedicated <strong className="text-[#F5D328]">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
-                  </p>
-                </div>
-
-                {/* CTAs */}
-                <div className="pt-1 flex flex-row items-center gap-4">
+                {/* Primary CTA + Secondary Link */}
+                <div className="pt-2 flex flex-row items-center gap-4">
                   <a
-                    href="#pricing-section"
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#C8C2A8] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F5D328]/25 transition hover:scale-[1.02] active:scale-[0.98]"
+                    href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#E2BE1A] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F5D328]/25 transition hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <span>Explore Care Plans</span>
-                    <ArrowRight className="w-4 h-4 text-[#122116]" />
+                    <MessageCircle className="w-5 h-5 text-[#122116]" />
+                    <span>Send me a sample update</span>
                   </a>
 
                   <a
-                    href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-[#1F452E] hover:bg-[#25422E] text-[#F5D328] border border-[#F5D328]/40 font-bold text-base transition shadow-xs hover:border-[#F5D328]"
+                    href="#pricing-section"
+                    className="text-sm text-[#EBF2E8]/75 hover:text-[#F5D328] underline underline-offset-4 font-semibold transition px-1"
                   >
-                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                    <span>Chat on WhatsApp</span>
+                    See plans →
                   </a>
                 </div>
 
@@ -606,7 +596,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Zero Medical Kickbacks</span>
+                    <span>No commissions from hospitals. You pay actuals.</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
@@ -615,297 +605,131 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* MOBILE HERO VIEW WITH REACT BITS SCROLLSTACK (Full-screen, window-scrolling pinned stack) */}
-              <div className="block lg:hidden w-full">
-                <ScrollStack
-                  itemDistance={280}
-                  itemStackDistance={0}
-                  stackPosition="4.75rem"
-                  itemScale={0.03}
-                  baseScale={0.94}
-                  dimAmount={0.06}
-                  holdDistance={220}
-                  smoothScroll={false}
-                  useWindowScroll={true}
-                  className="w-full"
-                >
-                  {/* Section 1: The Dilemma */}
-                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
-                    <div className="space-y-4 max-w-lg">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5D328]/20 text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold tracking-tight">
-                          <MapPin className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                          <span>Available in Kochi</span>
-                        </div>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#183825]/80 text-[#EBF2E8] border border-[#F5D328]/25 text-xs font-semibold backdrop-blur-xs">
-                          <span className="text-[#F5D328] font-bold">★ 4.9/5</span>
-                          <span className="text-[#F5D328]/50">•</span>
-                          <span>200+ NRK Families</span>
-                        </div>
+              {/* MOBILE HERO VIEW (Clean, single-view: Headline, 1-line explanation, 1 button, 1 visual) */}
+              <div className="block lg:hidden w-full space-y-5 pt-1 pb-4">
+                {/* Badges: Founding Status */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] text-xs font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                    <span>Now enrolling founding families in Kochi</span>
+                  </div>
+                </div>
+
+                {/* Headline */}
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.2] text-white">
+                  When your parents need help back home, who is <span className="font-courgette italic text-[#E8F0C8] text-[1.08em] font-medium tracking-wide">beside them?</span>
+                </h1>
+
+                {/* 1-Line Explanation */}
+                <p className="text-[#EBF2E8]/90 text-sm sm:text-base leading-relaxed font-normal">
+                  <strong className="text-[#F5D328]">Bornsai</strong> pairs your parents with a dedicated Care Buddy in Kochi for doctor visits, hospital accompaniment, errands, and WhatsApp voice updates.
+                </p>
+
+                {/* 1 Main Button + See Plans Link */}
+                <div className="flex flex-col items-start gap-2 pt-1">
+                  <a
+                    href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#E2BE1A] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F5D328]/25 transition active:scale-98"
+                  >
+                    <MessageCircle className="w-5 h-5 text-[#122116]" />
+                    <span>Send me a sample update</span>
+                  </a>
+
+                  <div className="w-full text-center">
+                    <a
+                      href="#pricing-section"
+                      className="text-xs text-[#EBF2E8]/75 hover:text-[#F5D328] underline underline-offset-4 font-semibold transition"
+                    >
+                      See plans →
+                    </a>
+                  </div>
+                </div>
+
+                {/* 1 Visual Showcase for Mobile (Clean, Borderless) */}
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] w-full bg-[#183825]">
+                  <img
+                    src="/images/hero1.png"
+                    alt="Bornsai Care Buddy in Kochi"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-transparent to-transparent opacity-80 pointer-events-none" />
+
+                  {/* Plain Police-verified badge at top-3 left-3 (unobstructed) */}
+                  <div className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs tracking-tight flex items-center gap-1.5 shadow-md z-20">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#122116]" />
+                    <span>Police-verified</span>
+                  </div>
+
+                  {/* Softened sample voice note card at bottom-3 left-3 right-3 */}
+                  <div className="absolute bottom-3 left-3 right-3 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/30 rounded-2xl p-2.5 shadow-lg z-20">
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shrink-0" />
+                        <span className="text-xs font-bold text-white">Voice Note Sent to Dubai</span>
                       </div>
-
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15] text-white">
-                        When your parents need help back home, <span className="font-courgette italic text-[#C4CD62] font-normal">who is standing beside them?</span>
-                      </h2>
-
-                      <p className="text-lg sm:text-xl text-[#EBF2E8]/90 leading-relaxed font-normal">
-                        You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
-                      </p>
-
-                      {/* Mobile Hero Visual Preview */}
-                      <div className="relative rounded-2xl overflow-hidden border border-[#F5D328]/30 shadow-xl h-44 w-full bg-[#183825]">
-                        <img
-                          src="/images/hero1.png"
-                          alt="Bornsai Care Buddy in Kochi"
-                          className="w-full h-full object-cover object-center"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#122617] via-transparent to-transparent" />
-                        
-                        {/* Circular yellow seal */}
-                        <div className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-[#F5D328] text-[#122116] font-black text-[10px] tracking-tight flex items-center gap-1 shadow-md">
-                          <Star className="w-2.5 h-2.5 fill-[#122116]" />
-                          <span>100% Verified Buddy</span>
-                        </div>
-
-                        {/* Bottom WhatsApp audio badge */}
-                        <div className="absolute bottom-2 left-2 right-2 bg-[#183825]/90 backdrop-blur-md border border-[#F5D328]/25 rounded-xl px-2.5 py-1.5 flex items-center justify-between text-white text-[11px]">
-                          <div className="flex items-center gap-1.5 min-w-0">
-                            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shrink-0" />
-                            <span className="font-bold truncate text-[#EBF2E8]">Care Buddy on Ground • Kochi</span>
-                          </div>
-                          <span className="text-[#F5D328] text-[10px] font-semibold shrink-0">Live Updates</span>
-                        </div>
-                      </div>
-
-                      <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-[#F5D328]">
-                        <span>Scroll down to explore</span>
-                        <ChevronDown className="w-4 h-4 text-[#F5D328] animate-bounce" />
-                      </div>
+                      <span className="text-[9px] font-bold text-[#122116] bg-[#F5D328] px-1.5 py-0.5 rounded uppercase tracking-wider">Sample</span>
                     </div>
-                  </ScrollStackItem>
-
-                  {/* Section 2: The Ground Solution */}
-                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
-                    <div className="space-y-4 max-w-lg">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5D328]/20 text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold backdrop-blur-xs">
-                        <ShieldCheck className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                        <span>Your Devoted Child on the Ground</span>
-                      </div>
-
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
-                        <GradientText>
-                          A dedicated Care Buddy beside your parents
-                        </GradientText>
-                      </h2>
-
-                      <p className="text-base sm:text-lg text-[#EBF2E8]/90 leading-relaxed font-medium">
-                        <strong className="text-[#F5D328] font-black">Bornsai</strong> pairs your parents with a dedicated <strong className="text-[#F5D328] font-black">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
-                      </p>
-
-                      <div className="grid grid-cols-2 gap-3 pt-2 text-sm sm:text-base font-extrabold text-[#EBF2E8]">
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0" />
-                          <span>OPD Escorts</span>
-                        </div>
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0" />
-                          <span>Medicine Refills</span>
-                        </div>
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0" />
-                          <span>Daily Errands</span>
-                        </div>
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0" />
-                          <span>WhatsApp Audio</span>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollStackItem>
-
-                  {/* Section 3: The 3 Commitments */}
-                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
-                    <div className="space-y-4 max-w-lg">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5D328]/20 text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold backdrop-blur-xs">
-                        <Award className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                        <span>Sacred Commitments</span>
-                      </div>
-
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
-                        <GradientText>
-                          Three promises built for NRK peace of mind
-                        </GradientText>
-                      </h2>
-
-                      <div className="space-y-3.5 pt-1">
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-base sm:text-lg font-black text-[#F5D328]">Named Care Buddy</p>
-                            <p className="text-sm sm:text-base text-[#EBF2E8]/80 leading-snug">One verified, educated professional assigned personally to your family.</p>
-                          </div>
-                        </div>
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-base sm:text-lg font-black text-[#F5D328]">Zero Medical Kickbacks</p>
-                            <p className="text-sm sm:text-base text-[#EBF2E8]/80 leading-snug">Hospital OPD visits, labs, medicines, and taxi transport paid directly at actuals.</p>
-                          </div>
-                        </div>
-                        <div className="bg-[#183825]/85 backdrop-blur-sm border border-[#F5D328]/30 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
-                          <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-base sm:text-lg font-black text-[#F5D328]">Pro-Rata Refund Guarantee</p>
-                            <p className="text-sm sm:text-base text-[#EBF2E8]/80 leading-snug">Initial 3-month commitment with 100% refund on unused full months if you withdraw.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollStackItem>
-
-                  {/* Section 4: Action & CTAs */}
-                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
-                    <div className="space-y-4 max-w-lg">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5D328]/20 text-[#F5D328] border border-[#F5D328]/30 text-xs font-black uppercase tracking-wider">
-                        <Sparkles className="w-3.5 h-3.5 text-[#F5D328]" />
-                        <span>Begin Care in Kochi</span>
-                      </div>
-
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
-                        <GradientText>
-                          Give your parents complete peace of mind
-                        </GradientText>
-                      </h2>
-
-                      <p className="text-base sm:text-lg text-[#EBF2E8]/90 leading-relaxed font-normal">
-                        Select a transparent care plan or connect directly with our Care Operations Manager on WhatsApp. Zero upfront payment required today.
-                      </p>
-
-                      <div className="pt-3 flex flex-col gap-3">
-                        <a
-                          href="#pricing-section"
-                          className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-[#F5D328] hover:bg-[#C8C2A8] text-[#122116] font-black text-base shadow-lg shadow-[#F5D328]/25 transition active:scale-95"
-                        >
-                          <span>Explore Care Plans</span>
-                          <ArrowRight className="w-4 h-4 text-[#122116]" />
-                        </a>
-
-                        <a
-                          href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-[#1F452E] hover:bg-[#25422E] text-[#F5D328] border border-[#F5D328]/40 font-bold text-base transition active:scale-95"
-                        >
-                          <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                          <span>Chat on WhatsApp</span>
-                        </a>
-                      </div>
-                    </div>
-                  </ScrollStackItem>
-                </ScrollStack>
+                    <p className="text-[11px] text-[#EBF2E8]/85 leading-snug">
+                      BP recorded 120/80. Appa finished lunch and his walk.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Visual Showcase (Modern Multi-Layered Editorial Showcase) */}
+            {/* Right Column: Clean Borderless Showcase Visual */}
             <div className="col-span-12 lg:col-span-6 flex flex-col items-center lg:items-end justify-center">
-              <div className="relative w-full max-w-[480px] xl:max-w-[540px] pt-6 pb-8 px-2 sm:px-4">
+              <div className="relative w-full max-w-[440px] xl:max-w-[480px]">
                 
-                {/* Ambient Soft Glow Backgrounds */}
+                {/* Soft Kerala Sanctuary Ambient Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute top-10 right-10 w-64 h-64 bg-[#25D366]/10 rounded-full blur-2xl pointer-events-none" />
 
-                {/* 1. MAIN FOCAL CARD (Warm Connection Portrait) */}
-                <div className="relative mx-auto lg:ml-auto lg:mr-4 w-[290px] sm:w-[340px] xl:w-[380px] aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-[#F5D328]/35 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] bg-[#183825] group">
+                {/* Single Picture: Clean, Borderless Rounded Frame */}
+                <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_30px_90px_-20px_rgba(0,0,0,0.85)] bg-[#183825] group">
                   <img
                     src="/images/hero1.png"
                     alt="Bornsai Care Buddy with elderly parent in Kerala"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  {/* Subtle Dark Gradient Overlay for Contrast */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617] via-[#122617]/20 to-transparent opacity-85" />
+                  {/* Atmospheric Dark Gradient for Contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-[#122617]/20 to-transparent pointer-events-none" />
 
-                  {/* Inside-Card Bottom Caption */}
-                  <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-[#183825]/90 backdrop-blur-md border border-[#F5D328]/25 text-left shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
-                        <span className="text-xs font-bold text-white tracking-wide">Dedicated Care Buddy</span>
+                  {/* Police-verified badge at top-4 left-4 (unobstructed and clear) */}
+                  <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs tracking-tight flex items-center gap-1.5 shadow-lg shadow-black/40 z-20">
+                    <ShieldCheck className="w-4 h-4 text-[#122116]" />
+                    <span>Police-verified</span>
+                  </div>
+
+                  {/* Floating WhatsApp Voice Briefing Card at bottom-4 left-4 right-4 */}
+                  <div className="absolute bottom-4 left-4 right-4 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-3.5 shadow-2xl z-20">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center shrink-0">
+                        <Mic className="w-5 h-5 text-[#25D366]" />
                       </div>
-                      <span className="text-[11px] font-semibold text-[#F5D328] bg-[#F5D328]/15 px-2 py-0.5 rounded-full">Kochi</span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1.5 mb-0.5">
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shrink-0" />
+                            <p className="text-xs font-bold text-white truncate">Voice Note Sent to Dubai</p>
+                          </div>
+                          <span className="text-[9px] font-bold text-[#122116] bg-[#F5D328] px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0">Sample</span>
+                        </div>
+                        {/* Simulated Waveform Bars */}
+                        <div className="flex items-center gap-0.5 my-1">
+                          <span className="w-1 h-2.5 bg-[#F5D328] rounded-full animate-pulse" />
+                          <span className="w-1 h-4 bg-[#F5D328] rounded-full" />
+                          <span className="w-1 h-3 bg-[#F5D328] rounded-full animate-pulse" />
+                          <span className="w-1 h-5 bg-[#F5D328] rounded-full" />
+                          <span className="w-1 h-2 bg-[#F5D328] rounded-full" />
+                          <span className="w-1 h-4 bg-[#F5D328] rounded-full animate-pulse" />
+                          <span className="w-1 h-2.5 bg-[#F5D328] rounded-full" />
+                          <span className="text-[10px] text-[#EBF2E8]/70 ml-1.5 font-mono">0:48</span>
+                        </div>
+                        <p className="text-[11px] text-[#EBF2E8]/85 leading-snug">BP recorded 120/80. Appa finished lunch and his walk.</p>
+                      </div>
                     </div>
-                    <p className="text-xs text-[#EBF2E8]/85 mt-1 font-medium leading-snug">
-                      Personal hospital companion and daily assistance for your parents
-                    </p>
-                  </div>
-                </div>
-
-                {/* 2. SIGNATURE YELLOW CIRCULAR SEAL (Inspired by Vibrg Reference Mockup) */}
-                <div className="absolute top-0 left-1 sm:-left-3 xl:-left-6 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#F5D328] text-[#122116] shadow-xl shadow-[#F5D328]/30 flex flex-col items-center justify-center p-2 text-center border-2 border-[#122116] z-30 -rotate-12 hover:rotate-0 transition-transform duration-300 select-none cursor-default">
-                  <div className="flex items-center gap-0.5 mb-0.5">
-                    <Star className="w-3 h-3 fill-[#122116] text-[#122116]" />
-                    <Star className="w-3 h-3 fill-[#122116] text-[#122116]" />
-                    <Star className="w-3 h-3 fill-[#122116] text-[#122116]" />
-                  </div>
-                  <span className="text-base sm:text-lg font-black tracking-tighter leading-none">100%</span>
-                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-tight leading-tight mt-0.5">
-                    Verified Buddy
-                  </span>
-                </div>
-
-                {/* 3. SECONDARY COMPANION CARD (Top Right Overlap - Hospital Consultations) */}
-                <div className="hidden sm:block absolute -top-4 -right-1 xl:-right-6 w-44 xl:w-48 aspect-[4/3] rounded-2xl overflow-hidden border-2 border-[#183825] shadow-2xl z-20 group hover:scale-105 transition-transform duration-300 bg-[#183825]">
-                  <img
-                    src="/images/hero3.jpg"
-                    alt="Doctor consultation accompaniment in Kochi"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2.5 right-2.5">
-                    <p className="text-[11px] font-bold text-white drop-shadow-sm flex items-center gap-1">
-                      <Stethoscope className="w-3.5 h-3.5 text-[#F5D328]" />
-                      <span>OPD Escort</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* 4. THIRD COMPANION CARD (Bottom Left Overlap - Home Companionship) */}
-                <div className="hidden sm:block absolute bottom-8 -left-2 xl:-left-8 w-36 xl:w-40 aspect-square rounded-2xl overflow-hidden border-2 border-[#183825] shadow-2xl z-20 group hover:scale-105 transition-transform duration-300 bg-[#183825]">
-                  <img
-                    src="/images/hero2.png"
-                    alt="Tea time and home companionship"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <p className="text-[10px] font-bold text-white drop-shadow-sm flex items-center gap-1">
-                      <HeartHandshake className="w-3.5 h-3.5 text-[#F5D328]" />
-                      <span>Home Care</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* 5. FLOATING WHATSAPP VOICE BRIEFING CARD (Bottom Center / Right Overlap) */}
-                <div className="absolute -bottom-5 right-1 sm:right-3 xl:right-0 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/40 rounded-2xl p-3 sm:p-3.5 shadow-2xl z-30 flex items-center gap-3 max-w-[270px] sm:max-w-[290px] animate-float-gentle">
-                  <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center shrink-0">
-                    <Mic className="w-5 h-5 text-[#25D366]" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-                      <p className="text-xs font-bold text-white truncate">Voice Note Sent to Dubai</p>
-                    </div>
-                    {/* Simulated Waveform Bars */}
-                    <div className="flex items-center gap-0.5 my-1">
-                      <span className="w-1 h-2.5 bg-[#F5D328] rounded-full animate-pulse" />
-                      <span className="w-1 h-4 bg-[#F5D328] rounded-full" />
-                      <span className="w-1 h-3 bg-[#F5D328] rounded-full animate-pulse" />
-                      <span className="w-1 h-5 bg-[#F5D328] rounded-full" />
-                      <span className="w-1 h-2 bg-[#F5D328] rounded-full" />
-                      <span className="w-1 h-4 bg-[#F5D328] rounded-full animate-pulse" />
-                      <span className="w-1 h-2.5 bg-[#F5D328] rounded-full" />
-                      <span className="text-[10px] text-[#EBF2E8]/70 ml-1.5 font-mono">0:48</span>
-                    </div>
-                    <p className="text-[10px] text-[#EBF2E8]/80 truncate">BP checked • 120/80 normal</p>
                   </div>
                 </div>
 
@@ -913,6 +737,19 @@ export default function LandingPage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* 2.5 NARRATIVE: THE REALITY ACROSS OCEANS (Moved from hero for focus) */}
+      <section className="py-12 sm:py-16 bg-[#152B1B] border-t border-b border-[#F5D328]/20 text-[#EBF2E8]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#F5D328]">The Reality Across Oceans</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-balance">
+            Long-distance phone calls aren’t enough when unexpected moments arise.
+          </h2>
+          <p className="text-base sm:text-lg text-[#EBF2E8]/85 leading-relaxed max-w-2xl mx-auto font-normal">
+            You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, your parents shouldn’t have to face them alone.
+          </p>
         </div>
       </section>
 
@@ -929,7 +766,7 @@ export default function LandingPage() {
               </GradientText>
             </h2>
             <p className="text-[#2D4533] text-xs sm:text-base leading-relaxed">
-              Whether you are at work in Dubai, London, or Dallas, you receive timely voice briefings, verified prescription scans, and photo updates directly from your parents’ Care Buddy.
+              Whether you are at work in Dubai, London, or Dallas, you receive timely voice briefings, prescription scans, and photo updates directly from your parents’ Care Buddy.
             </p>
           </div>
 
@@ -942,9 +779,9 @@ export default function LandingPage() {
                   <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1 truncate text-[#EBF2E8]">
+                  <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
                     <span>Bornsai Care Buddy</span>
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F5D328] text-[#122116]">Sample</span>
                   </h4>
                   <p className="text-[10px] text-[#F5D328] truncate">Assigned to Amma & Achan (Kochi)</p>
                 </div>
@@ -959,8 +796,11 @@ export default function LandingPage() {
               {/* Message 1 */}
               <div className="flex justify-start">
                 <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1">
-                  <p className="font-bold text-[#183825]">Care Buddy Anjali:</p>
-                  <p className="leading-relaxed text-[#243B2B]">Namaskaram Ramesh! I picked up Amma from home on time. We have arrived at Aster Medcity for her 11 AM cardiology check-up. Queue token is #14.</p>
+                  <div className="flex items-center justify-between">
+                    <p className="font-bold text-[#183825]">Care Buddy Anjali:</p>
+                    <span className="text-[9px] text-[#183825]/60 font-semibold bg-[#183825]/5 px-1.5 py-0.5 rounded">Sample</span>
+                  </div>
+                  <p className="leading-relaxed text-[#243B2B]">Namaskaram Ramesh! I picked up Amma from home on time. We have arrived at City Care Clinic for her 11 AM check-up with Dr. Varma. Queue token is #14.</p>
                   <span className="text-[10px] text-[#183825]/60 block text-right">10:48 AM</span>
                 </div>
               </div>
@@ -987,13 +827,13 @@ export default function LandingPage() {
                         <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-4' : 'h-3'}`} />
                       </div>
                       <div className="flex justify-between text-[10px] text-[#183825] mt-0.5 font-medium">
-                        <span>🎙️ 0:58 Voice Note</span>
+                        <span>🎙️ 0:58 Voice Note (Sample)</span>
                         <span>11:32 AM</span>
                       </div>
                     </div>
                   </div>
                   <p className="text-[11px] text-[#183825] italic bg-[#EAF1E9] p-2.5 rounded-xl border border-[#183825]/15">
-                    "Dr. Menon reviewed Amma's ECG and BP (125/82). All clear! He slightly adjusted the morning tablet timing. Full audio summary above."
+                    "Dr. Varma reviewed Amma's ECG and recorded BP at 125/82. Everything looks stable! He slightly adjusted the morning tablet timing. Full audio summary above."
                   </p>
                 </div>
               </div>
@@ -1003,9 +843,9 @@ export default function LandingPage() {
                 <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1.5">
                   <div className="flex items-center gap-2 bg-[#122617] text-[#F5D328] p-2 rounded-xl border border-[#183825]/30 font-medium text-xs">
                     <FileText className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span className="truncate">Prescription_Aster_Nov06.pdf</span>
+                    <span className="truncate">Sample_Prescription_Slip.pdf</span>
                   </div>
-                  <p className="text-[#243B2B] leading-relaxed">Uploaded to your Care Passport. Monthly medicine refills ordered for home delivery.</p>
+                  <p className="text-[#243B2B] leading-relaxed">Uploaded to your Care Passport. Monthly medicine refills coordinated for doorstep delivery.</p>
                   <span className="text-[10px] text-[#183825]/60 block text-right">11:40 AM</span>
                 </div>
               </div>
@@ -1029,7 +869,7 @@ export default function LandingPage() {
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-5 text-[#122617]">
               <GradientText colors={['#122617', '#1E4429', '#2E613B', '#122617']}>
-                Not an Agency Maid. Not a Distant Call Center.<br className="hidden sm:inline" />
+                More than an agency. More than an app.<br className="hidden sm:inline" />
                 Meet Your Parents' Care Buddy.
               </GradientText>
             </h2>
@@ -1163,7 +1003,7 @@ export default function LandingPage() {
                 <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
                   Vitality & Care
                 </h3>
-                <p className="text-sm font-bold text-[#C4CD62] mb-3">
+                <p className="text-sm font-bold text-[#E8F0C8] mb-3">
                   Healthcare Coordination & Hospital Escorts
                 </p>
                 <p className="text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
@@ -1215,7 +1055,7 @@ export default function LandingPage() {
                 <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
                   Joy & Connection
                 </h3>
-                <p className="text-sm font-bold text-[#C4CD62] mb-3">
+                <p className="text-sm font-bold text-[#E8F0C8] mb-3">
                   Combating Loneliness Through Genuine Presence
                 </p>
                 <p className="text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
@@ -1267,7 +1107,7 @@ export default function LandingPage() {
                 <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
                   Ease & Security
                 </h3>
-                <p className="text-sm font-bold text-[#C4CD62] mb-3">
+                <p className="text-sm font-bold text-[#E8F0C8] mb-3">
                   Zero Chores Burden & Bureaucracy Handled
                 </p>
                 <p className="text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
@@ -1402,11 +1242,11 @@ export default function LandingPage() {
                       <div className="grid sm:grid-cols-2 gap-3.5 pt-2">
                         <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
                           <p className="font-bold text-xs text-[#F5D328] mb-1">Doctor of Choice</p>
-                          <p className="text-[11px] text-[#EBF2E8]/75">Anchor Kochi partners (Aster Medcity, Amrita, Lakeshore, Rajagiri) or your family doctor.</p>
+                          <p className="text-[11px] text-[#EBF2E8]/75">Hospitals across Kochi, such as Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor (named only to show where we accompany families; no affiliation implied).</p>
                         </div>
                         <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
                           <p className="font-bold text-xs text-[#F5D328] mb-1">Medicine Checks & Refills</p>
-                          <p className="text-[11px] text-[#EBF2E8]/75">Proactive stock auditing and doorstep refills for chronic prescriptions.</p>
+                          <p className="text-[11px] text-[#EBF2E8]/75">Care Buddy checks medicines against the prescription and tells the doctor if something doesn’t match, then coordinates doorstep refills.</p>
                         </div>
                         <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
                           <p className="font-bold text-xs text-[#F5D328] mb-1">24/7 Rapid SOS Emergency</p>
@@ -1430,9 +1270,9 @@ export default function LandingPage() {
                         <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-3">
                           <div className="flex items-center gap-2">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#F5D328] animate-pulse" />
-                            <span className="text-xs font-bold text-[#F5D328]">Live Hospital Escort</span>
+                            <span className="text-xs font-bold text-[#F5D328]">Live Hospital Escort (Sample)</span>
                           </div>
-                          <span className="text-[10px] text-[#EBF2E8]/70 font-mono">Aster Medcity, Kochi</span>
+                          <span className="text-[10px] text-[#EBF2E8]/70 font-mono">City Care Clinic, Kochi</span>
                         </div>
 
                         <div className="space-y-3 text-xs">
@@ -1440,7 +1280,7 @@ export default function LandingPage() {
                             <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">08:30 AM</span>
                             <div>
                               <p className="font-bold text-[#EBF2E8]">Home Pickup in AC Taxi</p>
-                              <p className="text-[11px] text-[#EBF2E8]/70">Morning BP checked: 126/82. Car AC set to parent preference.</p>
+                              <p className="text-[11px] text-[#EBF2E8]/70">Morning BP recorded: 126/82. Car AC set to parent preference.</p>
                             </div>
                           </div>
                           <div className="flex items-start gap-3">
@@ -1840,7 +1680,7 @@ export default function LandingPage() {
                 >
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F5D328] text-[#122617] text-[11px] uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
-                      Most Popular for NRKs
+                      Recommended
                     </div>
                   )}
 
@@ -1848,7 +1688,7 @@ export default function LandingPage() {
                     <h3 className={`text-xl sm:text-2xl font-black mb-1 ${plan.popular ? 'text-white' : 'text-[#122617]'}`}>
                       {plan.name}
                     </h3>
-                    <p className={`text-xs font-bold mb-3 ${plan.popular ? 'text-[#C4CD62]' : 'text-[#2D4533]'}`}>
+                    <p className={`text-xs font-bold mb-3 ${plan.popular ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
                       {plan.tagline}
                     </p>
                     <p className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal min-h-[40px] ${plan.popular ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
@@ -1860,12 +1700,15 @@ export default function LandingPage() {
                         <span className={`text-3xl sm:text-4xl font-black ${plan.popular ? 'text-white' : 'text-[#122617]'}`}>
                           ₹{finalPrice.toLocaleString('en-IN')}
                         </span>
-                        <span className={`font-bold text-xs sm:text-sm ${plan.popular ? 'text-[#C4CD62]' : 'text-[#2D4533]'}`}>
+                        <span className={`font-bold text-xs sm:text-sm ${plan.popular ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
                           / month
                         </span>
                       </div>
                       <p className={`text-[11px] mt-1 font-semibold ${plan.popular ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                         (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
+                      </p>
+                      <p className={`text-[10px] mt-1 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]/80'} font-semibold`}>
+                        * Prices are exclusive of 18% GST (added at billing)
                       </p>
                     </div>
 
@@ -1960,24 +1803,30 @@ export default function LandingPage() {
           </div>
 
           {/* Commercial & Operational Rules */}
-          <div className="mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto">
-            <h4 className="text-xs sm:text-sm font-bold text-[#F5D328] uppercase tracking-wider mb-3 flex items-center gap-2">
+          <div className="mt-8 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto space-y-4">
+            <h4 className="text-xs sm:text-sm font-bold text-[#F5D328] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#F5D328]" />
-              <span>Transparent Commercial Rules & Overtime Policy</span>
+              <span>Transparent Commercial Rules & Operational Policies</span>
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-xs text-[#EBF2E8]/80">
               <div>
                 <p className="font-bold text-[#EBF2E8] mb-1">3-Month Minimum & Pro-Rata Refund</p>
-                <p>Initial enrollment is 3 months to map medical history and build a routine. 100% pro-rata refund on unused full months if your family withdraws.</p>
+                <p>Initial enrollment is a 3-month minimum commitment to build medical history and a trusted routine. 15-day notice required, with unused full months refunded pro-rata.</p>
               </div>
               <div>
-                <p className="font-bold text-[#EBF2E8] mb-1">Taxi Transport at Actuals</p>
-                <p>Plan fee covers the Care Buddy’s time. Taxi fares are paid at partner rate card actuals. Your Care Buddy rides in the same car with zero double fare.</p>
+                <p className="font-bold text-[#EBF2E8] mb-1">Flexible Plan Pausing</p>
+                <p>Heading on an overseas trip or facing a long hospital stay? Pause membership for 14 to 60 days with 7 days notice. Billing is completely frozen during pause.</p>
               </div>
               <div>
-                <p className="font-bold text-[#EBF2E8] mb-1">Hospital Overtime Policy</p>
-                <p>Trips include 4 to 6 hrs of Care Buddy accompaniment. Beyond that, buddy time is billed at a modest ₹200/hr (in 30-min blocks), communicated beforehand.</p>
+                <p className="font-bold text-[#EBF2E8] mb-1">Overtime Beyond Included Hours</p>
+                <p>Care visits include designated accompaniment hours. Overtime beyond included hours is billed at ₹350/hour actuals (in 30-min blocks), confirmed with you beforehand.</p>
               </div>
+            </div>
+
+            {/* What's Not Included Callout */}
+            <div className="pt-3 border-t border-[#F5D328]/20 flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs text-[#EBF2E8]/90">
+              <span className="font-bold text-[#F5D328] shrink-0">What is Not Included:</span>
+              <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, taxi fares, and buddy overtime beyond included hours (all paid at direct actuals with zero commission).</span>
             </div>
           </div>
         </div>
@@ -1994,7 +1843,7 @@ export default function LandingPage() {
               Compare Care Plans Side-by-Side
             </h2>
             <p className="text-[#2D4533] text-xs sm:text-sm max-w-xl mx-auto mb-6 leading-relaxed">
-              Every plan includes our 3-month commitment with a 100% pro-rata refund guarantee. Click below to inspect all 20+ granular features.
+              Every plan includes our 3-month minimum commitment with a 15-day notice pro-rata refund for unused full months. Click below to inspect all 20+ granular features.
             </p>
 
             {/* Collapsible Trigger Button */}
@@ -2440,7 +2289,7 @@ export default function LandingPage() {
                       >
                         {plan.popular && (
                           <span className="absolute -top-2.5 right-3 bg-[#F5D328] text-[#122617] text-[9px] font-black uppercase px-2 py-0.2 rounded-full">
-                            Popular
+                            Recommended
                           </span>
                         )}
                         <div className="flex items-center justify-between mb-1">
@@ -2462,18 +2311,23 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Section 3: Notes */}
-              <div>
-                <label className="block text-xs font-bold text-white uppercase tracking-wider mb-1.5">
-                  Special Requirements / Medical Context (Optional)
+              {/* Section 3: Parental Consent & Agreements */}
+              <div className="p-4 rounded-xl bg-[#122617] border border-[#F5D328]/30">
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={consentAgreed}
+                    onChange={(e) => setConsentAgreed(e.target.checked)}
+                    className="mt-1 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#16291C] focus:ring-[#F5D328] focus:ring-offset-0 cursor-pointer shrink-0"
+                  />
+                  <span className="text-xs text-[#EBF2E8]/90 leading-relaxed">
+                    I consent to Bornsai contacting me via WhatsApp and agree to the{' '}
+                    <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2 hover:text-[#FFE342]">
+                      Privacy Policy
+                    </Link>
+                    . I confirm that my parents have consented to buddy home visits, photo updates, and voice briefings. (Specific parental health details will be collected confidentially on WhatsApp).
+                  </span>
                 </label>
-                <textarea
-                  rows={2}
-                  placeholder="e.g. Mother needs diabetic OPD accompaniment; Father needs regular BP checks."
-                  value={additionalNotes}
-                  onChange={(e) => setAdditionalNotes(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-[#EBF2E8] placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] focus:ring-2 focus:ring-[#F5D328]/20 text-sm transition"
-                />
               </div>
 
               {/* Bespoke Reservation Slip Summary */}
@@ -2583,8 +2437,8 @@ export default function LandingPage() {
                   <Sparkles className="w-5 h-5 text-[#F5D328]" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-sm">Zero Medical Commissions</h4>
-                  <p className="text-[#E0EBDC] text-xs">Strictly ethical care with 100% pro-rata refund guarantee</p>
+                  <h4 className="text-white font-bold text-sm">No Hospital Commissions</h4>
+                  <p className="text-[#E0EBDC] text-xs">You pay actuals. Strictly ethical care with pro-rata guarantee</p>
                 </div>
               </div>
             </div>
