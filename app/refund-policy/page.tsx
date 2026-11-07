@@ -10,7 +10,7 @@ export default function RefundPolicyPage() {
           href="/"
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#E66323] hover:underline"
         >
-          <ArrowLeft className="w-4 h-4" /> Return to Thanal
+          <ArrowLeft className="w-4 h-4" /> Return to Bornsai
         </Link>
 
         <div className="border-b border-slate-200 pb-6">

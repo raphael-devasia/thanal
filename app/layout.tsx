@@ -7,7 +7,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#044749"
+  themeColor: "#122617"
 };
 
 const geistSans = Geist({
@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thanal Eldercare Concierge | Dedicated Parent Care in Kerala",
+  title: "Bornsai Eldercare Concierge | Dedicated Parent Care in Kerala",
   description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting & health logistics for families abroad with parents in Kerala.",
   icons: {
     icon: "/favicon.png",

@@ -31,7 +31,7 @@ export interface GradientTextProps {
 
 export default function GradientText({
   children,
-  colors = ['#044749', '#0E7490', '#E66323', '#044749'],
+  colors = ['#FFFFFF', '#EBF5E9', '#C4CD62', '#FFFFFF'],
   animationSpeed = 8,
   variant = 'linear',
   angle = 90,
@@ -49,7 +49,7 @@ export default function GradientText({
   const rootRef = useRef<HTMLSpanElement>(null);
   const settingsRef = useRef<any>(null);
   const wakeRef = useRef<(() => void) | null>(null);
-  const palette = colors.length > 1 ? colors : [colors[0] ?? '#044749', colors[0] ?? '#E66323'];
+  const palette = colors.length > 1 ? colors : [colors[0] ?? '#B7B094', colors[0] ?? '#F4EEDB'];
 
   settingsRef.current = {
     colors: palette,

@@ -10,7 +10,7 @@ export default function PrivacyPage() {
           href="/" 
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#E66323] hover:underline"
         >
-          <ArrowLeft className="w-4 h-4" /> Return to Thanal
+          <ArrowLeft className="w-4 h-4" /> Return to Bornsai
         </Link>
 
         <div className="border-b border-slate-200 pb-6">
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">3. Communication & WhatsApp Updates</h2>
             <p className="leading-relaxed">
-              By providing your WhatsApp number, you consent to receive direct care coordination updates, escort appointment reports, and deposit receipts from Thanal.
+              By providing your WhatsApp number, you consent to receive direct care coordination updates, escort appointment reports, and deposit receipts from Bornsai.
             </p>
           </section>
         </div>

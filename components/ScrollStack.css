@@ -34,7 +34,7 @@
   padding: 2.5rem 1.75rem;
   border-radius: 32px;
   background: transparent;
-  color: #1e293b;
+  color: #EBF2E8;
   border: none;
   outline: none;
   box-shadow: none;
@@ -46,7 +46,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: transparent;
+  background: #122617;
   opacity: 0;
   pointer-events: none;
 }

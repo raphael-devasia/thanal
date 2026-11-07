@@ -10,7 +10,7 @@ export default function TermsPage() {
           href="/" 
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#E66323] hover:underline"
         >
-          <ArrowLeft className="w-4 h-4" /> Return to Thanal
+          <ArrowLeft className="w-4 h-4" /> Return to Bornsai
         </Link>
 
         <div className="border-b border-slate-200 pb-6">
@@ -22,14 +22,14 @@ export default function TermsPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">1. Introduction & Service Scope</h2>
             <p className="leading-relaxed">
-              Welcome to Thanal. By placing a refundable deposit of ₹1,000 INR or registering a Guest Account, you agree to these Terms & Conditions. Thanal operates an exclusive care network capped at 40 families in Kochi, Kerala.
+              Welcome to Bornsai. By placing a refundable deposit of ₹1,000 INR or registering a Guest Account, you agree to these Terms & Conditions. Bornsai operates an exclusive care network capped at 40 families in Kochi, Kerala.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-[#044749]">2. Eldercare Escort Services</h2>
             <p className="leading-relaxed">
-              Thanal provides non-emergency OPD hospital escorts, medical appointment accompaniment, vitals audits, and pharmacy delivery. Thanal is not a hospital or emergency room substitute; for acute medical emergencies, local emergency services (108) must be dispatched.
+              Bornsai provides non-emergency OPD hospital escorts, medical appointment accompaniment, vitals audits, and pharmacy delivery. Bornsai is not a hospital or emergency room substitute; for acute medical emergencies, local emergency services (108) must be dispatched.
             </p>
           </section>
 

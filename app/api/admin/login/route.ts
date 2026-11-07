@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       return NextResponse.json({
         success: true,
         message: 'Authentication successful',
-        token: `auth_thanal_admin_${Date.now()}`
+        token: `auth_bornsai_admin_${Date.now()}`
       });
     }
 
