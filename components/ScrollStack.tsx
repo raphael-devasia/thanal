@@ -208,6 +208,15 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         write(`dim${i}`, dim.toFixed(3), value => {
           card.style.setProperty('--scroll-stack-dim', value);
         });
+        const opacity = Math.max(0, 1 - depth * 3.5);
+        const isHidden = opacity <= 0.01 || depth >= 0.25;
+        write(`opacity${i}`, opacity.toFixed(3), value => {
+          card.style.opacity = value;
+          card.style.pointerEvents = Number(value) < 0.05 ? 'none' : 'auto';
+        });
+        write(`visibility${i}`, isHidden ? 'hidden' : 'visible', value => {
+          card.style.visibility = value;
+        });
       });
 
       const done = slots.length > 1 && lastCover >= 0.999;

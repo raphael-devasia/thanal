@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import GradientText from '@/components/GradientText';
 import {
   HeartPulse,
   ShieldCheck,
@@ -264,8 +265,10 @@ export default function LuxuryLivingPage() {
                 <span>Our Core Philosophy</span>
               </div>
 
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] tracking-tight leading-tight">
-                A Life of Dignity, Joy, and Independence.
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                <GradientText>
+                  A Life of Dignity, Joy, and Independence.
+                </GradientText>
               </h2>
 
               <p className="text-base sm:text-lg text-slate-700 leading-relaxed">
@@ -333,8 +336,10 @@ export default function LuxuryLivingPage() {
               <span>The Kerala Connection</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] tracking-tight">
-              Deeply Rooted in Our Heritage
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              <GradientText>
+                Deeply Rooted in Our Heritage
+              </GradientText>
             </h2>
 
             <p className="text-base sm:text-lg text-slate-700 leading-relaxed">
@@ -395,8 +400,10 @@ export default function LuxuryLivingPage() {
               <Sparkles className="w-3.5 h-3.5 text-[#044749]" />
               <span>World-Class Living Experience</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] tracking-tight">
-              Everything You Need, Right at Your Doorstep.
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              <GradientText>
+                Everything You Need, Right at Your Doorstep.
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
               A comprehensive ecosystem designed from the ground up for physical wellness, active social life, and complete freedom across all villas and apartments.
@@ -490,8 +497,10 @@ export default function LuxuryLivingPage() {
       <section id="audience" className="py-16 sm:py-24 bg-[#FAF9F5] border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-3">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] tracking-tight">
-              Designed for Global Malayali Families
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              <GradientText>
+                Designed for Global Malayali Families
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
               Whether you are planning for your beloved parents or charting your own graceful return home to Kerala.
@@ -640,8 +649,10 @@ export default function LuxuryLivingPage() {
                 <span>Private Consultation & Brochure</span>
               </div>
 
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#044749] tracking-tight leading-tight">
-                About the Product: What is Thanal Sansthanam?
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                <GradientText>
+                  About the Product: What is Thanal Sansthanam?
+                </GradientText>
               </h2>
 
               <div className="text-sm sm:text-base text-slate-700 space-y-4 leading-relaxed">

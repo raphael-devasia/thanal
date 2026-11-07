@@ -47,6 +47,8 @@ import {
   KERALA_DISTRICTS
 } from '@/types/waitlist';
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import GradientText from '@/components/GradientText';
+import DepthCarousel from '@/components/DepthCarousel';
 
 export default function LandingPage() {
   // Plan Toggle & Selection State
@@ -262,8 +264,79 @@ export default function LandingPage() {
     }
   ];
 
+  const careBuddyPillars = [
+    {
+      title: '1. A Dedicated Family Face',
+      badge: 'Trusted Personal Bond',
+      badgeColor: '#E66323',
+      badgeTextColor: '#ffffff',
+      accentColor: '#E66323',
+      titleColor: '#044749',
+      descColor: '#334155',
+      borderColor: 'rgba(230, 99, 35, 0.35)',
+      icon: <Users className="w-5 h-5" />,
+      description:
+        'No rotating strangers. A single named Care Buddy is assigned to your parents, building genuine trust, warmth, and continuity of care visit after visit.',
+      highlight: '★ Assigned exclusively for your family',
+      highlightBg: 'rgba(230, 99, 35, 0.12)',
+      highlightTextColor: '#B84A14',
+      bgGradient: 'linear-gradient(145deg, #FFF8F3 0%, #FFEDE2 50%, #FEDCC7 100%)'
+    },
+    {
+      title: '2. WhatsApp-First Updates',
+      badge: 'Voice & Photos Direct',
+      badgeColor: '#059669',
+      badgeTextColor: '#ffffff',
+      accentColor: '#059669',
+      titleColor: '#064E3B',
+      descColor: '#334155',
+      borderColor: 'rgba(5, 150, 105, 0.35)',
+      icon: <Mic className="w-5 h-5" />,
+      description:
+        'A 60-second Malayalam or English voice note and prescription photo sent to your phone right after every doctor consult. No confusing portals to log into.',
+      highlight: '⚡ Sent within 15 mins of consultation',
+      highlightBg: 'rgba(5, 150, 105, 0.12)',
+      highlightTextColor: '#065F46',
+      bgGradient: 'linear-gradient(145deg, #F0FDF4 0%, #DCFCE7 50%, #BBF7D0 100%)'
+    },
+    {
+      title: '3. Digital Care Passport',
+      badge: 'Accessible Abroad 24/7',
+      badgeColor: '#0284C7',
+      badgeTextColor: '#ffffff',
+      accentColor: '#0284C7',
+      titleColor: '#075985',
+      descColor: '#334155',
+      borderColor: 'rgba(2, 132, 199, 0.35)',
+      icon: <FileText className="w-5 h-5" />,
+      description:
+        'One secure digital folder with ID copies, medication histories, insurance files, allergy notes, and doctor contacts, always accessible to you abroad.',
+      highlight: '🔒 Encrypted medical history folder',
+      highlightBg: 'rgba(2, 132, 199, 0.12)',
+      highlightTextColor: '#0369A1',
+      bgGradient: 'linear-gradient(145deg, #F0F9FF 0%, #E0F2FE 50%, #BAE6FD 100%)'
+    },
+    {
+      title: '4. Rigorously Vetted & Trained',
+      badge: 'Clinical Safety Standard',
+      badgeColor: '#D97706',
+      badgeTextColor: '#ffffff',
+      accentColor: '#D97706',
+      titleColor: '#78350F',
+      descColor: '#334155',
+      borderColor: 'rgba(217, 119, 6, 0.35)',
+      icon: <ShieldCheck className="w-5 h-5" />,
+      description:
+        'Police-verified, identity-authenticated, and trained in elder communication, vital signs, first aid, safe transfers, and strict data privacy.',
+      highlight: '✓ Identity authenticated & trained',
+      highlightBg: 'rgba(217, 119, 6, 0.12)',
+      highlightTextColor: '#92400E',
+      bgGradient: 'linear-gradient(145deg, #FEFCE8 0%, #FEF9C3 50%, #FDE047 100%)'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50/60 text-slate-800 font-sans selection:bg-[#E66323] selection:text-white overflow-x-hidden w-full max-w-full pb-24 sm:pb-0">
+    <div className="min-h-screen bg-slate-50/60 text-slate-800 font-sans selection:bg-[#E66323] selection:text-white overflow-x-clip w-full max-w-full pb-24 sm:pb-0">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
       {/* 1. COMPACT RESPONSIVE HEADER */}
@@ -428,7 +501,12 @@ export default function LandingPage() {
       </header>
 
       {/* 2. HERO SECTION (Clean, Responsive, Mobile-First) */}
-      <section className="relative overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/50">
+      <section className="relative overflow-x-clip pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-36 lg:pb-24 bg-gradient-to-b from-[#FAF8F5] via-[#F5F7F4] to-[#EEF3F0]">
+        {/* Soothing Kerala Sanctuary Ambient Glows */}
+        <div className="absolute top-12 left-1/4 w-[380px] h-[380px] rounded-full bg-amber-300/25 blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-10 w-[420px] h-[420px] rounded-full bg-orange-200/20 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none" />
+
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-12 gap-8 lg:gap-14 items-center">
             
@@ -450,8 +528,10 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <h1 className="text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2] text-balance">
-                  When your parents need help back home, who is standing beside them?
+                <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2] text-balance">
+                  <GradientText>
+                    When your parents need help back home, who is standing beside them?
+                  </GradientText>
                 </h1>
 
                 <p className="text-slate-600 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
@@ -502,138 +582,175 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* MOBILE HERO VIEW WITH REACT BITS SCROLLSTACK (visible on mobile, hidden on lg) */}
+              {/* MOBILE HERO VIEW WITH REACT BITS SCROLLSTACK (Full-screen, window-scrolling pinned stack) */}
               <div className="block lg:hidden w-full">
-                {/* Mobile Badges */}
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#E66323] text-xs font-bold tracking-tight">
-                    <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
-                    <span>Available in Kochi</span>
-                  </div>
+                <ScrollStack
+                  itemDistance={280}
+                  itemStackDistance={0}
+                  stackPosition="4.75rem"
+                  itemScale={0.03}
+                  baseScale={0.94}
+                  dimAmount={0.06}
+                  holdDistance={220}
+                  smoothScroll={false}
+                  useWindowScroll={true}
+                  className="w-full"
+                >
+                  {/* Section 1: The Dilemma */}
+                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
+                    <div className="space-y-4 max-w-lg">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100/80 text-[#E66323] text-xs font-bold tracking-tight">
+                          <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                          <span>Available in Kochi</span>
+                        </div>
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/60 text-slate-700 text-xs font-semibold backdrop-blur-xs">
+                          <span className="text-amber-500 font-bold">★ 4.9/5</span>
+                          <span className="text-slate-400">•</span>
+                          <span>200+ NRK Families</span>
+                        </div>
+                      </div>
 
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
-                    <span className="text-amber-500 font-bold">★ 4.9/5</span>
-                    <span className="text-slate-400">•</span>
-                    <span>200+ Families</span>
-                  </div>
-                </div>
-
-                {/* Contained Mobile ScrollStack - Seamless & Borderless */}
-                <div className="h-[400px] sm:h-[430px] w-full relative">
-                  <ScrollStack
-                    itemDistance={80}
-                    itemStackDistance={16}
-                    stackPosition="6%"
-                    itemScale={0.035}
-                    baseScale={0.92}
-                    dimAmount={0.06}
-                    smoothScroll={true}
-                    snap={true}
-                    className="h-full"
-                  >
-                    {/* Section 1: The Dilemma */}
-                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
-                      <div>
-                        <h2 className="text-lg sm:text-xl font-black text-[#044749] tracking-tight leading-snug mb-3">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
+                        <GradientText>
                           When your parents need help back home, who is standing beside them?
-                        </h2>
-                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
-                          You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
-                        </p>
-                      </div>
-                    </ScrollStackItem>
+                        </GradientText>
+                      </h2>
 
-                    {/* Section 2: The Ground Solution (Clean, High-Contrast & Effortlessly Legible) */}
-                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
-                      <div>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium mb-3.5">
-                          <strong className="text-[#044749] font-black">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749] font-black">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
-                        </p>
-                        <div className="grid grid-cols-2 gap-2 text-xs font-bold text-[#044749]">
-                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                            <span>OPD Escorts</span>
-                          </div>
-                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                            <span>Medicine Refills</span>
-                          </div>
-                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                            <span>Daily Errands</span>
-                          </div>
-                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                            <span>WhatsApp Audio</span>
-                          </div>
+                      <p className="text-lg sm:text-xl text-slate-700 leading-relaxed font-normal">
+                        You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
+                      </p>
+
+                      <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                        <span>Scroll down to explore</span>
+                        <ChevronDown className="w-4 h-4 text-[#E66323] animate-bounce" />
+                      </div>
+                    </div>
+                  </ScrollStackItem>
+
+                  {/* Section 2: The Ground Solution */}
+                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
+                    <div className="space-y-4 max-w-lg">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-bold backdrop-blur-xs">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                        <span>Your Devoted Child on the Ground</span>
+                      </div>
+
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
+                        <GradientText>
+                          A dedicated Care Buddy beside your parents
+                        </GradientText>
+                      </h2>
+
+                      <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+                        <strong className="text-[#044749] font-black">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749] font-black">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-3 pt-2 text-sm sm:text-base font-extrabold text-[#044749]">
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <span>OPD Escorts</span>
+                        </div>
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <span>Medicine Refills</span>
+                        </div>
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <span>Daily Errands</span>
+                        </div>
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-center gap-2.5 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <span>WhatsApp Audio</span>
                         </div>
                       </div>
-                    </ScrollStackItem>
+                    </div>
+                  </ScrollStackItem>
 
-                    {/* Section 3: The 3 Commitments */}
-                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
-                      <div className="space-y-2.5">
-                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  {/* Section 3: The 3 Commitments */}
+                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
+                    <div className="space-y-4 max-w-lg">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-bold backdrop-blur-xs">
+                        <Award className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                        <span>Sacred Commitments</span>
+                      </div>
+
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
+                        <GradientText>
+                          Three promises built for NRK peace of mind
+                        </GradientText>
+                      </h2>
+
+                      <div className="space-y-3.5 pt-1">
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                           <div>
-                            <p className="text-xs sm:text-sm font-black text-[#044749]">Named Care Buddy</p>
-                            <p className="text-[11px] text-slate-500 leading-tight">One verified person assigned personally, building real trust.</p>
+                            <p className="text-base sm:text-lg font-black text-[#044749]">Named Care Buddy</p>
+                            <p className="text-sm sm:text-base text-slate-600 leading-snug">One verified, educated professional assigned personally to your family.</p>
                           </div>
                         </div>
-                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                           <div>
-                            <p className="text-xs sm:text-sm font-black text-[#044749]">Zero Medical Kickbacks</p>
-                            <p className="text-[11px] text-slate-500 leading-tight">Hospital bills, labs & taxis paid at actuals with zero markup.</p>
+                            <p className="text-base sm:text-lg font-black text-[#044749]">Zero Medical Kickbacks</p>
+                            <p className="text-sm sm:text-base text-slate-600 leading-snug">Hospital OPD visits, labs, medicines, and taxi transport paid directly at actuals.</p>
                           </div>
                         </div>
-                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <div className="bg-white/60 backdrop-blur-sm border border-white/60 p-3.5 rounded-2xl flex items-start gap-3 shadow-xs">
+                          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                           <div>
-                            <p className="text-xs sm:text-sm font-black text-[#044749]">Pro-Rata Refund Guarantee</p>
-                            <p className="text-[11px] text-slate-500 leading-tight">100% refund on unused full months if your family withdraws.</p>
+                            <p className="text-base sm:text-lg font-black text-[#044749]">Pro-Rata Refund Guarantee</p>
+                            <p className="text-sm sm:text-base text-slate-600 leading-snug">Initial 3-month commitment with 100% refund on unused full months if you withdraw.</p>
                           </div>
                         </div>
                       </div>
-                    </ScrollStackItem>
+                    </div>
+                  </ScrollStackItem>
 
-                    {/* Section 4: Action & CTAs */}
-                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
-                      <div className="space-y-3">
-                        <h2 className="text-lg sm:text-xl font-black text-[#044749] tracking-tight leading-snug">
-                          Give Your Parents Complete Peace of Mind
-                        </h2>
-                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                          Choose a tailored care plan or chat with our Care Manager right now over WhatsApp. Zero upfront payment required.
-                        </p>
-
-                        <div className="pt-1 flex flex-col gap-2">
-                          <a
-                            href="#pricing-section"
-                            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-xs shadow-md shadow-[#E66323]/25 transition active:scale-95"
-                          >
-                            <span>Explore Care Plans</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </a>
-
-                          <a
-                            href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#044749] border border-emerald-300 font-bold text-xs transition active:scale-95"
-                          >
-                            <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                            <span>Chat on WhatsApp</span>
-                          </a>
-                        </div>
+                  {/* Section 4: Action & CTAs */}
+                  <ScrollStackItem itemClassName="!h-[calc(100dvh-5.5rem)] min-h-[520px] max-h-[780px] flex flex-col justify-center bg-transparent text-left px-5 sm:px-8 py-6">
+                    <div className="space-y-4 max-w-lg">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100 text-[#E66323] text-xs font-black uppercase tracking-wider">
+                        <Sparkles className="w-3.5 h-3.5 text-[#E66323]" />
+                        <span>Begin Care in Kochi</span>
                       </div>
-                    </ScrollStackItem>
-                  </ScrollStack>
-                </div>
+
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
+                        <GradientText>
+                          Give your parents complete peace of mind
+                        </GradientText>
+                      </h2>
+
+                      <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+                        Select a transparent care plan or connect directly with our Care Operations Manager on WhatsApp. Zero upfront payment required today.
+                      </p>
+
+                      <div className="pt-3 flex flex-col gap-3">
+                        <a
+                          href="#pricing-section"
+                          className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-[#E66323] hover:bg-[#d55516] text-white font-black text-base shadow-lg shadow-[#E66323]/25 transition active:scale-95"
+                        >
+                          <span>Explore Care Plans</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+
+                        <a
+                          href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-2xl bg-white hover:bg-slate-50 text-[#044749] border border-slate-300 font-bold text-base transition active:scale-95"
+                        >
+                          <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                          <span>Chat on WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+                  </ScrollStackItem>
+                </ScrollStack>
               </div>
             </div>
 
-            {/* Right Column: Visual Showcase (Both Desktop Hexagons & Mobile Interactive Card) */}
+            {/* Right Column: Visual Showcase (Desktop Hexagons Only) */}
             <div className="col-span-12 lg:col-span-6 flex flex-col items-center lg:items-end">
               {/* Desktop Hexagon Composition */}
               <div className="hidden lg:block relative w-[500px] h-[500px]">
@@ -677,58 +794,6 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Mobile / Tablet Friendly Live Card */}
-              <div className="w-full max-w-sm sm:max-w-md lg:hidden bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-xl relative overflow-hidden">
-                <div className="flex items-center gap-3 mb-3.5">
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#E66323] shrink-0">
-                    <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-[#044749] text-xs sm:text-sm">Care Buddy Anjali</span>
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#E66323]" />
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">Visiting parents in Kakkanad, Kochi</p>
-                  </div>
-                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full shrink-0">
-                    Active
-                  </span>
-                </div>
-
-                {/* Interactive Simulated Audio Note */}
-                <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-center gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
-                    className="w-9 h-9 rounded-full bg-[#044749] text-white flex items-center justify-center shrink-0 shadow-xs"
-                    aria-label="Play audio briefing"
-                  >
-                    {isPlayingAudioDemo ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
-                  </button>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between text-[11px] text-slate-600 font-medium mb-1">
-                      <span className="truncate">Post-Consult Voice Briefing</span>
-                      <span className="text-slate-400 shrink-0 ml-1">0:48</span>
-                    </div>
-                    <div className="flex items-center gap-0.5 sm:gap-1 h-4">
-                      {[40, 75, 50, 90, 60, 30, 85, 45, 95, 70, 35, 80, 50, 65].map((val, i) => (
-                        <div
-                          key={i}
-                          className={`flex-1 rounded-full ${
-                            isPlayingAudioDemo ? 'bg-[#E66323] animate-pulse' : 'bg-slate-300'
-                          }`}
-                          style={{ height: `${val}%` }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-[11px] text-slate-500 mt-2 text-center">
-                  Instant Malayalam/English audio notes sent directly to your WhatsApp abroad.
-                </p>
-              </div>
             </div>
 
           </div>
@@ -742,8 +807,10 @@ export default function LandingPage() {
             <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold px-3 py-1 rounded-full mb-2.5 inline-block uppercase tracking-wider">
               No Complex Portals • Just WhatsApp
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] mb-3">
-              Here is What You Receive on Your Phone
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3">
+              <GradientText>
+                Here is What You Receive on Your Phone
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
               Whether you are at work in Dubai, London, or Dallas, you receive timely voice briefings, verified prescription scans, and photo updates directly from your parents’ Care Buddy.
@@ -844,55 +911,103 @@ export default function LandingPage() {
             <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
               The Heart of Thanal
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-5">
-              Not an Agency Maid. Not a Distant Call Center.<br className="hidden sm:inline" />
-              Meet Your Parents' <span className="text-[#E66323]">Care Buddy</span>.
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-5">
+              <GradientText>
+                Not an Agency Maid. Not a Distant Call Center.<br className="hidden sm:inline" />
+                Meet Your Parents' Care Buddy.
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-xs sm:text-base lg:text-lg leading-relaxed">
               At Thanal, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground, knowing your parents’ health, quirks, favorite routines, and doctors by heart.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center mb-4">
-                <Users className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">1. A Dedicated Family Face</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                No rotating strangers. A single named Care Buddy is assigned to your parents, building genuine trust, warmth, and continuity of care visit after visit.
-              </p>
-            </div>
+          {/* Mobile 3D Animated DepthCarousel (Fanned Out Side-by-Side, Larger Card Size) */}
+          <div className="block lg:hidden w-full h-[500px] relative overflow-hidden py-1 my-2">
+            <DepthCarousel
+              items={careBuddyPillars}
+              cardWidth={320}
+              cardHeight={430}
+              radius={28}
+              depth={155}
+              spread={65}
+              tilt={15}
+              tiltDirection="right"
+              perspective={1200}
+              visibleCards={4}
+              falloff={0.05}
+              blur={2}
+              tint="transparent"
+              autoplay={true}
+              autoplayDelay={3600}
+              loop={true}
+              showControls={true}
+              showIndicators={true}
+            />
+          </div>
 
-            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center mb-4">
-                <Mic className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">2. WhatsApp-First Updates</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                A 60-second Malayalam or English voice note and prescription photo sent to your phone right after every doctor consult. No confusing portals to log into.
-              </p>
-            </div>
+          {/* Desktop 4-Card Responsive Colorful Grid */}
+          <div className="hidden lg:grid grid-cols-4 gap-6 items-stretch">
+            {careBuddyPillars.map((pillar, idx) => (
+              <div
+                key={idx}
+                className="group relative p-7 rounded-3xl flex flex-col justify-between shadow-md hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.05] hover:-translate-y-2 hover:z-20 cursor-pointer"
+                style={{
+                  background: pillar.bgGradient,
+                  border: `2px solid ${pillar.borderColor}`
+                }}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-xs"
+                      style={{
+                        background: pillar.badgeColor,
+                        color: pillar.badgeTextColor
+                      }}
+                    >
+                      {pillar.badge}
+                    </span>
+                    <div
+                      className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110"
+                      style={{
+                        background: `${pillar.accentColor}22`,
+                        color: pillar.accentColor,
+                        border: `1.5px solid ${pillar.accentColor}44`
+                      }}
+                    >
+                      {pillar.icon}
+                    </div>
+                  </div>
 
-            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#E66323]/10 text-[#E66323] flex items-center justify-center mb-4">
-                <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">3. Digital Care Passport</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                One secure digital folder with ID copies, medication histories, insurance files, allergy notes, and doctor contacts, always accessible to you abroad.
-              </p>
-            </div>
+                  <h3
+                    className="text-xl font-black mb-2 leading-snug"
+                    style={{ color: pillar.titleColor }}
+                  >
+                    {pillar.title}
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed font-medium"
+                    style={{ color: pillar.descColor }}
+                  >
+                    {pillar.description}
+                  </p>
+                </div>
 
-            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#044749]/10 text-[#044749] flex items-center justify-center mb-4">
-                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
+                <div className="pt-4 border-t border-black/10 mt-4">
+                  <div
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold px-3.5 py-2.5 rounded-xl w-full shadow-2xs"
+                    style={{
+                      background: pillar.highlightBg,
+                      color: pillar.highlightTextColor,
+                      border: `1px solid ${pillar.borderColor}`
+                    }}
+                  >
+                    <span className="leading-snug">{pillar.highlight}</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#044749] mb-1.5">4. Rigorously Vetted & Trained</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                Police-verified, identity-authenticated, and trained in elder communication, vital signs, first aid, safe transfers, and strict data privacy.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -903,8 +1018,10 @@ export default function LandingPage() {
           <span className="bg-[#E66323]/10 text-[#E66323] border border-[#E66323]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
             Comprehensive Service Scope
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-3 sm:mb-4">
-            The Three Pillars of Thanal Care
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 sm:mb-4">
+            <GradientText>
+              The Three Pillars of Thanal Care
+            </GradientText>
           </h2>
           <p className="text-slate-600 text-xs sm:text-base leading-relaxed max-w-2xl mx-auto">
             A comprehensive, personalized eldercare framework tailored specifically for Kerala households and NRK families abroad.
@@ -1227,8 +1344,10 @@ export default function LandingPage() {
             <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
               Transparent Care Membership
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-4">
-              Care Plans Built Around Your Parents' Needs
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight mb-2 sm:mb-4">
+              <GradientText>
+                Care Plans Built Around Your Parents' Needs
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-xs sm:text-base mb-6 sm:mb-8">
               No hidden fees. Zero medical commissions. 3-month minimum commitment with a 100% pro-rata refund for unused full months.
@@ -1539,8 +1658,10 @@ export default function LandingPage() {
             <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
               Transparent Membership Matrix
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#044749] tracking-tight mb-2">
-              Compare Care Plans Side-by-Side
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">
+              <GradientText>
+                Compare Care Plans Side-by-Side
+              </GradientText>
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto mb-6">
               Every plan includes our 3-month commitment with a 100% pro-rata refund guarantee. Click below to inspect all 20+ granular features.
@@ -1783,8 +1904,10 @@ export default function LandingPage() {
           <span className="bg-[#044749]/10 text-[#044749] border border-[#044749]/20 text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block uppercase tracking-wider">
             Clear Answers
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#044749] tracking-tight mb-2 sm:mb-3">
-            Frequently Asked Questions
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 sm:mb-3">
+            <GradientText>
+              Frequently Asked Questions
+            </GradientText>
           </h2>
           <p className="text-slate-600 text-xs sm:text-base">
             Everything you need to know about Thanal care operations, pricing, and emergency procedures.
@@ -1835,8 +1958,10 @@ export default function LandingPage() {
                 <ShieldCheck className="w-3.5 h-3.5 text-[#E66323]" />
                 <span>Available in Kochi</span>
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#044749] mb-2 tracking-tight">
-                Reserve Your Parents' Care Spot
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 tracking-tight">
+                <GradientText>
+                  Reserve Your Parents' Care Spot
+                </GradientText>
               </h2>
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                 Zero upfront payment required today. Submit your family details below or chat with our Care Manager over WhatsApp to review your parents' unique needs.
