@@ -46,6 +46,7 @@ import {
   POPULAR_NRK_LOCATIONS,
   KERALA_DISTRICTS
 } from '@/types/waitlist';
+import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 
 export default function LandingPage() {
   // Plan Toggle & Selection State
@@ -432,69 +433,202 @@ export default function LandingPage() {
           <div className="grid grid-cols-12 gap-8 lg:gap-14 items-center">
             
             {/* Left Column: Typography & Action on Desktop / Top on Mobile */}
-            <div className="col-span-12 lg:col-span-6 space-y-5 sm:space-y-6 text-left">
-              {/* Badges: Location & Executive Social Proof Stack */}
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-orange-50 border border-[#E66323]/30 text-[#E66323] text-xs font-bold tracking-tight">
-                  <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
-                  <span>Available in Kochi</span>
+            <div className="col-span-12 lg:col-span-6 text-left">
+              {/* DESKTOP HERO VIEW (hidden on mobile, visible on lg) */}
+              <div className="hidden lg:block space-y-6">
+                {/* Badges: Location & Executive Social Proof Stack */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-[#E66323]/30 text-[#E66323] text-xs font-bold tracking-tight">
+                    <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                    <span>Available in Kochi</span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold">
+                    <span className="text-amber-500 font-bold">★ 4.9/5</span>
+                    <span className="text-slate-400">•</span>
+                    <span>200+ NRK Families in UAE, UK, US</span>
+                  </div>
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold">
-                  <span className="text-amber-500 font-bold">★ 4.9/5</span>
-                  <span className="text-slate-400">•</span>
-                  <span>200+ NRK Families in UAE, UK, US</span>
-                </div>
-              </div>
+                <h1 className="text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2] text-balance">
+                  When your parents need help back home, who is standing beside them?
+                </h1>
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#044749] tracking-tight leading-[1.2] text-balance">
-                When your parents need help back home, who is standing beside them?
-              </h1>
-
-              <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
-              </p>
-
-              <div className="bg-emerald-50/80 border border-emerald-200/80 p-3.5 sm:p-4 rounded-2xl">
-                <p className="text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed font-medium">
-                  <strong className="text-[#044749]">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749]">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
+                <p className="text-slate-600 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
+                  You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
                 </p>
+
+                <div className="bg-emerald-50/80 border border-emerald-200/80 p-4 rounded-2xl">
+                  <p className="text-slate-700 text-sm md:text-base leading-relaxed font-medium">
+                    <strong className="text-[#044749]">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749]">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
+                  </p>
+                </div>
+
+                {/* CTAs */}
+                <div className="pt-1 flex flex-row items-center gap-4">
+                  <a
+                    href="#pricing-section"
+                    className="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-base shadow-lg shadow-[#E66323]/25 transition hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <span>Explore Care Plans</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+
+                  <a
+                    href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-white hover:bg-slate-50 text-[#044749] border border-slate-300 font-bold text-base transition shadow-xs hover:border-[#044749]/40"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                    <span>Chat on WhatsApp</span>
+                  </a>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="pt-3 border-t border-slate-200 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-700 font-medium">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Named Care Buddy</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Zero Medical Kickbacks</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Pro-Rata Refund Guarantee</span>
+                  </div>
+                </div>
               </div>
 
-              {/* CTAs */}
-              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                <a
-                  href="#pricing-section"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-[#E66323]/25 transition hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <span>Explore Care Plans</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+              {/* MOBILE HERO VIEW WITH REACT BITS SCROLLSTACK (visible on mobile, hidden on lg) */}
+              <div className="block lg:hidden w-full">
+                {/* Mobile Badges */}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#E66323] text-xs font-bold tracking-tight">
+                    <MapPin className="w-3.5 h-3.5 text-[#E66323] shrink-0" />
+                    <span>Available in Kochi</span>
+                  </div>
 
-                <a
-                  href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-white hover:bg-slate-50 text-[#044749] border border-slate-300 font-bold text-sm sm:text-base transition shadow-xs hover:border-[#044749]/40"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  <span>Chat on WhatsApp</span>
-                </a>
-              </div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                    <span className="text-amber-500 font-bold">★ 4.9/5</span>
+                    <span className="text-slate-400">•</span>
+                    <span>200+ Families</span>
+                  </div>
+                </div>
 
-              {/* Trust Indicators (Flex wrap on mobile for zero cut-off) */}
-              <div className="pt-3 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-700 font-medium">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Named Care Buddy</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Zero Medical Kickbacks</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Pro-Rata Refund Guarantee</span>
+                {/* Contained Mobile ScrollStack - Seamless & Borderless */}
+                <div className="h-[400px] sm:h-[430px] w-full relative">
+                  <ScrollStack
+                    itemDistance={80}
+                    itemStackDistance={16}
+                    stackPosition="6%"
+                    itemScale={0.035}
+                    baseScale={0.92}
+                    dimAmount={0.06}
+                    smoothScroll={true}
+                    snap={true}
+                    className="h-full"
+                  >
+                    {/* Section 1: The Dilemma */}
+                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
+                      <div>
+                        <h2 className="text-lg sm:text-xl font-black text-[#044749] tracking-tight leading-snug mb-3">
+                          When your parents need help back home, who is standing beside them?
+                        </h2>
+                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
+                          You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues, confusing prescriptions, banking paperwork, or quiet afternoons arise, long-distance phone calls aren’t enough.
+                        </p>
+                      </div>
+                    </ScrollStackItem>
+
+                    {/* Section 2: The Ground Solution (Clean, High-Contrast & Effortlessly Legible) */}
+                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
+                      <div>
+                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-medium mb-3.5">
+                          <strong className="text-[#044749] font-black">Thanal</strong> pairs your parents with a dedicated <strong className="text-[#044749] font-black">Care Buddy</strong> on the ground in Kerala, who acts like a devoted child: accompanying them to doctor visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates with you abroad.
+                        </p>
+                        <div className="grid grid-cols-2 gap-2 text-xs font-bold text-[#044749]">
+                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>OPD Escorts</span>
+                          </div>
+                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>Medicine Refills</span>
+                          </div>
+                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>Daily Errands</span>
+                          </div>
+                          <div className="bg-emerald-50 text-emerald-900 px-3 py-2 rounded-xl flex items-center gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>WhatsApp Audio</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ScrollStackItem>
+
+                    {/* Section 3: The 3 Commitments */}
+                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
+                      <div className="space-y-2.5">
+                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs sm:text-sm font-black text-[#044749]">Named Care Buddy</p>
+                            <p className="text-[11px] text-slate-500 leading-tight">One verified person assigned personally, building real trust.</p>
+                          </div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs sm:text-sm font-black text-[#044749]">Zero Medical Kickbacks</p>
+                            <p className="text-[11px] text-slate-500 leading-tight">Hospital bills, labs & taxis paid at actuals with zero markup.</p>
+                          </div>
+                        </div>
+                        <div className="bg-slate-50 p-2.5 rounded-2xl flex items-start gap-2.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs sm:text-sm font-black text-[#044749]">Pro-Rata Refund Guarantee</p>
+                            <p className="text-[11px] text-slate-500 leading-tight">100% refund on unused full months if your family withdraws.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </ScrollStackItem>
+
+                    {/* Section 4: Action & CTAs */}
+                    <ScrollStackItem itemClassName="!h-[310px] flex flex-col justify-center bg-white text-left px-5 sm:px-6">
+                      <div className="space-y-3">
+                        <h2 className="text-lg sm:text-xl font-black text-[#044749] tracking-tight leading-snug">
+                          Give Your Parents Complete Peace of Mind
+                        </h2>
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                          Choose a tailored care plan or chat with our Care Manager right now over WhatsApp. Zero upfront payment required.
+                        </p>
+
+                        <div className="pt-1 flex flex-col gap-2">
+                          <a
+                            href="#pricing-section"
+                            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#E66323] hover:bg-[#d55516] text-white font-extrabold text-xs shadow-md shadow-[#E66323]/25 transition active:scale-95"
+                          >
+                            <span>Explore Care Plans</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </a>
+
+                          <a
+                            href="https://wa.me/919496097611?text=Hi%20Thanal%20Team%2C%20I%20live%20abroad%20and%20would%20like%20to%20learn%20more%20about%20your%20care%20services%20for%20my%20parents%20in%20Kerala."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#044749] border border-emerald-300 font-bold text-xs transition active:scale-95"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+                            <span>Chat on WhatsApp</span>
+                          </a>
+                        </div>
+                      </div>
+                    </ScrollStackItem>
+                  </ScrollStack>
                 </div>
               </div>
             </div>
