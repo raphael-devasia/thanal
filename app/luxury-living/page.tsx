@@ -153,12 +153,12 @@ export default function LuxuryLivingPage() {
             />
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="text-xs text-[#EBF2E8]/80 hover:text-[#F5D328] font-semibold transition hidden sm:inline"
+              className="text-xs text-[#EBF2E8]/90 hover:text-[#F5D328] font-bold px-2.5 py-1 rounded-full border border-[#F5D328]/30 bg-[#183825] transition inline-flex items-center gap-1"
             >
-              ← Back to Care
+              <span>← At-Home Care</span>
             </Link>
             <a
               href={sampleWhatsAppUrl}

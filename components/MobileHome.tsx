@@ -17,12 +17,14 @@ import {
   HeartHandshake,
   Sparkles,
   X,
+  Menu,
   Stethoscope,
   Users
 } from 'lucide-react';
 
 export default function MobileHome() {
   // Navigation & Bottom Bar State
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [selectedWorry, setSelectedWorry] = useState<'hospital' | 'medicines' | 'afternoons'>('hospital');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showHowWeChooseModal, setShowHowWeChooseModal] = useState<boolean>(false);
@@ -119,26 +121,99 @@ export default function MobileHome() {
     <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans pb-24 selection:bg-[#F5D328] selection:text-[#122116]">
       {/* ALWAYS ON SCREEN: TOP BAR */}
       <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F5D328]/20 shadow-md">
-        <div className="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-xl mx-auto px-3.5 py-2.5 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center">
             <img
               src="/images/logo.png"
               alt="Bornsai"
-              className="h-9 w-auto object-contain brightness-110"
+              className="h-8 w-auto object-contain brightness-110"
             />
           </Link>
 
-          <a
-            href={sampleWhatsAppUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition shadow-sm active:scale-95"
-            aria-label="Chat on WhatsApp"
-          >
-            <MessageCircle className="w-3.5 h-3.5 fill-white text-transparent shrink-0" />
-            <span>Chat</span>
-          </a>
+          <div className="flex items-center gap-2">
+            {/* Senior Living Quick Access */}
+            <Link
+              href="/luxury-living"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#183825] border border-[#F5D328]/35 text-[#F5D328] text-[11px] font-bold hover:bg-[#1f452e] transition"
+            >
+              <Sparkles className="w-3 h-3 text-[#F5D328]" />
+              <span>Senior Living</span>
+            </Link>
+
+            {/* Chat on WhatsApp */}
+            <a
+              href={sampleWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-[11px] font-bold transition shadow-sm active:scale-95"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle className="w-3 h-3 fill-white text-transparent shrink-0" />
+              <span>Chat</span>
+            </a>
+
+            {/* Menu Hamburger Toggle */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1 rounded-lg bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] hover:text-[#F5D328] transition cursor-pointer"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
+
+        {/* MOBILE SLIDE-DOWN NAVIGATION DRAWER */}
+        {mobileMenuOpen && (
+          <div className="bg-[#122617] border-t border-b border-[#F5D328]/30 shadow-2xl p-4 space-y-3 animate-in slide-in-from-top-1 duration-150">
+            <div className="space-y-0.5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">Menu Navigation</p>
+              <p className="text-xs text-[#EBF2E8]/70">Explore care services and senior living options</p>
+            </div>
+
+            <div className="space-y-2 pt-1">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-3 rounded-xl bg-[#183825] text-white font-bold text-xs hover:bg-[#1f452e] transition"
+              >
+                <span>At-Home Eldercare in Kochi</span>
+                <span className="text-[10px] bg-[#F5D328] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Current</span>
+              </Link>
+
+              <Link
+                href="/luxury-living"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-3 rounded-xl bg-[#183825] border border-[#F5D328]/40 text-[#F5D328] font-bold text-xs hover:bg-[#1f452e] transition"
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F5D328]" />
+                  <span>Senior Living Options in Kerala</span>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-[#F5D328]" />
+              </Link>
+
+              <a
+                href="#plans-mobile"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+              >
+                <span>Care Plans & Pricing</span>
+                <span className="text-[#EBF2E8]/60 text-[11px]">From ₹6,000/mo</span>
+              </a>
+
+              <a
+                href="#sample-request-mobile"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+              >
+                <span>Request Sample WhatsApp Update</span>
+                <span className="text-[#EBF2E8]/60 text-[11px]">Free</span>
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ALWAYS ON SCREEN: BOTTOM BAR */}
@@ -803,6 +878,10 @@ export default function MobileHome() {
 
           {/* Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/75">
+            <Link href="/luxury-living" className="text-[#F5D328] font-bold hover:underline">
+              Senior Living
+            </Link>
+            <span>·</span>
             <Link href="/privacy" className="hover:text-[#F5D328] transition">
               Privacy
             </Link>
