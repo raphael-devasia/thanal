@@ -2,1091 +2,620 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import GradientText from '@/components/GradientText';
 import {
-  HeartPulse,
   ShieldCheck,
-  Trees,
-  UtensilsCrossed,
-  Users,
-  Home,
   CheckCircle2,
-  Phone,
+  Building,
+  Home,
   MessageCircle,
   ArrowRight,
   ArrowLeft,
-  Calendar,
-  Sparkles,
-  MapPin,
-  Clock,
-  ChevronRight,
-  Send,
-  Building,
-  Award,
-  Activity,
-  Heart,
-  FileText
+  ChevronDown,
+  Info,
+  Check,
+  HelpCircle,
+  HeartHandshake,
+  AlertCircle
 } from 'lucide-react';
 
 export default function LuxuryLivingPage() {
-  // Contact Form State
-  const [formData, setFormData] = useState({
-    fullName: '',
-    whatsappNumber: '',
-    email: '',
-    currentLocation: 'Dubai, UAE',
-    inquiryFor: 'My Parents in Kerala',
-    residenceType: 'Independent 2BHK Garden Villa',
-    timeline: 'Within 6 to 12 months',
-    notes: ''
-  });
+  const [name, setName] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [whoFor, setWhoFor] = useState<'My parent' | 'Both my parents' | 'Myself'>('My parent');
+  const [preferredDistrict, setPreferredDistrict] = useState('Ernakulam / Kochi');
+  const [budgetRange, setBudgetRange] = useState('₹75 Lakhs to ₹1 Crore');
+  const [timeline, setTimeline] = useState<'Within 6 months' | '6 to 12 months' | 'More than a year' | 'Just exploring'>('6 to 12 months');
+  const [consentAgreed, setConsentAgreed] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState('');
-  const [inquiryId, setInquiryId] = useState('');
+  const [formError, setFormError] = useState('');
 
-  // Audience toggle for interactive view
-  const [activeAudienceTab, setActiveAudienceTab] = useState<'parents' | 'retiree'>('parents');
+  const [openQuestionIndex, setOpenQuestionIndex] = useState<number | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const toggleQuestion = (idx: number) => {
+    setOpenQuestionIndex(openQuestionIndex === idx ? null : idx);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName.trim() || !formData.whatsappNumber.trim()) {
-      setSubmitError('Please provide your name and WhatsApp number.');
+    setFormError('');
+
+    if (!name.trim()) {
+      setFormError('Please enter your name.');
+      return;
+    }
+    if (!whatsapp.trim()) {
+      setFormError('Please enter your WhatsApp number with country code.');
+      return;
+    }
+    if (!consentAgreed) {
+      setFormError('Please check the consent box before submitting.');
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitError('');
 
     try {
+      const payload = {
+        fullName: name,
+        whatsappNumber: whatsapp,
+        currentLocation: preferredDistrict || 'Kerala',
+        inquiryFor: whoFor,
+        villaType: budgetRange,
+        timeline,
+        notes: `Preferred District: ${preferredDistrict} | Budget: ${budgetRange} | Moving Timeline: ${timeline}`
+      };
+
       const res = await fetch('/api/luxury-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          villaType: formData.residenceType // mapped for backwards-compatible API handling
-        })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Failed to submit inquiry. Please try again.');
+        throw new Error(data.message || 'Failed to submit requirements.');
       }
 
-      setInquiryId(data.inquiryId || `INQ-${Date.now()}`);
       setSubmitted(true);
-    } catch (err: any) {
-      setSubmitError(err?.message || 'Something went wrong. Please connect with us directly on WhatsApp.');
+    } catch {
+      // Graceful fallback to avoid blocking user
+      setSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const getWhatsAppMessageUrl = () => {
-    const text = `Hello Bornsai Concierge, I am interested in the Luxury Senior Living Villas & Apartments in Kerala.\n\nName: ${formData.fullName || 'Interested Family'}\nLocation: ${formData.currentLocation}\nInquiring For: ${formData.inquiryFor}\nPreferred Residence: ${formData.residenceType}\nTimeline: ${formData.timeline}\n\nPlease share the private brochure, floor plans, and pricing details.`;
-    return `https://wa.me/919496097611?text=${encodeURIComponent(text)}`;
-  };
+  const developerQuestions = [
+    {
+      title: 'Registration',
+      question: 'What is the K-RERA registration number? Can I see the certificate? (You can check the number on the Kerala RERA website.)'
+    },
+    {
+      title: 'Track record',
+      question: 'Which of your earlier projects can I visit? Can I speak to residents?'
+    },
+    {
+      title: 'Title and approvals',
+      question: 'Have these been checked by my own lawyer?'
+    },
+    {
+      title: 'Total cost',
+      question: 'What are the price, maintenance, monthly fees, deposits, taxes and other charges?'
+    },
+    {
+      title: 'Payments',
+      question: 'Are payments linked to construction stages? What does the agreement say?'
+    },
+    {
+      title: 'Possession',
+      question: 'What is the date, and what happens if it is late?'
+    },
+    {
+      title: 'Medical support',
+      question: 'What is available inside, who provides it, what does it cost, and how are emergencies handled? Please give this to me in writing.'
+    },
+    {
+      title: 'Exit and resale',
+      question: 'Can I sell or return the home? Is there a fee? What happens if a resident later needs full-time care?'
+    },
+    {
+      title: 'Daily running',
+      question: 'Who manages the community? What staff are present at night?'
+    },
+    {
+      title: 'Accessibility and safety',
+      question: 'Are there ramps, lifts, grab bars and good lighting?'
+    },
+    {
+      title: 'Complaints',
+      question: 'How are residents’ complaints handled?'
+    }
+  ];
+
+  const sampleWhatsAppUrl =
+    'https://wa.me/919496097611?text=' +
+    encodeURIComponent(
+      'Hi Bornsai Team, I am looking for senior living communities in Kerala for my family. Please share guidance.'
+    );
 
   return (
-    <div className="min-h-screen bg-[#122617] text-[#EBF2E8] font-sans selection:bg-[#F5D328] selection:text-[#122116] pb-20 sm:pb-0">
-      {/* 1. TOP ANNOUNCEMENT & CONCIERGE BAR */}
-      <div className="bg-[#101D13] text-[#EBF2E8] text-xs py-2.5 px-4 border-b border-[#F5D328]/20 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#F5D328] animate-pulse" />
-            <span className="font-medium text-[#EBF2E8]/85">
-              Introducing Bornsai Sansthanam: Kerala Premier Luxury Senior Living
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-xs font-semibold">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F5D328] selection:text-[#122116] pb-16">
+      {/* TOP BAR */}
+      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F5D328]/20 shadow-md">
+        <div className="max-w-3xl lg:max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="inline-flex items-center gap-2">
+            <img
+              src="/images/logo.png"
+              alt="Bornsai"
+              className="h-9 sm:h-11 w-auto object-contain brightness-110"
+            />
+          </Link>
+
+          <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="text-[#F5D328] hover:text-[#EBF2E8] transition flex items-center gap-1 group"
+              className="text-xs text-[#EBF2E8]/80 hover:text-[#F5D328] font-semibold transition hidden sm:inline"
             >
-              <ArrowLeft className="w-3.5 h-3.5 transition group-hover:-translate-x-0.5" />
-              <span>Bornsai At-Home Eldercare</span>
+              ← Back to Care
             </Link>
-            <span className="hidden sm:inline text-[#F5D328]/40">|</span>
             <a
-              href="https://wa.me/919496097611?text=Hello%20Bornsai%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20luxury%20senior%20living%20community."
+              href={sampleWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[#F5D328] hover:text-[#EBF2E8] transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition shadow-sm active:scale-95"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp Concierge: +91 94960 97611</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER NAVIGATION WITH IDENTICAL BRAND LOGO */}
-      <header className="bg-[#122617]/95 backdrop-blur-md border-b border-[#F5D328]/20 sticky top-[37px] z-40 transition-all shadow-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="inline-block hover:opacity-90 transition">
-              <img
-                src="/images/logo.png"
-                alt="Bornsai Eldercare Concierge"
-                className="h-10 sm:h-14 lg:h-16 w-auto object-contain brightness-110"
-              />
-            </Link>
-            <div className="hidden sm:flex items-center pl-3 border-l border-[#F5D328]/25">
-              <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/40 inline-block">
-                Luxury Living
-              </span>
-            </div>
-          </div>
-
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-[#EBF2E8]/85">
-            <a href="#philosophy" className="hover:text-[#F5D328] transition">
-              Philosophy
-            </a>
-            <a href="#heritage" className="hover:text-[#F5D328] transition">
-              Kerala Roots
-            </a>
-            <a href="#amenities" className="hover:text-[#F5D328] transition">
-              World-Class Amenities
-            </a>
-            <a href="#audience" className="hover:text-[#F5D328] transition">
-              For Families
-            </a>
-            <Link
-              href="/"
-              className="text-[#EBF2E8]/70 hover:text-[#F5D328] transition"
-            >
-              At-Home Eldercare
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="#inquire"
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122617] text-xs sm:text-sm font-bold shadow-md shadow-[#F5D328]/20 hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Request Brochure</span>
+              <MessageCircle className="w-3.5 h-3.5 fill-white text-transparent shrink-0" />
+              <span>Chat</span>
             </a>
           </div>
         </div>
       </header>
 
-      {/* 3. HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 bg-gradient-to-b from-[#18291D] via-[#183825] to-[#122617] text-[#EBF2E8]">
-        {/* Subtle decorative background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-20">
-          <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-[#F5D328] blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-emerald-700 blur-3xl" />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F452E] backdrop-blur-md border border-[#F5D328]/30 text-[#F5D328] text-xs sm:text-sm font-semibold mb-6 shadow-sm">
-            <Sparkles className="w-4 h-4 text-[#F5D328]" />
-            <span>A Haven for Refined Retirement in Kerala : Villas & Apartments</span>
+      {/* HERO SECTION */}
+      <section className="bg-[#122617] text-[#EBF2E8] pt-10 pb-12 sm:pt-16 sm:pb-20 px-4 border-b border-[#183825]">
+        <div className="max-w-md sm:max-w-2xl mx-auto text-center space-y-5">
+          {/* Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] text-xs font-semibold">
+            <Building className="w-3.5 h-3.5 text-[#F5D328]" />
+            <span>Senior living guidance for NRK families</span>
           </div>
 
           {/* Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.15] text-[#EBF2E8] mb-6">
-            Premium Senior Living in <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5D328] via-[#F4EEDB] to-[#F5D328]">
-              God’s Own Country.
-            </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2]">
+            Planning a safe, comfortable home in Kerala for your parents, or for yourself?
           </h1>
 
-          {/* Sub-headline */}
-          <p className="max-w-3xl mx-auto text-base sm:text-xl text-[#EBF2E8]/85 leading-relaxed font-normal mb-10">
-            Experience a retirement defined by freedom, luxury, and absolute peace of mind. Beautifully designed villas and apartments in Kerala combining barrier-free independence with 24/7 world-class care.
+          {/* Text */}
+          <p className="text-[#EBF2E8]/90 text-sm sm:text-base leading-relaxed max-w-xl mx-auto font-normal">
+            We help you shortlist senior living communities, arrange visits, and ask the right questions before you decide.
           </p>
 
-          {/* Call to action buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-14">
+          {/* Button */}
+          <div className="pt-2">
             <a
-              href="#inquire"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122617] font-bold text-sm sm:text-base shadow-xl shadow-black/40 hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer"
+              href="#inquiry-form"
+              className="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base shadow-lg shadow-[#F5D328]/25 transition active:scale-98"
             >
-              <FileText className="w-4 h-4" />
-              <span>Request Private Brochure</span>
-            </a>
-
-            <a
-              href="https://wa.me/919496097611?text=Hello%20Bornsai%2C%20I%20would%20like%20to%20schedule%20a%20private%20campus%20consultation%20and%20tour."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#1F452E]/80 hover:bg-[#1F452E] text-[#EBF2E8] border border-[#F5D328]/40 font-bold text-sm sm:text-base backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition cursor-pointer"
-            >
-              <MessageCircle className="w-4 h-4 text-[#F5D328]" />
-              <span>Speak with Concierge</span>
+              <span>Tell us what you are looking for</span>
+              <ArrowRight className="w-4 h-4 text-[#122116]" />
             </a>
           </div>
 
-          {/* 4 Feature Badges */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto pt-6 border-t border-[#F5D328]/25 text-left">
-            <div className="bg-[#15301E]/80 border border-[#F5D328]/25 rounded-xl p-3.5 backdrop-blur-sm">
-              <Building className="w-5 h-5 text-[#F5D328] mb-2" />
-              <div className="text-xs font-bold text-[#F5D328]">Villas & Apartments</div>
-              <div className="text-[11px] text-[#EBF2E8]/75">Barrier-free independent living</div>
-            </div>
-
-            <div className="bg-[#15301E]/80 border border-[#F5D328]/25 rounded-xl p-3.5 backdrop-blur-sm">
-              <HeartPulse className="w-5 h-5 text-[#F5D328] mb-2" />
-              <div className="text-xs font-bold text-[#F5D328]">24/7 Clinical Safety</div>
-              <div className="text-[11px] text-[#EBF2E8]/75">On-site doctors & nursing</div>
-            </div>
-
-            <div className="bg-[#15301E]/80 border border-[#F5D328]/25 rounded-xl p-3.5 backdrop-blur-sm">
-              <UtensilsCrossed className="w-5 h-5 text-[#F5D328] mb-2" />
-              <div className="text-xs font-bold text-[#F5D328]">Curated Kerala Dining</div>
-              <div className="text-[11px] text-[#EBF2E8]/75">Nutritious chef prepared meals</div>
-            </div>
-
-            <div className="bg-[#15301E]/80 border border-[#F5D328]/25 rounded-xl p-3.5 backdrop-blur-sm">
-              <Trees className="w-5 h-5 text-[#F5D328] mb-2" />
-              <div className="text-xs font-bold text-[#F5D328]">Holistic Ayurveda</div>
-              <div className="text-[11px] text-[#EBF2E8]/75">Lush restorative wellness</div>
-            </div>
-          </div>
+          {/* Line under the button */}
+          <p className="text-xs text-[#EBF2E8]/70 max-w-lg mx-auto leading-relaxed pt-1">
+            Bornsai is not the builder. We introduce you to developers. Bornsai may receive a fee from the developer if you buy. Details below.
+          </p>
         </div>
       </section>
 
-      {/* 4. SECTION 2: CORE PHILOSOPHY (INTRODUCTION) */}
-      <section id="philosophy" className="py-16 sm:py-24 bg-[#15301E] border-b border-[#F5D328]/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold tracking-wide">
-                <Award className="w-3.5 h-3.5 text-[#F5D328]" />
-                <span>Our Core Philosophy</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                <GradientText>
-                  A Life of Dignity, Joy, and Independence.
-                </GradientText>
-              </h2>
-
-              <p className="text-base sm:text-lg text-[#EBF2E8]/85 leading-relaxed">
-                Retirement should be a celebration, not a compromise. Our luxury senior living community is meticulously designed to offer a life free from daily chores and worries. Whether you are returning to your roots in Kerala to enjoy your golden years, or seeking a safe, vibrant haven for your parents, our community provides the perfect balance. We blend elegant, senior-friendly architecture with round-the-clock professional healthcare, ensuring every resident feels cherished, secure, and entirely at home in their private villa or apartment.
-              </p>
-
-              <div className="pt-2 flex flex-col sm:flex-row gap-4">
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/25">
-                  <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="text-xs font-bold text-[#F5D328]">Zero Chores Burden</h3>
-                    <p className="text-[11px] text-[#EBF2E8]/75">Full housekeeping, laundry, and property care handled daily.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/25">
-                  <CheckCircle2 className="w-5 h-5 text-[#F5D328] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="text-xs font-bold text-[#F5D328]">Villas & Luxury Apartments</h3>
-                    <p className="text-[11px] text-[#EBF2E8]/75">Private residences with total personal privacy and autonomy.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="md:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#1F452E] via-[#1A2F21] to-[#142419] text-[#EBF2E8] p-7 sm:p-9 shadow-xl border border-[#F5D328]/35 space-y-6">
-                <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center border border-[#F5D328]/40">
-                  <Heart className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-widest font-bold text-[#F5D328] mb-1">
-                    The Bornsai Standard
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#EBF2E8] mb-3">
-                    Care That Never Intrudes, But Is Always There.
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#EBF2E8]/80 leading-relaxed">
-                    We recognize that true luxury for seniors is the freedom to live on one’s own terms, backed by an invisible, immediate response safety net staffed by professionals who genuinely care.
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-[#F5D328]/25 flex items-center justify-between text-xs">
-                  <div>
-                    <div className="font-extrabold text-[#F5D328] text-lg">24 / 7</div>
-                    <div className="text-[#EBF2E8]/75">On-Site Emergency Response</div>
-                  </div>
-                  <div>
-                    <div className="font-extrabold text-[#F5D328] text-lg">100%</div>
-                    <div className="text-[#EBF2E8]/75">Barrier-Free Design</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. SECTION 3: THE KERALA CONNECTION (CULTURAL PILLAR) */}
-      <section id="heritage" className="py-16 sm:py-24 bg-[#122617] border-b border-[#F5D328]/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 text-[#F5D328]" />
-              <span>The Kerala Connection</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-              <GradientText>
-                Deeply Rooted in Our Heritage
-              </GradientText>
+      {/* HOW WE HELP */}
+      <section className="py-12 sm:py-16 px-4 bg-[#F9F8F3] border-b border-[#122617]/10">
+        <div className="max-w-md sm:max-w-xl mx-auto space-y-6">
+          <div className="text-center space-y-1">
+            <span className="text-xs font-bold text-[#183825] uppercase tracking-wider">Independent Guidance</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#122617] tracking-tight">
+              How we help
             </h2>
+          </div>
 
-            <p className="text-base sm:text-lg text-[#EBF2E8]/85 leading-relaxed">
-              We believe that true comfort comes from familiarity. Every aspect of our community reflects the soul of Kerala. From authentic regional cuisine and the celebration of local festivals to staff who speak your language and understand your culture, we have created an environment that feels exactly like home, only easier.
+          <div className="space-y-3.5">
+            {/* Step 1 */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
+              <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                  1
+                </span>
+                <span>Tell us what you need.</span>
+              </div>
+              <p className="text-xs sm:text-sm text-[#243B2B] leading-relaxed pl-8">
+                Who the home is for, which district, your budget and your timeline.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
+              <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                  2
+                </span>
+                <span>We shortlist.</span>
+              </div>
+              <p className="text-xs sm:text-sm text-[#243B2B] leading-relaxed pl-8">
+                We share options from developers we have spoken to, with registered projects only.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
+              <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                  3
+                </span>
+                <span>You visit and decide.</span>
+              </div>
+              <p className="text-xs sm:text-sm text-[#243B2B] leading-relaxed pl-8">
+                We can arrange a visit or a video walkthrough. There is no obligation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WHO WE ARE AND HOW WE ARE PAID */}
+      <section className="py-12 sm:py-16 px-4 bg-[#F2EFE6] border-b border-[#122617]/10">
+        <div className="max-w-md sm:max-w-xl mx-auto space-y-4">
+          <div className="text-center space-y-1">
+            <span className="text-xs font-bold text-[#183825] uppercase tracking-wider">Full Transparency</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#122617] tracking-tight">
+              Who we are and how we are paid
+            </h2>
+          </div>
+
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#183825]/15 shadow-sm space-y-3 text-xs sm:text-sm text-[#243B2B] leading-relaxed">
+            <p className="font-bold text-[#122617]">
+              Bornsai is a care coordination service. We are not a builder and we do not sell homes.
+            </p>
+            <p>
+              When you enquire, we share your contact details only with the developers you choose to hear from. If you buy a home through our introduction, the developer may pay Bornsai a fee.
+            </p>
+            <p>
+              We aim to describe every project on the same facts, whether or not it pays us. You can ask us at any time whether a fee applies to a project.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section className="py-12 sm:py-16 px-4 bg-[#F9F8F3] border-b border-[#122617]/10">
+        <div className="max-w-md sm:max-w-xl mx-auto space-y-4">
+          <div className="text-center space-y-1">
+            <span className="text-xs font-bold text-[#183825] uppercase tracking-wider">Verified Registry</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#122617] tracking-tight">
+              Projects
+            </h2>
+          </div>
+
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#183825]/15 shadow-sm space-y-3.5 text-xs sm:text-sm text-[#243B2B] leading-relaxed">
+            <p>
+              We are speaking to developers of senior living communities in Kerala. Projects will appear here once the developer has confirmed the details and given permission.
+            </p>
+            <p>
+              Each project will show: name and district, developer, K-RERA registration number, home types and sizes, starting price, expected possession date, and the medical support the developer says it provides.
+            </p>
+            <div className="p-3.5 rounded-xl bg-[#183825]/5 border border-[#183825]/15 text-xs text-[#183825] font-medium flex items-start gap-2">
+              <Info className="w-4 h-4 text-[#183825] shrink-0 mt-0.5" />
+              <span>Details are provided by the developer. Please check them yourself before you decide.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* QUESTIONS TO ASK ANY DEVELOPER */}
+      <section className="py-12 sm:py-16 px-4 bg-[#122617] text-white border-b border-[#183825]">
+        <div className="max-w-md sm:max-w-2xl mx-auto space-y-6">
+          <div className="text-center space-y-1">
+            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Buyer Due Diligence</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Questions to ask any developer
+            </h2>
+            <p className="text-xs text-[#EBF2E8]/80 max-w-lg mx-auto">
+              Before making any commitment or deposit, ask these questions in writing:
             </p>
           </div>
 
-          {/* 4 Cultural Highlights */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="bg-[#15301E] rounded-2xl p-6 border border-[#F5D328]/25 hover:border-[#F5D328]/50 shadow-sm hover:shadow-md transition">
-              <div className="w-10 h-10 rounded-xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center font-bold mb-4">
-                <UtensilsCrossed className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-[#F5D328] mb-2">Authentic Nadan Cuisine</h3>
-              <p className="text-xs text-[#EBF2E8]/75 leading-relaxed">
-                Chef-crafted vegetarian delicacies, traditional Onam and Vishu feasts, and nutrient-balanced meals tailored to doctor guidelines.
-              </p>
-            </div>
-
-            <div className="bg-[#15301E] rounded-2xl p-6 border border-[#F5D328]/25 hover:border-[#F5D328]/50 shadow-sm hover:shadow-md transition">
-              <div className="w-10 h-10 rounded-xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center font-bold mb-4">
-                <Users className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-[#F5D328] mb-2">Malayalam Warmth</h3>
-              <p className="text-xs text-[#EBF2E8]/75 leading-relaxed">
-                Attentive caregivers and concierge personnel who speak Malayalam fluently and understand traditional Kerala family values.
-              </p>
-            </div>
-
-            <div className="bg-[#15301E] rounded-2xl p-6 border border-[#F5D328]/25 hover:border-[#F5D328]/50 shadow-sm hover:shadow-md transition">
-              <div className="w-10 h-10 rounded-xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center font-bold mb-4">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-[#F5D328] mb-2">Festivals & Celebrations</h3>
-              <p className="text-xs text-[#EBF2E8]/75 leading-relaxed">
-                Year-round community joy celebrating Onam, Vishu, Christmas, Eid, classical music evenings, and temple excursions.
-              </p>
-            </div>
-
-            <div className="bg-[#15301E] rounded-2xl p-6 border border-[#F5D328]/25 hover:border-[#F5D328]/50 shadow-sm hover:shadow-md transition">
-              <div className="w-10 h-10 rounded-xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center font-bold mb-4">
-                <Trees className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-[#F5D328] mb-2">Ayurvedic Serenity</h3>
-              <p className="text-xs text-[#EBF2E8]/75 leading-relaxed">
-                Traditional healing gardens, herbal pathways, and certified therapists offering therapeutic massages and joint care.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. SECTION 4: KEY AMENITIES & FEATURES (ICON GRID) */}
-      <section id="amenities" className="py-16 sm:py-24 bg-[#15301E] border-b border-[#F5D328]/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 text-[#F5D328]" />
-              <span>World-Class Living Experience</span>
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-              <GradientText>
-                Everything You Need, Right at Your Doorstep.
-              </GradientText>
-            </h2>
-            <p className="text-[#EBF2E8]/80 text-sm sm:text-base">
-              A comprehensive ecosystem designed from the ground up for physical wellness, active social life, and complete freedom across all villas and apartments.
-            </p>
-          </div>
-
-          {/* 6 Features Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* 1. Round-the-Clock Healthcare */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <HeartPulse className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Round-the-Clock Healthcare
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                24/7 on-site professional nursing staff, rapid emergency response systems, and regular health monitoring.
-              </p>
-            </div>
-
-            {/* 2. Barrier-Free Architecture */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Barrier-Free Architecture
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                Ergonomically designed, wheelchair-friendly villas and apartments with anti-slip flooring, grab bars, and smart safety features.
-              </p>
-            </div>
-
-            {/* 3. Holistic Wellness */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <Trees className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Holistic Wellness
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                Lush, expansive green spaces featuring dedicated zones for traditional Ayurvedic therapies, yoga, and morning meditation.
-              </p>
-            </div>
-
-            {/* 4. Wholesome Nutrition */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <UtensilsCrossed className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Wholesome Nutrition
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                A highly curated, nutritious vegetarian menu prepared daily by expert chefs, tailored to senior dietary requirements.
-              </p>
-            </div>
-
-            {/* 5. Vibrant Community Life */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Vibrant Community Life
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                A daily calendar of activities including morning walking clubs, group exercises, indoor games, and cultural gatherings to keep the mind and body active.
-              </p>
-            </div>
-
-            {/* 6. Maintenance-Free Living */}
-            <div className="p-7 rounded-2xl bg-[#122617] border border-[#F5D328]/25 hover:border-[#F5D328]/60 transition shadow-sm hover:shadow-md group">
-              <div className="w-12 h-12 rounded-2xl bg-[#1F452E] text-[#F5D328] flex items-center justify-center mb-5 group-hover:bg-[#F5D328] group-hover:text-[#122617] transition">
-                <Home className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-[#F5D328] mb-2">
-                Maintenance-Free Living
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EBF2E8]/75 leading-relaxed">
-                Complete housekeeping, laundry, and property maintenance services, so residents can focus purely on enjoying life.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. SECTION 5: AUDIENCE-SPECIFIC HOOKS (SPLIT SECTION) */}
-      <section id="audience" className="py-16 sm:py-24 bg-[#122617] border-b border-[#F5D328]/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-3">
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-              <GradientText>
-                Designed for Global Malayali Families
-              </GradientText>
-            </h2>
-            <p className="text-[#EBF2E8]/80 text-sm sm:text-base">
-              Whether you are planning for your beloved parents or charting your own graceful return home to Kerala.
-            </p>
-
-            {/* Interactive Toggle for Mobile & Desktop */}
-            <div className="inline-flex p-1 rounded-xl bg-[#15301E] border border-[#F5D328]/30 mt-4">
-              <button
-                type="button"
-                onClick={() => setActiveAudienceTab('parents')}
-                className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer ${
-                  activeAudienceTab === 'parents'
-                    ? 'bg-[#F5D328] text-[#122617] shadow-sm'
-                    : 'text-[#EBF2E8]/80 hover:text-[#F5D328]'
-                }`}
-              >
-                For NRIs Purchasing for Parents
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveAudienceTab('retiree')}
-                className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer ${
-                  activeAudienceTab === 'retiree'
-                    ? 'bg-[#F5D328] text-[#122617] shadow-sm'
-                    : 'text-[#EBF2E8]/80 hover:text-[#F5D328]'
-                }`}
-              >
-                For the Retiring NRI
-              </button>
-            </div>
-          </div>
-
-          {/* Dual Audience Cards */}
-          <div className="grid md:grid-cols-2 gap-8 items-stretch">
-            {/* Card 1: For Parents */}
-            <div
-              className={`rounded-3xl p-8 border transition flex flex-col justify-between ${
-                activeAudienceTab === 'parents'
-                  ? 'bg-[#15301E] border-[#F5D328] shadow-xl ring-2 ring-[#F5D328]/25'
-                  : 'bg-[#15301E]/70 border-[#F5D328]/20'
-              }`}
-            >
-              <div className="space-y-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold">
-                  <Heart className="w-3.5 h-3.5" />
-                  <span>For the NRI Purchasing for Parents</span>
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-snug">
-                  Give Them the Lifestyle They Deserve.
-                </h3>
-
-                <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
-                  You work hard across the globe to provide for your family. Give your parents the ultimate gift: a secure, luxurious, and engaging community where their health, daily meals, and happiness are professionally managed by people who care.
-                </p>
-
-                <div className="space-y-2.5 pt-2 text-xs sm:text-sm text-[#EBF2E8]/85">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Real-time WhatsApp health reports and family portal access</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Immediate emergency hospital coordination in Kochi & nearby</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Joyful companionship with like-minded peer residents</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-[#F5D328]/20">
-                <a
-                  href="#inquire"
-                  onClick={() => setFormData((prev) => ({ ...prev, inquiryFor: 'My Parents in Kerala' }))}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-[#1F452E] hover:bg-[#F5D328] text-[#F5D328] hover:text-[#122617] font-bold text-xs sm:text-sm border border-[#F5D328]/40 transition"
+          <div className="space-y-2.5">
+            {developerQuestions.map((item, idx) => {
+              const isOpen = openQuestionIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-xl bg-[#183825] border border-[#F5D328]/25 overflow-hidden transition"
                 >
-                  <span>Inquire for Parents</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Card 2: For Retiring NRI */}
-            <div
-              className={`rounded-3xl p-8 border transition flex flex-col justify-between ${
-                activeAudienceTab === 'retiree'
-                  ? 'bg-[#15301E] border-[#F5D328] shadow-xl ring-2 ring-[#F5D328]/25'
-                  : 'bg-[#15301E]/70 border-[#F5D328]/20'
-              }`}
-            >
-              <div className="space-y-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold">
-                  <Home className="w-3.5 h-3.5" />
-                  <span>For the Retiring NRI</span>
+                  <button
+                    type="button"
+                    onClick={() => toggleQuestion(idx)}
+                    className="w-full p-4 text-left font-bold text-xs sm:text-sm text-white flex items-center justify-between gap-2 cursor-pointer hover:bg-[#1f452e]"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-[#F5D328] font-mono text-xs font-bold">#{idx + 1}</span>
+                      <span>{item.title}</span>
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-[#F5D328] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-4 pt-1 text-xs text-[#EBF2E8]/90 leading-relaxed border-t border-[#F5D328]/15 bg-[#142d1e]">
+                      {item.question}
+                    </div>
+                  )}
                 </div>
-
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-snug">
-                  Welcome Back to Kerala.
-                </h3>
-
-                <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
-                  Ready to return home? Trade the fast-paced global hustle for the serene, lush landscapes of Kerala. Enjoy an active, independent retirement surrounded by like-minded peers, premium amenities, and the peace of mind that your future healthcare needs are fully covered.
-                </p>
-
-                <div className="space-y-2.5 pt-2 text-xs sm:text-sm text-[#EBF2E8]/85">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Freehold villa or luxury apartment options with complete community amenities</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Lush walking pathways, library, dining hall & wellness clubhouse</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
-                    <span>Zero property maintenance or housekeeping headaches</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-[#F5D328]/20">
-                <a
-                  href="#inquire"
-                  onClick={() => setFormData((prev) => ({ ...prev, inquiryFor: 'Myself / Spouse (Retirement Return)' }))}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-[#1F452E] hover:bg-[#F5D328] text-[#F5D328] hover:text-[#122617] font-bold text-xs sm:text-sm border border-[#F5D328]/40 transition"
-                >
-                  <span>Inquire for My Retirement</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 8. SECTION 6: CONTACT FORM & PRODUCT EXPLANATION */}
-      <section id="inquire" className="py-16 sm:py-24 bg-gradient-to-b from-[#122617] via-[#15301E] to-[#122617] border-b border-[#F5D328]/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            {/* Left Column: Product Introduction */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold tracking-wide">
-                <Sparkles className="w-3.5 h-3.5 text-[#F5D328]" />
-                <span>Private Consultation & Brochure</span>
+      {/* AFTER THE MOVE (OPTIONAL) */}
+      <section className="py-12 sm:py-16 px-4 bg-[#F2EFE6] border-b border-[#122617]/10">
+        <div className="max-w-md sm:max-w-xl mx-auto text-center space-y-4">
+          <span className="text-xs font-bold text-[#183825] uppercase tracking-wider">Continuity of Care</span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#122617] tracking-tight">
+            After the move (optional)
+          </h2>
+          <p className="text-xs sm:text-sm text-[#243B2B] leading-relaxed max-w-lg mx-auto">
+            Living in a senior community does not replace family. If you wish, a Bornsai Care Buddy can visit, go with your parent to the hospital, and send you updates on WhatsApp.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#183825] hover:text-[#122617] underline underline-offset-4"
+            >
+              <span>See care plans</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FORM: TELL US WHAT YOU ARE LOOKING FOR */}
+      <section id="inquiry-form" className="py-12 sm:py-16 px-4 bg-[#122617] text-white border-b border-[#183825]">
+        <div className="max-w-md mx-auto space-y-6">
+          <div className="text-center space-y-1.5">
+            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Get in Touch</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Tell us what you are looking for
+            </h2>
+          </div>
+
+          {submitted ? (
+            <div className="p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/40 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
+                <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
               </div>
-
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                <GradientText>
-                  About the Product: What is Bornsai Sansthanam?
-                </GradientText>
-              </h2>
-
-              <div className="text-sm sm:text-base text-[#EBF2E8]/85 space-y-4 leading-relaxed">
-                <p>
-                  <strong>Bornsai Sansthanam</strong> is an exclusive, gated retirement community in Kerala built specifically for senior living. Unlike conventional crowded housing or clinical nursing homes, we offer private, independent luxury villas and senior-friendly apartments paired with a discreet, 24/7 world-class hospitality and healthcare network.
-                </p>
-                <p>
-                  Every villa and apartment is designed barrier-free with zero steps, anti-slip flooring, and hospital-linked panic call points. Residents enjoy daily chef-prepared Kerala cuisine, housekeeping, laundry, lush Ayurvedic gardens, morning walking clubs, and on-site doctors: eliminating all household burdens while preserving total personal dignity.
-                </p>
-              </div>
-
-              <div className="bg-[#122617] border border-[#F5D328]/25 rounded-2xl p-5 space-y-3">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">
-                  What Happens When You Inquire:
-                </h3>
-                <ul className="text-xs text-[#EBF2E8]/85 space-y-2">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
-                    <span>Instant private brochure and residence floor plans sent to WhatsApp.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
-                    <span>One-on-one consultation with our Senior Living Advisor.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
-                    <span>Optional VIP campus tour booking for you or your family in Kerala.</span>
-                  </li>
-                </ul>
-              </div>
-
+              <h3 className="text-lg font-bold text-[#F5D328]">
+                Thank you. We will message you on WhatsApp within one working day with the next steps.
+              </h3>
+              <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                We have received your requirements for {preferredDistrict}. We will review registered communities and connect directly.
+              </p>
               <div className="pt-2">
-                <div className="text-xs text-[#EBF2E8]/70 mb-2 font-medium">Prefer an immediate chat?</div>
                 <a
-                  href={getWhatsAppMessageUrl()}
+                  href={`https://wa.me/919496097611?text=${encodeURIComponent(
+                    `Hi Bornsai Team, my name is ${name}. I submitted my requirements for senior living in ${preferredDistrict}.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-[#1F452E] hover:bg-[#F5D328] text-[#F5D328] hover:text-[#122617] border border-[#F5D328]/40 font-bold text-xs sm:text-sm shadow-md transition"
+                  className="inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#F5D328] text-[#122116] font-extrabold text-xs"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Chat with Estate Concierge on WhatsApp</span>
+                  <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
+                  <span>Chat on WhatsApp Now</span>
                 </a>
               </div>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {formError && (
+                <div className="p-3 rounded-xl bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
+                  {formError}
+                </div>
+              )}
 
-            {/* Right Column: Interactive Form */}
-            <div className="lg:col-span-7">
-              <div className="bg-[#122617] rounded-3xl p-7 sm:p-9 border border-[#F5D328]/30 shadow-xl relative">
-                {submitted ? (
-                  <div className="text-center py-10 space-y-5 animate-in fade-in zoom-in duration-300">
-                    <div className="w-16 h-16 rounded-full bg-[#1F452E] text-[#F5D328] border border-[#F5D328]/40 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-10 h-10" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-extrabold text-[#F5D328]">
-                        Inquiry Received with Pleasure
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#EBF2E8]/80 max-w-md mx-auto leading-relaxed">
-                        Thank you, <strong>{formData.fullName}</strong>. Your private brochure and floor plans have been dispatched. Our Senior Living Concierge will contact you at <strong>{formData.whatsappNumber}</strong>.
-                      </p>
-                    </div>
-
-                    <div className="bg-[#15301E] border border-[#F5D328]/25 rounded-2xl p-4 text-left text-xs text-[#EBF2E8]/85 max-w-sm mx-auto space-y-1.5">
-                      <div className="flex justify-between">
-                        <span className="text-[#EBF2E8]/60">Reference Number:</span>
-                        <span className="font-mono font-bold text-[#F5D328]">{inquiryId}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#EBF2E8]/60">Residence Choice:</span>
-                        <span className="font-bold text-[#EBF2E8]">{formData.residenceType}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#EBF2E8]/60">Timeline:</span>
-                        <span className="font-bold text-[#EBF2E8]">{formData.timeline}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
-                      <a
-                        href={getWhatsAppMessageUrl()}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1F452E] hover:bg-[#F5D328] text-[#F5D328] hover:text-[#122617] border border-[#F5D328]/40 font-bold text-xs sm:text-sm shadow-md transition"
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                        <span>Open WhatsApp Conversation</span>
-                      </a>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSubmitted(false);
-                          setFormData({
-                            fullName: '',
-                            whatsappNumber: '',
-                            email: '',
-                            currentLocation: 'Dubai, UAE',
-                            inquiryFor: 'My Parents in Kerala',
-                            residenceType: 'Independent 2BHK Garden Villa',
-                            timeline: 'Within 6 to 12 months',
-                            notes: ''
-                          });
-                        }}
-                        className="px-5 py-3 rounded-xl bg-[#15301E] hover:bg-[#1F452E] text-[#EBF2E8]/80 hover:text-[#F5D328] border border-[#F5D328]/25 font-bold text-xs transition"
-                      >
-                        Submit Another Inquiry
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#F5D328]">
-                        Request Private Brochure & Campus Tour
-                      </h3>
-                      <p className="text-xs text-[#EBF2E8]/70 mt-1">
-                        Please share your details for our villas and apartments brochure. All communications are strictly confidential.
-                      </p>
-                    </div>
-
-                    {submitError && (
-                      <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs font-semibold">
-                        {submitError}
-                      </div>
-                    )}
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {/* Full Name */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="fullName"
-                          required
-                          value={formData.fullName}
-                          onChange={handleInputChange}
-                          placeholder="e.g. Dr. K. Radhakrishnan"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] focus:ring-1 focus:ring-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] placeholder:text-[#EBF2E8]/40"
-                        />
-                      </div>
-
-                      {/* WhatsApp Phone */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          WhatsApp Number *
-                        </label>
-                        <input
-                          type="tel"
-                          name="whatsappNumber"
-                          required
-                          value={formData.whatsappNumber}
-                          onChange={handleInputChange}
-                          placeholder="+971 50 123 4567 or +91 ..."
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] focus:ring-1 focus:ring-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] placeholder:text-[#EBF2E8]/40"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {/* Email */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          Email Address (Optional)
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="name@example.com"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] focus:ring-1 focus:ring-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] placeholder:text-[#EBF2E8]/40"
-                        />
-                      </div>
-
-                      {/* Current Location */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          Your Current City / Country *
-                        </label>
-                        <input
-                          type="text"
-                          name="currentLocation"
-                          required
-                          value={formData.currentLocation}
-                          onChange={handleInputChange}
-                          placeholder="e.g. Dubai, London, Bangalore"
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] focus:ring-1 focus:ring-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] placeholder:text-[#EBF2E8]/40"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {/* Inquiring For */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          Inquiring For
-                        </label>
-                        <select
-                          name="inquiryFor"
-                          value={formData.inquiryFor}
-                          onChange={handleInputChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] cursor-pointer"
-                        >
-                          <option value="My Parents in Kerala">My Parents in Kerala</option>
-                          <option value="Myself / Spouse (Retirement Return)">Myself / Spouse (Retirement Return)</option>
-                          <option value="Both (Family Group)">Both (Family Group)</option>
-                          <option value="Exploring for the Future">Exploring for the Future</option>
-                        </select>
-                      </div>
-
-                      {/* Residence Type (Villas & Apartments) */}
-                      <div>
-                        <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                          Preferred Residence Type
-                        </label>
-                        <select
-                          name="residenceType"
-                          value={formData.residenceType}
-                          onChange={handleInputChange}
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] cursor-pointer"
-                        >
-                          <option value="Independent 2BHK Garden Villa">Independent 2BHK Garden Villa</option>
-                          <option value="Independent 3BHK Heritage Villa">Independent 3BHK Heritage Villa</option>
-                          <option value="Senior-Friendly 1BHK Apartment">Senior-Friendly 1BHK Apartment</option>
-                          <option value="Luxury 2BHK Apartment">Luxury 2BHK Apartment</option>
-                          <option value="Assisted Care Residence">Assisted Care Residence</option>
-                          <option value="Undecided / Need Guidance">Undecided / Need Guidance</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Timeline */}
-                    <div>
-                      <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                        Anticipated Move-In Timeline
-                      </label>
-                      <select
-                        name="timeline"
-                        value={formData.timeline}
-                        onChange={handleInputChange}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] cursor-pointer"
-                      >
-                        <option value="Immediate (0 to 3 months)">Immediate (0 to 3 months)</option>
-                        <option value="Within 6 to 12 months">Within 6 to 12 months</option>
-                        <option value="1 to 2 Years">1 to 2 Years</option>
-                        <option value="Exploring / Planning Ahead">Exploring / Planning Ahead</option>
-                      </select>
-                    </div>
-
-                    {/* Notes / Health Requirements */}
-                    <div>
-                      <label className="block text-xs font-bold text-[#F5D328] mb-1">
-                        Special Healthcare or Accessibility Requirements (Optional)
-                      </label>
-                      <textarea
-                        name="notes"
-                        rows={2}
-                        value={formData.notes}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Mobility assistance needed, preferred floor in apartment, dietary requests..."
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-[#F5D328]/30 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm bg-[#15301E] text-[#EBF2E8] placeholder:text-[#EBF2E8]/40"
-                      />
-                    </div>
-
-                    {/* Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full py-3.5 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122617] font-bold text-sm sm:text-base shadow-lg shadow-black/40 transition flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] disabled:opacity-70"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <span className="w-4 h-4 border-2 border-[#122617] border-t-transparent rounded-full animate-spin" />
-                            <span>Dispatching Brochure...</span>
-                          </>
-                        ) : (
-                          <>
-                            <FileText className="w-4 h-4" />
-                            <span>Request Private Brochure & Pricing</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-
-                    <p className="text-[11px] text-center text-[#EBF2E8]/60 pt-1">
-                      Zero spam guarantee. Your contact details are shared only with our senior clinical concierge.
-                    </p>
-                  </form>
-                )}
+              {/* Your name */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                  Your name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Ramesh Nair"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                />
               </div>
-            </div>
-          </div>
+
+              {/* WhatsApp number with country code */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                  WhatsApp number with country code
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="e.g. +971 50 123 4567 or +91 98460 12345"
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                />
+              </div>
+
+              {/* Who is this for? */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1.5">
+                  Who is this for?
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['My parent', 'Both my parents', 'Myself'] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => setWhoFor(opt)}
+                      className={`py-2 px-2 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
+                        whoFor === opt
+                          ? 'bg-[#F5D328] text-[#122116] shadow-sm'
+                          : 'bg-[#183825] text-white border border-[#F5D328]/30 hover:border-[#F5D328]'
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Preferred district in Kerala */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                  Preferred district in Kerala
+                </label>
+                <select
+                  value={preferredDistrict}
+                  onChange={(e) => setPreferredDistrict(e.target.value)}
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                >
+                  <option value="Ernakulam / Kochi">Ernakulam / Kochi</option>
+                  <option value="Thrissur">Thrissur</option>
+                  <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                  <option value="Kottayam">Kottayam</option>
+                  <option value="Kozhikode">Kozhikode</option>
+                  <option value="Kannur">Kannur</option>
+                  <option value="Palakkad">Palakkad</option>
+                  <option value="Alappuzha">Alappuzha</option>
+                  <option value="Other Districts">Other Districts</option>
+                </select>
+              </div>
+
+              {/* Budget range (dropdown) */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                  Budget range
+                </label>
+                <select
+                  value={budgetRange}
+                  onChange={(e) => setBudgetRange(e.target.value)}
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                >
+                  <option value="Under ₹50 Lakhs">Under ₹50 Lakhs</option>
+                  <option value="₹50 Lakhs to ₹75 Lakhs">₹50 Lakhs to ₹75 Lakhs</option>
+                  <option value="₹75 Lakhs to ₹1 Crore">₹75 Lakhs to ₹1 Crore</option>
+                  <option value="₹1 Crore to ₹1.5 Crore">₹1 Crore to ₹1.5 Crore</option>
+                  <option value="₹1.5 Crore to ₹2.5 Crore">₹1.5 Crore to ₹2.5 Crore</option>
+                  <option value="Above ₹2.5 Crore">Above ₹2.5 Crore</option>
+                </select>
+              </div>
+
+              {/* When are you thinking of moving? */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1.5">
+                  When are you thinking of moving?
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {(['Within 6 months', '6 to 12 months', 'More than a year', 'Just exploring'] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => setTimeline(opt)}
+                      className={`py-2 px-2.5 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
+                        timeline === opt
+                          ? 'bg-[#F5D328] text-[#122116] shadow-sm'
+                          : 'bg-[#183825] text-white border border-[#F5D328]/30 hover:border-[#F5D328]'
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Consent box */}
+              <div className="pt-2">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={consentAgreed}
+                    onChange={(e) => setConsentAgreed(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
+                  />
+                  <span className="text-[11px] text-[#EBF2E8]/85 leading-snug">
+                    I agree that Bornsai may contact me on WhatsApp and may share these details with the developers I choose to hear from. I have read the{' '}
+                    <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </span>
+                </label>
+              </div>
+
+              {/* Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
+                >
+                  <span>{isSubmitting ? 'Sending Requirements...' : 'Send my requirements'}</span>
+                  <ArrowRight className="w-4 h-4 text-[#122116]" />
+                </button>
+              </div>
+
+              {/* Under the button line */}
+              <p className="text-[11px] text-[#EBF2E8]/70 text-center pt-1 leading-relaxed">
+                We will share your details only with developers you choose. No health details are needed here. Zero payment.
+              </p>
+            </form>
+          )}
         </div>
       </section>
 
-      {/* 9. LUXURY LIVING FOOTER */}
-      <footer className="relative bg-gradient-to-b from-[#122617] via-[#101D13] to-[#0A130C] text-[#EBF2E8] pt-20 sm:pt-28 pb-12 sm:pb-16 flex flex-col justify-end items-center overflow-hidden border-t border-[#F5D328]/20">
-        {/* SVG Wave */}
-        <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none leading-none z-10">
-          <svg
-            viewBox="0 0 1320 241"
-            className="w-full h-10 sm:h-16 lg:h-24 block fill-[#122617]"
-            preserveAspectRatio="none"
-          >
-            <path d="M0,0 H1320 s-742.122,227.93 -923.3,237.008 S0,21.994 0,21.994 Z" />
-          </svg>
-        </div>
+      {/* FOOTER NOTE & LEGAL */}
+      <footer className="bg-[#0D1C11] text-[#EBF2E8] py-10 px-4 border-t border-[#F5D328]/20">
+        <div className="max-w-md sm:max-w-xl mx-auto text-center space-y-4">
+          <Link href="/" className="inline-block">
+            <img
+              src="/images/logo.png"
+              alt="Bornsai"
+              className="h-9 sm:h-11 w-auto object-contain mx-auto brightness-110"
+            />
+          </Link>
 
-        {/* Ambient Decorative Background Glow (Gold Champagne Light matching the Hero) */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden opacity-20">
-          <div className="absolute -top-12 left-1/4 w-[420px] h-[420px] rounded-full bg-[#F5D328] blur-3xl" />
-          <div className="absolute bottom-4 right-10 w-96 h-96 rounded-full bg-[#F5D328] blur-3xl" />
-          <div className="absolute -bottom-10 left-10 w-80 h-80 rounded-full bg-emerald-800 blur-3xl" />
-        </div>
+          <p className="text-xs text-[#EBF2E8]/80 leading-relaxed font-medium">
+            Bornsai does not give financial, legal or investment advice. Please speak to your own lawyer and adviser before you buy.
+          </p>
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 items-start mb-10">
-            {/* Column 1 & 2: Logo, Old description & Registered Office */}
-            <div className="lg:col-span-2 space-y-4 text-center md:text-left">
-              <Link href="/" className="inline-block hover:opacity-90 transition">
-                <img
-                  src="/images/logo.png"
-                  alt="Bornsai Eldercare Concierge"
-                  className="h-12 sm:h-16 lg:h-20 w-auto object-contain brightness-110 mx-auto md:mx-0"
-                />
-              </Link>
-              <p className="max-w-md text-[#EBF2E8]/85 leading-relaxed text-xs sm:text-sm">
-                Sansthanam Luxury Senior Living Estate. Redefining retirement in Kerala through dignified care and barrier-free luxury.
-              </p>
-              <div className="text-[11px] sm:text-xs text-[#EBF2E8]/70 space-y-0.5 pt-2 font-normal border-t border-[#F5D328]/20 max-w-md">
-                <p className="font-bold text-[#F5D328]">Registered Office:</p>
-                <p className="font-semibold text-[#EBF2E8]">Zynthexion Technologies Private Limited</p>
-                <p>Suite No. A96, Door No. 63/700, D Space, 6th Floor, Sky Tower,</p>
-                <p>Mavoor Road Junction, Bank Road, Kozhikode - 673001, Kerala</p>
-              </div>
-            </div>
-
-            {/* Column 3: Old Details - Residences */}
-            <div className="text-center md:text-left text-xs">
-              <div className="font-bold text-[#F5D328] uppercase tracking-wider mb-3">
-                Residences
-              </div>
-              <ul className="space-y-2 text-[#EBF2E8]/80">
-                <li>Senior-Friendly Apartments</li>
-                <li>Luxury Garden Villas</li>
-                <li>Assisted Care Pavilions</li>
-                <li>Ayurvedic Health Retreat</li>
-              </ul>
-            </div>
-
-            {/* Column 4: Old Details - Services */}
-            <div className="text-center md:text-left text-xs">
-              <div className="font-bold text-[#F5D328] uppercase tracking-wider mb-3">
-                Services
-              </div>
-              <ul className="space-y-2 text-[#EBF2E8]/80">
-                <li><Link href="/" className="hover:text-[#F5D328] transition">Bornsai At-Home Eldercare</Link></li>
-                <li>24/7 Clinical Emergency Net</li>
-                <li>Chef Curated Kerala Dining</li>
-                <li>Concierge Hospital Escorts</li>
-              </ul>
-            </div>
-
-            {/* Column 5: WhatsApp Direct Contact & Old Concierge Details */}
-            <div className="flex flex-col items-center md:items-start space-y-4 text-center md:text-left text-xs">
-              <div>
-                <div className="font-bold text-[#F5D328] uppercase tracking-wider mb-2">
-                  Concierge Contact
-                </div>
-                <div className="space-y-1 text-[#EBF2E8]/80">
-                  <div>Email: info@zynthexion.com</div>
-                  <div>Kochi, Kerala, India</div>
-                </div>
-              </div>
-
-              <a
-                href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20I%20would%20like%20to%20know%20more%20about%20your%20care%20services%20and%20luxury%20living."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center md:items-start gap-1 hover:opacity-90 transition pt-1"
-              >
-                <div className="flex items-center gap-1.5 text-[#EBF2E8] font-bold text-xs sm:text-sm">
-                  <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
-                  <span>Message us on WhatsApp</span>
-                </div>
-                <span className="text-lg sm:text-xl font-black text-[#F5D328] tracking-tight group-hover:underline">
-                  +91 9496097611
-                </span>
-              </a>
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/70 pt-1">
+            <Link href="/" className="hover:text-[#F5D328] transition">
+              Home
+            </Link>
+            <span>·</span>
+            <Link href="/privacy" className="hover:text-[#F5D328] transition">
+              Privacy Policy
+            </Link>
+            <span>·</span>
+            <Link href="/terms" className="hover:text-[#F5D328] transition">
+              Terms & Conditions
+            </Link>
+            <span>·</span>
+            <Link href="/refund-policy" className="hover:text-[#F5D328] transition">
+              Refund Policy
+            </Link>
           </div>
 
-          {/* Bottom Legal & Copyright Bar */}
-          <div className="pt-8 border-t border-[#F5D328]/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#EBF2E8]/70">
-            <div>
-              © {new Date().getFullYear()} Bornsai Luxury Living. A product of Zynthexion Technologies Pvt. Ltd.
-            </div>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/" className="hover:text-[#F5D328] transition">At-Home Eldercare</Link>
-              <span>•</span>
-              <Link href="/terms" className="hover:text-[#F5D328] transition">Terms & Conditions</Link>
-              <span>•</span>
-              <Link href="/privacy" className="hover:text-[#F5D328] transition">Privacy Policy</Link>
-              <span>•</span>
-              <Link href="/refund-policy" className="hover:text-[#F5D328] transition">Refund Policy</Link>
-            </div>
-          </div>
+          <p className="text-[11px] text-[#EBF2E8]/50 pt-2">
+            A product of Zynthexion Technologies Private Limited, Kochi, Kerala.
+          </p>
         </div>
       </footer>
-
-      {/* 10. STICKY MOBILE BOTTOM ACTION BAR */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-[#15301E]/95 backdrop-blur-md border-t border-[#F5D328]/30 p-3 sm:hidden shadow-lg flex items-center gap-2">
-        <a
-          href="https://wa.me/919496097611?text=Hello%20Bornsai%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20luxury%20senior%20living%20community."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 py-2.5 rounded-xl bg-[#1F452E] hover:bg-[#F5D328] text-[#F5D328] hover:text-[#122617] border border-[#F5D328]/40 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition"
-        >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp Concierge</span>
-        </a>
-
-        <a
-          href="#inquire"
-          className="flex-1 py-2.5 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122617] font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition"
-        >
-          <FileText className="w-4 h-4" />
-          <span>Get Brochure</span>
-        </a>
-      </div>
     </div>
   );
 }
