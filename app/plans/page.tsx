@@ -205,10 +205,10 @@ export default function PlansPage() {
                   <span className="text-[#2D4533]/85">(₹1,770 incl. 18% GST)</span>
                 </div>
                 <p className="leading-relaxed">
-                  Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.
+                  Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm.
                 </p>
                 <p className="font-semibold text-[#183825]">
-                  Free cancellation up to 12 hours before. If you join a monthly plan within 30 days, we credit this visit against your first month.
+                  Free cancellation up to 6 hours before. If you join a monthly plan within 30 days, we credit this visit against your first month.
                 </p>
               </div>
             </div>

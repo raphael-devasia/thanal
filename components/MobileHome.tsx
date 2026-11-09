@@ -713,10 +713,10 @@ export default function MobileHome() {
                     <span className="text-xs text-[#2D4533]/80">(₹1,770 incl. 18% GST)</span>
                   </div>
                   <p className="leading-relaxed">
-                    Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.
+                    Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm.
                   </p>
                   <p className="font-medium text-[#183825]">
-                    Free cancellation up to 12 hours before.
+                    Free cancellation up to 6 hours before.
                   </p>
                 </div>
               </div>
