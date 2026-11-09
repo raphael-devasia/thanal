@@ -466,7 +466,7 @@ export default function MobileHome() {
                   Your Care Buddy books the slot, goes with Amma by taxi, sits with her in the queue, and sends you a voice summary afterwards.
                 </p>
                 <p className="text-xs text-[#2D4533] font-medium">
-                  Want to try us first? One visit from ₹1,500 plus GST. See the card in the Plans section below.
+                  Want to try us first? One visit from ₹1,500 plus GST (₹1,770 incl. GST). See the card in the Plans section below.
                 </p>
               </div>
             )}
@@ -1452,7 +1452,7 @@ export default function MobileHome() {
                 </div>
                 <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
                 <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
-                  Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open in your parents’ area.
+                  Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open.
                 </p>
                 <div className="pt-1">
                   <a
