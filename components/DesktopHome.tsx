@@ -405,9 +405,9 @@ export default function DesktopHome() {
         <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-[#F5D328]/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-12 gap-8 lg:gap-14 items-center">
+          <div className="grid grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Column: Typography & Action */}
-            <div className="col-span-12 md:col-span-6 text-left space-y-6">
+            <div className="col-span-12 lg:col-span-5 text-left space-y-6">
               {/* Badges: Founding Status */}
               <div className="flex flex-wrap items-center gap-2">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] text-xs font-semibold">
@@ -467,28 +467,28 @@ export default function DesktopHome() {
               </div>
             </div>
 
-            {/* Right Column: Clean Transparent Visual Blending into Hero */}
-            <div className="col-span-12 md:col-span-6 flex flex-col items-center md:items-end justify-center">
-              <div className="relative w-full max-w-[480px] lg:max-w-[540px]">
+            {/* Right Column: Clean Transparent Visual Blending into Hero (Doubled Scale for Bigger Screens) */}
+            <div className="col-span-12 lg:col-span-7 flex flex-col items-center lg:items-end justify-center">
+              <div className="relative w-full max-w-[680px] lg:max-w-[850px] xl:max-w-[960px]">
                 {/* Ambient Warm & Emerald Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[680px] lg:h-[680px] bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Entire Transparent Cutout Image - Blends directly with hero background */}
+                {/* Entire Transparent Cutout Image - Doubled visual scale, blends directly with hero background */}
                 <div className="relative">
                   <img
                     src="/images/hero1.png"
                     alt="Rodasi Care Buddy with elderly parent in Kerala"
-                    className="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)] select-none"
+                    className="w-full h-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.55)] select-none"
                   />
 
                   {/* Police-verified badge */}
-                  <div className="absolute top-3 left-3 px-3.5 py-1.5 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs tracking-tight flex items-center gap-1.5 shadow-xl shadow-black/50 z-20">
-                    <ShieldCheck className="w-4 h-4 text-[#122116]" />
+                  <div className="absolute top-3 left-3 sm:top-5 sm:left-5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 sm:gap-2 shadow-xl shadow-black/50 z-20">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#122116]" />
                     <span>Police-verified</span>
                   </div>
 
                   {/* Floating WhatsApp Voice Briefing Card at bottom */}
-                  <div className="absolute bottom-2 left-2 right-2 sm:left-4 sm:right-4 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-3.5 shadow-2xl z-20">
+                  <div className="absolute bottom-2 left-2 right-2 sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-md bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-4 shadow-2xl z-20">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center shrink-0">
                         <Mic className="w-5 h-5 text-[#25D366]" />
