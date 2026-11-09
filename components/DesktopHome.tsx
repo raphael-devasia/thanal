@@ -54,43 +54,6 @@ export default function DesktopHome() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'quarterly'>('monthly');
   const [selectedPlanId, setSelectedPlanId] = useState<string>('care_plus');
 
-  // Interactive Pillars State & Bottom Drawer
-  const [activePillarTab, setActivePillarTab] = useState<'vitality' | 'joy' | 'ease'>('vitality');
-  const [isPillarDrawerOpen, setIsPillarDrawerOpen] = useState<boolean>(false);
-  const [drawerPillar, setDrawerPillar] = useState<'vitality' | 'joy' | 'ease'>('vitality');
-
-  const openPillarDrawer = (pillar: 'vitality' | 'joy' | 'ease') => {
-    setDrawerPillar(pillar);
-    setIsPillarDrawerOpen(true);
-  };
-
-  const closePillarDrawer = () => {
-    setIsPillarDrawerOpen(false);
-  };
-
-  // Lock body scroll when pillar drawer is open
-  useEffect(() => {
-    if (isPillarDrawerOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isPillarDrawerOpen]);
-
-  // Handle Escape key to close drawer
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isPillarDrawerOpen) {
-        closePillarDrawer();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isPillarDrawerOpen]);
-
   // Matrix Collapsible Drawer State
   const [showCompareMatrix, setShowCompareMatrix] = useState<boolean>(false);
 
@@ -370,9 +333,6 @@ export default function DesktopHome() {
             </a>
             <a href="#whatsapp-experience" className="hover:text-[#F5D328] transition py-1">
               How It Works
-            </a>
-            <a href="#three-pillars" className="hover:text-[#F5D328] transition py-1">
-              Three Pillars
             </a>
             <a href="#pricing-section" className="hover:text-[#F5D328] transition py-1">
               Care Plans
