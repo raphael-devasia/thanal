@@ -43,6 +43,8 @@ import {
   PLANS,
   ParentMode,
   COUNTRIES,
+  TOP_NRK_COUNTRIES,
+  ALL_COUNTRIES,
   detectVisitorCountry
 } from '@/types/waitlist';
 import GradientText from '@/components/GradientText';
@@ -135,7 +137,8 @@ export default function DesktopHome() {
     setIsSubmitting(true);
     const country = COUNTRIES.find((c) => c.code === countryCode)!;
     const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
-    const fullWhatsapp = `+${country.dialCode}${cleanNumber}`;
+    const cleanDialCode = country.dialCode.replace(/[^0-9]/g, '');
+    const fullWhatsapp = `+${cleanDialCode}${cleanNumber}`;
 
     try {
       const payload = {
@@ -174,7 +177,8 @@ export default function DesktopHome() {
     setIsSubmitting(true);
     const country = COUNTRIES.find((c) => c.code === countryCode)!;
     const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
-    const fullWhatsapp = `+${country.dialCode}${cleanNumber}`;
+    const cleanDialCode = country.dialCode.replace(/[^0-9]/g, '');
+    const fullWhatsapp = `+${cleanDialCode}${cleanNumber}`;
 
     try {
       const payload = {
@@ -1003,11 +1007,20 @@ export default function DesktopHome() {
                     className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
                   >
                     <option value="">Choose country</option>
-                    {COUNTRIES.map((c) => (
-                      <option key={c.code} value={c.code} className="bg-[#122617] text-white">
-                        {c.name}
-                      </option>
-                    ))}
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {TOP_NRK_COUNTRIES.map((c) => (
+                        <option key={`top_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {ALL_COUNTRIES.map((c) => (
+                        <option key={`all_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
                   </select>
                 </div>
 
@@ -1019,7 +1032,7 @@ export default function DesktopHome() {
                   <div className="relative flex items-center">
                     <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
                       {countryCode && COUNTRIES.find((c) => c.code === countryCode)
-                        ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode}`
+                        ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode.replace(/[^0-9]/g, '')}`
                         : '+'}
                     </span>
                     <input

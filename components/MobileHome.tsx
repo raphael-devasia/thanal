@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { COUNTRIES, detectVisitorCountry } from '@/types/waitlist';
+import {
+  COUNTRIES,
+  TOP_NRK_COUNTRIES,
+  ALL_COUNTRIES,
+  detectVisitorCountry
+} from '@/types/waitlist';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -93,7 +98,8 @@ export default function MobileHome() {
 
     setIsSubmitting(true);
 
-    const fullWhatsappNumber = `+${country.dialCode}${cleanNumber}`;
+    const cleanDialCode = country.dialCode.replace(/[^0-9]/g, '');
+    const fullWhatsappNumber = `+${cleanDialCode}${cleanNumber}`;
 
     try {
       const payload = {
@@ -832,14 +838,23 @@ export default function MobileHome() {
                   required
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs cursor-pointer"
                 >
                   <option value="">Choose country</option>
-                  {COUNTRIES.map((c) => (
-                    <option key={c.code} value={c.code} className="bg-[#183825] text-white">
-                      {c.name}
-                    </option>
-                  ))}
+                  <optgroup label="Popular Expats & NRK Regions" className="bg-[#183825] text-[#F5D328] font-bold">
+                    {TOP_NRK_COUNTRIES.map((c) => (
+                      <option key={`top_${c.code}`} value={c.code} className="bg-[#183825] text-white font-normal">
+                        {c.name} (+{c.dialCode})
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="All Countries (A to Z)" className="bg-[#183825] text-[#F5D328] font-bold">
+                    {ALL_COUNTRIES.map((c) => (
+                      <option key={`all_${c.code}`} value={c.code} className="bg-[#183825] text-white font-normal">
+                        {c.name} (+{c.dialCode})
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
 
@@ -851,7 +866,7 @@ export default function MobileHome() {
                 <div className="relative flex items-center">
                   <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
                     {countryCode && COUNTRIES.find((c) => c.code === countryCode)
-                      ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode}`
+                      ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode.replace(/[^0-9]/g, '')}`
                       : '+'}
                   </span>
                   <input
