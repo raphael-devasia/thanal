@@ -696,7 +696,7 @@ export default function MobileHome() {
             Money, plainly
           </h2>
           <p className="text-xs text-[#2D4533] leading-relaxed max-w-md mx-auto">
-            No commissions from hospitals. You pay doctors, labs, medicines and taxis directly, at actuals.
+            No commissions from hospitals. You pay doctors, labs, medicines and taxis directly, at actuals. Therapy comes from licensed providers, paid directly.
           </p>
         </div>
       </section>
@@ -715,7 +715,7 @@ export default function MobileHome() {
             {[
               {
                 q: 'What happens in an emergency?',
-                a: 'The 108 ambulance is dispatched first, while your Care Buddy rushes directly to the hospital or your parents’ home. The Buddy assists with admission formalities, communicates with doctors, and keeps you updated on WhatsApp.'
+                a: 'Call 108 first. Our emergency line is answered 7 am to 10 pm. Your Care Buddy will come to the hospital as soon as possible, help with admission, and keep you updated on WhatsApp. Outside those hours, your buddy responds first thing in the morning.'
               },
               {
                 q: 'Can my parents keep their family doctor?',

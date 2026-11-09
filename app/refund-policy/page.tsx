@@ -75,7 +75,7 @@ export default function RefundPolicyPage() {
               <span>Zero Upfront Payment & Free Consultation</span>
             </h2>
             <p>
-              Registering on Rodasi costs ₹0 today. There are no mandatory upfront deposits or reservation fees. You only begin membership billing after our Care Manager conducts a thorough onboarding discussion on WhatsApp and you approve the care plan.
+              Registering on Rodasi costs ₹0 today. There are no mandatory upfront deposits or reservation fees. You only begin membership billing after your Care Buddy and coordinator conduct a thorough onboarding discussion on WhatsApp and you approve the care plan.
             </p>
           </section>
 

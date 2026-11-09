@@ -64,7 +64,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       leadId,
-      message: 'Lead successfully registered! Our Care Manager will contact you shortly.',
+      message: 'Lead successfully registered! Your Care Buddy and coordinator will contact you shortly.',
       data: payload
     });
   } catch (error: any) {

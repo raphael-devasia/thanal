@@ -45,7 +45,7 @@ export default function TermsPage() {
               Rodasi (a product of Zynthexion Technologies Private Limited) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
             </p>
             <p>
-              <strong>Non-Emergency Disclaimer:</strong> Rodasi is an elder assistance and hospital accompaniment service. Rodasi is not a licensed hospital, ambulance service, or acute emergency room. In acute life-threatening emergencies, local emergency services (108) are dispatched first, while your Care Buddy rushes to assist at the hospital or home.
+              <strong>Non-Emergency Disclaimer:</strong> Rodasi is an elder assistance and hospital accompaniment service. Rodasi is not a licensed hospital, ambulance service, or acute emergency room. In acute emergencies, call 108 first. Our emergency line is answered 7 am to 10 pm, and your Care Buddy will come to assist at the hospital as soon as possible. Outside those hours, your buddy responds in the morning.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ export default function TermsPage() {
               <span>Zero Upfront Online Payment & Enrollment</span>
             </h2>
             <p>
-              Submitting an enrollment request on Rodasi requires ₹0 payment today. Registration initiates a complimentary consultation call with our Care Operations Manager on WhatsApp to review your parents' location, routine, and medical needs before any formal billing occurs.
+              Submitting an enrollment request on Rodasi requires ₹0 payment today. Registration initiates a complimentary consultation call with your Care Buddy and coordinator on WhatsApp to review your parents' location, routine, and medical needs before any formal billing occurs.
             </p>
           </section>
 

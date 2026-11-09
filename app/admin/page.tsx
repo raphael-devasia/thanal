@@ -299,18 +299,18 @@ export default function AdminDashboardPage() {
               <CheckCircle2 className="w-7 h-7 text-emerald-400" />
               {totalPaidLeadsCount}
             </h2>
-            <p className="text-xs text-slate-400 mt-2">Ready for Care Manager contact</p>
+            <p className="text-xs text-slate-400 mt-2">Ready for Care Coordinator contact</p>
           </div>
 
           <div className="p-7 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
             <p className="text-xs sm:text-sm font-bold text-[#E66323] uppercase tracking-wider mb-2">
-              WhatsApp Care Manager Enquiries
+              WhatsApp Coordinator Enquiries
             </p>
             <h2 className="text-3xl font-extrabold text-white flex items-center gap-2">
               <MessageCircle className="w-7 h-7 text-[#25D366]" />
               {totalCallbackCount}
             </h2>
-            <p className="text-xs text-slate-400 mt-2">Direct WhatsApp care manager inquiries</p>
+            <p className="text-xs text-slate-400 mt-2">Direct WhatsApp coordinator inquiries</p>
           </div>
         </div>
 
@@ -412,7 +412,7 @@ export default function AdminDashboardPage() {
                         {/* WhatsApp Quick Action Link */}
                         <td className="py-4 px-6 whitespace-nowrap">
                           <a
-                            href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent(`Hi ${lead.fullName}, thank you for reaching out to Rodasi Eldercare. I am your Care Manager.`)}`}
+                            href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent(`Hi ${lead.fullName}, thank you for reaching out to Rodasi Eldercare. I am your Care Coordinator.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-[#25D366] hover:underline font-bold"
@@ -442,7 +442,7 @@ export default function AdminDashboardPage() {
                           {isCallback ? (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/40 text-[#25D366] font-extrabold text-xs shadow-sm">
                               <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                              Care Manager Request
+                              Coordinator Request
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 font-extrabold text-xs shadow-sm">

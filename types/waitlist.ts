@@ -59,7 +59,7 @@ export const PLANS: PlanOption[] = [
       '1 Weekly Care Buddy in-person check-in (1.5 hrs)',
       '1 Hospital OPD Escort trip / month (up to 4 hrs buddy time)',
       '1 Companion Afternoon taster session per month',
-      '24/7 SOS Emergency Response (Buddy rushes to hospital)',
+      'Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.',
       'Care Passport digital folder & monthly health report',
       '2 Errands or bill payment runs per month',
       'Initial Home Safety & fall-prevention audit'
@@ -130,7 +130,7 @@ export const PLANS: PlanOption[] = [
       'Monthly scheduled parent-and-child video call hosted by the buddy',
       'Personal Shopper service (accompanied shopping or online ordering)',
       'Memory games, reading aloud, light walks & tech mentoring',
-      'Priority upgrade access for founding members'
+      'Early upgrade access for founding members'
     ],
     comingSoon: true
   }

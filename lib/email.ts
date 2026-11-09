@@ -19,7 +19,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
 
   const isCallback = data.leadType === 'Callback_Requested';
   const subjectText = isCallback
-    ? `📞 CARE MANAGER REQUEST: ${data.fullName} (${data.nrkLocation})`
+    ? `📞 CARE COORDINATOR REQUEST: ${data.fullName} (${data.nrkLocation})`
     : `🎉 NEW RODASI LEAD: ${data.fullName} (${data.parentTown})`;
 
   const htmlContent = `
@@ -78,7 +78,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
             <div class="cta-box">
               <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Quick Action</div>
               <div style="font-size: 13px; color: #c2410c;">Contact this customer on WhatsApp immediately:</div>
-              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for registering with Rodasi Eldercare. I am your Care Manager.`)}" class="wa-btn" target="_blank">
+              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for registering with Rodasi Eldercare. I am your Care Coordinator.`)}" class="wa-btn" target="_blank">
                 Chat on WhatsApp with ${data.fullName}
               </a>
             </div>

@@ -184,7 +184,7 @@ export default function DesktopHome() {
     }
   };
 
-  // Secondary Action: Talk to Care Manager First on WhatsApp
+  // Secondary Action: Talk to our team first on WhatsApp
   const handleCallbackRequest = async () => {
     setErrorMessage(null);
     if (!validateInputs()) return;
@@ -257,11 +257,11 @@ export default function DesktopHome() {
   const faqs = [
     {
       q: 'What is a Care Buddy, and how is Rodasi different from an agency?',
-      a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments, coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
+      a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy and a coordinator you can message work together for your family. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments (up to 6 hours per hospital trip), coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
     },
     {
       q: 'What happens during a medical emergency?',
-      a: 'In an acute emergency, our protocol is immediate and swift: the ambulance is dispatched first, while your dedicated Care Buddy rushes directly to the hospital or your parents’ home. The Buddy assists with admission formalities, communicates with the emergency room doctors, keeps you immediately informed via phone and WhatsApp, and helps determine whether you need to book a flight home. Backup support is maintained 24/7 by our founder and care operations team.'
+      a: 'In an emergency, call 108 first. Our emergency line is answered 7 am to 10 pm. Your Care Buddy will come to the hospital as soon as possible, assist with admission formalities, communicate with the doctors, and keep you informed on WhatsApp. Outside those hours, your buddy responds first thing in the morning.'
     },
     {
       q: 'Can our parents consult their existing family doctor or preferred hospital in Kerala?',
@@ -296,11 +296,11 @@ export default function DesktopHome() {
       badgeColor: '#F5D328',
       badgeTextColor: '#122617',
       description:
-        'A single named companion assigned specifically to your parents. They visit on a consistent weekly schedule, share nostalgic stories over tea, and never rotate with unfamiliar strangers.',
+        'Your Care Buddy and a coordinator you can message work together for your parents. A single named companion assigned specifically to your family, visiting on a consistent schedule without rotating strangers.',
       bullets: [
+        'Your Care Buddy and a coordinator you can message',
         'Permanent buddy assignment (no rotation of strangers)',
-        'Welcome home visit with family video call',
-        '2 to 3 week elder psychology and empathy training'
+        'Welcome home visit with family video call'
       ],
       icon: Users
     },
@@ -310,9 +310,10 @@ export default function DesktopHome() {
       badgeColor: '#F5D328',
       badgeTextColor: '#122617',
       description:
-        'Door-to-door AC taxi escort to hospitals across Kochi (such as Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor; named only to show where we accompany families, no affiliation implied). Buddy navigates queues, sits beside the doctor, records audio notes, and coordinates pharmacy refills.',
+        'We book appointments for you and provide door-to-door AC taxi escort to hospitals across Kochi (up to 6 hours per hospital trip). Buddy navigates queues, sits beside the doctor, records audio notes, and coordinates pharmacy refills.',
       bullets: [
-        'Doorstep pickup and return in comfortable AC transport',
+        'We book appointments for you',
+        'Up to 6 hours per hospital trip with door-to-door escort',
         'Buddy stays beside doctor and records consultation notes',
         'WhatsApp voice summary sent immediately abroad'
       ],
@@ -338,11 +339,11 @@ export default function DesktopHome() {
       badgeColor: '#F5D328',
       badgeTextColor: '#122617',
       description:
-        'More than clinical checkups: reading Malayalam newspapers, afternoon temple or church visits, nostalgic conversations, and guided Sunday video calls with family abroad.',
+        'More than clinical checkups: company and help at home after a hospital stay, reading Malayalam newspapers, afternoon walks, and guided Sunday video calls with family abroad.',
       bullets: [
-        'Dedicated 2 to 3 hour unhurried home companionship sessions',
-        'Accompaniment to local markets, temples, and social gatherings',
-        'Guided weekend video calls hosted across Gulf/UK time zones'
+        'Company and help at home after a hospital stay',
+        'Dedicated unhurried home companionship sessions',
+        'Therapy comes from licensed providers, paid directly'
       ],
       icon: HeartHandshake
     }
@@ -390,7 +391,7 @@ export default function DesktopHome() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs lg:text-sm shadow-md transition hover:scale-102 active:scale-98"
             >
               <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
-              <span>Chat with Care Manager</span>
+              <span>Chat with our team</span>
             </a>
           </div>
         </div>
@@ -929,7 +930,7 @@ export default function DesktopHome() {
 
             <div className="pt-3 border-t border-[#F5D328]/20 flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs text-[#EBF2E8]/90">
               <span className="font-bold text-[#F5D328] shrink-0">What is Not Included:</span>
-              <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, taxi fares, and buddy overtime beyond included hours (all paid at direct actuals with zero commission).</span>
+              <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, taxi fares, buddy overtime beyond included hours, and physical therapy or rehabilitation (therapy comes from licensed providers, paid directly at actuals with zero commission).</span>
             </div>
           </div>
         </div>
@@ -1072,7 +1073,7 @@ export default function DesktopHome() {
                 className="py-4 px-6 rounded-xl bg-[#122617] hover:bg-[#1f452e] text-[#F5D328] border border-[#F5D328]/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-[#F5D328] text-[#122617]" />
-                <span>Talk to Care Manager First</span>
+                <span>Talk to our team first</span>
               </button>
             </div>
 
@@ -1141,7 +1142,7 @@ export default function DesktopHome() {
               {paymentDetails.isCallback ? 'WhatsApp Connected & Request Sent!' : 'Care Spot Reserved!'}
             </h3>
             <p className="text-[#EBF2E8]/85 text-xs sm:text-sm mb-5 leading-relaxed">
-              Thank you <strong>{fullName}</strong>. Your request has been received. Our Care Manager will connect with you
+              Thank you <strong>{fullName}</strong>. Your request has been received. Your Care Buddy and a coordinator will connect with you
               on WhatsApp (<strong>{whatsappNumber}</strong>) shortly to understand your parents’ needs.
             </p>
 
