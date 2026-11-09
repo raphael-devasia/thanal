@@ -30,7 +30,7 @@ export default function TermsPage() {
             Terms & Conditions
           </h1>
           <p className="text-xs sm:text-sm text-[#2D4533]">
-            Last updated: November 2026 • Governed by the laws of India under jurisdiction of courts in Kochi, Kerala.
+            Last updated: November 2026 • Governed by the laws of India under jurisdiction of courts in Calicut, Kerala.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function TermsPage() {
               <span>Scope of Service & Care Buddy Role</span>
             </h2>
             <p>
-              Rodasi (a product of Zynthexion Technologies Private Limited) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
+              Rodasi (a product of Zynthexion Technologies Private Limited, Calicut) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
             </p>
             <p>
               <strong>Non-Emergency Disclaimer:</strong> Rodasi is an elder assistance and hospital accompaniment service. Rodasi is not a licensed hospital, ambulance service, or acute emergency room. If your parents can't call, we call 108, and your Care Buddy goes to the hospital. We keep you updated until you arrive or someone you name takes over.
@@ -127,7 +127,7 @@ export default function TermsPage() {
               <span>Governing Law and Dispute Resolution</span>
             </h2>
             <p>
-              These terms are governed by the laws of India. Any legal dispute or claim arising out of or related to Rodasi services will be subject to the exclusive jurisdiction of the competent courts in Kochi, Kerala.
+              These terms are governed by the laws of India. Any legal dispute or claim arising out of or related to Rodasi services will be subject to the exclusive jurisdiction of the competent courts in Calicut, Kerala.
             </p>
           </section>
         </div>

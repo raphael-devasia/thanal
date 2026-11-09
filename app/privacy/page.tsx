@@ -30,7 +30,7 @@ export default function PrivacyPage() {
             Privacy Policy & Parental Consent
           </h1>
           <p className="text-xs sm:text-sm text-[#2D4533]">
-            Last updated: November 2026 • Operated by Zynthexion Technologies Private Limited, Kochi, Kerala.
+            Last updated: November 2026 • Operated by Zynthexion Technologies Private Limited, Calicut, Kerala.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
               <span className="font-bold text-[#F5D328] block mb-1">Who to Contact</span>
-              Email: care@rodasi.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Kochi.
+              Email: care@rodasi.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
             </div>
           </div>
         </div>
@@ -203,7 +203,7 @@ export default function PrivacyPage() {
             <div className="p-4 rounded-xl bg-[#183825]/5 border border-[#183825]/15 space-y-1.5 text-xs">
               <p className="font-bold text-[#122617]">Care Operations Grievance Directorate</p>
               <p className="text-[#2D4533]">Zynthexion Technologies Private Limited</p>
-              <p className="text-[#2D4533]">Kochi, Ernakulam District, Kerala, India</p>
+              <p className="text-[#2D4533]">Calicut, Kerala, India</p>
               <p className="text-[#2D4533]">
                 Direct Grievance Email: <a href="mailto:grievance@zynthexion.com" className="font-bold text-[#183825] underline">grievance@zynthexion.com</a>
               </p>

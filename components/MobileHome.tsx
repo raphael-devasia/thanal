@@ -961,7 +961,7 @@ export default function MobileHome() {
           </div>
 
           <p className="text-[11px] text-[#EBF2E8]/50">
-            A product of Zynthexion Technologies Private Limited, Kochi.
+            A product of Zynthexion Technologies Private Limited, Calicut.
           </p>
         </div>
       </footer>

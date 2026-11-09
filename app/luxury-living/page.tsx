@@ -612,7 +612,7 @@ export default function LuxuryLivingPage() {
           </div>
 
           <p className="text-[11px] text-[#EBF2E8]/50 pt-2">
-            A product of Zynthexion Technologies Private Limited, Kochi, Kerala.
+            A product of Zynthexion Technologies Private Limited, Calicut, Kerala.
           </p>
         </div>
       </footer>

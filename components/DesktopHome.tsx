@@ -1139,7 +1139,7 @@ export default function DesktopHome() {
           </div>
 
           <p className="text-[11px] text-[#EBF2E8]/40 text-center">
-            A product of Zynthexion Technologies Private Limited, Kochi, Kerala.
+            A product of Zynthexion Technologies Private Limited, Calicut, Kerala.
           </p>
         </div>
       </footer>
