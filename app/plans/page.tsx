@@ -222,12 +222,11 @@ export default function PlansPage() {
               </p>
               <div className="space-y-1.5 text-xs text-[#2D4533] pt-1">
                 <div className="flex flex-wrap items-baseline gap-2">
-                  <span className="text-lg font-black text-[#122617]">From ₹1,500</span>
-                  <span className="font-semibold text-[#2D4533]">plus GST</span>
-                  <span className="text-[#2D4533]/85">(₹1,770 incl. 18% GST)</span>
+                  <span className="text-lg font-black text-[#122617]">₹1,500 trial, ₹2,000 after</span>
+                  <span className="font-semibold text-[#2D4533]">(plus GST)</span>
                 </div>
                 <p className="leading-relaxed">
-                  Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm.
+                  Transport customized to your needs (Standard Cab, SUV, Wheelchair Van, or your Own Car). We send a transparent, all-inclusive quote on WhatsApp before the visit.
                 </p>
                 <p className="font-semibold text-[#183825]">
                   Free cancellation up to 6 hours before. If you join a monthly plan within 30 days, we credit this visit against your first month.
