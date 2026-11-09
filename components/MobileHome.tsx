@@ -466,7 +466,7 @@ export default function MobileHome() {
                   Your Care Buddy books the slot, goes with Amma by taxi, sits with her in the queue, and sends you a voice summary afterwards.
                 </p>
                 <p className="text-xs text-[#2D4533] font-medium">
-                  Want to try us first? One visit at ₹1,500 trial, ₹2,000 after (plus GST). See the card in the Plans section below.
+                  Want to try us first? One visit from ₹1,500 plus GST (₹1,770 incl. GST). See the card in the Plans section below.
                 </p>
               </div>
             )}
@@ -820,8 +820,9 @@ export default function MobileHome() {
                 </p>
                 <div className="mt-2.5 space-y-1.5 text-xs text-[#2D4533]">
                   <div className="flex flex-wrap items-baseline gap-1.5">
-                    <span className="text-base font-extrabold text-[#122617]">₹1,500 trial, ₹2,000 after</span>
-                    <span className="text-xs font-semibold text-[#2D4533]">(plus GST)</span>
+                    <span className="text-base font-extrabold text-[#122617]">From ₹1,500</span>
+                    <span className="text-xs font-semibold text-[#2D4533]">plus GST</span>
+                    <span className="text-xs text-[#2D4533]/80">(₹1,770 incl. 18% GST)</span>
                   </div>
                   <p className="leading-relaxed">
                     Transport customized to your needs (Standard Cab, SUV, Wheelchair Van, or your Own Car). We send a transparent, all-inclusive quote on WhatsApp before the visit.
