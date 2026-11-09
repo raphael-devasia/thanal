@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   Clock,
   HeartHandshake,
-  Stethoscope
+  Stethoscope,
+  ChevronDown
 } from 'lucide-react';
 import {
   PLANS,
@@ -26,6 +27,16 @@ import {
 export default function PlansPage() {
   const [parentMode, setParentMode] = useState<ParentMode>('single');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'quarterly'>('monthly');
+
+  // Plan Accordion Inclusions State
+  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({});
+
+  const togglePlanExpanded = (planId: string) => {
+    setExpandedPlans((prev) => ({
+      ...prev,
+      [planId]: !prev[planId]
+    }));
+  };
 
   // Companion Waitlist State
   const [showCompanionModal, setShowCompanionModal] = useState<boolean>(false);
@@ -330,6 +341,56 @@ export default function PlansPage() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Progressive Disclosure Toggle */}
+                    <div className="pt-1.5">
+                      <button
+                        type="button"
+                        onClick={() => togglePlanExpanded(plan.id)}
+                        className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none ${
+                          plan.popular || plan.comingSoon ? 'text-[#F5D328] hover:text-[#FFE342]' : 'text-[#183825] hover:text-[#122617]'
+                        }`}
+                      >
+                        <span>{expandedPlans[plan.id] ? 'Hide full inclusions' : 'View full inclusions'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans[plan.id] ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {/* Expanded Full Inclusions Box */}
+                      {expandedPlans[plan.id] && (
+                        <div className={`mt-3 p-3.5 rounded-xl space-y-3 text-xs animate-in fade-in duration-200 ${
+                          plan.popular || plan.comingSoon ? 'bg-[#122617] border border-white/10' : 'bg-[#F2EFE6] border border-[#183825]/15'
+                        }`}>
+                          <div className="space-y-1.5 font-semibold">
+                            <div className="flex items-center gap-2">
+                              <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.touchpoints}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.hospitalHours}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.companionTasters}</span>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-current/10">
+                            <p className={`font-bold mb-2 uppercase text-[10px] tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                              Full Membership Inclusions:
+                            </p>
+                            <ul className={`space-y-1.5 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
+                              {plan.features.map((feat, fIdx) => (
+                                <li key={fIdx} className="flex items-start gap-2">
+                                  <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                                  <span className="leading-snug">{feat}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 

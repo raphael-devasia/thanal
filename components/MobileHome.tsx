@@ -24,7 +24,9 @@ import {
   X,
   Menu,
   Stethoscope,
-  Users
+  Users,
+  Home,
+  Sparkles
 } from 'lucide-react';
 
 export default function MobileHome() {
@@ -35,6 +37,25 @@ export default function MobileHome() {
   const [showHowWeChooseModal, setShowHowWeChooseModal] = useState<boolean>(false);
   const [showCompareAllModal, setShowCompareAllModal] = useState<boolean>(false);
   const [showCompanionWaitlistModal, setShowCompanionWaitlistModal] = useState<boolean>(false);
+
+  // Three Pillars Drawer State
+  const [showPillarDrawer, setShowPillarDrawer] = useState<boolean>(false);
+  const [mobileDrawerPillar, setMobileDrawerPillar] = useState<'vitality' | 'joy' | 'ease'>('vitality');
+
+  const openPillarDrawer = (pillar: 'vitality' | 'joy' | 'ease') => {
+    setMobileDrawerPillar(pillar);
+    setShowPillarDrawer(true);
+  };
+
+  // Plan Accordion Inclusions State
+  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({});
+
+  const togglePlanExpanded = (planId: string) => {
+    setExpandedPlans((prev) => ({
+      ...prev,
+      [planId]: !prev[planId]
+    }));
+  };
 
   // Companion Waitlist State
   const [companionName, setCompanionName] = useState<string>('');
@@ -47,19 +68,20 @@ export default function MobileHome() {
 
   // Close modals on phone back button tap
   useEffect(() => {
-    if (showCompareAllModal || showCompanionWaitlistModal || showHowWeChooseModal) {
+    if (showCompareAllModal || showCompanionWaitlistModal || showHowWeChooseModal || showPillarDrawer) {
       window.history.pushState({ modalOpen: true }, '');
       const handlePopState = () => {
         setShowCompareAllModal(false);
         setShowCompanionWaitlistModal(false);
         setShowHowWeChooseModal(false);
+        setShowPillarDrawer(false);
       };
       window.addEventListener('popstate', handlePopState);
       return () => {
         window.removeEventListener('popstate', handlePopState);
       };
     }
-  }, [showCompareAllModal, showCompanionWaitlistModal, showHowWeChooseModal]);
+  }, [showCompareAllModal, showCompanionWaitlistModal, showHowWeChooseModal, showPillarDrawer]);
 
   // Audio Playback Simulation (8-second clip)
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
@@ -266,6 +288,15 @@ export default function MobileHome() {
                 <span>At-Home Eldercare in Kochi</span>
                 <span className="text-[10px] bg-[#F5D328] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Home</span>
               </Link>
+
+              <a
+                href="#three-pillars"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+              >
+                <span>The Three Pillars of Care</span>
+                <span className="text-[#EBF2E8]/60 text-[11px]">Health · Joy · Ease</span>
+              </a>
 
               <a
                 href="#plans-mobile"
@@ -679,6 +710,88 @@ export default function MobileHome() {
         </div>
       </section>
 
+      {/* SCREEN 6B: THE THREE PILLARS OF RODASI CARE */}
+      <section id="three-pillars" className="py-12 px-4 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F5D328]/20">
+        <div className="max-w-md mx-auto space-y-6">
+          <div className="text-center space-y-1.5">
+            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">
+              Comprehensive Service Scope
+            </span>
+            <h2 className="text-2xl font-extrabold text-white tracking-tight">
+              The Three Pillars of Care
+            </h2>
+            <p className="text-xs text-[#EBF2E8]/80 leading-relaxed">
+              Tap any pillar to explore capabilities and live care notes.
+            </p>
+          </div>
+
+          <div className="space-y-3.5">
+            {/* Card 1: Vitality & Care */}
+            <div
+              onClick={() => openPillarDrawer('vitality')}
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                  Pillar 01 : Health
+                </span>
+                <Stethoscope className="w-5 h-5 text-[#F5D328]" />
+              </div>
+              <h3 className="text-base font-bold text-white">Vitality & Care</h3>
+              <p className="text-xs text-[#E0EBDC] leading-relaxed">
+                Hospital OPD escorting, doctor consultation notes, medicine refills, and home diagnostic visits.
+              </p>
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+                <span>View full scope & live log</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* Card 2: Joy & Connection */}
+            <div
+              onClick={() => openPillarDrawer('joy')}
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                  Pillar 02 : Social & Mental
+                </span>
+                <HeartHandshake className="w-5 h-5 text-[#F5D328]" />
+              </div>
+              <h3 className="text-base font-bold text-white">Joy & Connection</h3>
+              <p className="text-xs text-[#E0EBDC] leading-relaxed">
+                Unhurried companion tea chats, reading Malayalam news, tech coaching on WhatsApp video calls, and temple visits.
+              </p>
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+                <span>View full scope & visit note</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* Card 3: Ease & Daily Living */}
+            <div
+              onClick={() => openPillarDrawer('ease')}
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                  Pillar 03 : Home, Chores & Govt
+                </span>
+                <Home className="w-5 h-5 text-[#F5D328]" />
+              </div>
+              <h3 className="text-base font-bold text-white">Ease & Daily Living</h3>
+              <p className="text-xs text-[#E0EBDC] leading-relaxed">
+                Home safety fall audits, Jeevan Pramaan biometric pension certificates, utility bills, and verified handyman visits.
+              </p>
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+                <span>View full scope & audit card</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SCREEN 7: PLANS */}
       <section id="plans-mobile" className="py-12 px-4 bg-[#122617] text-white border-b border-[#183825]">
         <div className="max-w-md mx-auto space-y-6">
@@ -768,6 +881,51 @@ export default function MobileHome() {
                     <span>WhatsApp update after every visit</span>
                   </li>
                 </ul>
+
+                {/* Progressive Disclosure Toggle */}
+                <div className="pt-1.5">
+                  <button
+                    type="button"
+                    onClick={() => togglePlanExpanded('essential')}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                  >
+                    <span>{expandedPlans['essential'] ? 'Hide full inclusions' : 'View full inclusions'}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans['essential'] ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {expandedPlans['essential'] && (
+                    <div className="mt-2.5 p-3 rounded-xl bg-[#122617] border border-white/10 space-y-2 text-xs">
+                      <div className="space-y-1 text-[#EBF2E8] font-semibold text-[11px]">
+                        <p className="flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                          <span>3 to 4 touchpoints / mo (weekly visit + call)</span>
+                        </p>
+                        <p className="flex items-center gap-1.5">
+                          <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                          <span>1 hospital trip / mo (up to 4 hrs buddy time)</span>
+                        </p>
+                      </div>
+                      <div className="pt-1.5 border-t border-white/10 space-y-1 text-[#E0EBDC] text-[11px]">
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>Initial Home Safety & fall-prevention audit</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>Digital Care Passport & monthly health report</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>2 Errands or bill payment runs per month</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>1 Companion Afternoon taster session / month</span>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <a
@@ -817,6 +975,51 @@ export default function MobileHome() {
                     <span>WhatsApp update after every visit</span>
                   </li>
                 </ul>
+
+                {/* Progressive Disclosure Toggle */}
+                <div className="pt-1.5">
+                  <button
+                    type="button"
+                    onClick={() => togglePlanExpanded('care_plus')}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                  >
+                    <span>{expandedPlans['care_plus'] ? 'Hide full inclusions' : 'View full inclusions'}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans['care_plus'] ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {expandedPlans['care_plus'] && (
+                    <div className="mt-2.5 p-3 rounded-xl bg-[#122617] border border-white/10 space-y-2 text-xs">
+                      <div className="space-y-1 text-[#EBF2E8] font-semibold text-[11px]">
+                        <p className="flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                          <span>10 to 12 in-person visits (~18-20 hrs / mo)</span>
+                        </p>
+                        <p className="flex items-center gap-1.5">
+                          <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                          <span>2 hospital trips / mo (up to 5 hrs each)</span>
+                        </p>
+                      </div>
+                      <div className="pt-1.5 border-t border-white/10 space-y-1 text-[#E0EBDC] text-[11px]">
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>1 Planned doctor consult or tele-consult per quarter</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>Annual Home Safety & fall-prevention audit</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>Errands & utility bill payments included</span>
+                        </p>
+                        <p className="flex items-start gap-1.5">
+                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
+                          <span>2 Companion Afternoon tasters per month</span>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <a
@@ -1413,6 +1616,263 @@ export default function MobileHome() {
                 </p>
               </form>
             )}
+          </div>
+        </div>
+      )}
+      {/* MODAL: THREE PILLARS MOBILE BOTTOM DRAWER */}
+      {showPillarDrawer && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end justify-center p-0"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="w-full max-h-[90vh] bg-[#15301E] text-[#EBF2E8] rounded-t-3xl border-t border-[#F5D328]/35 flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
+            {/* Top Drag Indicator & Switcher Tabs */}
+            <div className="pt-3 pb-3 px-4 border-b border-[#F5D328]/20 bg-[#122617] sticky top-0 z-20 space-y-2.5">
+              <div
+                className="w-10 h-1 rounded-full bg-[#F5D328]/40 mx-auto cursor-pointer"
+                onClick={() => setShowPillarDrawer(false)}
+              />
+
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#183825] border border-[#F5D328]/25 text-xs font-bold overflow-x-auto no-scrollbar">
+                  <button
+                    type="button"
+                    onClick={() => setMobileDrawerPillar('vitality')}
+                    className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
+                      mobileDrawerPillar === 'vitality'
+                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                    }`}
+                  >
+                    <Stethoscope className="w-3.5 h-3.5" />
+                    <span>Vitality</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMobileDrawerPillar('joy')}
+                    className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
+                      mobileDrawerPillar === 'joy'
+                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                    }`}
+                  >
+                    <HeartHandshake className="w-3.5 h-3.5" />
+                    <span>Joy</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMobileDrawerPillar('ease')}
+                    className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
+                      mobileDrawerPillar === 'ease'
+                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                    }`}
+                  >
+                    <Home className="w-3.5 h-3.5" />
+                    <span>Ease</span>
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowPillarDrawer(false)}
+                  className="w-8 h-8 rounded-full bg-[#183825] border border-[#F5D328]/30 hover:bg-[#1f452e] text-[#F5D328] flex items-center justify-center shrink-0 transition"
+                  aria-label="Close drawer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scrollable Drawer Body */}
+            <div className="overflow-y-auto p-5 space-y-5">
+              {mobileDrawerPillar === 'vitality' && (
+                <div className="space-y-4 animate-in fade-in duration-150">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                      Pillar 01 : Health
+                    </span>
+                    <h3 className="text-xl font-bold text-white">
+                      Vitality & Care
+                    </h3>
+                    <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                      Door-to-door AC transport, doctor consultation notes, medicine refills, and hospital OPD accompaniment across Kochi.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Doctor of Choice</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Medicine Checks & Refills</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Checked against prescription, verified with doctor or pharmacist, and coordinated refills.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Emergency Accompaniment</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Home Lab & ECG Visits</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Doorstep blood draws and tests with reports uploaded to Care Passport.</p>
+                    </div>
+                  </div>
+
+                  {/* Simulated OPD Log */}
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                        <span className="text-xs font-bold text-[#F5D328]">Live OPD Escort Log</span>
+                      </div>
+                      <span className="text-[10px] text-[#EBF2E8]/60 font-mono">Aster Medcity</span>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2 text-[11px]">
+                        <span className="font-mono text-[#F5D328] font-bold shrink-0">08:30 AM</span>
+                        <p className="text-[#EBF2E8]/90">Doorstep AC Taxi Pickup by Care Buddy</p>
+                      </div>
+                      <div className="flex items-start gap-2 text-[11px]">
+                        <span className="font-mono text-[#F5D328] font-bold shrink-0">09:15 AM</span>
+                        <p className="text-[#EBF2E8]/90">Fast-Track Registration Token Handled</p>
+                      </div>
+                      <div className="flex items-start gap-2 text-[11px]">
+                        <span className="font-mono text-[#F5D328] font-bold shrink-0">10:00 AM</span>
+                        <p className="text-[#EBF2E8]/90">Doctor Consultation Notes Recorded</p>
+                      </div>
+                      <div className="flex items-start gap-2 text-[11px]">
+                        <span className="font-mono text-[#F5D328] font-bold shrink-0">10:45 AM</span>
+                        <p className="text-[#EBF2E8]/90">Pharmacy Pickup & Prescription Photo Sent</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {mobileDrawerPillar === 'joy' && (
+                <div className="space-y-4 animate-in fade-in duration-150">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                      Pillar 02 : Social & Mental
+                    </span>
+                    <h3 className="text-xl font-bold text-white">
+                      Joy & Connection
+                    </h3>
+                    <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                      Unhurried companion tea chats, reading Malayalam news, tech coaching on WhatsApp video calls, and temple visits.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Companion Afternoon Tasters</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Dedicated 2 to 3 hour unhurried visits to read, chat, and relax.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Personal Shopper Service</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Accompanied trips for local grocery or textile shopping and online ordering.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Technology Mentorship</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Friendly coaching on WhatsApp video calls, iPad, YouTube, and digital payments.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Celebrations & Faith Outings</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Birthday surprises, festival treats, and visits to temple, church, or clubs.</p>
+                    </div>
+                  </div>
+
+                  {/* Simulated Companion Visit */}
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#F5D328] animate-pulse" />
+                        <span className="text-xs font-bold text-[#F5D328]">Companion Afternoon Visit</span>
+                      </div>
+                      <span className="text-[10px] text-[#EBF2E8]/60 font-mono">2.5 Hour Session</span>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <p className="text-[11px] text-[#EBF2E8]/90">• Tea & Mathrubhumi editorial discussion</p>
+                      <p className="text-[11px] text-[#EBF2E8]/90">• WhatsApp video call hosted with family in Dubai</p>
+                      <p className="text-[11px] text-[#EBF2E8]/90">• Accompanied peaceful temple darshan</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {mobileDrawerPillar === 'ease' && (
+                <div className="space-y-4 animate-in fade-in duration-150">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                      Pillar 03 : Home, Chores & Govt
+                    </span>
+                    <h3 className="text-xl font-bold text-white">
+                      Ease & Daily Living
+                    </h3>
+                    <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                      Home safety fall audits, Jeevan Pramaan biometric pension certificates, utility bills, and verified handyman visits.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Errands & Bill Payments</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">KSEB electricity bills, municipal water taxes, and courier pickups.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Jeevan Pramaan (Pension)</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Biometric digital Life Certificate verification for central/state pension.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Home Safety Fall Audit</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">In-home audit checking grab bars, anti-slip mats, night lights, and fall prevention.</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
+                      <p className="font-bold text-[#F5D328]">Verified Handyman Pool</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Electricians, plumbers, AC technicians, and deep-cleaning referrals.</p>
+                    </div>
+                  </div>
+
+                  {/* Simulated Safety Card */}
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                        <span className="text-xs font-bold text-[#F5D328]">Home Safety Audit Card</span>
+                      </div>
+                      <span className="text-[10px] text-[#EBF2E8]/60 font-mono">Score: 96 / 100</span>
+                    </div>
+
+                    <div className="space-y-1.5 text-xs text-[11px]">
+                      <div className="flex justify-between">
+                        <span className="text-[#EBF2E8]/80">Bathroom Grab Bars:</span>
+                        <span className="font-bold text-[#F5D328]">Installed</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-[#EBF2E8]/80">Shower Non-Slip Mats:</span>
+                        <span className="font-bold text-[#F5D328]">Placed</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-[#EBF2E8]/80">Jeevan Pramaan (Pension):</span>
+                        <span className="font-bold text-[#F5D328]">Biometric Done</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setShowPillarDrawer(false)}
+                className="w-full py-3 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center transition"
+              >
+                Close Details
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -37,7 +37,8 @@ import {
   Car,
   Heart,
   SlidersHorizontal,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import {
   PLANS,
@@ -78,6 +79,40 @@ export default function DesktopHome() {
   const [companionSubmitting, setCompanionSubmitting] = useState<boolean>(false);
   const [companionSubmitted, setCompanionSubmitted] = useState<boolean>(false);
   const [companionError, setCompanionError] = useState<string | null>(null);
+
+  // Three Pillars Drawer State
+  const [isPillarDrawerOpen, setIsPillarDrawerOpen] = useState<boolean>(false);
+  const [drawerPillar, setDrawerPillar] = useState<'vitality' | 'joy' | 'ease'>('vitality');
+
+  const openPillarDrawer = (pillar: 'vitality' | 'joy' | 'ease') => {
+    setDrawerPillar(pillar);
+    setIsPillarDrawerOpen(true);
+  };
+
+  const closePillarDrawer = () => {
+    setIsPillarDrawerOpen(false);
+  };
+
+  // Plan Accordion Inclusions State
+  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({});
+
+  const togglePlanExpanded = (planId: string) => {
+    setExpandedPlans((prev) => ({
+      ...prev,
+      [planId]: !prev[planId]
+    }));
+  };
+
+  // Handle Escape key to close pillar drawer
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isPillarDrawerOpen) {
+        closePillarDrawer();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isPillarDrawerOpen]);
 
   // Auto-detect visitor country by timezone on mount
   useEffect(() => {
@@ -378,6 +413,9 @@ export default function DesktopHome() {
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs lg:text-sm font-semibold text-[#EBF2E8]">
             <a href="#care-buddy-concept" className="hover:text-[#F5D328] transition py-1">
               The Care Buddy
+            </a>
+            <a href="#three-pillars" className="hover:text-[#F5D328] transition py-1">
+              Three Pillars
             </a>
             <a href="#whatsapp-experience" className="hover:text-[#F5D328] transition py-1">
               How It Works
@@ -725,6 +763,182 @@ export default function DesktopHome() {
         </div>
       </section>
 
+      {/* 4B. THE THREE PILLARS OF RODASI CARE */}
+      <section id="three-pillars" className="py-16 sm:py-24 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F5D328]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+            <span className="bg-[#183825] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
+              Comprehensive Service Scope
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+              The Three Pillars of Rodasi Care
+            </h2>
+            <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
+              A comprehensive eldercare framework tailored specifically for Kerala households and Malayali families living across oceans. Click any pillar below to inspect our full capabilities and live escort logs.
+            </p>
+          </div>
+
+          {/* 3 Pillar Heading Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {/* Card 1: Vitality & Care */}
+            <div
+              onClick={() => openPillarDrawer('vitality')}
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                    Pillar 01 : Health
+                  </span>
+                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                    <Stethoscope className="w-6 h-6" />
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
+                  Vitality & Care
+                </h3>
+                <p className="text-xs font-bold text-[#E8F0C8] mb-3">
+                  Healthcare Coordination & Hospital Escorts
+                </p>
+                <p className="text-xs sm:text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
+                  Never worry about long OPD queues, medicine delays, or lonely hospital visits. Dedicated door-to-door AC transport, doctor consultation notes, medicine refills, and hospital accompaniment.
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    OPD Hospital Escorts
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Medicine Refills
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Doctor Consultation Notes
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Home Lab / ECG
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+                <span className="inline-flex items-center gap-1.5">
+                  <span>View Full Scope & Live Log</span>
+                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                </span>
+                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                  Click to Expand
+                </span>
+              </div>
+            </div>
+
+            {/* Card 2: Joy & Connection */}
+            <div
+              onClick={() => openPillarDrawer('joy')}
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                    Pillar 02 : Social & Mental
+                  </span>
+                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                    <HeartHandshake className="w-6 h-6" />
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
+                  Joy & Connection
+                </h3>
+                <p className="text-xs font-bold text-[#E8F0C8] mb-3">
+                  Combating Loneliness Through Genuine Presence
+                </p>
+                <p className="text-xs sm:text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
+                  Medical logistics is only half the battle. Unhurried companion visits, afternoon tea, reading Malayalam newspapers aloud, technology mentoring on WhatsApp video calls, and faith outings.
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Afternoon Companion
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Tech Mentoring & Video Calls
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Personal Shopper
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Temple & Church Outings
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+                <span className="inline-flex items-center gap-1.5">
+                  <span>View Full Scope & Visit Note</span>
+                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                </span>
+                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                  Click to Expand
+                </span>
+              </div>
+            </div>
+
+            {/* Card 3: Ease & Daily Living */}
+            <div
+              onClick={() => openPillarDrawer('ease')}
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                    Pillar 03 : Home, Chores & Govt
+                  </span>
+                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                    <Home className="w-6 h-6" />
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-black text-white mb-2 leading-snug tracking-tight">
+                  Ease & Daily Living
+                </h3>
+                <p className="text-xs font-bold text-[#E8F0C8] mb-3">
+                  Zero Chores Burden & Bureaucracy Handled
+                </p>
+                <p className="text-xs sm:text-sm text-[#E0EBDC] leading-relaxed font-normal mb-5">
+                  Managing fall prevention home safety audits, grab bar verification, Jeevan Pramaan biometric pension life certificates, utility bill runs, and trusted verified local handymen.
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Home Safety Fall Audit
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Jeevan Pramaan (Pension)
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Utility Bill Errands
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
+                    Verified Handyman Pool
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+                <span className="inline-flex items-center gap-1.5">
+                  <span>View Full Scope & Audit Card</span>
+                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                </span>
+                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                  Click to Expand
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 5. TRANSPARENT MEMBERSHIP PLANS */}
       <section id="pricing-section" className="py-16 sm:py-24 bg-[#122617] text-[#EBF2E8] border-b border-[#F5D328]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -940,6 +1154,56 @@ export default function DesktopHome() {
                           </li>
                         ))}
                       </ul>
+
+                      {/* Progressive Disclosure Toggle */}
+                      <div className="pt-1.5">
+                        <button
+                          type="button"
+                          onClick={() => togglePlanExpanded(plan.id)}
+                          className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none ${
+                            plan.popular || plan.comingSoon ? 'text-[#F5D328] hover:text-[#FFE342]' : 'text-[#183825] hover:text-[#122617]'
+                          }`}
+                        >
+                          <span>{expandedPlans[plan.id] ? 'Hide full inclusions' : 'View full inclusions'}</span>
+                          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans[plan.id] ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {/* Expanded Full Inclusions Box */}
+                        {expandedPlans[plan.id] && (
+                          <div className={`mt-3 p-3.5 rounded-xl space-y-3 text-xs animate-in fade-in duration-200 ${
+                            plan.popular || plan.comingSoon ? 'bg-[#122617] border border-white/10' : 'bg-[#F2EFE6] border border-[#183825]/15'
+                          }`}>
+                            <div className="space-y-1.5 font-semibold">
+                              <div className="flex items-center gap-2">
+                                <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                                <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.touchpoints}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                                <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.hospitalHours}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                                <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.companionTasters}</span>
+                              </div>
+                            </div>
+
+                            <div className="pt-2 border-t border-current/10">
+                              <p className={`font-bold mb-2 uppercase text-[10px] tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                                Full Membership Inclusions:
+                              </p>
+                              <ul className={`space-y-1.5 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
+                                {plan.features.map((feat, fIdx) => (
+                                  <li key={fIdx} className="flex items-start gap-2">
+                                    <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                                    <span className="leading-snug">{feat}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -1399,6 +1663,332 @@ export default function DesktopHome() {
                 </p>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: THREE PILLARS EXPANDED DETAILS */}
+      {isPillarDrawerOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="relative w-full max-w-5xl bg-[#15301E] text-[#EBF2E8] rounded-3xl shadow-2xl border border-[#F5D328]/35 max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            {/* Modal Header & Pillar Switcher */}
+            <div className="pt-4 pb-3.5 px-6 sm:px-8 border-b border-[#F5D328]/20 bg-[#122617] sticky top-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#183825] border border-[#F5D328]/25 text-xs font-bold overflow-x-auto no-scrollbar">
+                <button
+                  type="button"
+                  onClick={() => setDrawerPillar('vitality')}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
+                    drawerPillar === 'vitality'
+                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                  }`}
+                >
+                  <Stethoscope className="w-3.5 h-3.5" />
+                  <span>Vitality & Care</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDrawerPillar('joy')}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
+                    drawerPillar === 'joy'
+                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                  }`}
+                >
+                  <HeartHandshake className="w-3.5 h-3.5" />
+                  <span>Joy & Connection</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDrawerPillar('ease')}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
+                    drawerPillar === 'ease'
+                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                  }`}
+                >
+                  <Home className="w-3.5 h-3.5" />
+                  <span>Ease & Daily Living</span>
+                </button>
+              </div>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={closePillarDrawer}
+                className="w-8 h-8 rounded-full bg-[#183825] border border-[#F5D328]/30 hover:bg-[#1f452e] text-[#F5D328] flex items-center justify-center shrink-0 transition cursor-pointer"
+                aria-label="Close details"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Scrollable Content Body */}
+            <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
+              {drawerPillar === 'vitality' && (
+                <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
+                  {/* Left Column: Narrative & Key Inclusions */}
+                  <div className="lg:col-span-7 space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
+                      <Stethoscope className="w-4 h-4 text-[#F5D328]" />
+                      <span>Pillar 01 : Healthcare Coordination & Hospital Escorts</span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                      Healthcare Coordination & Door-to-Door Hospital Accompaniment
+                    </h3>
+
+                    <p className="text-[#EBF2E8]/85 text-xs sm:text-sm leading-relaxed">
+                      Never worry about long OPD queues, medicine delays, or lonely hospital visits. Your Care Buddy picks up your parents from home in an AC taxi, navigates hospital registration, stays beside the doctor during consultation, records audio notes, and safely escorts them home.
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Doctor of Choice</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Hospitals across Kochi, such as Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Medicine Checks & Refills</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Care Buddy checks medicines against the prescription, checks with doctor or pharmacist, and coordinates doorstep refills.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Emergency Accompaniment</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Home Lab & ECG Visits</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Doorstep blood sample collection and diagnostic test coordination with digital reports uploaded to Care Passport.</p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium">
+                      Zero hospital markups: all doctor fees, medicines, lab tests, and taxi fares paid at direct actuals.
+                    </div>
+                  </div>
+
+                  {/* Right Column: Simulated Live Escort Snapshot */}
+                  <div className="lg:col-span-5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+                          <span className="text-xs font-bold text-[#F5D328]">Live OPD Escort Log</span>
+                        </div>
+                        <span className="text-[10px] text-[#EBF2E8]/70 font-mono">Aster Medcity</span>
+                      </div>
+
+                      <div className="space-y-2.5 text-xs">
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">08:30 AM</span>
+                          <div>
+                            <p className="font-bold text-[#EBF2E8]">Doorstep AC Taxi Pickup</p>
+                            <p className="text-[11px] text-[#EBF2E8]/70">Buddy arrives at home in Panampilly Nagar.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">09:15 AM</span>
+                          <div>
+                            <p className="font-bold text-[#EBF2E8]">Fast-Track Registration</p>
+                            <p className="text-[11px] text-[#EBF2E8]/70">Token handled by Buddy while parents seated in lounge.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">10:00 AM</span>
+                          <div>
+                            <p className="font-bold text-[#EBF2E8]">Doctor Consultation</p>
+                            <p className="text-[11px] text-[#EBF2E8]/70">Care Buddy beside parents taking detailed consultation notes.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">10:45 AM</span>
+                          <div>
+                            <p className="font-bold text-[#EBF2E8]">Pharmacy Pickup & Report</p>
+                            <p className="text-[11px] text-[#EBF2E8]/70">New prescription photo sent to family on WhatsApp.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                        <span className="text-[#EBF2E8]/70">Care Buddy:</span>
+                        <span className="text-[#F5D328] font-bold">Anoop K. (Assigned Escort)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {drawerPillar === 'joy' && (
+                <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
+                  {/* Left Column: Narrative & Key Inclusions */}
+                  <div className="lg:col-span-7 space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
+                      <HeartHandshake className="w-4 h-4 text-[#F5D328]" />
+                      <span>Pillar 02 : Signature Companionship Core</span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                      Combating Loneliness Through Warmth, Conversation & Mentorship
+                    </h3>
+
+                    <p className="text-[#EBF2E8]/85 text-xs sm:text-sm leading-relaxed">
+                      Medical logistics is only half the battle. Rodasi provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Companion Afternoon Tasters</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Dedicated 2 to 3 hour unhurried visits included in plans to read, chat, and relax.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Personal Shopper Service</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Accompanied trips for local grocery or textile shopping and online ordering assistance.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Technology Mentorship</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Friendly coaching on WhatsApp video calls, iPad, YouTube, and digital payments.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Celebrations & Faith Outings</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Birthday surprises, festival treats, and accompanied visits to temple, church, or clubs.</p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <span>Full 22-Day Daily Companion Plan launching soon for parents living alone.</span>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Simulated Companion Snapshot */}
+                  <div className="lg:col-span-5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-[#F5D328] animate-pulse" />
+                          <span className="text-xs font-bold text-[#F5D328]">Companion Afternoon Visit</span>
+                        </div>
+                        <span className="text-[10px] text-[#EBF2E8]/70 font-mono">2.5 Hour Session</span>
+                      </div>
+
+                      <div className="space-y-2.5 text-xs">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
+                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                            <span>Afternoon Tea & Mathrubhumi Editorial</span>
+                          </p>
+                          <p className="text-[11px] text-[#EBF2E8]/80">Care Buddy Lakshmi shared unhurried tea and discussed world news.</p>
+                        </div>
+
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
+                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                            <span>Grandchildren Video Call Hosted</span>
+                          </p>
+                          <p className="text-[11px] text-[#EBF2E8]/80">Set up WhatsApp video call with grandchildren in Dubai on iPad.</p>
+                        </div>
+
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
+                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                            <span>Garden Walk & Temple Visit</span>
+                          </p>
+                          <p className="text-[11px] text-[#EBF2E8]/80">Accompanied evening walk and peaceful local temple darshan.</p>
+                        </div>
+                      </div>
+
+                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                        <span className="text-[#EBF2E8]/70">Audio Voice Note:</span>
+                        <span className="text-[#F5D328] font-bold">Sent to Rahul (Dubai)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {drawerPillar === 'ease' && (
+                <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
+                  {/* Left Column: Narrative & Key Inclusions */}
+                  <div className="lg:col-span-7 space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
+                      <Home className="w-4 h-4 text-[#F5D328]" />
+                      <span>Pillar 03 : Daily Chores, Home Safety & Paperwork</span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                      Zero Chores Burden, Home Safety Audits & Bureaucracy Handled
+                    </h3>
+
+                    <p className="text-[#EBF2E8]/85 text-xs sm:text-sm leading-relaxed">
+                      Taking care of tedious bureaucracy and physical home maintenance so your parents can live in security and ease without stress, slippery bathroom risks, or endless government office queues.
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Errands & Bill Payments</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">KSEB electricity bills, municipal water taxes, local paperwork, and courier pickups.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Jeevan Pramaan (Pension)</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Biometric digital Life Certificate assistance for central/state pension and bank paperwork.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Home Safety Fall Audit</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">In-home audit checking grab bars, anti-slip mats, night lights, and fall prevention pathways.</p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">Verified Handyman Pool</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Background-checked electricians, plumbers, AC technicians, and deep-cleaning referrals.</p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium">
+                      Zero commissions on maintenance: local specialists paid directly at transparent actuals.
+                    </div>
+                  </div>
+
+                  {/* Right Column: Simulated Audit Card */}
+                  <div className="lg:col-span-5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+                          <span className="text-xs font-bold text-[#F5D328]">Home Safety & Audit Card</span>
+                        </div>
+                        <span className="text-[10px] text-[#EBF2E8]/70 font-mono">Score: 96 / 100</span>
+                      </div>
+
+                      <div className="space-y-2.5 text-xs">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                          <span className="text-[#EBF2E8]/80">Bathroom Grab Bars:</span>
+                          <span className="font-bold text-[#F5D328]">Installed & Verified</span>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                          <span className="text-[#EBF2E8]/80">Non-Slip Wet Mats:</span>
+                          <span className="font-bold text-[#F5D328]">Placed in Shower Area</span>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                          <span className="text-[#EBF2E8]/80">Jeevan Pramaan (Pension):</span>
+                          <span className="font-bold text-[#F5D328]">Digital Biometric Done</span>
+                        </div>
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                          <span className="text-[#EBF2E8]/80">Inverter & AC Servicing:</span>
+                          <span className="font-bold text-[#25D366]">Completed by Handyman</span>
+                        </div>
+                      </div>
+
+                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                        <span className="text-[#EBF2E8]/70">Next Review:</span>
+                        <span className="text-[#F5D328] font-bold">Scheduled in 6 Months</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
