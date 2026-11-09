@@ -261,11 +261,11 @@ export default function DesktopHome() {
     },
     {
       q: 'What happens during a medical emergency?',
-      a: 'In an emergency, call 108 first. Our emergency line is answered 7 am to 10 pm. Your Care Buddy will come to the hospital as soon as possible, assist with admission formalities, communicate with the doctors, and keep you informed on WhatsApp. Outside those hours, your buddy responds first thing in the morning.'
+      a: 'If your parents can\'t call, we call 108, and your Care Buddy goes to the hospital. We keep you updated until you arrive or someone you name takes over.'
     },
     {
       q: 'Can our parents consult their existing family doctor or preferred hospital in Kerala?',
-      a: 'Absolutely yes. We accompany parents to hospitals across Kochi, such as Aster Medcity, Amrita, Lakeshore, Rajagiri, Medical Trust, and Lourdes (named only to show where we accompany families; no affiliation implied), or to your family doctor of choice. Your parents’ trusted family doctor of choice is always respected and prioritized. Your Care Buddy will escort them to their preferred clinic or hospital anywhere in the service area.'
+      a: 'Any hospital or doctor your family chooses. We don\'t have preferred hospitals, so our advice is never tied to one.'
     },
     {
       q: 'How do you keep children abroad updated across different time zones (Gulf, UK, US, Australia)?',

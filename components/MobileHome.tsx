@@ -715,11 +715,11 @@ export default function MobileHome() {
             {[
               {
                 q: 'What happens in an emergency?',
-                a: 'Call 108 first. Our emergency line is answered 7 am to 10 pm. Your Care Buddy will come to the hospital as soon as possible, help with admission, and keep you updated on WhatsApp. Outside those hours, your buddy responds first thing in the morning.'
+                a: 'If your parents can\'t call, we call 108, and your Care Buddy goes to the hospital. We keep you updated until you arrive or someone you name takes over.'
               },
               {
                 q: 'Can my parents keep their family doctor?',
-                a: 'Absolutely yes. Your Care Buddy escorts parents to your trusted family doctor or any hospital of choice across Kochi. You are never restricted to partner clinics.'
+                a: 'Any hospital or doctor your family chooses. We don\'t have preferred hospitals, so our advice is never tied to one.'
               },
               {
                 q: 'How will I get updates across time zones?',
