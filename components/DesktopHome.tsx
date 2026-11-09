@@ -69,6 +69,16 @@ export default function DesktopHome() {
   const [consentGiven, setConsentGiven] = useState<boolean>(true);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
 
+  // Companion Waitlist State
+  const [showCompanionWaitlistModal, setShowCompanionWaitlistModal] = useState<boolean>(false);
+  const [companionName, setCompanionName] = useState<string>('');
+  const [companionCountryCode, setCompanionCountryCode] = useState<string>('');
+  const [companionPhoneDigits, setCompanionPhoneDigits] = useState<string>('');
+  const [companionConsent, setCompanionConsent] = useState<boolean>(true);
+  const [companionSubmitting, setCompanionSubmitting] = useState<boolean>(false);
+  const [companionSubmitted, setCompanionSubmitted] = useState<boolean>(false);
+  const [companionError, setCompanionError] = useState<string | null>(null);
+
   // Auto-detect visitor country by timezone on mount
   useEffect(() => {
     const detected = detectVisitorCountry();
@@ -76,6 +86,55 @@ export default function DesktopHome() {
       setCountryCode(detected);
     }
   }, []);
+
+  const handleCompanionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCompanionError(null);
+
+    if (!companionName.trim()) {
+      setCompanionError('Please enter your name.');
+      return;
+    }
+    const country = COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode));
+    if (!country) {
+      setCompanionError('Please choose your country.');
+      return;
+    }
+    const cleanNumber = companionPhoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    if (!cleanNumber || cleanNumber.length < 6 || cleanNumber.length > 15) {
+      setCompanionError('Please enter a valid phone number format.');
+      return;
+    }
+    if (!companionConsent) {
+      setCompanionError('Please check the box to allow WhatsApp messaging.');
+      return;
+    }
+
+    setCompanionSubmitting(true);
+    const cleanDialCode = country.dialCode.replace(/[^0-9]/g, '');
+    const fullWhatsappNumber = `+${cleanDialCode}${cleanNumber}`;
+
+    try {
+      const payload = {
+        name: companionName.trim(),
+        whatsappNumber: fullWhatsappNumber,
+        country: country.name.split(' (')[0],
+        source: 'companion_waitlist_desktop'
+      };
+
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
+
+      setCompanionSubmitted(true);
+      setCompanionSubmitting(false);
+    } catch {
+      setCompanionSubmitted(true);
+      setCompanionSubmitting(false);
+    }
+  };
 
   // UI & Workflow State
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -669,7 +728,7 @@ export default function DesktopHome() {
       {/* 5. TRANSPARENT MEMBERSHIP PLANS */}
       <section id="pricing-section" className="py-16 sm:py-24 bg-[#122617] text-[#EBF2E8] border-b border-[#F5D328]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
             <span className="bg-[#183825] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
               Transparent Membership
             </span>
@@ -730,12 +789,93 @@ export default function DesktopHome() {
             </div>
           </div>
 
+          {/* Introductory Line & Single Hospital Visit Card (Moved Above Plans) */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-xs font-bold uppercase tracking-wider text-[#F5D328] text-center mb-3">
+              New to Rodasi? Start with one visit
+            </p>
+
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 text-[#122617] shadow-lg flex flex-col md:flex-row md:items-center gap-6">
+              <div className="flex-1 space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#183825] bg-[#E8F0C8] px-3 py-1 rounded-full">
+                    Try before you subscribe
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-[#122617]">
+                  Try us with one hospital visit
+                </h3>
+                <p className="text-xs sm:text-sm text-[#374F3E] leading-relaxed">
+                  Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
+                </p>
+                <div className="space-y-1.5 text-xs text-[#2D4533] pt-1">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <span className="text-lg font-black text-[#122617]">From ₹1,500</span>
+                    <span className="font-semibold text-[#2D4533]">plus GST</span>
+                    <span className="text-[#2D4533]/85">(₹1,770 incl. 18% GST)</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.
+                  </p>
+                  <p className="font-semibold text-[#183825]">
+                    Free cancellation up to 12 hours before. If you join a monthly plan within 30 days, we credit this visit against your first month.
+                  </p>
+                </div>
+              </div>
+
+              <div className="shrink-0 flex flex-col items-center gap-2">
+                <a
+                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3.5 px-6 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-extrabold text-xs sm:text-sm transition shadow-md whitespace-nowrap cursor-pointer text-center"
+                >
+                  Ask about Single Hospital Visit on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Pricing Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {PLANS.map((plan) => {
               const basePrice = parentMode === 'couple' ? plan.pricePerMonthCouple : plan.pricePerMonthSingle;
               const finalPrice = billingCycle === 'quarterly' ? Math.round(basePrice * 0.9) : basePrice;
+              const finalPriceWithGst = Math.round(finalPrice * 1.18);
               const finalUsd = Math.round(finalPrice / 83.5);
+
+              // Standardized short list matching mobile exactly
+              const shortList: Record<string, string[]> = {
+                essential: [
+                  '1 visit a week',
+                  '1 hospital escort (up to 4 hours)',
+                  'Medicine check',
+                  'WhatsApp update after every visit'
+                ],
+                care_plus: [
+                  '2 visits a week',
+                  '2 escorts (up to 5 hours each)',
+                  'We book appointments',
+                  'Weekly medicine check',
+                  'WhatsApp update after every visit'
+                ],
+                comfort: [
+                  '3 visits a week plus weekly companion afternoons',
+                  '3 escorts (up to 6 hours each)',
+                  'We book appointments',
+                  'Full medicine check',
+                  'WhatsApp update after every visit'
+                ],
+                companion: [
+                  '22 days a month (3 hours a day)',
+                  '2 escorts (up to 6 hours each)',
+                  'Daily companion time',
+                  'Medicine check',
+                  'WhatsApp update after every visit'
+                ]
+              };
+
+              const items = shortList[plan.id] || plan.features.slice(0, 4);
 
               return (
                 <div
@@ -749,13 +889,13 @@ export default function DesktopHome() {
                   }`}
                 >
                   {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F5D328] text-[#122116] text-[11px] uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F5D328] text-[#122116] text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                       Recommended
                     </div>
                   )}
 
                   {plan.comingSoon && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F5D328] border border-[#F5D328]/50 text-[11px] uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F5D328] border border-[#F5D328]/50 text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                       Launching Soon • Waitlist
                     </div>
                   )}
@@ -777,66 +917,56 @@ export default function DesktopHome() {
                           ₹{finalPrice.toLocaleString('en-IN')}
                         </span>
                         <span className={`font-bold text-xs sm:text-sm ${plan.popular || plan.comingSoon ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
-                          / month
+                          / month plus GST
                         </span>
                       </div>
-                      <p className={`text-[11px] mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
+                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                        (₹{finalPriceWithGst.toLocaleString('en-IN')} / month incl. 18% GST)
+                      </p>
+                      <p className={`text-xs mt-1 font-medium ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                         (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                       </p>
-                      <p className={`text-[10px] mt-1 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]/80'} font-semibold`}>
-                        * Prices are exclusive of 18% GST (added at billing)
+                    </div>
+
+                    <div className="space-y-2.5 mb-6">
+                      <p className={`text-xs font-bold uppercase tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                        What is included:
                       </p>
+                      <ul className={`space-y-2 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
+                        {items.map((feat, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                            <span className="leading-snug">{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-
-                    <div className={`space-y-2 mb-5 p-3 sm:p-4 rounded-xl text-xs ${plan.popular || plan.comingSoon ? 'bg-[#122617] border border-white/10 text-white' : 'bg-[#F4F7F2] border border-[#183825]/10 text-[#122617]'}`}>
-                      <div className="flex items-center gap-2 font-bold">
-                        <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                        <span>{plan.touchpoints}</span>
-                      </div>
-                      <div className="flex items-center gap-2 font-bold">
-                        <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                        <span>{plan.hospitalHours}</span>
-                      </div>
-                      <div className="flex items-center gap-2 font-bold">
-                        <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                        <span>{plan.companionTasters}</span>
-                      </div>
-                    </div>
-
-                    <ul className={`space-y-2 text-xs mb-6 ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
-                      {plan.features.slice(3).map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
 
                   <div>
                     {plan.comingSoon ? (
-                      <a
-                        href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20join%20the%20waitlist%20for%20the%2022-day%20Companion%20plan%20for%20my%20parents."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-3.5 px-4 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md active:scale-[0.98]"
-                      >
-                        <span>Join Companion Waitlist</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                    ) : (
                       <button
                         type="button"
-                        onClick={() => handleSelectPlan(plan.id)}
-                        className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
+                        onClick={() => setShowCompanionWaitlistModal(true)}
+                        className="w-full py-3.5 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md active:scale-[0.98]"
+                      >
+                        <span>Join the waitlist</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <a
+                        href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20my%20parents.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center ${
                           plan.popular
                             ? 'bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
                             : 'bg-[#122617] hover:bg-[#183825] text-white active:scale-[0.98]'
                         }`}
                       >
-                        <span>Select {plan.name.split(':')[0]}</span>
+                        <span>Ask about {plan.name} on WhatsApp</span>
                         <ArrowRight className="w-4 h-4" />
-                      </button>
+                      </a>
                     )}
                   </div>
                 </div>
@@ -844,44 +974,29 @@ export default function DesktopHome() {
             })}
           </div>
 
-          {/* Single Hospital Visit Card */}
-          <div className="mt-10 max-w-3xl mx-auto p-6 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 shadow-md flex flex-col md:flex-row md:items-center gap-6">
-            <div className="flex-1 space-y-3">
-              <div>
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#183825]/60 bg-[#E8F0C8] px-2.5 py-1 rounded-full">Try before you subscribe</span>
-                <h3 className="text-xl font-black text-[#122617] mt-3">Try us with one hospital visit</h3>
-                <p className="text-sm text-[#374F3E] leading-relaxed mt-2">
-                  Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
-                </p>
-              </div>
-              <ul className="text-xs text-[#2D4533] space-y-1">
-                <li>From ₹1,500 plus GST. Taxi at actuals, shown before you confirm.</li>
-                <li>Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.</li>
-                <li>Free cancellation up to 12 hours before.</li>
-              </ul>
-              <p className="text-[11px] text-[#374F3E]/70 leading-relaxed">
-                If you join a monthly plan within 30 days, we credit this visit against your first month.
-              </p>
-            </div>
-            <div className="shrink-0">
-              <a
-                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20a%20quote%20for%20a%20single%20hospital%20visit%20for%20my%20parent."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-sm transition whitespace-nowrap"
+          {/* Under Cards Terms & Visible All Plans Button */}
+          <div className="mt-10 text-center space-y-4 max-w-xl mx-auto">
+            <p className="text-xs text-[#EBF2E8]/90 font-medium leading-relaxed">
+              3-month minimum commitment to build medical history and a trusted routine. Pause for 14 to 60 days. Unused full months refunded pro-rata.
+            </p>
+            <div className="flex justify-center">
+              <Link
+                href="/plans"
+                className="inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl bg-[#183825] hover:bg-[#1f452e] border border-[#F5D328]/40 text-[#F5D328] font-black text-sm transition shadow-md cursor-pointer hover:border-[#F5D328]"
               >
-                Ask for a quote on WhatsApp
-              </a>
+                <span>See all plans</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 
           {/* Commercial & Operational Rules */}
           <div className="mt-12 p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto space-y-4">
-            <h4 className="text-sm font-bold text-[#F5D328] uppercase tracking-wider flex items-center gap-2">
+            <h4 className="text-xs sm:text-sm font-bold text-[#F5D328] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#F5D328]" />
               <span>Transparent Commercial Rules & Operational Policies</span>
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-[#EBF2E8]/80">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-[#EBF2E8]/85">
               <div>
                 <p className="font-bold text-[#EBF2E8] mb-1">3-Month Minimum & Pro-Rata Refund</p>
                 <p>Initial enrollment is a 3-month minimum commitment to build medical history and a trusted routine. 15-day notice required, with unused full months refunded pro-rata.</p>
@@ -892,7 +1007,7 @@ export default function DesktopHome() {
               </div>
               <div>
                 <p className="font-bold text-[#EBF2E8] mb-1">Overtime Beyond Included Hours</p>
-                <p>Care visits include designated accompaniment hours. Overtime beyond included hours is billed at ₹350/hour actuals (in 30-min blocks), confirmed with you beforehand.</p>
+                <p>Care visits include designated accompaniment hours. Overtime beyond included hours is billed at ₹350/hour actuals (in 30-minute blocks), confirmed with you beforehand.</p>
               </div>
             </div>
 
@@ -1143,6 +1258,150 @@ export default function DesktopHome() {
           </p>
         </div>
       </footer>
+
+      {/* MODAL: COMPANION WAITLIST */}
+      {showCompanionWaitlistModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 sm:p-7 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+            <button
+              type="button"
+              onClick={() => setShowCompanionWaitlistModal(false)}
+              className="absolute top-4 right-4 text-[#EBF2E8]/70 hover:text-white p-1 rounded-full cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Waitlist</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">Join the Companion Waitlist</h3>
+              <p className="text-xs sm:text-sm text-[#EBF2E8]/80 leading-relaxed">
+                22 days a month of warm daily companionship. We will notify you first when enrollment opens.
+              </p>
+            </div>
+
+            {companionSubmitted ? (
+              <div className="p-5 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
+                  <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+                </div>
+                <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
+                <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                  Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open in your parents’ area.
+                </p>
+                <div className="pt-1">
+                  <a
+                    href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#25D366] text-white text-xs font-bold"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-white text-transparent" />
+                    <span>Say hello on WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleCompanionSubmit} className="space-y-3.5">
+                {companionError && (
+                  <div className="p-2.5 rounded-lg bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
+                    {companionError}
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Ramesh Menon"
+                    value={companionName}
+                    onChange={(e) => setCompanionName(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Country
+                  </label>
+                  <select
+                    required
+                    value={companionCountryCode || countryCode}
+                    onChange={(e) => setCompanionCountryCode(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                  >
+                    <option value="">Choose country</option>
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {TOP_NRK_COUNTRIES.map((c) => (
+                        <option key={`top_comp_desk_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {ALL_COUNTRIES.map((c) => (
+                        <option key={`all_comp_desk_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    WhatsApp Number
+                  </label>
+                  <div className="relative flex items-center">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                      {(companionCountryCode || countryCode) && COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))
+                        ? `+${COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))?.dialCode.replace(/[^0-9]/g, '')}`
+                        : '+'}
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. 50 123 4567"
+                      value={companionPhoneDigits}
+                      onChange={(e) => setCompanionPhoneDigits(e.target.value)}
+                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-0.5">
+                  <label className="flex items-start gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={companionConsent}
+                      onChange={(e) => setCompanionConsent(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                    />
+                    <span className="text-xs text-[#EBF2E8]/90 leading-snug">
+                      OK to message me on WhatsApp.
+                    </span>
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={companionSubmitting}
+                  className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs sm:text-sm transition cursor-pointer disabled:opacity-50"
+                >
+                  {companionSubmitting ? 'Joining...' : 'Join Companion Waitlist'}
+                </button>
+
+                <p className="text-xs text-[#EBF2E8]/70 text-center font-normal pt-0.5">
+                  Your parents don’t need to do anything yet.
+                </p>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

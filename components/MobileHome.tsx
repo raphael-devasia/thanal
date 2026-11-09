@@ -34,6 +34,32 @@ export default function MobileHome() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showHowWeChooseModal, setShowHowWeChooseModal] = useState<boolean>(false);
   const [showCompareAllModal, setShowCompareAllModal] = useState<boolean>(false);
+  const [showCompanionWaitlistModal, setShowCompanionWaitlistModal] = useState<boolean>(false);
+
+  // Companion Waitlist State
+  const [companionName, setCompanionName] = useState<string>('');
+  const [companionCountryCode, setCompanionCountryCode] = useState<string>('');
+  const [companionPhoneDigits, setCompanionPhoneDigits] = useState<string>('');
+  const [companionConsent, setCompanionConsent] = useState<boolean>(true);
+  const [companionSubmitting, setCompanionSubmitting] = useState<boolean>(false);
+  const [companionSubmitted, setCompanionSubmitted] = useState<boolean>(false);
+  const [companionError, setCompanionError] = useState<string | null>(null);
+
+  // Close modals on phone back button tap
+  useEffect(() => {
+    if (showCompareAllModal || showCompanionWaitlistModal || showHowWeChooseModal) {
+      window.history.pushState({ modalOpen: true }, '');
+      const handlePopState = () => {
+        setShowCompareAllModal(false);
+        setShowCompanionWaitlistModal(false);
+        setShowHowWeChooseModal(false);
+      };
+      window.addEventListener('popstate', handlePopState);
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+      };
+    }
+  }, [showCompareAllModal, showCompanionWaitlistModal, showHowWeChooseModal]);
 
   // Audio Playback Simulation (8-second clip)
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
@@ -127,6 +153,55 @@ export default function MobileHome() {
     } catch {
       setFormSubmitted(true);
       setIsSubmitting(false);
+    }
+  };
+
+  const handleCompanionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCompanionError(null);
+
+    if (!companionName.trim()) {
+      setCompanionError('Please enter your name.');
+      return;
+    }
+    const country = COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode));
+    if (!country) {
+      setCompanionError('Please choose your country.');
+      return;
+    }
+    const cleanNumber = companionPhoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    if (!cleanNumber || cleanNumber.length < 6 || cleanNumber.length > 15) {
+      setCompanionError('Please enter a valid phone number format.');
+      return;
+    }
+    if (!companionConsent) {
+      setCompanionError('Please check the box to allow WhatsApp messaging.');
+      return;
+    }
+
+    setCompanionSubmitting(true);
+    const cleanDialCode = country.dialCode.replace(/[^0-9]/g, '');
+    const fullWhatsappNumber = `+${cleanDialCode}${cleanNumber}`;
+
+    try {
+      const payload = {
+        name: companionName.trim(),
+        whatsappNumber: fullWhatsappNumber,
+        country: country.name.split(' (')[0],
+        source: 'companion_waitlist_mobile'
+      };
+
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
+
+      setCompanionSubmitted(true);
+      setCompanionSubmitting(false);
+    } catch {
+      setCompanionSubmitted(true);
+      setCompanionSubmitting(false);
     }
   };
 
@@ -614,95 +689,160 @@ export default function MobileHome() {
             </h2>
           </div>
 
-          {/* Two Stacked Cards */}
-          <div className="space-y-4">
+          {/* 1. Introductory Line and Single Hospital Visit Card (Moved Above Plans) */}
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-[#F5D328] uppercase tracking-wider text-center">
+              New to Rodasi? Start with one visit
+            </p>
+
+            <div className="p-5 rounded-2xl bg-[#F9F8F3] border border-[#183825]/20 text-[#122617] space-y-3 shadow-md">
+              <div>
+                <span className="text-xs font-black uppercase tracking-wider text-[#183825] bg-[#E8F0C8] px-2.5 py-0.5 rounded-full inline-block">
+                  Try before you subscribe
+                </span>
+                <h3 className="text-base font-bold text-[#122617] mt-2">
+                  Try us with one hospital visit
+                </h3>
+                <p className="text-xs text-[#374F3E] leading-relaxed mt-1.5">
+                  Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
+                </p>
+                <div className="mt-2.5 space-y-1.5 text-xs text-[#2D4533]">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-base font-extrabold text-[#122617]">From ₹1,500</span>
+                    <span className="text-xs font-semibold text-[#2D4533]">plus GST</span>
+                    <span className="text-xs text-[#2D4533]/80">(₹1,770 incl. 18% GST)</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Taxi at actuals (typically ₹600 to ₹1,000 depending on distance), shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.
+                  </p>
+                  <p className="font-medium text-[#183825]">
+                    Free cancellation up to 12 hours before.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-3 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-xs text-center block transition shadow-sm cursor-pointer"
+              >
+                Ask about Single Hospital Visit on WhatsApp
+              </a>
+
+              <p className="text-xs text-[#374F3E]/90 text-center leading-relaxed">
+                If you join a monthly plan within 30 days, we credit this visit against your first month.
+              </p>
+            </div>
+          </div>
+
+          {/* 2. Monthly Plan Cards */}
+          <div className="space-y-4 pt-1">
             {/* Plan 1: Care Essential */}
-            <div className="p-5 rounded-2xl bg-[#183825] border border-[#F5D328]/30 text-white space-y-3">
+            <div className="p-5 rounded-2xl bg-[#183825] border border-[#F5D328]/30 text-white space-y-4">
               <div>
                 <h3 className="text-lg font-bold text-white">Care Essential</h3>
                 <div className="flex items-baseline gap-1 mt-1">
                   <span className="text-2xl font-black text-[#F5D328]">₹6,000</span>
-                  <span className="text-xs text-[#EBF2E8]/80">a month plus GST</span>
+                  <span className="text-xs font-bold text-[#EBF2E8]">a month plus GST</span>
                 </div>
-                <p className="text-xs text-[#EBF2E8]/90 mt-2 leading-relaxed">
-                  1 visit a week, 1 hospital escort.
+                <p className="text-xs text-[#EBF2E8]/80 font-medium mt-0.5">
+                  (₹7,080 / month incl. 18% GST)
                 </p>
+
+                <ul className="mt-3 space-y-1.5 text-xs text-[#EBF2E8]/90">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>1 visit a week</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>1 hospital escort (up to 4 hours)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>Medicine check</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>WhatsApp update after every visit</span>
+                  </li>
+                </ul>
               </div>
+
               <a
-                href={sampleWhatsAppUrl}
+                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-[#F2EFE6] text-[#122116] font-bold text-xs text-center block transition"
+                className="w-full py-3 px-3 rounded-xl bg-white hover:bg-[#F2EFE6] text-[#122116] font-bold text-xs text-center block transition cursor-pointer"
               >
-                Inquire on WhatsApp
+                Ask about Care Essential on WhatsApp
               </a>
             </div>
 
-            {/* Plan 2: Care Plus */}
-            <div className="p-5 rounded-2xl bg-[#162D1D] border-2 border-[#F5D328] text-white space-y-3 relative shadow-xl">
-              <span className="absolute -top-2.5 right-4 bg-[#F5D328] text-[#122116] text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+            {/* Plan 2: Care Plus (Recommended) */}
+            <div className="p-5 rounded-2xl bg-[#162D1D] border-2 border-[#F5D328] text-white space-y-4 relative shadow-xl">
+              <span className="absolute -top-2.5 right-4 bg-[#F5D328] text-[#122116] text-xs font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
                 Recommended
               </span>
               <div>
                 <h3 className="text-lg font-bold text-white">Care Plus</h3>
                 <div className="flex items-baseline gap-1 mt-1">
                   <span className="text-2xl font-black text-[#F5D328]">₹11,000</span>
-                  <span className="text-xs text-[#EBF2E8]/80">a month plus GST</span>
+                  <span className="text-xs font-bold text-[#EBF2E8]">a month plus GST</span>
                 </div>
-                <p className="text-xs text-[#EBF2E8]/90 mt-2 leading-relaxed">
-                  2 visits a week, 2 hospital escorts.
+                <p className="text-xs text-[#EBF2E8]/80 font-medium mt-0.5">
+                  (₹12,980 / month incl. 18% GST)
                 </p>
+
+                <ul className="mt-3 space-y-1.5 text-xs text-[#EBF2E8]/90">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>2 visits a week</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>2 escorts (up to 5 hours each)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>We book appointments for you</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>Weekly medicine check</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>WhatsApp update after every visit</span>
+                  </li>
+                </ul>
               </div>
+
               <a
-                href={sampleWhatsAppUrl}
+                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs text-center block transition"
+                className="w-full py-3 px-3 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs text-center block transition cursor-pointer"
               >
-                Inquire on WhatsApp
+                Ask about Care Plus on WhatsApp
               </a>
             </div>
           </div>
 
-          {/* Single Hospital Visit Card */}
-          <div className="p-5 rounded-2xl bg-[#F9F8F3] border border-[#183825]/20 text-[#122617] space-y-3 mt-2">
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#183825]/60 bg-[#E8F0C8] px-2 py-0.5 rounded-full">Try before you subscribe</span>
-              <h3 className="text-base font-bold text-[#122617] mt-2">Try us with one hospital visit</h3>
-              <p className="text-xs text-[#374F3E] leading-relaxed mt-1.5">
-                Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
-              </p>
-              <div className="mt-2 space-y-1 text-xs text-[#2D4533]">
-                <p>From ₹1,500 plus GST. Taxi at actuals, shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.</p>
-                <p>Free cancellation up to 12 hours before.</p>
-              </div>
-            </div>
-            <a
-              href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20a%20quote%20for%20a%20single%20hospital%20visit%20for%20my%20parent."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 px-3 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-xs text-center block transition"
-            >
-              Ask for a quote on WhatsApp
-            </a>
-            <p className="text-[10px] text-[#374F3E]/80 text-center leading-relaxed">
-              If you join a monthly plan within 30 days, we credit this visit against your first month.
+          {/* Under Cards Terms & Clear Visible Button */}
+          <div className="text-center space-y-3 pt-2">
+            <p className="text-xs text-[#EBF2E8]/90 leading-relaxed font-medium">
+              3-month minimum. Pause for 14 to 60 days. Unused full months refunded pro-rata.
             </p>
-          </div>
-
-          {/* Under Cards Terms & Link */}
-          <div className="text-center space-y-2 pt-2">
-            <p className="text-xs text-[#EBF2E8]/85 leading-relaxed font-normal">
-              3-month minimum. Pause for 14 to 60 days. Unused full months refunded.
-            </p>
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowCompareAllModal(true)}
-                className="text-xs text-[#F5D328] hover:underline font-bold cursor-pointer"
+            <div className="flex flex-col gap-2 pt-1">
+              <Link
+                href="/plans"
+                className="w-full py-3.5 px-4 rounded-xl bg-[#183825] hover:bg-[#1e452e] border border-[#F5D328]/40 text-[#F5D328] font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-md"
               >
-                Compare all plans (Care Complete and the 22-day Companion plan live there)
-              </button>
+                <span>See all plans</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>
@@ -1009,7 +1149,7 @@ export default function MobileHome() {
       {/* MODAL: COMPARE ALL PLANS */}
       {showCompareAllModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowCompareAllModal(false)}
@@ -1020,59 +1160,259 @@ export default function MobileHome() {
             </button>
 
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">Comprehensive Tiers</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Comprehensive Tiers</span>
               <h3 className="text-lg font-bold text-white">Compare All Care Plans</h3>
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
+            <div className="space-y-3.5 text-xs">
+              {/* Care Essential */}
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-2">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
                   <span>Care Essential</span>
                   <span>₹6,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">1 visit a week, 1 hospital escort (up to 4 hours), weekly summary.</p>
+                <p className="text-xs text-[#EBF2E8]/70 font-medium">
+                  (₹7,080 / month incl. 18% GST)
+                </p>
+                <p className="text-[#EBF2E8]/90 leading-relaxed">
+                  1 visit a week, 1 hospital escort (up to 4 hours), medicine check, WhatsApp update after every visit.
+                </p>
+                <a
+                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center block transition"
+                >
+                  Ask about Care Essential on WhatsApp
+                </a>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328] space-y-1">
+              {/* Care Plus */}
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328] space-y-2">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
                   <span>Care Plus (Recommended)</span>
                   <span>₹11,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">2 visits a week, 2 hospital escorts (up to 5 hours each), full medicine checks.</p>
+                <p className="text-xs text-[#EBF2E8]/70 font-medium">
+                  (₹12,980 / month incl. 18% GST)
+                </p>
+                <p className="text-[#EBF2E8]/90 leading-relaxed">
+                  2 visits a week, 2 escorts (up to 5 hours each), we book appointments, weekly medicine check, WhatsApp update after every visit.
+                </p>
+                <a
+                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-lg bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center block transition"
+                >
+                  Ask about Care Plus on WhatsApp
+                </a>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
+              {/* Care Complete */}
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-2">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
                   <span>Care Complete</span>
                   <span>₹18,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">3 visits a week, 3 hospital escorts (up to 6 hours each), weekly companion afternoons.</p>
+                <p className="text-xs text-[#EBF2E8]/70 font-medium">
+                  (₹21,240 / month incl. 18% GST)
+                </p>
+                <p className="text-[#EBF2E8]/90 leading-relaxed">
+                  3 visits a week, 3 escorts (up to 6 hours each), weekly companion afternoons, we book appointments, full medicine check, WhatsApp update after every visit.
+                </p>
+                <a
+                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Complete%20plan%20for%20my%20parents."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center block transition"
+                >
+                  Ask about Care Complete on WhatsApp
+                </a>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F5D328]/40 space-y-1">
+              {/* Companion */}
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F5D328]/50 space-y-2">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
                   <span>Companion (Launching Soon)</span>
                   <span>₹20,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">22 days a month, 3 hours a day (66 companion hours/mo) for parents living alone. Join the waitlist.</p>
+                <p className="text-xs text-[#EBF2E8]/70 font-medium">
+                  (₹23,600 / month incl. 18% GST)
+                </p>
+                <p className="text-[#EBF2E8]/90 leading-relaxed">
+                  22 days a month (3 hours a day), 2 escorts (up to 6 hours each), daily companion time, medicine check, WhatsApp update after every visit.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCompareAllModal(false);
+                    setShowCompanionWaitlistModal(true);
+                  }}
+                  className="w-full py-2.5 px-3 rounded-lg bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center block transition cursor-pointer"
+                >
+                  Join the Companion waitlist
+                </button>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#122617]/70 text-[11px] text-[#EBF2E8]/80 leading-relaxed">
+            <div className="p-3 rounded-xl bg-[#122617]/70 text-xs text-[#EBF2E8]/80 leading-relaxed">
               All plans include our 3-month minimum commitment, 14 to 60 day pause policy, and pro-rata refund for unused full months.
             </div>
 
-            <div className="pt-2">
-              <a
-                href={sampleWhatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 rounded-xl bg-[#F5D328] text-[#122116] font-extrabold text-xs flex items-center justify-center gap-1.5"
+            <div className="pt-1">
+              <Link
+                href="/plans"
+                onClick={() => setShowCompareAllModal(false)}
+                className="w-full py-3 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-[#F5D328] font-bold text-xs text-center block transition"
               >
-                <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
-                <span>Discuss Plans on WhatsApp</span>
-              </a>
+                Open Full Plans Page →
+              </Link>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: COMPANION WAITLIST */}
+      {showCompanionWaitlistModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+            <button
+              type="button"
+              onClick={() => setShowCompanionWaitlistModal(false)}
+              className="absolute top-4 right-4 text-[#EBF2E8]/70 hover:text-white p-1 rounded-full cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Waitlist</span>
+              <h3 className="text-xl font-bold text-white">Join the Companion Waitlist</h3>
+              <p className="text-xs text-[#EBF2E8]/80">
+                22 days a month of warm daily companionship. We will notify you first when enrollment opens.
+              </p>
+            </div>
+
+            {companionSubmitted ? (
+              <div className="p-5 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
+                  <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+                </div>
+                <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
+                <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
+                  Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open in your parents’ area.
+                </p>
+                <div className="pt-1">
+                  <a
+                    href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#25D366] text-white text-xs font-bold"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-white text-transparent" />
+                    <span>Say hello on WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleCompanionSubmit} className="space-y-3.5">
+                {companionError && (
+                  <div className="p-2.5 rounded-lg bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
+                    {companionError}
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Ramesh Menon"
+                    value={companionName}
+                    onChange={(e) => setCompanionName(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Country
+                  </label>
+                  <select
+                    required
+                    value={companionCountryCode || countryCode}
+                    onChange={(e) => setCompanionCountryCode(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs cursor-pointer"
+                  >
+                    <option value="">Choose country</option>
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {TOP_NRK_COUNTRIES.map((c) => (
+                        <option key={`top_comp_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                      {ALL_COUNTRIES.map((c) => (
+                        <option key={`all_comp_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
+                          {c.name} (+{c.dialCode})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    WhatsApp Number
+                  </label>
+                  <div className="relative flex items-center">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                      {(companionCountryCode || countryCode) && COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))
+                        ? `+${COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))?.dialCode.replace(/[^0-9]/g, '')}`
+                        : '+'}
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. 50 123 4567"
+                      value={companionPhoneDigits}
+                      onChange={(e) => setCompanionPhoneDigits(e.target.value)}
+                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-0.5">
+                  <label className="flex items-start gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={companionConsent}
+                      onChange={(e) => setCompanionConsent(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                    />
+                    <span className="text-xs text-[#EBF2E8]/90 leading-snug">
+                      OK to message me on WhatsApp.
+                    </span>
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={companionSubmitting}
+                  className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs transition cursor-pointer disabled:opacity-50"
+                >
+                  {companionSubmitting ? 'Joining...' : 'Join Companion Waitlist'}
+                </button>
+
+                <p className="text-xs text-[#EBF2E8]/70 text-center font-normal pt-0.5">
+                  Your parents don’t need to do anything yet.
+                </p>
+              </form>
+            )}
           </div>
         </div>
       )}
