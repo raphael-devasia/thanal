@@ -875,6 +875,37 @@ export default function DesktopHome() {
             })}
           </div>
 
+          {/* Single Hospital Visit Card */}
+          <div className="mt-10 max-w-3xl mx-auto p-6 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 shadow-md flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex-1 space-y-3">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#183825]/60 bg-[#E8F0C8] px-2.5 py-1 rounded-full">Try before you subscribe</span>
+                <h3 className="text-xl font-black text-[#122617] mt-3">Try us with one hospital visit</h3>
+                <p className="text-sm text-[#374F3E] leading-relaxed mt-2">
+                  Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
+                </p>
+              </div>
+              <ul className="text-xs text-[#2D4533] space-y-1">
+                <li>From ₹1,500 plus GST. Taxi at actuals, shown before you confirm.</li>
+                <li>Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.</li>
+                <li>Free cancellation up to 12 hours before.</li>
+              </ul>
+              <p className="text-[11px] text-[#374F3E]/70 leading-relaxed">
+                If you join a monthly plan within 30 days, we credit this visit against your first month.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <a
+                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20a%20quote%20for%20a%20single%20hospital%20visit%20for%20my%20parent."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-sm transition whitespace-nowrap"
+              >
+                Ask for a quote on WhatsApp
+              </a>
+            </div>
+          </div>
+
           {/* Commercial & Operational Rules */}
           <div className="mt-12 p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto space-y-4">
             <h4 className="text-sm font-bold text-[#F5D328] uppercase tracking-wider flex items-center gap-2">

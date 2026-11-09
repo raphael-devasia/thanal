@@ -337,9 +337,14 @@ export default function MobileHome() {
           {/* Card Content based on selection */}
           <div className="p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-sm space-y-4 text-left">
             {selectedWorry === 'hospital' && (
-              <p className="text-sm text-[#243B2B] leading-relaxed">
-                Your Care Buddy books the slot, goes with Amma by taxi, sits with her in the queue, and sends you a voice summary afterwards.
-              </p>
+              <div className="space-y-2">
+                <p className="text-sm text-[#243B2B] leading-relaxed">
+                  Your Care Buddy books the slot, goes with Amma by taxi, sits with her in the queue, and sends you a voice summary afterwards.
+                </p>
+                <p className="text-xs text-[#2D4533] font-medium">
+                  Want to try us first? One visit from ₹1,500 plus GST. See the card in the Plans section below.
+                </p>
+              </div>
             )}
             {selectedWorry === 'medicines' && (
               <p className="text-sm text-[#243B2B] leading-relaxed">
@@ -638,6 +643,32 @@ export default function MobileHome() {
                 Inquire on WhatsApp
               </a>
             </div>
+          </div>
+
+          {/* Single Hospital Visit Card */}
+          <div className="p-5 rounded-2xl bg-[#F9F8F3] border border-[#183825]/20 text-[#122617] space-y-3 mt-2">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-wider text-[#183825]/60 bg-[#E8F0C8] px-2 py-0.5 rounded-full">Try before you subscribe</span>
+              <h3 className="text-base font-bold text-[#122617] mt-2">Try us with one hospital visit</h3>
+              <p className="text-xs text-[#374F3E] leading-relaxed mt-1.5">
+                Your Care Buddy picks your parent up from home, stays through the visit, and brings them back. You get a voice note, the prescription photo and a summary on WhatsApp.
+              </p>
+              <div className="mt-2 space-y-1 text-xs text-[#2D4533]">
+                <p>From ₹1,500 plus GST. Taxi at actuals, shown before you confirm. Up to 3 hours; ₹350 an hour after that, in 30-minute blocks.</p>
+                <p>Free cancellation up to 12 hours before.</p>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20a%20quote%20for%20a%20single%20hospital%20visit%20for%20my%20parent."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 px-3 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-xs text-center block transition"
+            >
+              Ask for a quote on WhatsApp
+            </a>
+            <p className="text-[10px] text-[#374F3E]/80 text-center leading-relaxed">
+              If you join a monthly plan within 30 days, we credit this visit against your first month.
+            </p>
           </div>
 
           {/* Under Cards Terms & Link */}
@@ -955,7 +986,7 @@ export default function MobileHome() {
                   <span>Care Plus (Recommended)</span>
                   <span>₹11,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">2 visits a week, 2 hospital escorts (up to 6 hours each), full medicine checks.</p>
+                <p className="text-[#EBF2E8]/80">2 visits a week, 2 hospital escorts (up to 5 hours each), full medicine checks.</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
@@ -963,15 +994,15 @@ export default function MobileHome() {
                   <span>Care Complete</span>
                   <span>₹18,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">3 visits a week, unlimited hospital escorts (up to 12 hrs/mo), weekly companion sessions.</p>
+                <p className="text-[#EBF2E8]/80">3 visits a week, 3 hospital escorts (up to 6 hours each), weekly companion afternoons.</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F5D328]/40 space-y-1">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
-                  <span>22-Day Companion Plan</span>
+                  <span>Companion (Launching Soon)</span>
                   <span>₹20,000 / mo + GST</span>
                 </div>
-                <p className="text-[#EBF2E8]/80">22 days a month × 3 hours daily (66 companion hours/mo) for parents living alone.</p>
+                <p className="text-[#EBF2E8]/80">22 days a month, 3 hours a day (66 companion hours/mo) for parents living alone. Join the waitlist.</p>
               </div>
             </div>
 

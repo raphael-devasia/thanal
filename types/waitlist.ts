@@ -45,12 +45,12 @@ export interface WaitlistEntry {
 export const PLANS: PlanOption[] = [
   {
     id: 'essential',
-    name: 'Plan 1: Essential',
+    name: 'Care Essential',
     tagline: 'Reliable Safety Net & Medical Escort',
-    pricePerMonthSingle: 7000,
-    pricePerMonthCouple: 12250, // 25% discount on second parent (7000 + 5250)
-    usdPriceSingle: 85,
-    usdPriceCouple: 145,
+    pricePerMonthSingle: 6000,
+    pricePerMonthCouple: 10500, // 25% discount on second parent (6000 + 4500)
+    usdPriceSingle: 72,
+    usdPriceCouple: 126,
     description: 'Ideal for independent parents who need a reliable emergency backup, regular wellness checks, and hospital OPD accompaniment.',
     touchpoints: '3 to 4 touchpoints / mo (1 weekly buddy visit + 1 call/wk)',
     hospitalHours: '1 hospital trip / mo (up to 4 hours buddy accompaniment)',
@@ -67,12 +67,12 @@ export const PLANS: PlanOption[] = [
   },
   {
     id: 'care_plus',
-    name: 'Plan 2: Care Plus',
+    name: 'Care Plus',
     tagline: 'Active Health Management & Hospital Support',
     pricePerMonthSingle: 11000,
     pricePerMonthCouple: 19250, // 25% discount on second parent (11000 + 8250)
-    usdPriceSingle: 135,
-    usdPriceCouple: 230,
+    usdPriceSingle: 132,
+    usdPriceCouple: 231,
     description: 'Designed for parents with chronic health needs who require frequent check-ins, routine hospital visits, and instant WhatsApp voice updates.',
     touchpoints: '10 to 12 in-person visits (~18-20 hrs with parent / mo)',
     hospitalHours: '2 hospital trips / mo (up to 5 hours buddy accompaniment each)',
@@ -91,16 +91,16 @@ export const PLANS: PlanOption[] = [
   },
   {
     id: 'comfort',
-    name: 'Plan 3: Comfort',
+    name: 'Care Complete',
     tagline: 'High-Attention Coordination & Companionship',
-    pricePerMonthSingle: 15000,
-    pricePerMonthCouple: 26250, // 25% discount on second parent (15000 + 11250)
-    usdPriceSingle: 180,
-    usdPriceCouple: 315,
+    pricePerMonthSingle: 18000,
+    pricePerMonthCouple: 31500, // 25% discount on second parent (18000 + 13500)
+    usdPriceSingle: 216,
+    usdPriceCouple: 378,
     description: 'Complete hands-on attention for parents needing frequent in-person contact, intensive hospital coordination, and rich companion engagement.',
     touchpoints: '16 to 19 in-person visits (~30 hrs with parent / mo)',
     hospitalHours: '3 hospital trips / mo (up to 6 hours buddy accompaniment each)',
-    companionTasters: '4 Companion Afternoon tasters / month',
+    companionTasters: '4 Companion Afternoon tasters / month (weekly companionship)',
     features: [
       '3 Weekly Care Buddy visits (1.5 hrs each) + 3 calls/wk',
       '3 Hospital OPD Escort trips / month (up to 6 hrs buddy time each)',
@@ -113,18 +113,18 @@ export const PLANS: PlanOption[] = [
   },
   {
     id: 'companion',
-    name: 'Plan 4: Companion',
+    name: 'Companion',
     tagline: 'Signature Daily Companionship (Launching Soon)',
     pricePerMonthSingle: 20000,
     pricePerMonthCouple: 35000,
     usdPriceSingle: 240,
     usdPriceCouple: 420,
-    description: 'For parents living alone who seek daily warmth, meaningful conversation, hobbies, and activities. 22 days × 3 hours dedicated companion time.',
+    description: '22 days a month, 3 hours a day of dedicated companionship. For parents living alone who seek warmth, meaningful conversation, and daily presence. Join the waitlist.',
     touchpoints: '26 in-person visits (70 to 75 hrs with parent / mo)',
     hospitalHours: '2 hospital trips / mo (up to 6 hours buddy time each)',
-    companionTasters: 'Full daily service (22 days × 3 hrs = 66 hrs companionship)',
+    companionTasters: 'Full daily service (22 days x 3 hrs = 66 hrs companionship)',
     features: [
-      '22 Days a month × 3 hours daily dedicated companionship (66 hrs)',
+      '22 Days a month x 3 hours daily dedicated companionship (66 hrs)',
       '1 Care Buddy coordination visit + daily check-in calls',
       '2 Hospital OPD escort trips / month (up to 6 hrs each)',
       'Monthly scheduled parent-and-child video call hosted by the buddy',
