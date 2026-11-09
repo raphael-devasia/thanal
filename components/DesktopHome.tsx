@@ -346,6 +346,7 @@ export default function DesktopHome() {
       bullets: [
         'Your Care Buddy and a coordinator you can message',
         'Permanent buddy assignment (no rotation of strangers)',
+        'Comprehensive initial profiling to document your parents\' medical history, allergies, dietary preferences, and daily hobbies before the first official visit',
         'Welcome home visit with family video call'
       ],
       icon: Users
@@ -806,6 +807,9 @@ export default function DesktopHome() {
                 </p>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-[#F5D328] border border-[#F5D328]/30">
+                    24/7 Emergency Mobilization Support
+                  </span>
                   <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
                     OPD Hospital Escorts
                   </span>
@@ -974,7 +978,7 @@ export default function DesktopHome() {
                   }`}
                 >
                   <span>Both Parents</span>
-                  <span className="text-[10px] bg-[#25D366] text-white px-1.5 py-0.2 rounded font-extrabold">25% Off</span>
+                  <span className="text-[10px] bg-[#25D366] text-white px-1.5 py-0.2 rounded font-extrabold">2nd Parent 25% Off</span>
                 </button>
               </div>
 
@@ -1001,6 +1005,11 @@ export default function DesktopHome() {
                 </button>
               </div>
             </div>
+
+            {/* Clear explanation of 2nd parent discount */}
+            <p className="text-xs text-[#EBF2E8]/85 text-center mt-3 font-medium">
+              Covering both parents? Add a second parent for just 75% of the base fee (25% discount on the second parent&apos;s fee).
+            </p>
           </div>
 
           {/* Introductory Line & Single Hospital Visit Card (Moved Above Plans) */}
@@ -1071,6 +1080,7 @@ export default function DesktopHome() {
                   '2 escorts (up to 5 hours each)',
                   'We book appointments',
                   'Weekly medicine check',
+                  '24/7 Emergency mobilization support',
                   'WhatsApp update after every visit'
                 ],
                 comfort: [
@@ -1078,6 +1088,7 @@ export default function DesktopHome() {
                   '3 escorts (up to 6 hours each)',
                   'We book appointments',
                   'Full medicine check',
+                  '24/7 Emergency mobilization support',
                   'WhatsApp update after every visit'
                 ],
                 companion: [
@@ -1140,6 +1151,11 @@ export default function DesktopHome() {
                       <p className={`text-xs mt-1 font-medium ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                         (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                       </p>
+                      {parentMode === 'couple' && (
+                        <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                          Covers both parents (2nd parent at 25% off)
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-2.5 mb-6">
@@ -1756,8 +1772,8 @@ export default function DesktopHome() {
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Care Buddy checks medicines against the prescription, checks with doctor or pharmacist, and coordinates doorstep refills.</p>
                       </div>
                       <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Emergency Accompaniment</p>
-                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.</p>
+                        <p className="font-bold text-xs text-[#F5D328] mb-1">24/7 Emergency Mobilization Support</p>
+                        <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Call 108 first for acute trauma; our emergency coordination mobilizes your Care Buddy directly to the hospital bedside.</p>
                       </div>
                       <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
                         <p className="font-bold text-xs text-[#F5D328] mb-1">Home Lab & ECG Visits</p>

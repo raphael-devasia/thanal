@@ -413,7 +413,8 @@ export const PLANS: PlanOption[] = [
       'Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.',
       'Care Passport digital folder & monthly health report',
       '2 Errands or bill payment runs per month',
-      'Initial Home Safety & fall-prevention audit'
+      'Initial Home Safety & fall-prevention audit',
+      'Comprehensive initial profiling to document your parents\' medical history, allergies, dietary preferences, and daily hobbies before the first official visit'
     ]
   },
   {
@@ -431,11 +432,13 @@ export const PLANS: PlanOption[] = [
     features: [
       '2 Weekly Care Buddy visits (1.5 hrs each) + 2 calls/wk',
       '2 Hospital OPD Escort trips / month (up to 5 hrs buddy time each)',
+      '24/7 Emergency mobilization support',
       '2 Companion Afternoon tasters per month',
       '1 Planned Doctor consult or tele-consult per quarter',
       'Instant WhatsApp voice notes & prescription photos after each visit',
       'Doorstep medicine stock checks & refill management',
       'Errands & bill payments included (reasonable use)',
+      'Comprehensive initial profiling to document your parents\' medical history, allergies, dietary preferences, and daily hobbies before the first official visit',
       'Annual home safety & fall-prevention audit'
     ],
     popular: true
@@ -455,10 +458,12 @@ export const PLANS: PlanOption[] = [
     features: [
       '3 Weekly Care Buddy visits (1.5 hrs each) + 3 calls/wk',
       '3 Hospital OPD Escort trips / month (up to 6 hrs buddy time each)',
+      '24/7 Emergency mobilization support',
       '4 Companion Afternoon tasters per month (weekly companionship)',
       '2 Planned Doctor consults or tele-consults per quarter',
       'WhatsApp update after every visit + weekly summary + monthly report',
       'Full errand running, bank & pension life certificate assistance',
+      'Comprehensive initial profiling to document your parents\' medical history, allergies, dietary preferences, and daily hobbies before the first official visit',
       'Home safety audit every 6 months'
     ]
   },
@@ -481,6 +486,7 @@ export const PLANS: PlanOption[] = [
       'Monthly scheduled parent-and-child video call hosted by the buddy',
       'Personal Shopper service (accompanied shopping or online ordering)',
       'Memory games, reading aloud, light walks & tech mentoring',
+      'Comprehensive initial profiling to document your parents\' medical history, allergies, dietary preferences, and daily hobbies before the first official visit',
       'Early upgrade access for founding members'
     ],
     comingSoon: true

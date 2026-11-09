@@ -696,6 +696,10 @@ export default function MobileHome() {
               <Check className="w-4 h-4 text-[#183825] shrink-0 mt-0.5" />
               <span>Every Care Buddy is background-checked before their first visit.</span>
             </div>
+            <div className="flex items-start gap-2.5 text-xs text-[#243B2B]">
+              <Check className="w-4 h-4 text-[#183825] shrink-0 mt-0.5" />
+              <span>Initial Care &amp; Personality Assessment to document health history, diet, and hobbies.</span>
+            </div>
           </div>
 
           <div>
@@ -739,7 +743,7 @@ export default function MobileHome() {
               </div>
               <h3 className="text-base font-bold text-white">Vitality & Care</h3>
               <p className="text-xs text-[#E0EBDC] leading-relaxed">
-                Hospital OPD escorting, doctor consultation notes, medicine refills, and home diagnostic visits.
+                24/7 emergency mobilization support, hospital OPD escorting, doctor consultation notes, medicine refills, and home diagnostic visits.
               </p>
               <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
                 <span>View full scope & live log</span>
@@ -847,6 +851,13 @@ export default function MobileHome() {
                 If you join a monthly plan within 30 days, we credit this visit against your first month.
               </p>
             </div>
+          </div>
+
+          {/* Second Parent Discount Note */}
+          <div className="p-3 rounded-xl bg-[#183825]/80 border border-[#F5D328]/30 text-center">
+            <p className="text-[11px] text-[#EBF2E8]/90 font-medium">
+              Covering both parents? Add a second parent for just 75% of the base fee (25% discount on the second parent&apos;s fee).
+            </p>
           </div>
 
           {/* 2. Monthly Plan Cards */}
@@ -969,6 +980,10 @@ export default function MobileHome() {
                   <li className="flex items-start gap-2">
                     <span className="text-[#F5D328] font-bold">•</span>
                     <span>Weekly medicine check</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span>24/7 Emergency mobilization support</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-[#F5D328] font-bold">•</span>
@@ -1336,6 +1351,10 @@ export default function MobileHome() {
                 <p className="font-bold text-[#F5D328]">2. Introduction Video Call</p>
                 <p>You and your parents meet your primary Care Buddy and named backup on a video call before the inaugural home visit.</p>
               </div>
+              <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
+                <p className="font-bold text-[#F5D328]">3. Initial Care &amp; Personality Assessment</p>
+                <p>Comprehensive initial profiling to document your parents&apos; medical history, allergies, dietary preferences, and daily hobbies before the first official visit.</p>
+              </div>
             </div>
 
             <button
@@ -1400,7 +1419,7 @@ export default function MobileHome() {
                   (₹12,980 / month incl. 18% GST)
                 </p>
                 <p className="text-[#EBF2E8]/90 leading-relaxed">
-                  2 visits a week, 2 escorts (up to 5 hours each), we book appointments, weekly medicine check, WhatsApp update after every visit.
+                  2 visits a week, 2 escorts (up to 5 hours each), we book appointments, weekly medicine check, 24/7 emergency mobilization support, WhatsApp update after every visit.
                 </p>
                 <a
                   href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
@@ -1422,7 +1441,7 @@ export default function MobileHome() {
                   (₹21,240 / month incl. 18% GST)
                 </p>
                 <p className="text-[#EBF2E8]/90 leading-relaxed">
-                  3 visits a week, 3 escorts (up to 6 hours each), weekly companion afternoons, we book appointments, full medicine check, WhatsApp update after every visit.
+                  3 visits a week, 3 escorts (up to 6 hours each), weekly companion afternoons, we book appointments, full medicine check, 24/7 emergency mobilization support, WhatsApp update after every visit.
                 </p>
                 <a
                   href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Complete%20plan%20for%20my%20parents."
@@ -1711,8 +1730,8 @@ export default function MobileHome() {
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Checked against prescription, verified with doctor or pharmacist, and coordinated refills.</p>
                     </div>
                     <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Emergency Accompaniment</p>
-                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.</p>
+                      <p className="font-bold text-[#F5D328]">24/7 Emergency Mobilization Support</p>
+                      <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Call 108 first for acute trauma; our emergency coordination mobilizes your Care Buddy directly to the hospital bedside.</p>
                     </div>
                     <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
                       <p className="font-bold text-[#F5D328]">Home Lab & ECG Visits</p>

@@ -161,7 +161,7 @@ export default function PlansPage() {
                 }`}
               >
                 <span>Both Parents</span>
-                <span className="text-[10px] bg-[#25D366] text-white px-1.5 py-0.2 rounded font-extrabold">25% Off</span>
+                <span className="text-[10px] bg-[#25D366] text-white px-1.5 py-0.2 rounded font-extrabold">2nd Parent 25% Off</span>
               </button>
             </div>
 
@@ -188,6 +188,11 @@ export default function PlansPage() {
               </button>
             </div>
           </div>
+
+          {/* Clear explanation of 2nd parent discount */}
+          <p className="text-xs text-[#EBF2E8]/85 text-center mt-3 font-medium">
+            Covering both parents? Add a second parent for just 75% of the base fee (25% discount on the second parent&apos;s fee).
+          </p>
         </div>
 
         {/* 1. Try us first: Single Hospital Visit Card (Above Plans) */}
@@ -258,6 +263,7 @@ export default function PlansPage() {
                 '2 escorts (up to 5 hours each)',
                 'We book appointments',
                 'Weekly medicine check',
+                '24/7 Emergency mobilization support',
                 'WhatsApp update after every visit'
               ],
               comfort: [
@@ -265,6 +271,7 @@ export default function PlansPage() {
                 '3 escorts (up to 6 hours each)',
                 'We book appointments',
                 'Full medicine check',
+                '24/7 Emergency mobilization support',
                 'WhatsApp update after every visit'
               ],
               companion: [
@@ -327,6 +334,11 @@ export default function PlansPage() {
                     <p className={`text-xs mt-1 font-medium ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                       (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                     </p>
+                    {parentMode === 'couple' && (
+                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                        Covers both parents (2nd parent at 25% off)
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-2.5 mb-6">
