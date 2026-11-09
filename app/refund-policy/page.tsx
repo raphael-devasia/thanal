@@ -13,7 +13,7 @@ export default function RefundPolicyPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Bornsai</span>
+            <span>Return to Rodasi</span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -75,7 +75,7 @@ export default function RefundPolicyPage() {
               <span>Zero Upfront Payment & Free Consultation</span>
             </h2>
             <p>
-              Registering on Bornsai costs ₹0 today. There are no mandatory upfront deposits or reservation fees. You only begin membership billing after our Care Manager conducts a thorough onboarding discussion on WhatsApp and you approve the care plan.
+              Registering on Rodasi costs ₹0 today. There are no mandatory upfront deposits or reservation fees. You only begin membership billing after our Care Manager conducts a thorough onboarding discussion on WhatsApp and you approve the care plan.
             </p>
           </section>
 
@@ -86,7 +86,7 @@ export default function RefundPolicyPage() {
               <span>3-Month Minimum Commitment & Pro-Rata Refund</span>
             </h2>
             <p>
-              Eldercare requires familiarity, trust, and continuity. To ensure your parents receive consistent care from a dedicated buddy rather than rotating faces, all Bornsai care memberships begin with an initial <strong>3-month minimum commitment</strong>.
+              Eldercare requires familiarity, trust, and continuity. To ensure your parents receive consistent care from a dedicated buddy rather than rotating faces, all Rodasi care memberships begin with an initial <strong>3-month minimum commitment</strong>.
             </p>
             <p>
               If your family circumstances change or you wish to withdraw for any reason:
@@ -135,7 +135,7 @@ export default function RefundPolicyPage() {
             <div className="p-4 rounded-xl bg-white border border-[#183825]/15 space-y-1.5 text-xs">
               <p className="font-bold text-[#183825]">How to Submit a Refund or Pause Request:</p>
               <p>• Official WhatsApp Support: <a href="https://wa.me/919496097611" className="font-bold text-[#183825] underline">+91 94960 97611</a></p>
-              <p>• Email Support: <a href="mailto:care@bornsai.com" className="font-bold text-[#183825] underline">care@bornsai.com</a></p>
+              <p>• Email Support: <a href="mailto:care@rodasi.com" className="font-bold text-[#183825] underline">care@rodasi.com</a></p>
               <p className="text-[#2D4533] pt-1">
                 Approved refunds are processed within <strong>5 to 7 business days</strong> back to the original bank account, debit/credit card, or international payment method used during billing.
               </p>
@@ -147,9 +147,9 @@ export default function RefundPolicyPage() {
         <div className="pt-8 border-t border-[#122617]/15 flex items-center justify-between text-xs text-[#2D4533]">
           <Link href="/" className="font-bold text-[#183825] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Return to Bornsai Home</span>
+            <span>Return to Rodasi Home</span>
           </Link>
-          <span>Bornsai • A Zynthexion Product</span>
+          <span>Rodasi • A Zynthexion Product</span>
         </div>
       </main>
     </div>

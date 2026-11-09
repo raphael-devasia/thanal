@@ -24,7 +24,7 @@ export async function createRazorpayOrder(amountInINR: number = 1000) {
         amount: amountInPaise,
         currency,
         receipt,
-        notes: { purpose: 'Bornsai Eldercare Reservation Deposit' }
+        notes: { purpose: 'Rodasi Eldercare Reservation Deposit' }
       });
       return {
         id: order.id as string,

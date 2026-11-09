@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       parentDistrict: parentDistrict || 'Kochi / Ernakulam',
       parentMode: parentMode || 'single',
       selectedPlan: selectedPlan || 'care_plus',
-      selectedPlanName: selectedPlanName || 'Bornsai Care Plan',
+      selectedPlanName: selectedPlanName || 'Rodasi Care Plan',
       selectedAddOns: selectedAddOns || [],
       paymentId: paymentId || `lead_${Date.now()}`,
       orderId: orderId || `lead_ord_${Date.now()}`,
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
       nrkLocation,
       parentTown: parentDistrict || 'Kochi / Ernakulam',
       leadType: isCallback ? 'Callback_Requested' : 'Lead_Submitted',
-      selectedPlanName: selectedPlanName || 'Bornsai Care Plan',
+      selectedPlanName: selectedPlanName || 'Rodasi Care Plan',
       leadId
     }).catch((emailErr) => {
       console.error('Async lead email sending error:', emailErr);

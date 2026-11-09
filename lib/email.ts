@@ -20,7 +20,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
   const isCallback = data.leadType === 'Callback_Requested';
   const subjectText = isCallback
     ? `📞 CARE MANAGER REQUEST: ${data.fullName} (${data.nrkLocation})`
-    : `🎉 NEW BORNSAI LEAD: ${data.fullName} (${data.parentTown})`;
+    : `🎉 NEW RODASI LEAD: ${data.fullName} (${data.parentTown})`;
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -46,7 +46,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
       <body>
         <div class="container">
           <div class="header">
-            <h1>Bornsai Eldercare Lead Notification</h1>
+            <h1>Rodasi Eldercare Lead Notification</h1>
             <div class="badge">${isCallback ? 'Callback Requested' : 'Lead Registration'}</div>
           </div>
           <div class="content">
@@ -72,19 +72,19 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
 
             <div class="field-group">
               <div class="label">Selected Coverage Plan</div>
-              <div class="value">${data.selectedPlanName || 'Bornsai Care Plan'}</div>
+              <div class="value">${data.selectedPlanName || 'Rodasi Care Plan'}</div>
             </div>
 
             <div class="cta-box">
               <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Quick Action</div>
               <div style="font-size: 13px; color: #c2410c;">Contact this customer on WhatsApp immediately:</div>
-              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for registering with Bornsai Eldercare. I am your Care Manager.`)}" class="wa-btn" target="_blank">
+              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for registering with Rodasi Eldercare. I am your Care Manager.`)}" class="wa-btn" target="_blank">
                 Chat on WhatsApp with ${data.fullName}
               </a>
             </div>
           </div>
           <div class="footer">
-            Received via Bornsai Landing Page • Product of Zynthexion Technologies Pvt. Ltd.
+            Received via Rodasi Landing Page • Product of Zynthexion Technologies Pvt. Ltd.
           </div>
         </div>
       </body>
@@ -103,7 +103,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: `Bornsai Care <${sender}>`,
+        from: `Rodasi Care <${sender}>`,
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent
@@ -183,7 +183,7 @@ export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Prom
       <body>
         <div class="container">
           <div class="header">
-            <h1>Bornsai Luxury Living Inquiry</h1>
+            <h1>Rodasi Luxury Living Inquiry</h1>
             <div class="badge">Brochure & Tour Request</div>
           </div>
           <div class="content">
@@ -232,13 +232,13 @@ export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Prom
             <div class="cta-box">
               <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Concierge Action</div>
               <div style="font-size: 13px; color: #c2410c;">Connect with this prospective resident on WhatsApp:</div>
-              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for your interest in Bornsai Luxury Senior Living in Kerala. I am your Estate Concierge.`)}" class="wa-btn" target="_blank">
+              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for your interest in Rodasi Luxury Senior Living in Kerala. I am your Estate Concierge.`)}" class="wa-btn" target="_blank">
                 Chat on WhatsApp with ${data.fullName}
               </a>
             </div>
           </div>
           <div class="footer">
-            Received via Bornsai Luxury Living • Zynthexion Technologies Pvt. Ltd.
+            Received via Rodasi Luxury Living • Zynthexion Technologies Pvt. Ltd.
           </div>
         </div>
       </body>
@@ -255,7 +255,7 @@ export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Prom
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: `Bornsai Luxury Living <${sender}>`,
+        from: `Rodasi Luxury Living <${sender}>`,
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent

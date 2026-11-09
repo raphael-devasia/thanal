@@ -137,7 +137,7 @@ export default function LuxuryLivingPage() {
   const sampleWhatsAppUrl =
     'https://wa.me/919496097611?text=' +
     encodeURIComponent(
-      'Hi Bornsai Team, I am looking for senior living communities in Kerala for my family. Please share guidance.'
+      'Hi Rodasi Team, I am looking for senior living communities in Kerala for my family. Please share guidance.'
     );
 
   return (
@@ -148,7 +148,7 @@ export default function LuxuryLivingPage() {
           <Link href="/" className="inline-flex items-center gap-2">
             <img
               src="/images/logo.png"
-              alt="Bornsai"
+              alt="Rodasi"
               className="h-9 sm:h-11 w-auto object-contain brightness-110"
             />
           </Link>
@@ -205,7 +205,7 @@ export default function LuxuryLivingPage() {
 
           {/* Line under the button */}
           <p className="text-xs text-[#EBF2E8]/70 max-w-lg mx-auto leading-relaxed pt-1">
-            Bornsai is not the builder. We introduce you to developers. Bornsai may receive a fee from the developer if you buy. Details below.
+            Rodasi is not the builder. We introduce you to developers. Rodasi may receive a fee from the developer if you buy. Details below.
           </p>
         </div>
       </section>
@@ -275,10 +275,10 @@ export default function LuxuryLivingPage() {
 
           <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#183825]/15 shadow-sm space-y-3 text-xs sm:text-sm text-[#243B2B] leading-relaxed">
             <p className="font-bold text-[#122617]">
-              Bornsai is a care coordination service. We are not a builder and we do not sell homes.
+              Rodasi is a care coordination service. We are not a builder and we do not sell homes.
             </p>
             <p>
-              When you enquire, we share your contact details only with the developers you choose to hear from. If you buy a home through our introduction, the developer may pay Bornsai a fee.
+              When you enquire, we share your contact details only with the developers you choose to hear from. If you buy a home through our introduction, the developer may pay Rodasi a fee.
             </p>
             <p>
               We aim to describe every project on the same facts, whether or not it pays us. You can ask us at any time whether a fee applies to a project.
@@ -364,7 +364,7 @@ export default function LuxuryLivingPage() {
             After the move (optional)
           </h2>
           <p className="text-xs sm:text-sm text-[#243B2B] leading-relaxed max-w-lg mx-auto">
-            Living in a senior community does not replace family. If you wish, a Bornsai Care Buddy can visit, go with your parent to the hospital, and send you updates on WhatsApp.
+            Living in a senior community does not replace family. If you wish, a Rodasi Care Buddy can visit, go with your parent to the hospital, and send you updates on WhatsApp.
           </p>
           <div className="pt-2">
             <Link
@@ -402,7 +402,7 @@ export default function LuxuryLivingPage() {
               <div className="pt-2">
                 <a
                   href={`https://wa.me/919496097611?text=${encodeURIComponent(
-                    `Hi Bornsai Team, my name is ${name}. I submitted my requirements for senior living in ${preferredDistrict}.`
+                    `Hi Rodasi Team, my name is ${name}. I submitted my requirements for senior living in ${preferredDistrict}.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -548,7 +548,7 @@ export default function LuxuryLivingPage() {
                     className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
                   />
                   <span className="text-[11px] text-[#EBF2E8]/85 leading-snug">
-                    I agree that Bornsai may contact me on WhatsApp and may share these details with the developers I choose to hear from. I have read the{' '}
+                    I agree that Rodasi may contact me on WhatsApp and may share these details with the developers I choose to hear from. I have read the{' '}
                     <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
                       Privacy Policy
                     </Link>
@@ -584,13 +584,13 @@ export default function LuxuryLivingPage() {
           <Link href="/" className="inline-block">
             <img
               src="/images/logo.png"
-              alt="Bornsai"
+              alt="Rodasi"
               className="h-9 sm:h-11 w-auto object-contain mx-auto brightness-110"
             />
           </Link>
 
           <p className="text-xs text-[#EBF2E8]/80 leading-relaxed font-medium">
-            Bornsai does not give financial, legal or investment advice. Please speak to your own lawyer and adviser before you buy.
+            Rodasi does not give financial, legal or investment advice. Please speak to your own lawyer and adviser before you buy.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/70 pt-1">

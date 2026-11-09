@@ -121,8 +121,7 @@ export async function saveWaitlistLead(lead: Omit<WaitlistEntry, 'id'>): Promise
   };
   localData.unshift(newLead);
   if (typeof window !== 'undefined') {
-    localStorage.setItem('bornsai_waitlist_leads', JSON.stringify(localData));
-    localStorage.setItem('thanal_waitlist_leads', JSON.stringify(localData));
+    localStorage.setItem('rodasi_waitlist_leads', JSON.stringify(localData));
   }
   return newLead.id!;
 }
@@ -167,10 +166,9 @@ export async function fetchWaitlistLeads(): Promise<WaitlistEntry[]> {
 // Local Storage Helper
 function getLocalLeads(): WaitlistEntry[] {
   if (typeof window === 'undefined') return MOCK_INITIAL_LEADS;
-  const stored = localStorage.getItem('bornsai_waitlist_leads') || localStorage.getItem('thanal_waitlist_leads') || localStorage.getItem('kaithang_waitlist_leads');
+  const stored = localStorage.getItem('rodasi_waitlist_leads');
   if (!stored) {
-    localStorage.setItem('bornsai_waitlist_leads', JSON.stringify(MOCK_INITIAL_LEADS));
-    localStorage.setItem('thanal_waitlist_leads', JSON.stringify(MOCK_INITIAL_LEADS));
+    localStorage.setItem('rodasi_waitlist_leads', JSON.stringify(MOCK_INITIAL_LEADS));
     return MOCK_INITIAL_LEADS;
   }
   try {

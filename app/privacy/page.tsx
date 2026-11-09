@@ -13,7 +13,7 @@ export default function PrivacyPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Bornsai</span>
+            <span>Return to Rodasi</span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
             <span>Our Privacy Commitment to Families Across Oceans</span>
           </div>
           <p className="text-xs sm:text-sm text-[#EBF2E8]/85 leading-relaxed">
-            Bornsai is built for NRK children living abroad who entrust us with their elderly parents' wellbeing in Kerala. We never sell, monetize, or distribute sensitive health information. All care briefings, audio summaries, and prescription scans are handled strictly for direct care coordination.
+            Rodasi is built for NRK children living abroad who entrust us with their elderly parents' wellbeing in Kerala. We never sell, monetize, or distribute sensitive health information. All care briefings, audio summaries, and prescription scans are handled strictly for direct care coordination.
           </p>
         </div>
 
@@ -53,10 +53,10 @@ export default function PrivacyPage() {
               <span>Who Holds and Controls Your Data</span>
             </h2>
             <p>
-              The data controller responsible for all personal and health information collected through Bornsai is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Bornsai", "we", "us", or "our").
+              The data controller responsible for all personal and health information collected through Rodasi is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Rodasi", "we", "us", or "our").
             </p>
             <p>
-              If you have any questions regarding how your family's data is gathered, encrypted, or processed, you can reach our dedicated data compliance desk directly at <a href="mailto:care@bornsai.com" className="text-[#183825] font-bold underline">care@bornsai.com</a>.
+              If you have any questions regarding how your family's data is gathered, encrypted, or processed, you can reach our dedicated data compliance desk directly at <a href="mailto:care@rodasi.com" className="text-[#183825] font-bold underline">care@rodasi.com</a>.
             </p>
           </section>
 
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
               <li>Receive regular home visits and hospital accompaniment from their dedicated, background-verified Care Buddy.</li>
               <li>Have basic vital sign readings (such as blood pressure and pulse) recorded for routine wellness monitoring.</li>
               <li>Have visit update photographs, doctor prescription slips, and audio voice briefings shared directly with you over secure WhatsApp communication.</li>
-              <li>Store emergency contact and physician contact details within Bornsai's confidential Care Passport.</li>
+              <li>Store emergency contact and physician contact details within Rodasi's confidential Care Passport.</li>
             </ul>
             <p className="text-xs text-[#2D4533] italic">
               Care Buddies will always introduce themselves in person during the inaugural Welcome Visit, verify parent comfort, and honor parent dignity and preferences at all times.
@@ -149,7 +149,7 @@ export default function PrivacyPage() {
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <Mail className="w-4 h-4 text-[#183825]" />
                 <span>Email Deletion Request:</span>
-                <a href="mailto:care@bornsai.com" className="text-[#183825] underline">care@bornsai.com</a>
+                <a href="mailto:care@rodasi.com" className="text-[#183825] underline">care@rodasi.com</a>
               </div>
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <MessageCircle className="w-4 h-4 text-[#183825]" />
@@ -169,7 +169,7 @@ export default function PrivacyPage() {
               <span>Grievance Officer & Complaints Contact</span>
             </h2>
             <p>
-              In compliance with the Information Technology Act, 2000, and the Digital Personal Data Protection (DPDP) standards of India, the designated Grievance Officer for Bornsai is:
+              In compliance with the Information Technology Act, 2000, and the Digital Personal Data Protection (DPDP) standards of India, the designated Grievance Officer for Rodasi is:
             </p>
             <div className="p-4 rounded-xl bg-[#183825]/5 border border-[#183825]/15 space-y-1.5 text-xs">
               <p className="font-bold text-[#122617]">Care Operations Grievance Directorate</p>
@@ -179,7 +179,7 @@ export default function PrivacyPage() {
                 Direct Grievance Email: <a href="mailto:grievance@zynthexion.com" className="font-bold text-[#183825] underline">grievance@zynthexion.com</a>
               </p>
               <p className="text-[#2D4533]">
-                General Support: <a href="mailto:care@bornsai.com" className="font-bold text-[#183825] underline">care@bornsai.com</a>
+                General Support: <a href="mailto:care@rodasi.com" className="font-bold text-[#183825] underline">care@rodasi.com</a>
               </p>
             </div>
           </section>
@@ -189,9 +189,9 @@ export default function PrivacyPage() {
         <div className="pt-8 border-t border-[#122617]/15 flex items-center justify-between text-xs text-[#2D4533]">
           <Link href="/" className="font-bold text-[#183825] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Return to Bornsai Home</span>
+            <span>Return to Rodasi Home</span>
           </Link>
-          <span>Bornsai • A Zynthexion Product</span>
+          <span>Rodasi • A Zynthexion Product</span>
         </div>
       </main>
     </div>

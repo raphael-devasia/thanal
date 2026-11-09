@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bornsai Eldercare Concierge | Dedicated Parent Care in Kerala",
+  title: "Rodasi Eldercare Concierge | Dedicated Parent Care in Kerala",
   description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting & health logistics for families abroad with parents in Kerala.",
   icons: {
     icon: "/favicon.png",

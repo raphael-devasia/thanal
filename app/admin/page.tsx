@@ -42,7 +42,7 @@ export default function AdminDashboardPage() {
 
   // Check auth session on mount
   useEffect(() => {
-    const savedAuth = typeof window !== 'undefined' ? sessionStorage.getItem('bornsai_admin_auth') : null;
+    const savedAuth = typeof window !== 'undefined' ? sessionStorage.getItem('rodasi_admin_auth') : null;
     if (savedAuth === 'true') {
       setIsAuthenticated(true);
       loadLeads();
@@ -68,7 +68,7 @@ export default function AdminDashboardPage() {
         throw new Error(data.message || 'Invalid email or password');
       }
 
-      sessionStorage.setItem('bornsai_admin_auth', 'true');
+      sessionStorage.setItem('rodasi_admin_auth', 'true');
       setIsAuthenticated(true);
       loadLeads();
     } catch (err: any) {
@@ -79,7 +79,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('bornsai_admin_auth');
+    sessionStorage.removeItem('rodasi_admin_auth');
     setIsAuthenticated(false);
     setLoginPassword('');
   };
@@ -106,14 +106,14 @@ export default function AdminDashboardPage() {
             <Link href="/" className="inline-block hover:opacity-90 transition">
               <img 
                 src="/images/logo.png" 
-                alt="Bornsai Eldercare" 
+                alt="Rodasi Eldercare" 
                 className="h-16 w-auto mx-auto object-contain" 
               />
             </Link>
             <div>
               <h2 className="text-2xl font-extrabold text-white tracking-tight">Admin Portal Access</h2>
               <p className="text-sm text-slate-400 mt-1">
-                Enter your credentials to manage Bornsai leads
+                Enter your credentials to manage Rodasi leads
               </p>
             </div>
           </div>
@@ -216,7 +216,7 @@ export default function AdminDashboardPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `bornsai_waitlist_leads_${Date.now()}.csv`);
+    link.setAttribute('download', `rodasi_waitlist_leads_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -239,7 +239,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-xl font-bold text-[#044749] flex items-center gap-2.5">
               <img 
                 src="/images/logo.png" 
-                alt="Bornsai Eldercare Concierge" 
+                alt="Rodasi Eldercare Concierge" 
                 className="h-8 w-auto object-contain inline-block" 
               />
               <span className="text-slate-400 font-light">|</span>
@@ -412,7 +412,7 @@ export default function AdminDashboardPage() {
                         {/* WhatsApp Quick Action Link */}
                         <td className="py-4 px-6 whitespace-nowrap">
                           <a
-                            href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent(`Hi ${lead.fullName}, thank you for reaching out to Bornsai Eldercare. I am your Care Manager.`)}`}
+                            href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent(`Hi ${lead.fullName}, thank you for reaching out to Rodasi Eldercare. I am your Care Manager.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-[#25D366] hover:underline font-bold"

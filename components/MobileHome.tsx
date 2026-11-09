@@ -100,7 +100,7 @@ export default function MobileHome() {
       setIsSubmitting(false);
 
       const waText = encodeURIComponent(
-        `Hi Bornsai Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.\n\nWhich town are your parents in?`
+        `Hi Rodasi Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.\n\nWhich town are your parents in?`
       );
       if (typeof window !== 'undefined') {
         window.open(`https://wa.me/919496097611?text=${waText}`, '_blank');
@@ -114,7 +114,7 @@ export default function MobileHome() {
   const sampleWhatsAppUrl =
     'https://wa.me/919496097611?text=' +
     encodeURIComponent(
-      'Hi Bornsai Team, please send me a sample WhatsApp update and voice note that families receive for their parents in Kerala.'
+      'Hi Rodasi Team, please send me a sample WhatsApp update and voice note that families receive for their parents in Kerala.'
     );
 
   return (
@@ -125,7 +125,7 @@ export default function MobileHome() {
           <Link href="/" className="inline-flex items-center">
             <img
               src="/images/logo.png"
-              alt="Bornsai"
+              alt="Rodasi"
               className="h-8 w-auto object-contain brightness-110"
             />
           </Link>
@@ -449,7 +449,7 @@ export default function MobileHome() {
                     <span>Care Buddy Anjali</span>
                     <span className="text-[9px] bg-[#F5D328] text-[#122116] px-1 py-0.2 rounded font-extrabold uppercase">Sample</span>
                   </h4>
-                  <p className="text-[10px] text-[#F5D328]">Bornsai Care Team</p>
+                  <p className="text-[10px] text-[#F5D328]">Rodasi Care Team</p>
                 </div>
               </div>
               <span className="text-[10px] text-[#EBF2E8]/70">WhatsApp</span>
@@ -767,7 +767,7 @@ export default function MobileHome() {
               <div className="pt-2">
                 <a
                   href={`https://wa.me/919496097611?text=${encodeURIComponent(
-                    `Hi Bornsai Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.`
+                    `Hi Rodasi Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -862,7 +862,7 @@ export default function MobileHome() {
           <Link href="/" className="inline-block">
             <img
               src="/images/logo.png"
-              alt="Bornsai"
+              alt="Rodasi"
               className="h-10 w-auto object-contain mx-auto brightness-110"
             />
           </Link>
@@ -894,7 +894,7 @@ export default function MobileHome() {
               Refund
             </Link>
             <span>·</span>
-            <a href="mailto:care@bornsai.com" className="hover:text-[#F5D328] transition">
+            <a href="mailto:care@rodasi.com" className="hover:text-[#F5D328] transition">
               Contact
             </a>
           </div>

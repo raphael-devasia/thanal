@@ -152,7 +152,7 @@ export default function DesktopHome() {
 
   const getActivePlanName = () => {
     const plan = PLANS.find((p) => p.id === selectedPlanId);
-    return plan ? plan.name : 'Bornsai Care Plus Plan';
+    return plan ? plan.name : 'Rodasi Care Plus Plan';
   };
 
   // Scroll to Form and select plan
@@ -174,7 +174,7 @@ export default function DesktopHome() {
     setIsSubmitting(true);
 
     try {
-      const leadId = `BORNSAI_${Date.now().toString(36)}`;
+      const leadId = `RODASI_${Date.now().toString(36)}`;
       const orderId = `ord_${Date.now().toString(36)}`;
 
       await recordLeadInDatabase(leadId, orderId, 'Lead_Submitted', 0, false);
@@ -199,7 +199,7 @@ export default function DesktopHome() {
       await recordLeadInDatabase(leadId, orderId, 'Callback_Requested', 0, true);
 
       const planName = getActivePlanName();
-      const messageText = `Hi Bornsai Care Team,\n\nI would like to inquire about Bornsai eldercare for my parents in Kerala.\n\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parents' Location: ${parentTown}\n• Interested Plan: ${planName} (${parentMode === 'couple' ? 'Couple Plan' : 'Single Parent'})\n• Billing Preference: ${billingCycle === 'quarterly' ? 'Quarterly (10% Off)' : 'Monthly'}\nPlease let me know when we can connect.`;
+      const messageText = `Hi Rodasi Care Team,\n\nI would like to inquire about Rodasi eldercare for my parents in Kerala.\n\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parents' Location: ${parentTown}\n• Interested Plan: ${planName} (${parentMode === 'couple' ? 'Couple Plan' : 'Single Parent'})\n• Billing Preference: ${billingCycle === 'quarterly' ? 'Quarterly (10% Off)' : 'Monthly'}\nPlease let me know when we can connect.`;
 
       const waUrl = `https://wa.me/919496097611?text=${encodeURIComponent(messageText)}`;
       if (typeof window !== 'undefined') {
@@ -249,7 +249,7 @@ export default function DesktopHome() {
       setPaymentDetails({ paymentId, orderId, isCallback });
       setSuccessModal(true);
     } catch (err: any) {
-      setErrorMessage(err?.message || 'Registration failed. Please contact Bornsai support.');
+      setErrorMessage(err?.message || 'Registration failed. Please contact Rodasi support.');
     } finally {
       setIsSubmitting(false);
     }
@@ -257,7 +257,7 @@ export default function DesktopHome() {
 
   const faqs = [
     {
-      q: 'What is a Care Buddy, and how is Bornsai different from an agency?',
+      q: 'What is a Care Buddy, and how is Rodasi different from an agency?',
       a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments, coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
     },
     {
@@ -270,7 +270,7 @@ export default function DesktopHome() {
     },
     {
       q: 'How do you keep children abroad updated across different time zones (Gulf, UK, US, Australia)?',
-      a: "Unlike generic apps that require logging into an unfamiliar portal, Bornsai is WhatsApp-first. After every visit or hospital consult, your Care Buddy sends a 60-second Malayalam or English voice note and high-resolution photos of prescriptions or test slips. In addition, we schedule regular parent-and-child video calls hosted by the Care Buddy at a fixed day and time tailored to your international time zone."
+      a: "Unlike generic apps that require logging into an unfamiliar portal, Rodasi is WhatsApp-first. After every visit or hospital consult, your Care Buddy sends a 60-second Malayalam or English voice note and high-resolution photos of prescriptions or test slips. In addition, we schedule regular parent-and-child video calls hosted by the Care Buddy at a fixed day and time tailored to your international time zone."
     },
     {
       q: 'How does the couple discount work for both parents?',
@@ -282,11 +282,11 @@ export default function DesktopHome() {
     },
     {
       q: 'How are hospital bills, pharmacy refills, and taxi fares billed?',
-      a: 'With 100% financial transparency. Bornsai never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, medications, and taxi fares are paid directly at actuals to the service providers. For transport, your Care Buddy rides in the same vehicle so there is never a second fare. For overseas children who prefer not to deal in local cash, we offer an optional prepaid travel and pharmacy wallet reconciled monthly with receipts.'
+      a: 'With 100% financial transparency. Rodasi never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, medications, and taxi fares are paid directly at actuals to the service providers. For transport, your Care Buddy rides in the same vehicle so there is never a second fare. For overseas children who prefer not to deal in local cash, we offer an optional prepaid travel and pharmacy wallet reconciled monthly with receipts.'
     },
     {
       q: 'How are Care Buddies vetted and trained?',
-      a: 'Every Bornsai team member undergoes mandatory local police verification, government identity validation, and caregiver credential checks. Before their first solo visit, they complete a 2 to 3 week intensive training curriculum covering elder psychology, dementia basics, vital signs monitoring, safe physical transfers, first aid & CPR, data privacy, and emergency drills.'
+      a: 'Every Rodasi team member undergoes mandatory local police verification, government identity validation, and caregiver credential checks. Before their first solo visit, they complete a 2 to 3 week intensive training curriculum covering elder psychology, dementia basics, vital signs monitoring, safe physical transfers, first aid & CPR, data privacy, and emergency drills.'
     }
   ];
 
@@ -358,7 +358,7 @@ export default function DesktopHome() {
           <Link href="/" className="flex items-center gap-2 group">
             <img
               src="/images/logo.png"
-              alt="Bornsai Eldercare Concierge"
+              alt="Rodasi Eldercare Concierge"
               className="h-10 sm:h-12 lg:h-14 w-auto object-contain brightness-110 group-hover:scale-102 transition"
             />
           </Link>
@@ -392,7 +392,7 @@ export default function DesktopHome() {
           {/* Right Action Button */}
           <div className="hidden sm:flex items-center gap-3">
             <a
-              href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20Care%20Buddy%20services%20for%20my%20parents%20in%20Kerala."
+              href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20Care%20Buddy%20services%20for%20my%20parents%20in%20Kerala."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs lg:text-sm shadow-md transition hover:scale-102 active:scale-98"
@@ -431,7 +431,7 @@ export default function DesktopHome() {
               </h1>
 
               <p className="text-[#EBF2E8]/90 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                <strong className="text-[#F5D328]">Bornsai</strong> pairs your parents with a dedicated{' '}
+                <strong className="text-[#F5D328]">Rodasi</strong> pairs your parents with a dedicated{' '}
                 <strong className="text-[#F5D328]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor
                 visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates
                 with you abroad.
@@ -440,7 +440,7 @@ export default function DesktopHome() {
               {/* Primary CTA + Secondary Link */}
               <div className="pt-2 flex flex-row items-center gap-4">
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Bornsai%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
+                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F5D328]/25 transition hover:scale-[1.02] active:scale-[0.98]"
@@ -484,7 +484,7 @@ export default function DesktopHome() {
                 <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_30px_90px_-20px_rgba(0,0,0,0.85)] bg-[#183825] group">
                   <img
                     src="/images/hero1.png"
-                    alt="Bornsai Care Buddy with elderly parent in Kerala"
+                    alt="Rodasi Care Buddy with elderly parent in Kerala"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-[#122617]/20 to-transparent pointer-events-none" />
@@ -577,7 +577,7 @@ export default function DesktopHome() {
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
-                    <span>Bornsai Care Buddy</span>
+                    <span>Rodasi Care Buddy</span>
                     <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F5D328] text-[#122116]">
                       Sample
                     </span>
@@ -674,7 +674,7 @@ export default function DesktopHome() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <span className="bg-[#183825]/10 text-[#122617] border border-[#183825]/20 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3 inline-block uppercase tracking-wider">
-              The Heart of Bornsai
+              The Heart of Rodasi
             </span>
             <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 text-[#122617]">
               <GradientText colors={['#122617', '#1E4429', '#2E613B', '#122617']}>
@@ -683,7 +683,7 @@ export default function DesktopHome() {
               </GradientText>
             </h2>
             <p className="text-[#2D4533] text-sm lg:text-base leading-relaxed">
-              At Bornsai, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
+              At Rodasi, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
               knowing your parents’ health, quirks, favorite routines, and doctors by heart.
             </p>
           </div>
@@ -1023,7 +1023,7 @@ export default function DesktopHome() {
                   className="mt-1 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#16291C] focus:ring-0 cursor-pointer shrink-0"
                 />
                 <span className="text-xs text-[#EBF2E8]/90 leading-relaxed">
-                  I consent to Bornsai contacting me via WhatsApp and agree to the{' '}
+                  I consent to Rodasi contacting me via WhatsApp and agree to the{' '}
                   <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
                     Privacy Policy
                   </Link>
@@ -1067,7 +1067,7 @@ export default function DesktopHome() {
             <Link href="/" className="inline-block">
               <img
                 src="/images/logo.png"
-                alt="Bornsai"
+                alt="Rodasi"
                 className="h-10 sm:h-12 w-auto object-contain brightness-110"
               />
             </Link>
@@ -1098,7 +1098,7 @@ export default function DesktopHome() {
               <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="mailto:care@bornsai.com" className="hover:text-white transition">Contact</a>
+              <a href="mailto:care@rodasi.com" className="hover:text-white transition">Contact</a>
             </div>
           </div>
 
