@@ -6,7 +6,6 @@ import Link from 'next/link';
 import {
   ShieldCheck,
   CheckCircle2,
-  Sparkles,
   HeartHandshake,
   Users,
   Lock,
@@ -380,13 +379,6 @@ export default function DesktopHome() {
             <a href="#faq-section" className="hover:text-[#F5D328] transition py-1">
               FAQs
             </a>
-            <Link
-              href="/luxury-living"
-              className="hover:text-[#F5D328] transition py-1 flex items-center gap-1.5 text-[#F5D328]"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Senior Living</span>
-            </Link>
           </nav>
 
           {/* Right Action Button */}
@@ -1080,8 +1072,6 @@ export default function DesktopHome() {
               <a href="#pricing-section" className="hover:text-[#F5D328] transition">Plans</a>
               <span>·</span>
               <a href="#faq-section" className="hover:text-[#F5D328] transition">FAQs</a>
-              <span>·</span>
-              <Link href="/luxury-living" className="text-[#F5D328] hover:underline">Senior Living</Link>
             </div>
           </div>
 
