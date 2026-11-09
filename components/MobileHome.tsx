@@ -28,7 +28,8 @@ import {
   Stethoscope,
   Users,
   Home,
-  Sparkles
+  Sparkles,
+  Wallet
 } from 'lucide-react';
 
 export default function MobileHome() {
@@ -1002,7 +1003,7 @@ export default function MobileHome() {
             Money, plainly
           </h2>
           <p className="text-xs text-[#2D4533] leading-relaxed max-w-md mx-auto">
-            No commissions from hospitals. You pay doctors, labs, medicines and taxis directly, at actuals. Therapy comes from licensed providers, paid directly.
+            No commissions from hospitals. You pay doctors, labs, and medicines directly at actuals. Transport is coordinated seamlessly through your refundable Zero-Markup Mobility Wallet.
           </p>
         </div>
       </section>
@@ -1386,10 +1387,10 @@ export default function MobileHome() {
               <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F5D328]/50 space-y-2">
                 <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
                   <span>Companion (Launching Soon)</span>
-                  <span>₹20,000 / mo + GST</span>
+                  <span>₹34,000 / mo + GST</span>
                 </div>
                 <p className="text-xs text-[#EBF2E8]/70 font-medium">
-                  (₹23,600 / month incl. 18% GST)
+                  (₹40,120 / month incl. 18% GST)
                 </p>
                 <p className="text-[#EBF2E8]/90 leading-relaxed">
                   22 days a month (3 hours a day), 2 escorts (up to 6 hours each), daily companion time, medicine check, WhatsApp update after every visit.
@@ -1894,6 +1895,12 @@ export default function MobileHome() {
                       <HeartHandshake className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
                       <span>{selectedInclusionPlan.companionTasters}</span>
                     </div>
+                    {selectedInclusionPlan.mobilityWallet && (
+                      <div className="flex items-center gap-2">
+                        <Wallet className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                        <span>{selectedInclusionPlan.mobilityWallet}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1913,7 +1920,7 @@ export default function MobileHome() {
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
-                  Doctor consults, medicines, lab tests, and taxi rides paid directly at actuals with zero commission.
+                  Doctor consults, medicines, and lab tests paid directly at actuals with zero commission. Transport is managed seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet float.
                 </div>
               </div>
 

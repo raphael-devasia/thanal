@@ -13,7 +13,8 @@ import {
   Clock,
   HeartHandshake,
   Stethoscope,
-  ChevronDown
+  ChevronDown,
+  Wallet
 } from 'lucide-react';
 import {
   PLANS,
@@ -414,7 +415,7 @@ export default function PlansPage() {
             <span>Transparent Commercial Rules & Operational Policies</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-[#EBF2E8]/85 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-[#EBF2E8]/85 leading-relaxed">
             <div>
               <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">3-Month Minimum & Pro-Rata Refund</p>
               <p>Initial enrollment is a 3-month minimum commitment to build medical history and a trusted routine. 15-day notice required, with unused full months refunded pro-rata.</p>
@@ -427,11 +428,15 @@ export default function PlansPage() {
               <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">Overtime Beyond Included Hours</p>
               <p>Care visits include designated accompaniment hours. Overtime beyond included hours is billed at ₹350/hour actuals (in 30-minute blocks), confirmed with you beforehand.</p>
             </div>
+            <div>
+              <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">Zero-Markup Mobility Wallet</p>
+              <p>To eliminate cash friction, standard plans include a refundable transport float (₹1,500 to ₹4,000). We route your rides, send a WhatsApp receipt at absolute actuals (zero commissions), and only invoice you once a month to top the wallet back up to its float level.</p>
+            </div>
           </div>
 
           <div className="pt-4 border-t border-[#F5D328]/20 text-xs text-[#EBF2E8]/90 leading-relaxed">
             <strong className="text-[#F5D328]">What is Not Included: </strong>
-            <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, taxi fares, buddy overtime beyond included hours, and physical therapy or rehabilitation (therapy comes from licensed providers, paid directly at actuals with zero commission).</span>
+            <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, buddy overtime beyond included hours, and physical therapy or rehabilitation (therapy comes from licensed providers, paid directly with zero commission). Local transport is covered seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet.</span>
           </div>
         </div>
 
@@ -558,6 +563,12 @@ export default function PlansPage() {
                       <HeartHandshake className="w-4 h-4 text-[#F5D328] shrink-0" />
                       <span>{selectedInclusionPlan.companionTasters}</span>
                     </div>
+                    {selectedInclusionPlan.mobilityWallet && (
+                      <div className="flex items-center gap-2.5">
+                        <Wallet className="w-4 h-4 text-[#F5D328] shrink-0" />
+                        <span>{selectedInclusionPlan.mobilityWallet}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -578,7 +589,7 @@ export default function PlansPage() {
 
                 {/* Assurance note */}
                 <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
-                  Direct actuals: doctor consults, medications, lab diagnostics, and taxi rides are paid directly at actuals with zero commission.
+                  Doctor consults, medications, and lab diagnostics are paid directly at actuals with zero commission. Transport is managed seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet float.
                 </div>
               </div>
 

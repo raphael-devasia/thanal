@@ -12,6 +12,7 @@ export interface PlanOption {
   touchpoints?: string;
   hospitalHours?: string;
   companionTasters?: string;
+  mobilityWallet?: string;
   features: string[];
   popular?: boolean;
   comingSoon?: boolean;
@@ -406,9 +407,11 @@ export const PLANS: PlanOption[] = [
     touchpoints: '3 to 4 touchpoints / mo (1 weekly buddy visit + 1 call/wk)',
     hospitalHours: '1 hospital trip / mo (up to 4 hours buddy accompaniment)',
     companionTasters: '1 Companion Afternoon taster / month',
+    mobilityWallet: 'Mobility Wallet Float: ₹1,500/mo',
     features: [
       '1 Weekly Care Buddy in-person check-in (1.5 hrs)',
       '1 Hospital OPD Escort trip / month (up to 4 hrs buddy time)',
+      'Mobility Wallet Float: ₹1,500/mo',
       '1 Companion Afternoon taster session per month',
       'Emergency line answered 7 am to 10 pm. Outside those hours, call 108 first; your buddy responds in the morning.',
       'Care Passport digital folder & monthly health report',
@@ -429,9 +432,11 @@ export const PLANS: PlanOption[] = [
     touchpoints: '10 to 12 in-person visits (~18-20 hrs with parent / mo)',
     hospitalHours: '2 hospital trips / mo (up to 5 hours buddy accompaniment each)',
     companionTasters: '2 Companion Afternoon tasters / month',
+    mobilityWallet: 'Mobility Wallet Float: ₹2,500/mo',
     features: [
       '2 Weekly Care Buddy visits (1.5 hrs each) + 2 calls/wk',
       '2 Hospital OPD Escort trips / month (up to 5 hrs buddy time each)',
+      'Mobility Wallet Float: ₹2,500/mo',
       '24/7 Emergency mobilization support',
       '2 Companion Afternoon tasters per month',
       '1 Planned Doctor consult or tele-consult per quarter',
@@ -455,9 +460,11 @@ export const PLANS: PlanOption[] = [
     touchpoints: '16 to 19 in-person visits (~30 hrs with parent / mo)',
     hospitalHours: '3 hospital trips / mo (up to 6 hours buddy accompaniment each)',
     companionTasters: '4 Companion Afternoon tasters / month (weekly companionship)',
+    mobilityWallet: 'Mobility Wallet Float: ₹3,500/mo',
     features: [
       '3 Weekly Care Buddy visits (1.5 hrs each) + 3 calls/wk',
       '3 Hospital OPD Escort trips / month (up to 6 hrs buddy time each)',
+      'Mobility Wallet Float: ₹3,500/mo',
       '24/7 Emergency mobilization support',
       '4 Companion Afternoon tasters per month (weekly companionship)',
       '2 Planned Doctor consults or tele-consults per quarter',
@@ -471,16 +478,18 @@ export const PLANS: PlanOption[] = [
     id: 'companion',
     name: 'Companion',
     tagline: 'Signature Daily Companionship (Launching Soon)',
-    pricePerMonthSingle: 20000,
-    pricePerMonthCouple: 35000,
-    usdPriceSingle: 240,
-    usdPriceCouple: 420,
+    pricePerMonthSingle: 34000,
+    pricePerMonthCouple: 47600,
+    usdPriceSingle: 408,
+    usdPriceCouple: 571,
     description: '22 days a month, 3 hours a day of dedicated companionship. For parents living alone who seek warmth, meaningful conversation, and daily presence. Join the waitlist.',
     touchpoints: '26 in-person visits (70 to 75 hrs with parent / mo)',
     hospitalHours: '2 hospital trips / mo (up to 6 hours buddy time each)',
     companionTasters: 'Full daily service (22 days x 3 hrs = 66 hrs companionship)',
+    mobilityWallet: 'Mobility Wallet Float: ₹4,000/mo',
     features: [
       '22 Days a month x 3 hours daily dedicated companionship (66 hrs)',
+      'Mobility Wallet Float: ₹4,000/mo',
       '1 Care Buddy coordination visit + daily check-in calls',
       '2 Hospital OPD escort trips / month (up to 6 hrs each)',
       'Monthly scheduled parent-and-child video call hosted by the buddy',
