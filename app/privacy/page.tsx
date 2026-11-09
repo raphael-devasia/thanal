@@ -93,7 +93,7 @@ export default function PrivacyPage() {
               Because the child abroad is generally the party initiating registration, <strong>you expressly confirm that your parents in Kerala have given their full and informed consent</strong> to:
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Receive regular home visits and hospital accompaniment from their dedicated, background-verified Care Buddy.</li>
+              <li>Receive regular home visits and hospital accompaniment from their dedicated Care Buddy, who is background-checked before their first visit.</li>
               <li>Have basic vital sign readings (such as blood pressure and pulse) recorded for routine wellness monitoring.</li>
               <li>Have visit update photographs, doctor prescription slips, and audio voice briefings shared directly with you over secure WhatsApp communication.</li>
               <li>Store emergency contact and physician contact details within Rodasi's confidential Care Passport.</li>
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
             </h2>
             <p>We process collected data solely for the following legitimate care purposes:</p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Pairing your family with a dedicated, police-verified Care Buddy in Kochi.</li>
+              <li>Pairing your family with a dedicated Care Buddy in Kochi who is background-checked before their first visit.</li>
               <li>Escorting parents to scheduled doctor consultations and facilitating outpatient clinic registration.</li>
               <li>Checking medications against prescriptions to inform doctors of discrepancies and coordinating doorstep pharmacy refills.</li>
               <li>Transmitting timely voice notes, appointment summaries, and visit photos directly to family members over WhatsApp.</li>

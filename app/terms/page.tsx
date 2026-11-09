@@ -116,7 +116,7 @@ export default function TermsPage() {
               <span>Parental Dignity & Safety</span>
             </h2>
             <p>
-              Every Care Buddy is background-checked and police-verified. Care Buddies operate with total respect for parental autonomy, religious preferences, and personal dignity. Rodasi reserves the right to suspend services if buddy safety is compromised.
+              Every Care Buddy is background-checked before their first visit. Care Buddies operate with total respect for parental autonomy, religious preferences, and personal dignity. Rodasi reserves the right to suspend services if buddy safety is compromised.
             </p>
           </section>
 

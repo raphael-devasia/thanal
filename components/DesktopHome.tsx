@@ -284,8 +284,8 @@ export default function DesktopHome() {
       a: 'With 100% financial transparency. Rodasi never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, medications, and taxi fares are paid directly at actuals to the service providers. For transport, your Care Buddy rides in the same vehicle so there is never a second fare. For overseas children who prefer not to deal in local cash, we offer an optional prepaid travel and pharmacy wallet reconciled monthly with receipts.'
     },
     {
-      q: 'How are Care Buddies vetted and trained?',
-      a: 'Every Rodasi team member undergoes mandatory local police verification, government identity validation, and caregiver credential checks. Before their first solo visit, they complete a 2 to 3 week intensive training curriculum covering elder psychology, dementia basics, vital signs monitoring, safe physical transfers, first aid & CPR, data privacy, and emergency drills.'
+      q: 'How are Care Buddies vetted?',
+      a: 'Every Care Buddy is background-checked before their first visit. We verify identity and credentials to ensure your parents are in trustworthy, dependable hands.'
     }
   ];
 
@@ -481,10 +481,10 @@ export default function DesktopHome() {
                     className="w-full h-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.55)] select-none"
                   />
 
-                  {/* Police-verified badge */}
+                  {/* Background-checked badge */}
                   <div className="absolute top-3 left-3 sm:top-5 sm:left-5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 sm:gap-2 shadow-xl shadow-black/50 z-20">
                     <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#122116]" />
-                    <span>Police-verified</span>
+                    <span>Background-checked</span>
                   </div>
 
                   {/* Floating WhatsApp Voice Briefing Card at bottom */}
@@ -728,7 +728,7 @@ export default function DesktopHome() {
               Choose the Right Level of Care
             </h2>
             <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
-              Every plan pairs your family with a named, police-verified Care Buddy. No hospital markups, zero hidden commissions.
+              Every plan pairs your family with a named Care Buddy who is background-checked before their first visit. No hospital markups, zero hidden commissions.
             </p>
 
             {/* Parent Mode & Billing Cycle Toggles */}

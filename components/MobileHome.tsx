@@ -260,10 +260,10 @@ export default function MobileHome() {
                 className="w-full h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] select-none"
               />
 
-              {/* Police-verified badge */}
+              {/* Background-checked badge */}
               <div className="absolute top-2 left-2 bg-[#122617]/90 backdrop-blur-md border border-[#F5D328]/40 text-[#F5D328] px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#F5D328]" />
-                <span>Police-verified</span>
+                <span>Background-checked</span>
               </div>
 
               {/* Sample card */}
@@ -568,11 +568,7 @@ export default function MobileHome() {
             </div>
             <div className="flex items-start gap-2.5 text-xs text-[#243B2B]">
               <Check className="w-4 h-4 text-[#183825] shrink-0 mt-0.5" />
-              <span>Trained for 2 to 3 weeks in elder care and first aid.</span>
-            </div>
-            <div className="flex items-start gap-2.5 text-xs text-[#243B2B]">
-              <Check className="w-4 h-4 text-[#183825] shrink-0 mt-0.5" />
-              <span>Police-verified.</span>
+              <span>Every Care Buddy is background-checked before their first visit.</span>
             </div>
           </div>
 
@@ -933,15 +929,11 @@ export default function MobileHome() {
 
             <div className="space-y-3 text-xs text-[#EBF2E8]/90 leading-relaxed">
               <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">1. Background & Police Verification</p>
-                <p>Every buddy completes verified local police checks and government ID validation before meeting families.</p>
+                <p className="font-bold text-[#F5D328]">1. Background Verification</p>
+                <p>Every Care Buddy is background-checked before their first visit, including ID and reference verification.</p>
               </div>
               <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">2. Rigorous 2 to 3 Week Training</p>
-                <p>Training covers elder psychology, first aid and emergency response, safe hospital transfer, and dementia basics.</p>
-              </div>
-              <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">3. Introduction Video Call</p>
+                <p className="font-bold text-[#F5D328]">2. Introduction Video Call</p>
                 <p>You and your parents meet your primary Care Buddy and named backup on a video call before the inaugural home visit.</p>
               </div>
             </div>
