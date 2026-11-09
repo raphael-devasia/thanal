@@ -688,7 +688,7 @@ export default function DesktopHome() {
               Choose the Right Level of Care
             </h2>
             <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
-              Every plan pairs your family with a named Care Buddy who is background-checked before their first visit. No hospital markups, zero hidden commissions.
+              Every plan pairs your family with a named Care Buddy who is background-checked before their first visit. No hospital markups, zero hidden commissions. From weekly check-ins to daily presence with our 22-day Companion plan (launching soon).
             </p>
 
             {/* Parent Mode & Billing Cycle Toggles */}
@@ -742,8 +742,8 @@ export default function DesktopHome() {
           </div>
 
           {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {PLANS.filter((p) => !p.comingSoon).map((plan) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {PLANS.map((plan) => {
               const basePrice = parentMode === 'couple' ? plan.pricePerMonthCouple : plan.pricePerMonthSingle;
               const finalPrice = billingCycle === 'quarterly' ? Math.round(basePrice * 0.9) : basePrice;
               const finalUsd = Math.round(finalPrice / 83.5);
@@ -754,6 +754,8 @@ export default function DesktopHome() {
                   className={`rounded-3xl p-6 lg:p-7 flex flex-col justify-between transition-all relative ${
                     plan.popular
                       ? 'bg-[#183825] border-2 border-[#F5D328] shadow-2xl scale-[1.02] text-white'
+                      : plan.comingSoon
+                      ? 'bg-[#152B1B] border-2 border-dashed border-[#F5D328]/60 text-white shadow-xl'
                       : 'bg-white border-2 border-[#183825]/15 text-[#122617] shadow-md hover:border-[#183825]/30'
                   }`}
                 >
@@ -763,53 +765,59 @@ export default function DesktopHome() {
                     </div>
                   )}
 
+                  {plan.comingSoon && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F5D328] border border-[#F5D328]/50 text-[11px] uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                      Launching Soon • Waitlist
+                    </div>
+                  )}
+
                   <div>
-                    <h3 className={`text-xl sm:text-2xl font-black mb-1 ${plan.popular ? 'text-white' : 'text-[#122617]'}`}>
+                    <h3 className={`text-xl sm:text-2xl font-black mb-1 ${plan.popular || plan.comingSoon ? 'text-white' : 'text-[#122617]'}`}>
                       {plan.name}
                     </h3>
-                    <p className={`text-xs font-bold mb-3 ${plan.popular ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
+                    <p className={`text-xs font-bold mb-3 ${plan.popular || plan.comingSoon ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
                       {plan.tagline}
                     </p>
-                    <p className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal min-h-[40px] ${plan.popular ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
+                    <p className={`text-xs sm:text-sm leading-relaxed mb-5 font-normal min-h-[40px] ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
                       {plan.description}
                     </p>
 
-                    <div className={`pb-5 mb-5 border-b ${plan.popular ? 'border-white/15' : 'border-[#183825]/15'}`}>
+                    <div className={`pb-5 mb-5 border-b ${plan.popular || plan.comingSoon ? 'border-white/15' : 'border-[#183825]/15'}`}>
                       <div className="flex items-baseline gap-1.5">
-                        <span className={`text-3xl sm:text-4xl font-black ${plan.popular ? 'text-white' : 'text-[#122617]'}`}>
+                        <span className={`text-3xl sm:text-4xl font-black ${plan.popular || plan.comingSoon ? 'text-white' : 'text-[#122617]'}`}>
                           ₹{finalPrice.toLocaleString('en-IN')}
                         </span>
-                        <span className={`font-bold text-xs sm:text-sm ${plan.popular ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
+                        <span className={`font-bold text-xs sm:text-sm ${plan.popular || plan.comingSoon ? 'text-[#E8F0C8]' : 'text-[#2D4533]'}`}>
                           / month
                         </span>
                       </div>
-                      <p className={`text-[11px] mt-1 font-semibold ${plan.popular ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
+                      <p className={`text-[11px] mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                         (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                       </p>
-                      <p className={`text-[10px] mt-1 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]/80'} font-semibold`}>
+                      <p className={`text-[10px] mt-1 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]/80'} font-semibold`}>
                         * Prices are exclusive of 18% GST (added at billing)
                       </p>
                     </div>
 
-                    <div className={`space-y-2 mb-5 p-3 sm:p-4 rounded-xl text-xs ${plan.popular ? 'bg-[#122617] border border-white/10 text-white' : 'bg-[#F4F7F2] border border-[#183825]/10 text-[#122617]'}`}>
+                    <div className={`space-y-2 mb-5 p-3 sm:p-4 rounded-xl text-xs ${plan.popular || plan.comingSoon ? 'bg-[#122617] border border-white/10 text-white' : 'bg-[#F4F7F2] border border-[#183825]/10 text-[#122617]'}`}>
                       <div className="flex items-center gap-2 font-bold">
-                        <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                        <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
                         <span>{plan.touchpoints}</span>
                       </div>
                       <div className="flex items-center gap-2 font-bold">
-                        <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                        <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
                         <span>{plan.hospitalHours}</span>
                       </div>
                       <div className="flex items-center gap-2 font-bold">
-                        <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                        <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
                         <span>{plan.companionTasters}</span>
                       </div>
                     </div>
 
-                    <ul className={`space-y-2 text-xs mb-6 ${plan.popular ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
+                    <ul className={`space-y-2 text-xs mb-6 ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
                       {plan.features.slice(3).map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                          <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -817,18 +825,30 @@ export default function DesktopHome() {
                   </div>
 
                   <div>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectPlan(plan.id)}
-                      className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
-                        plan.popular
-                          ? 'bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
-                          : 'bg-[#122617] hover:bg-[#183825] text-white active:scale-[0.98]'
-                      }`}
-                    >
-                      <span>Select {plan.name.split(':')[0]}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+                    {plan.comingSoon ? (
+                      <a
+                        href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20join%20the%20waitlist%20for%20the%2022-day%20Companion%20plan%20for%20my%20parents."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3.5 px-4 rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md active:scale-[0.98]"
+                      >
+                        <span>Join Companion Waitlist</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => handleSelectPlan(plan.id)}
+                        className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
+                          plan.popular
+                            ? 'bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
+                            : 'bg-[#122617] hover:bg-[#183825] text-white active:scale-[0.98]'
+                        }`}
+                      >
+                        <span>Select {plan.name.split(':')[0]}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
               );
