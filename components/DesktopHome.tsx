@@ -42,8 +42,8 @@ import {
 import {
   PLANS,
   ParentMode,
-  POPULAR_NRK_LOCATIONS,
-  KERALA_DISTRICTS
+  COUNTRIES,
+  detectVisitorCountry
 } from '@/types/waitlist';
 import GradientText from '@/components/GradientText';
 import DepthCarousel from '@/components/DepthCarousel';
@@ -61,24 +61,25 @@ export default function DesktopHome() {
   const [recommenderChoice, setRecommenderChoice] = useState<'routine' | 'chronic' | 'intensive' | null>(null);
 
   // Lead Form State
-  const [fullName, setFullName] = useState<string>('');
-  const [whatsappNumber, setWhatsappNumber] = useState<string>('');
-  const [nrkLocation, setNrkLocation] = useState<string>('');
-  const [parentTown, setParentTown] = useState<string>('');
-  const [additionalNotes, setAdditionalNotes] = useState<string>('');
-  const [consentAgreed, setConsentAgreed] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
+  const [countryCode, setCountryCode] = useState<string>('');
+  const [phoneDigits, setPhoneDigits] = useState<string>('');
+  const [consentGiven, setConsentGiven] = useState<boolean>(true);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+
+  // Auto-detect visitor country by timezone on mount
+  useEffect(() => {
+    const detected = detectVisitorCountry();
+    if (detected) {
+      setCountryCode(detected);
+    }
+  }, []);
 
   // UI & Workflow State
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(false);
   const [isPlayingAudioDemo, setIsPlayingAudioDemo] = useState<boolean>(false);
-  const [paymentDetails, setPaymentDetails] = useState<{
-    paymentId: string;
-    orderId: string;
-    isCallback?: boolean;
-  } | null>(null);
 
   // FAQ Accordion State (open question indices)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -89,24 +90,22 @@ export default function DesktopHome() {
 
   // Form Validation Helper
   const validateInputs = () => {
-    if (!fullName.trim()) {
-      setErrorMessage('Please enter your full name.');
+    if (!name.trim()) {
+      setErrorMessage('Please enter your name.');
       return false;
     }
-    if (!whatsappNumber.trim()) {
-      setErrorMessage('Please enter your WhatsApp number with country code.');
+    const country = COUNTRIES.find((c) => c.code === countryCode);
+    if (!country) {
+      setErrorMessage('Please choose your country.');
       return false;
     }
-    if (!nrkLocation.trim()) {
-      setErrorMessage('Please enter your current expat location (e.g. Dubai, UAE).');
+    const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    if (!cleanNumber || cleanNumber.length < 6 || cleanNumber.length > 15) {
+      setErrorMessage('Please enter a valid phone number format.');
       return false;
     }
-    if (!parentTown.trim()) {
-      setErrorMessage("Please enter your parent's city or town in Kerala (e.g. Kochi, Ernakulam, Thrissur).");
-      return false;
-    }
-    if (!consentAgreed) {
-      setErrorMessage('Please accept the consent terms and Privacy Policy before continuing.');
+    if (!consentGiven) {
+      setErrorMessage('Please check the box to allow WhatsApp messaging.');
       return false;
     }
     return true;
@@ -126,7 +125,7 @@ export default function DesktopHome() {
     }
   };
 
-  // Primary Action: Submit Care Spot Registration (Zero online payment today)
+  // Primary Action: Submit sample update / lead request
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -134,85 +133,71 @@ export default function DesktopHome() {
     if (!validateInputs()) return;
 
     setIsSubmitting(true);
+    const country = COUNTRIES.find((c) => c.code === countryCode)!;
+    const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    const fullWhatsapp = `+${country.dialCode}${cleanNumber}`;
 
     try {
-      const leadId = `RODASI_${Date.now().toString(36)}`;
-      const orderId = `ord_${Date.now().toString(36)}`;
+      const payload = {
+        name: name.trim(),
+        whatsappNumber: fullWhatsapp,
+        country: country.name.split(' (')[0],
+        source: 'website_sample_form_desktop'
+      };
 
-      await recordLeadInDatabase(leadId, orderId, 'Lead_Submitted', 0, false);
-    } catch (err: any) {
-      console.error('Lead submission error:', err);
-      setErrorMessage(err?.message || 'Reservation failed. Please try again.');
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
+
+      setFormSubmitted(true);
+      setIsSubmitting(false);
+
+      const waText = encodeURIComponent(
+        'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
+      );
+      if (typeof window !== 'undefined') {
+        window.open(`https://wa.me/919496097611?text=${waText}`, '_blank');
+      }
+    } catch {
+      setFormSubmitted(true);
       setIsSubmitting(false);
     }
   };
 
-  // Secondary Action: Talk to our team first on WhatsApp
+  // Secondary Action: Talk to our team first on WhatsApp (No personal details in URL)
   const handleCallbackRequest = async () => {
     setErrorMessage(null);
     if (!validateInputs()) return;
 
     setIsSubmitting(true);
+    const country = COUNTRIES.find((c) => c.code === countryCode)!;
+    const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    const fullWhatsapp = `+${country.dialCode}${cleanNumber}`;
 
     try {
-      const leadId = `WA_CARE_${Date.now().toString(36)}`;
-      const orderId = `wa_ord_${Date.now().toString(36)}`;
+      const payload = {
+        name: name.trim(),
+        whatsappNumber: fullWhatsapp,
+        country: country.name.split(' (')[0],
+        source: 'website_callback_request_desktop'
+      };
 
-      await recordLeadInDatabase(leadId, orderId, 'Callback_Requested', 0, true);
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
 
-      const planName = getActivePlanName();
-      const messageText = `Hi Rodasi Care Team,\n\nI would like to inquire about Rodasi eldercare for my parents in Kerala.\n\n• Name: ${fullName}\n• WhatsApp: ${whatsappNumber}\n• Expat Location: ${nrkLocation}\n• Parents' Location: ${parentTown}\n• Interested Plan: ${planName} (${parentMode === 'couple' ? 'Couple Plan' : 'Single Parent'})\n• Billing Preference: ${billingCycle === 'quarterly' ? 'Quarterly (10% Off)' : 'Monthly'}\nPlease let me know when we can connect.`;
+      setIsSubmitting(false);
 
+      const messageText = 'Hi Rodasi Team, I would like to learn more about Care Buddy services for my parents in Kerala.';
       const waUrl = `https://wa.me/919496097611?text=${encodeURIComponent(messageText)}`;
       if (typeof window !== 'undefined') {
         window.open(waUrl, '_blank');
       }
-    } catch (err: any) {
-      setErrorMessage(err?.message || 'Failed to submit request. Please try again.');
-      setIsSubmitting(false);
-    }
-  };
-
-  const recordLeadInDatabase = async (
-    paymentId: string,
-    orderId: string,
-    status: 'paid' | 'Callback_Requested' | 'Initiated' | 'Lead_Submitted',
-    depositAmount: number = 0,
-    isCallback: boolean = false
-  ) => {
-    try {
-      const payload = {
-        fullName,
-        whatsappNumber,
-        nrkLocation,
-        parentDistrict: parentTown,
-        parentMode,
-        selectedPlan: selectedPlanId,
-        selectedPlanName: `${getActivePlanName()} (${parentMode === 'couple' ? 'Couple' : 'Single'}, ${billingCycle})`,
-        selectedAddOns: [],
-        paymentId,
-        orderId,
-        paymentStatus: status,
-        depositAmount
-      };
-
-      const res = await fetch('/api/verify-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        throw new Error(data.message || 'Registration failed.');
-      }
-
-      setPaymentDetails({ paymentId, orderId, isCallback });
-      setSuccessModal(true);
-    } catch (err: any) {
-      setErrorMessage(err?.message || 'Registration failed. Please contact Rodasi support.');
-    } finally {
+    } catch {
       setIsSubmitting(false);
     }
   };
@@ -952,114 +937,151 @@ export default function DesktopHome() {
 
       {/* 7. CHECKOUT & RESERVATION SECTION */}
       <section id="checkout-section" className="py-16 sm:py-24 bg-[#122617] text-white border-b border-[#F5D328]/20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Care Spot Reservation</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Reserve Your Parents’ Care Buddy</h2>
-            <p className="text-xs sm:text-sm text-[#EBF2E8]/80">Zero payment today. We confirm parent routines confidentially on WhatsApp.</p>
+            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Try Us First</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Get a Sample WhatsApp Update</h2>
+            <p className="text-xs sm:text-sm text-[#EBF2E8]/80">Zero payment today. We will send you a real sample voice note and visit summary.</p>
           </div>
 
-          <form onSubmit={handleLeadSubmit} className="space-y-5 bg-[#183825] p-6 sm:p-8 rounded-3xl border border-[#F5D328]/30 shadow-2xl">
-            {errorMessage && (
-              <div className="p-3.5 rounded-xl bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
-                {errorMessage}
+          {formSubmitted ? (
+            <div className="p-8 rounded-3xl bg-[#183825] border border-[#F5D328]/40 text-center space-y-4 shadow-2xl">
+              <div className="w-14 h-14 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
+                <CheckCircle2 className="w-8 h-8 text-[#F5D328]" />
               </div>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">Your Full Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Ramesh Menon"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">WhatsApp Number</label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="e.g. +971 50 123 4567"
-                  value={whatsappNumber}
-                  onChange={(e) => setWhatsappNumber(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">Your Expat Location</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Dubai, UAE"
-                  value={nrkLocation}
-                  onChange={(e) => setNrkLocation(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">Parents' Town in Kerala</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Kochi, Ernakulam"
-                  value={parentTown}
-                  onChange={(e) => setParentTown(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
-                />
+              <h3 className="text-2xl font-extrabold text-[#F5D328]">
+                Request Received!
+              </h3>
+              <p className="text-xs sm:text-sm text-[#EBF2E8]/90 max-w-md mx-auto leading-relaxed">
+                Thank you <strong>{name}</strong>. We will message you on WhatsApp shortly with sample voice notes and care summaries.
+              </p>
+              <div className="pt-2">
+                <a
+                  href={`https://wa.me/919496097611?text=${encodeURIComponent('Hi Rodasi Team, please send me the sample WhatsApp update and voice note.')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-xs sm:text-sm transition shadow-lg"
+                >
+                  <MessageCircle className="w-4 h-4 fill-white text-transparent shrink-0" />
+                  <span>Open WhatsApp Directly</span>
+                </a>
               </div>
             </div>
+          ) : (
+            <form onSubmit={handleLeadSubmit} className="space-y-5 bg-[#183825] p-6 sm:p-8 rounded-3xl border border-[#F5D328]/30 shadow-2xl">
+              {errorMessage && (
+                <div className="p-3.5 rounded-xl bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
+                  {errorMessage}
+                </div>
+              )}
 
-            {/* Consent Box */}
-            <div className="p-4 rounded-xl bg-[#122617] border border-[#F5D328]/30">
-              <label className="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={consentAgreed}
-                  onChange={(e) => setConsentAgreed(e.target.checked)}
-                  className="mt-1 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#16291C] focus:ring-0 cursor-pointer shrink-0"
-                />
-                <span className="text-xs text-[#EBF2E8]/90 leading-relaxed">
-                  I consent to Rodasi contacting me via WhatsApp and agree to the{' '}
-                  <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
-                    Privacy Policy
-                  </Link>
-                  . I confirm that my parents have consented to buddy home visits, photo updates, and voice briefings. (Specific parental health details will be collected confidentially on WhatsApp).
-                </span>
-              </label>
-            </div>
+              <div className="space-y-4">
+                {/* 1. Name */}
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Ramesh Menon"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                  />
+                </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
-              >
-                <Lock className="w-4 h-4 text-[#122116]" />
-                <span>{isSubmitting ? 'Registering Interest...' : 'Reserve Care Spot for Parents'}</span>
-              </button>
+                {/* 2. Country dropdown */}
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    Country
+                  </label>
+                  <select
+                    required
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                  >
+                    <option value="">Choose country</option>
+                    {COUNTRIES.map((c) => (
+                      <option key={c.code} value={c.code} className="bg-[#122617] text-white">
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <button
-                type="button"
-                onClick={handleCallbackRequest}
-                disabled={isSubmitting}
-                className="py-4 px-6 rounded-xl bg-[#122617] hover:bg-[#1f452e] text-[#F5D328] border border-[#F5D328]/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4 fill-[#F5D328] text-[#122617]" />
-                <span>Talk to our team first</span>
-              </button>
-            </div>
+                {/* 3. WhatsApp number */}
+                <div>
+                  <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                    WhatsApp Number
+                  </label>
+                  <div className="relative flex items-center">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                      {countryCode && COUNTRIES.find((c) => c.code === countryCode)
+                        ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode}`
+                        : '+'}
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. 50 123 4567"
+                      value={phoneDigits}
+                      onChange={(e) => setPhoneDigits(e.target.value)}
+                      className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                    />
+                  </div>
+                </div>
 
-            <p className="text-[11px] text-[#EBF2E8]/70 text-center font-normal">
-              Zero payment today. We connect on WhatsApp within one working day.
-            </p>
-          </form>
+                {/* 4. One Consent Box: OK to message me on WhatsApp */}
+                <div className="pt-1">
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={consentGiven}
+                      onChange={(e) => setConsentGiven(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                    />
+                    <span className="text-xs text-[#EBF2E8]/90 leading-snug">
+                      OK to message me on WhatsApp.
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-1 py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
+                >
+                  <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
+                  <span>{isSubmitting ? 'Sending Request...' : 'Send me a sample update'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCallbackRequest}
+                  disabled={isSubmitting}
+                  className="py-4 px-6 rounded-xl bg-[#122617] hover:bg-[#1f452e] text-[#F5D328] border border-[#F5D328]/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 fill-[#F5D328] text-[#122116]" />
+                  <span>Talk to our team first</span>
+                </button>
+              </div>
+
+              {/* Note under the form */}
+              <div className="text-center space-y-1 pt-1">
+                <p className="text-xs font-semibold text-[#F5D328]">
+                  Your parents don’t need to do anything yet.
+                </p>
+                <p className="text-[11px] text-[#EBF2E8]/70 font-normal">
+                  Zero payment today. We reply on WhatsApp within one working day.
+                </p>
+              </div>
+            </form>
+          )}
         </div>
       </section>
 
@@ -1108,33 +1130,6 @@ export default function DesktopHome() {
           </p>
         </div>
       </footer>
-
-      {/* SUCCESS CONFIRMATION MODAL */}
-      {successModal && paymentDetails && (
-        <div className="fixed inset-0 z-50 bg-[#0A130C]/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#15301E] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl sm:rounded-3xl p-6 sm:p-9 max-w-lg w-full text-center shadow-2xl relative">
-            <div className="w-14 h-14 rounded-full bg-[#F5D328]/15 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto mb-4">
-              <CheckCircle2 className="w-8 h-8 text-[#F5D328]" />
-            </div>
-
-            <h3 className="text-2xl font-extrabold text-[#F5D328] mb-2">
-              {paymentDetails.isCallback ? 'WhatsApp Connected & Request Sent!' : 'Care Spot Reserved!'}
-            </h3>
-            <p className="text-[#EBF2E8]/85 text-xs sm:text-sm mb-5 leading-relaxed">
-              Thank you <strong>{fullName}</strong>. Your request has been received. Your Care Buddy and a coordinator will connect with you
-              on WhatsApp (<strong>{whatsappNumber}</strong>) shortly to understand your parents’ needs.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => setSuccessModal(false)}
-              className="w-full py-3 rounded-xl bg-[#F5D328] text-[#122116] font-extrabold text-sm hover:bg-[#FFE342] transition cursor-pointer"
-            >
-              Back to Home
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

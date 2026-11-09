@@ -35,14 +35,32 @@ export default function PrivacyPage() {
         </div>
 
         {/* Highlight Callout */}
-        <div className="p-5 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-2 shadow-sm">
+        <div className="p-5 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-3 shadow-sm">
           <div className="flex items-center gap-2 text-[#F5D328] font-bold text-sm">
             <Lock className="w-4 h-4 text-[#F5D328]" />
             <span>Our Privacy Commitment to Families Across Oceans</span>
           </div>
           <p className="text-xs sm:text-sm text-[#EBF2E8]/85 leading-relaxed">
-            Rodasi is built for NRK children living abroad who entrust us with their elderly parents' wellbeing in Kerala. We never sell, monetize, or distribute sensitive health information. All care briefings, audio summaries, and prescription scans are handled strictly for direct care coordination.
+            Rodasi is built for overseas families who entrust us with their elderly parents in Kerala. We collect only what is needed, protect it carefully, and never sell or monetize personal or health information.
           </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#EBF2E8]/90">
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
+              <span className="font-bold text-[#F5D328] block mb-1">Why We Collect Data</span>
+              To send sample WhatsApp updates, answer your questions, and coordinate verified Care Buddy visits.
+            </div>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
+              <span className="font-bold text-[#F5D328] block mb-1">Who Sees It</span>
+              Only the Rodasi care coordination team behind login. Zero contact details or health data in URL links or email alerts.
+            </div>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
+              <span className="font-bold text-[#F5D328] block mb-1">How to Delete It</span>
+              Message "Delete my data" on WhatsApp or email care@rodasi.com to purge your records within 24 hours.
+            </div>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
+              <span className="font-bold text-[#F5D328] block mb-1">Who to Contact</span>
+              Email: care@rodasi.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Kochi.
+            </div>
+          </div>
         </div>
 
         <div className="space-y-8 text-sm text-[#243B2B] leading-relaxed">
@@ -53,10 +71,10 @@ export default function PrivacyPage() {
               <span>Who Holds and Controls Your Data</span>
             </h2>
             <p>
-              The data controller responsible for all personal and health information collected through Rodasi is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Rodasi", "we", "us", or "our").
+              The data controller responsible for all personal information collected through Rodasi is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Rodasi", "we", "us", or "our").
             </p>
             <p>
-              If you have any questions regarding how your family's data is gathered, encrypted, or processed, you can reach our dedicated data compliance desk directly at <a href="mailto:care@rodasi.com" className="text-[#183825] font-bold underline">care@rodasi.com</a>.
+              If you have any questions regarding how your family's data is gathered, stored, or processed, you can reach our dedicated team directly at <a href="mailto:care@rodasi.com" className="text-[#183825] font-bold underline">care@rodasi.com</a>.
             </p>
           </section>
 
@@ -64,21 +82,23 @@ export default function PrivacyPage() {
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">2</span>
-              <span>Information We Collect</span>
+              <span>What We Collect and Why</span>
             </h2>
-            <p>We collect only the minimum necessary information required to safely coordinate eldercare:</p>
+            <p>
+              We believe in collecting only what is strictly necessary at each stage of your journey:
+            </p>
             <ul className="list-disc pl-5 space-y-1.5">
               <li>
-                <strong>Overseas Child / Family Member Details:</strong> Full name, country of residence (e.g. UAE, UK, USA, Singapore), WhatsApp phone number, and billing contact email.
+                <strong>At Initial Sample & Inquiry Stage (Now):</strong> We collect only your <strong>Name</strong>, <strong>WhatsApp phone number</strong>, <strong>Country</strong>, <strong>source</strong>, and <strong>timestamp</strong>. No health notes, medical records, or parents' names are asked or stored at this stage. We collect this solely to answer your questions and send you real sample WhatsApp updates and voice notes.
               </li>
               <li>
-                <strong>Parent Residential Details:</strong> Parents' names, home address in Kochi or surrounding districts, contact phone numbers, and emergency local relatives.
+                <strong>Team Email Alerts:</strong> When you submit a sample request, automated team email alerts receive only your lead ID, first name, and country. Full contact details remain strictly in the admin portal behind authenticated login.
               </li>
               <li>
-                <strong>Care & Medical Information:</strong> Name of preferred family doctor or preferred hospital, existing chronic condition history (e.g. hypertension, diabetes, cardiac status), doctor prescription slips, and vital sign logs recorded during buddy checkups (such as blood pressure or blood sugar).
+                <strong>WhatsApp Links:</strong> Prefilled WhatsApp links on our website contain no personal or health details in the URL.
               </li>
               <li>
-                <strong>Care Interaction Logs:</strong> 60-second voice briefings, visit summary notes, and photo confirmations taken by the assigned Care Buddy during home visits or hospital appointments.
+                <strong>At Formal Sign-up (Later):</strong> Only once you choose to start a membership do we collect parent home address, local emergency contacts, and doctor details needed to perform home visits safely.
               </li>
             </ul>
           </section>
@@ -87,19 +107,28 @@ export default function PrivacyPage() {
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">3</span>
-              <span>Parental Consent Confirmation</span>
+              <span>Consent at Two Stages</span>
             </h2>
             <p>
-              Because the child abroad is generally the party initiating registration, <strong>you expressly confirm that your parents in Kerala have given their full and informed consent</strong> to:
+              We keep parental consent clear and separate from introductory inquiries:
             </p>
-            <ul className="list-disc pl-5 space-y-1.5">
-              <li>Receive regular home visits and hospital accompaniment from their dedicated Care Buddy, who is background-checked before their first visit.</li>
-              <li>Have basic vital sign readings (such as blood pressure and pulse) recorded for routine wellness monitoring.</li>
-              <li>Have visit update photographs, doctor prescription slips, and audio voice briefings shared directly with you over secure WhatsApp communication.</li>
-              <li>Store emergency contact and physician contact details within Rodasi's confidential Care Passport.</li>
-            </ul>
-            <p className="text-xs text-[#2D4533] italic">
-              Care Buddies will always introduce themselves in person during the inaugural Welcome Visit, verify parent comfort, and honor parent dignity and preferences at all times.
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+              <div className="p-4 rounded-xl bg-white border border-[#183825]/15 space-y-2">
+                <span className="text-xs font-bold text-[#183825] uppercase tracking-wider block">Stage 1: Sample Form (Now)</span>
+                <p className="text-xs text-[#2D4533] leading-relaxed">
+                  You provide only your name, country, and WhatsApp number, with a single box: <strong>"OK to message me on WhatsApp."</strong> No parent consent is asked here. Your parents do not need to do anything yet.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white border border-[#183825]/15 space-y-2">
+                <span className="text-xs font-bold text-[#183825] uppercase tracking-wider block">Stage 2: Sign-up & First Visit (Later)</span>
+                <p className="text-xs text-[#2D4533] leading-relaxed">
+                  When you activate a care plan, you confirm: <em>"I confirm my parents know about this service and are happy for us to visit."</em> Then we speak with them directly, in Malayalam, before their first visit, with signed or recorded consent.
+                </p>
+              </div>
+            </div>
+            <p className="text-xs text-[#2D4533] pt-1">
+              Every Care Buddy is background-checked before their first visit, and we always introduce ourselves respectfully to verify parent comfort and dignity.
             </p>
           </section>
 
@@ -157,7 +186,7 @@ export default function PrivacyPage() {
                 <a href="https://wa.me/919496097611" className="text-[#183825] underline">+91 94960 97611</a>
               </div>
               <p className="text-[#2D4533] pt-1">
-                All deletion requests are verified and fulfilled within 7 business days, with written confirmation delivered to your WhatsApp number.
+                All deletion requests are verified and fulfilled within 24 hours, with written confirmation delivered to your WhatsApp number.
               </p>
             </div>
           </section>

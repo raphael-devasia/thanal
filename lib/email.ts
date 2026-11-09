@@ -1,14 +1,10 @@
-export interface LeadEmailData {
-  fullName: string;
-  whatsappNumber: string;
-  nrkLocation: string;
-  parentTown: string;
-  leadType: 'Lead_Submitted' | 'Callback_Requested';
-  selectedPlanName?: string;
-  leadId?: string;
+export interface LeadEmailAlertData {
+  leadId: string;
+  firstName: string;
+  country: string;
 }
 
-export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ success: boolean; message?: string }> {
+export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promise<{ success: boolean; message?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const recipientEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@zynthexion.com';
   
@@ -17,10 +13,9 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
     return { success: false, message: 'RESEND_API_KEY environment variable missing' };
   }
 
-  const isCallback = data.leadType === 'Callback_Requested';
-  const subjectText = isCallback
-    ? `📞 CARE COORDINATOR REQUEST: ${data.fullName} (${data.nrkLocation})`
-    : `🎉 NEW RODASI LEAD: ${data.fullName} (${data.parentTown})`;
+  // Email alert to the team contains lead ID, first name and country only.
+  // Contact details stay in the admin view behind login.
+  const subjectText = `New Lead: ${data.leadId} - ${data.firstName} (${data.country})`;
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -29,110 +24,84 @@ export async function sendLeadNotificationEmail(data: LeadEmailData): Promise<{ 
         <meta charset="utf-8">
         <style>
           body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e1e8ed; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-          .header { background: #044749; color: #ffffff; padding: 28px 24px; text-align: center; }
-          .header h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
-          .badge { display: inline-block; background: #E66323; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; }
-          .content { padding: 28px 24px; }
-          .field-group { margin-bottom: 20px; border-bottom: 1px solid #f0f4f8; padding-bottom: 14px; }
+          .container { max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e1e8ed; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+          .header { background: #122617; color: #ffffff; padding: 24px; text-align: center; }
+          .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: #F5D328; }
+          .badge { display: inline-block; background: #183825; color: #EBF2E8; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; border: 1px solid rgba(245, 211, 40, 0.3); }
+          .content { padding: 24px; }
+          .field-group { margin-bottom: 16px; border-bottom: 1px solid #f0f4f8; padding-bottom: 12px; }
           .field-group:last-child { border-bottom: none; }
-          .label { font-size: 12px; font-weight: 700; color: #044749; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-          .value { font-size: 16px; font-weight: 600; color: #1e293b; }
-          .cta-box { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px; padding: 18px; margin-top: 24px; text-align: center; }
-          .wa-btn { display: inline-block; background: #25D366; color: #ffffff; font-weight: 700; font-size: 15px; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
-          .footer { background: #f8fafc; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+          .label { font-size: 11px; font-weight: 700; color: #183825; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+          .value { font-size: 15px; font-weight: 600; color: #1e293b; }
+          .notice-box { background: #F9F8F3; border: 1px solid #E8F0C8; border-radius: 12px; padding: 16px; margin-top: 20px; font-size: 12px; color: #374F3E; line-height: 1.5; }
+          .admin-btn { display: inline-block; background: #122617; color: #F5D328; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; margin-top: 14px; }
+          .footer { background: #f8fafc; padding: 14px 24px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; }
         </style>
       </head>
       <body>
         <div class="container">
           <div class="header">
-            <h1>Rodasi Eldercare Lead Notification</h1>
-            <div class="badge">${isCallback ? 'Callback Requested' : 'Lead Registration'}</div>
+            <h1>New Lead Alert</h1>
+            <div class="badge">Sample Request</div>
           </div>
           <div class="content">
             <div class="field-group">
-              <div class="label">Customer Full Name</div>
-              <div class="value">${data.fullName}</div>
+              <div class="label">Lead ID</div>
+              <div class="value font-mono">${data.leadId}</div>
             </div>
             
             <div class="field-group">
-              <div class="label">WhatsApp Number</div>
-              <div class="value"><a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}" style="color: #E66323; text-decoration: none;">${data.whatsappNumber}</a></div>
+              <div class="label">First Name</div>
+              <div class="value">${data.firstName}</div>
             </div>
 
             <div class="field-group">
-              <div class="label">Expat / NRK Location</div>
-              <div class="value">${data.nrkLocation}</div>
+              <div class="label">Country</div>
+              <div class="value">${data.country}</div>
             </div>
 
-            <div class="field-group">
-              <div class="label">Parent's Town / Area in Kannur</div>
-              <div class="value">${data.parentTown}</div>
-            </div>
-
-            <div class="field-group">
-              <div class="label">Selected Coverage Plan</div>
-              <div class="value">${data.selectedPlanName || 'Rodasi Care Plan'}</div>
-            </div>
-
-            <div class="cta-box">
-              <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Quick Action</div>
-              <div style="font-size: 13px; color: #c2410c;">Contact this customer on WhatsApp immediately:</div>
-              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for registering with Rodasi Eldercare. I am your Care Coordinator.`)}" class="wa-btn" target="_blank">
-                Chat on WhatsApp with ${data.fullName}
-              </a>
+            <div class="notice-box">
+              <strong>Privacy Protection:</strong> Phone numbers and personal details are kept in the admin dashboard behind login.
+              <div style="text-align: center;">
+                <a href="https://rodasi.com/admin" class="admin-btn" target="_blank">
+                  View in Admin Dashboard
+                </a>
+              </div>
             </div>
           </div>
           <div class="footer">
-            Received via Rodasi Landing Page • Product of Zynthexion Technologies Pvt. Ltd.
+            Rodasi Eldercare • Product of Zynthexion Technologies Private Limited
           </div>
         </div>
       </body>
     </html>
   `;
 
-  // Resend API endpoint
-  // Try sending from info@zynthexion.com first. If domain isn't verified yet on Resend, fallback to onboarding@resend.dev
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'info@zynthexion.com';
-
-  const sendWithEmail = async (sender: string) => {
-    return await fetch('https://api.resend.com/emails', {
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: `Rodasi Care <${sender}>`,
+        from: 'Rodasi Leads <onboarding@resend.dev>',
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent
       })
     });
-  };
 
-  try {
-    let response = await sendWithEmail(fromEmail);
-    
-    // Fallback if domain is unverified on Resend sandbox mode
-    if (!response.ok) {
-      const errText = await response.text();
-      console.warn(`Resend email from ${fromEmail} failed (${response.status}): ${errText}. Retrying with onboarding@resend.dev...`);
-      response = await sendWithEmail('onboarding@resend.dev');
+    const resData = await res.json();
+    if (!res.ok) {
+      console.error('Resend API error:', resData);
+      return { success: false, message: resData.message || 'Email delivery failed' };
     }
 
-    if (response.ok) {
-      const result = await response.json();
-      console.log('Lead notification email sent successfully:', result);
-      return { success: true };
-    } else {
-      const errText = await response.text();
-      console.error('Resend API error:', errText);
-      return { success: false, message: errText };
-    }
-  } catch (error: any) {
-    console.error('Failed to dispatch lead email:', error);
-    return { success: false, message: error?.message || 'Email dispatch failed' };
+    return { success: true };
+  } catch (err: any) {
+    console.error('Failed to send lead alert email:', err);
+    return { success: false, message: err.message };
   }
 }
 
@@ -145,137 +114,56 @@ export interface LuxuryInquiryEmailData {
   villaType: string;
   timeline: string;
   notes?: string;
-  inquiryId?: string;
+  inquiryId: string;
 }
 
 export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Promise<{ success: boolean; message?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const recipientEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@zynthexion.com';
-  
+
   if (!apiKey) {
-    console.warn('RESEND_API_KEY is not configured in environment variables. Email notification skipped.');
-    return { success: false, message: 'RESEND_API_KEY environment variable missing' };
+    console.warn('RESEND_API_KEY is not configured. Luxury email skipped.');
+    return { success: false, message: 'RESEND_API_KEY missing' };
   }
 
-  const subjectText = `🏡 LUXURY SENIOR LIVING INQUIRY: ${data.fullName} (${data.currentLocation})`;
+  const subjectText = `Luxury Living Inquiry: ${data.inquiryId} - ${data.fullName} (${data.currentLocation})`;
 
   const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8">
-        <style>
-          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-          .header { background: #044749; color: #ffffff; padding: 28px 24px; text-align: center; }
-          .header h1 { margin: 0; font-size: 22px; font-weight: 800; }
-          .badge { display: inline-block; background: #E66323; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; }
-          .content { padding: 28px 24px; }
-          .field-group { margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
-          .field-group:last-child { border-bottom: none; }
-          .label { font-size: 11px; font-weight: 700; color: #044749; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-          .value { font-size: 15px; font-weight: 600; color: #1e293b; }
-          .cta-box { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px; padding: 18px; margin-top: 24px; text-align: center; }
-          .wa-btn { display: inline-block; background: #25D366; color: #ffffff; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
-          .footer { background: #f8fafc; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
-        </style>
       </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Rodasi Luxury Living Inquiry</h1>
-            <div class="badge">Brochure & Tour Request</div>
-          </div>
-          <div class="content">
-            <div class="field-group">
-              <div class="label">Client Full Name</div>
-              <div class="value">${data.fullName}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="label">WhatsApp Contact</div>
-              <div class="value"><a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}" style="color: #E66323; text-decoration: none;">${data.whatsappNumber}</a></div>
-            </div>
-
-            ${data.email ? `
-            <div class="field-group">
-              <div class="label">Email Address</div>
-              <div class="value">${data.email}</div>
-            </div>` : ''}
-
-            <div class="field-group">
-              <div class="label">Current Location / Country</div>
-              <div class="value">${data.currentLocation}</div>
-            </div>
-
-            <div class="field-group">
-              <div class="label">Inquiring For</div>
-              <div class="value">${data.inquiryFor}</div>
-            </div>
-
-            <div class="field-group">
-              <div class="label">Preferred Residence Type</div>
-              <div class="value">${data.villaType}</div>
-            </div>
-
-            <div class="field-group">
-              <div class="label">Anticipated Move-In Timeline</div>
-              <div class="value">${data.timeline}</div>
-            </div>
-
-            ${data.notes ? `
-            <div class="field-group">
-              <div class="label">Special Requests or Healthcare Notes</div>
-              <div class="value" style="font-weight: 400; color: #334155; line-height: 1.5;">${data.notes}</div>
-            </div>` : ''}
-
-            <div class="cta-box">
-              <div style="font-weight: 700; color: #9a3412; margin-bottom: 4px;">Direct Concierge Action</div>
-              <div style="font-size: 13px; color: #c2410c;">Connect with this prospective resident on WhatsApp:</div>
-              <a href="https://wa.me/${data.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${data.fullName}, thank you for your interest in Rodasi Luxury Senior Living in Kerala. I am your Estate Concierge.`)}" class="wa-btn" target="_blank">
-                Chat on WhatsApp with ${data.fullName}
-              </a>
-            </div>
-          </div>
-          <div class="footer">
-            Received via Rodasi Luxury Living • Zynthexion Technologies Pvt. Ltd.
-          </div>
-        </div>
+      <body style="font-family: sans-serif; padding: 20px;">
+        <h2>Luxury Living Inquiry</h2>
+        <p><strong>Name:</strong> ${data.fullName}</p>
+        <p><strong>WhatsApp:</strong> ${data.whatsappNumber}</p>
+        <p><strong>Email:</strong> ${data.email || 'N/A'}</p>
+        <p><strong>Location:</strong> ${data.currentLocation}</p>
+        <p><strong>Inquiring For:</strong> ${data.inquiryFor}</p>
+        <p><strong>Villa Type:</strong> ${data.villaType}</p>
+        <p><strong>Timeline:</strong> ${data.timeline}</p>
+        <p><strong>Notes:</strong> ${data.notes || 'None'}</p>
       </body>
     </html>
   `;
 
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'info@zynthexion.com';
-
-  const sendWithEmail = async (sender: string) => {
-    return await fetch('https://api.resend.com/emails', {
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: `Rodasi Luxury Living <${sender}>`,
+        from: 'Rodasi Living <onboarding@resend.dev>',
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent
       })
     });
-  };
-
-  try {
-    let response = await sendWithEmail(fromEmail);
-    if (!response.ok) {
-      response = await sendWithEmail('onboarding@resend.dev');
-    }
-
-    if (response.ok) {
-      return { success: true };
-    } else {
-      const errText = await response.text();
-      return { success: false, message: errText };
-    }
+    return { success: res.ok };
   } catch (error: any) {
-    return { success: false, message: error?.message || 'Email dispatch failed' };
+    return { success: false, message: error?.message };
   }
 }

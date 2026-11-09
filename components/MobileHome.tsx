@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { COUNTRIES, detectVisitorCountry } from '@/types/waitlist';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -53,11 +54,19 @@ export default function MobileHome() {
 
   // Lead Form State
   const [name, setName] = useState<string>('');
-  const [whatsapp, setWhatsapp] = useState<string>('');
-  const [consentGiven, setConsentGiven] = useState<boolean>(false);
+  const [countryCode, setCountryCode] = useState<string>('');
+  const [phoneDigits, setPhoneDigits] = useState<string>('');
+  const [consentGiven, setConsentGiven] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const detected = detectVisitorCountry();
+    if (detected) {
+      setCountryCode(detected);
+    }
+  }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,29 +76,34 @@ export default function MobileHome() {
       setFormError('Please enter your name.');
       return;
     }
-    if (!whatsapp.trim()) {
-      setFormError('Please enter your WhatsApp number with country code.');
+    const country = COUNTRIES.find((c) => c.code === countryCode);
+    if (!country) {
+      setFormError('Please choose your country.');
+      return;
+    }
+    const cleanNumber = phoneDigits.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    if (!cleanNumber || cleanNumber.length < 6 || cleanNumber.length > 15) {
+      setFormError('Please enter a valid phone number format.');
       return;
     }
     if (!consentGiven) {
-      setFormError('Please check the consent box to proceed.');
+      setFormError('Please check the box to allow WhatsApp messaging.');
       return;
     }
 
     setIsSubmitting(true);
 
+    const fullWhatsappNumber = `+${country.dialCode}${cleanNumber}`;
+
     try {
       const payload = {
-        fullName: name,
-        whatsappNumber: whatsapp,
-        parentDistrict: 'Kochi',
-        selectedPlan: 'sample_update_request',
-        selectedPlanName: 'Sample WhatsApp Update Request',
-        paymentStatus: 'Lead_Submitted',
-        depositAmount: 0
+        name: name.trim(),
+        whatsappNumber: fullWhatsappNumber,
+        country: country.name.split(' (')[0],
+        source: 'website_sample_form_mobile'
       };
 
-      await fetch('/api/verify-payment', {
+      await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -99,7 +113,7 @@ export default function MobileHome() {
       setIsSubmitting(false);
 
       const waText = encodeURIComponent(
-        `Hi Rodasi Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.\n\nWhich town are your parents in?`
+        'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
       );
       if (typeof window !== 'undefined') {
         window.open(`https://wa.me/919496097611?text=${waText}`, '_blank');
@@ -770,12 +784,12 @@ export default function MobileHome() {
                 Thank you. Your sample update is on its way to WhatsApp.
               </h3>
               <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
-                The first chat message asks one question: <strong>“Which town are your parents in?”</strong>
+                We will send you a sample voice note and visit summary directly on WhatsApp.
               </p>
               <div className="pt-2">
                 <a
                   href={`https://wa.me/919496097611?text=${encodeURIComponent(
-                    `Hi Rodasi Team, my name is ${name}. Please send me the sample WhatsApp update for my parents.`
+                    'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -794,7 +808,7 @@ export default function MobileHome() {
                 </div>
               )}
 
-              {/* Name field */}
+              {/* 1. Name field */}
               <div>
                 <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
                   Name
@@ -809,22 +823,49 @@ export default function MobileHome() {
                 />
               </div>
 
-              {/* WhatsApp field */}
+              {/* 2. Country dropdown */}
               <div>
                 <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
-                  WhatsApp number with country code
+                  Country
                 </label>
-                <input
-                  type="tel"
+                <select
                   required
-                  placeholder="e.g. +971 50 123 4567 or +91 98460 12345"
-                  value={whatsapp}
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
-                />
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs"
+                >
+                  <option value="">Choose country</option>
+                  {COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code} className="bg-[#183825] text-white">
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              {/* Consent Box */}
+              {/* 3. WhatsApp number */}
+              <div>
+                <label className="block text-xs font-bold text-[#EBF2E8] uppercase tracking-wider mb-1">
+                  WhatsApp Number
+                </label>
+                <div className="relative flex items-center">
+                  <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                    {countryCode && COUNTRIES.find((c) => c.code === countryCode)
+                      ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode}`
+                      : '+'}
+                  </span>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="e.g. 50 123 4567"
+                    value={phoneDigits}
+                    onChange={(e) => setPhoneDigits(e.target.value)}
+                    className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                  />
+                </div>
+              </div>
+
+              {/* 4. One Consent Box: OK to message me on WhatsApp */}
               <div className="pt-1">
                 <label className="flex items-start gap-2.5 cursor-pointer select-none">
                   <input
@@ -833,12 +874,8 @@ export default function MobileHome() {
                     onChange={(e) => setConsentGiven(e.target.checked)}
                     className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
                   />
-                  <span className="text-[11px] text-[#EBF2E8]/85 leading-snug">
-                    I agree to be contacted on WhatsApp and to the{' '}
-                    <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
-                      Privacy Policy
-                    </Link>
-                    . My parents have agreed to visits, photos and voice updates.
+                  <span className="text-xs text-[#EBF2E8]/90 leading-snug">
+                    OK to message me on WhatsApp.
                   </span>
                 </label>
               </div>
@@ -855,10 +892,15 @@ export default function MobileHome() {
                 </button>
               </div>
 
-              {/* Under Button Note */}
-              <p className="text-[11px] text-[#EBF2E8]/70 text-center pt-1 font-normal">
-                Zero payment today. We reply on WhatsApp within one working day.
-              </p>
+              {/* Note under the form */}
+              <div className="text-center space-y-1 pt-1">
+                <p className="text-xs font-medium text-[#F5D328]">
+                  Your parents don’t need to do anything yet.
+                </p>
+                <p className="text-[11px] text-[#EBF2E8]/70 font-normal">
+                  Zero payment today. We reply on WhatsApp within one working day.
+                </p>
+              </div>
             </form>
           )}
         </div>

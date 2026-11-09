@@ -25,20 +25,73 @@ export interface AddOnOption {
   unit: string;
 }
 
+export interface CountryOption {
+  code: string;
+  name: string;
+  dialCode: string;
+}
+
+export const COUNTRIES: CountryOption[] = [
+  { code: 'AE', name: 'United Arab Emirates (+971)', dialCode: '971' },
+  { code: 'SA', name: 'Saudi Arabia (+966)', dialCode: '966' },
+  { code: 'QA', name: 'Qatar (+974)', dialCode: '974' },
+  { code: 'OM', name: 'Oman (+968)', dialCode: '968' },
+  { code: 'KW', name: 'Kuwait (+965)', dialCode: '965' },
+  { code: 'BH', name: 'Bahrain (+973)', dialCode: '973' },
+  { code: 'IN', name: 'India (+91)', dialCode: '91' },
+  { code: 'GB', name: 'United Kingdom (+44)', dialCode: '44' },
+  { code: 'US', name: 'United States (+1)', dialCode: '1' },
+  { code: 'CA', name: 'Canada (+1)', dialCode: '1' },
+  { code: 'AU', name: 'Australia (+61)', dialCode: '61' },
+  { code: 'SG', name: 'Singapore (+65)', dialCode: '65' },
+  { code: 'DE', name: 'Germany (+49)', dialCode: '49' },
+  { code: 'IE', name: 'Ireland (+353)', dialCode: '353' },
+  { code: 'NZ', name: 'New Zealand (+64)', dialCode: '64' },
+  { code: 'MY', name: 'Malaysia (+60)', dialCode: '60' },
+  { code: 'CH', name: 'Switzerland (+41)', dialCode: '41' }
+];
+
+export function detectVisitorCountry(): string {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.includes('Dubai')) return 'AE';
+    if (tz.includes('Riyadh')) return 'SA';
+    if (tz.includes('Qatar')) return 'QA';
+    if (tz.includes('Muscat')) return 'OM';
+    if (tz.includes('Kuwait')) return 'KW';
+    if (tz.includes('Bahrain')) return 'BH';
+    if (tz.includes('London')) return 'GB';
+    if (tz.includes('Kolkata') || tz.includes('Calcutta')) return 'IN';
+    if (tz.includes('New_York') || tz.includes('Chicago') || tz.includes('Los_Angeles') || tz.includes('Denver')) return 'US';
+    if (tz.includes('Toronto') || tz.includes('Vancouver')) return 'CA';
+    if (tz.includes('Sydney') || tz.includes('Melbourne') || tz.includes('Perth') || tz.includes('Brisbane')) return 'AU';
+    if (tz.includes('Singapore')) return 'SG';
+    if (tz.includes('Berlin') || tz.includes('Frankfurt')) return 'DE';
+    if (tz.includes('Dublin')) return 'IE';
+    if (tz.includes('Auckland')) return 'NZ';
+    if (tz.includes('Kuala_Lumpur')) return 'MY';
+  } catch {
+    // fallback
+  }
+  return '';
+}
+
 export interface WaitlistEntry {
   id?: string;
   fullName: string;
   whatsappNumber: string;
-  nrkLocation: string; // e.g. Dubai, UAE
-  parentDistrict: string; // e.g. Kochi, Ernakulam, Thrissur, Kannur
-  parentMode: ParentMode; // 'single' | 'couple'
-  selectedPlan: string;
+  country?: string;
+  source?: string;
+  nrkLocation?: string; // legacy support
+  parentDistrict?: string;
+  parentMode?: ParentMode;
+  selectedPlan?: string;
   selectedPlanName?: string;
-  selectedAddOns: string[];
-  paymentId: string;
-  orderId: string;
-  paymentStatus: 'paid' | 'pending' | 'failed' | 'Guest_Lead' | 'Lead_Submitted' | 'Callback_Requested';
-  depositAmount: number; // 0 for free consultation / registration
+  selectedAddOns?: string[];
+  paymentId?: string;
+  orderId?: string;
+  paymentStatus?: 'paid' | 'pending' | 'failed' | 'Guest_Lead' | 'Lead_Submitted' | 'Callback_Requested';
+  depositAmount?: number;
   createdAt: string; // ISO string
 }
 

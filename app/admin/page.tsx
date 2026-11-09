@@ -185,10 +185,13 @@ export default function AdminDashboardPage() {
 
   // Filtered list
   const filteredLeads = leads.filter(lead => {
+    const fullName = lead.fullName || '';
+    const location = lead.country || lead.nrkLocation || '';
+    const whatsapp = lead.whatsappNumber || '';
     const matchesSearch = 
-      lead.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.nrkLocation.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.whatsappNumber.includes(searchTerm);
+      fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      whatsapp.includes(searchTerm);
     
     const matchesDistrict = districtFilter === 'all' || lead.parentDistrict === districtFilter;
     const matchesPlan = planFilter === 'all' || lead.selectedPlan === planFilter;
@@ -199,18 +202,18 @@ export default function AdminDashboardPage() {
   // Export CSV Helper
   const handleExportCSV = () => {
     if (leads.length === 0) return;
-    const headers = ['Date', 'Customer Name', 'WhatsApp', 'NRK Location', 'Parent District', 'Coverage Mode', 'Plan', 'Add-ons', 'Payment ID', 'Status'];
+    const headers = ['Date', 'Customer Name', 'WhatsApp', 'Country / Location', 'Source / District', 'Coverage Mode', 'Plan', 'Add-ons', 'Payment ID', 'Status'];
     const rows = leads.map(l => [
       new Date(l.createdAt).toLocaleDateString(),
-      `"${l.fullName}"`,
-      `"${l.whatsappNumber}"`,
-      `"${l.nrkLocation}"`,
-      `"${l.parentDistrict}"`,
+      `"${l.fullName || ''}"`,
+      `"${l.whatsappNumber || ''}"`,
+      `"${l.country || l.nrkLocation || ''}"`,
+      `"${l.source || l.parentDistrict || ''}"`,
       `"${l.parentMode || 'single'}"`,
-      `"${l.selectedPlanName || l.selectedPlan}"`,
+      `"${l.selectedPlanName || l.selectedPlan || ''}"`,
       `"${l.selectedAddOns?.join(', ') || 'None'}"`,
-      `"${l.paymentId}"`,
-      l.paymentStatus
+      `"${l.paymentId || ''}"`,
+      l.paymentStatus || 'Lead_Submitted'
     ]);
     const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
     const encodedUri = encodeURI(csvContent);
@@ -359,8 +362,8 @@ export default function AdminDashboardPage() {
                   <th className="py-4 px-6 font-bold">Date</th>
                   <th className="py-4 px-6 font-bold">Customer Name</th>
                   <th className="py-4 px-6 font-bold">WhatsApp Number</th>
-                  <th className="py-4 px-6 font-bold">NRK Location</th>
-                  <th className="py-4 px-6 font-bold">Parent's Area in Kannur</th>
+                  <th className="py-4 px-6 font-bold">Country / Location</th>
+                  <th className="py-4 px-6 font-bold">Source / District</th>
                   <th className="py-4 px-6 font-bold text-right">Lead Status</th>
                 </tr>
               </thead>
@@ -422,18 +425,18 @@ export default function AdminDashboardPage() {
                           </a>
                         </td>
 
-                        {/* NRK Location */}
+                        {/* Country / NRK Location */}
                         <td className="py-4 px-6 text-slate-200 whitespace-nowrap">
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 text-slate-100 border border-slate-700 font-medium">
                             <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                            {lead.nrkLocation}
+                            {lead.country || lead.nrkLocation || 'Unknown'}
                           </span>
                         </td>
 
-                        {/* Parent District / Town */}
+                        {/* Source / Parent District */}
                         <td className="py-4 px-6 whitespace-nowrap">
                           <span className="font-bold text-emerald-400">
-                            {lead.parentDistrict || 'Kannur'}
+                            {lead.source || lead.parentDistrict || 'Website'}
                           </span>
                         </td>
 
