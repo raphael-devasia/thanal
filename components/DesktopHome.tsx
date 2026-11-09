@@ -467,29 +467,28 @@ export default function DesktopHome() {
               </div>
             </div>
 
-            {/* Right Column: Clean Borderless Showcase Visual */}
+            {/* Right Column: Clean Transparent Visual Blending into Hero */}
             <div className="col-span-12 md:col-span-6 flex flex-col items-center md:items-end justify-center">
-              <div className="relative w-full max-w-[440px] xl:max-w-[480px]">
-                {/* Ambient Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative w-full max-w-[480px] lg:max-w-[540px]">
+                {/* Ambient Warm & Emerald Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Single Picture: Clean, Borderless Rounded Frame */}
-                <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_30px_90px_-20px_rgba(0,0,0,0.85)] bg-[#183825] group">
+                {/* Entire Transparent Cutout Image - Blends directly with hero background */}
+                <div className="relative">
                   <img
                     src="/images/hero1.png"
                     alt="Rodasi Care Buddy with elderly parent in Kerala"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)] select-none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#122617]/90 via-[#122617]/20 to-transparent pointer-events-none" />
 
-                  {/* Police-verified badge at top-4 left-4 */}
-                  <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs tracking-tight flex items-center gap-1.5 shadow-lg shadow-black/40 z-20">
+                  {/* Police-verified badge */}
+                  <div className="absolute top-3 left-3 px-3.5 py-1.5 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs tracking-tight flex items-center gap-1.5 shadow-xl shadow-black/50 z-20">
                     <ShieldCheck className="w-4 h-4 text-[#122116]" />
                     <span>Police-verified</span>
                   </div>
 
-                  {/* Floating WhatsApp Voice Briefing Card at bottom-4 */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-3.5 shadow-2xl z-20">
+                  {/* Floating WhatsApp Voice Briefing Card at bottom */}
+                  <div className="absolute bottom-2 left-2 right-2 sm:left-4 sm:right-4 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-3.5 shadow-2xl z-20">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center shrink-0">
                         <Mic className="w-5 h-5 text-[#25D366]" />

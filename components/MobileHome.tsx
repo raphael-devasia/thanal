@@ -248,26 +248,29 @@ export default function MobileHome() {
             </a>
           </div>
 
-          {/* Photo & Floating Card */}
-          <div className="pt-3">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-[#183825] max-w-sm mx-auto aspect-[4/4.5]">
+          {/* Transparent Hero Image Blending into Section */}
+          <div className="pt-3 relative max-w-sm mx-auto">
+            {/* Ambient soft glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative">
               <img
                 src="/images/hero1.png"
                 alt="Care Buddy accompanying elderly parent in Kochi"
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] select-none"
               />
 
               {/* Police-verified badge */}
-              <div className="absolute top-3 left-3 bg-[#122617]/90 backdrop-blur-md border border-[#F5D328]/40 text-[#F5D328] px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
+              <div className="absolute top-2 left-2 bg-[#122617]/90 backdrop-blur-md border border-[#F5D328]/40 text-[#F5D328] px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#F5D328]" />
                 <span>Police-verified</span>
               </div>
 
               {/* Sample card */}
-              <div className="absolute bottom-3 left-3 right-3 bg-[#122617]/95 backdrop-blur-md border border-[#F5D328]/30 rounded-xl p-3 text-left text-white shadow-xl space-y-1.5">
+              <div className="mt-3 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/30 rounded-xl p-3 text-left text-white shadow-xl space-y-1.5">
                 <div className="flex items-center justify-between text-[11px] text-[#F5D328] font-bold">
                   <span>Sample update to Dubai</span>
-                  <span className="font-mono bg-[#183825] px-2 py-0.5 rounded text-[#EBF2E8]">0:48</span>
+                  <span className="font-mono bg-[#122617] px-2 py-0.5 rounded text-[#EBF2E8]">0:48</span>
                 </div>
                 <p className="text-xs text-[#EBF2E8]/95 leading-snug">
                   BP recorded 120/80. Appa finished lunch and his walk.
