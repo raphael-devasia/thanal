@@ -446,7 +446,7 @@ export default function MobileHome() {
             )}
             {selectedWorry === 'medicines' && (
               <p className="text-sm text-[#243B2B] leading-relaxed">
-                We check medicines against the prescription, tell the doctor if something does not match, and arrange doorstep refills.
+                We check medicines against the prescription, check with the doctor or pharmacist if something does not match, and arrange doorstep refills.
               </p>
             )}
             {selectedWorry === 'afternoons' && (

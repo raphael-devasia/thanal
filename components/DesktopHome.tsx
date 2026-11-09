@@ -336,7 +336,7 @@ export default function DesktopHome() {
       badgeColor: '#F5D328',
       badgeTextColor: '#122617',
       description:
-        'Care Buddy checks medicines against the prescription and tells the doctor if something doesn’t match, then coordinates doorstep refills.',
+        'Care Buddy checks medicines against the prescription and checks with the doctor or pharmacist if something does not match, then coordinates doorstep refills.',
       bullets: [
         'Weekly medicine pill-box sorting and verification',
         'Coordinated refills delivered straight to the door',
