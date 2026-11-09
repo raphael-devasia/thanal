@@ -6,7 +6,9 @@ import {
   COUNTRIES,
   TOP_NRK_COUNTRIES,
   ALL_COUNTRIES,
-  detectVisitorCountry
+  detectVisitorCountry,
+  PLANS,
+  PlanOption
 } from '@/types/waitlist';
 import {
   ShieldCheck,
@@ -47,15 +49,8 @@ export default function MobileHome() {
     setShowPillarDrawer(true);
   };
 
-  // Plan Accordion Inclusions State
-  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({});
-
-  const togglePlanExpanded = (planId: string) => {
-    setExpandedPlans((prev) => ({
-      ...prev,
-      [planId]: !prev[planId]
-    }));
-  };
+  // Plan Full Inclusions Popup Modal State
+  const [selectedInclusionPlan, setSelectedInclusionPlan] = useState<PlanOption | null>(null);
 
   // Companion Waitlist State
   const [companionName, setCompanionName] = useState<string>('');
@@ -893,49 +888,16 @@ export default function MobileHome() {
                   </li>
                 </ul>
 
-                {/* Progressive Disclosure Toggle */}
-                <div className="pt-1.5">
+                {/* View Full Inclusions Popup Trigger */}
+                <div className="pt-2">
                   <button
                     type="button"
-                    onClick={() => togglePlanExpanded('essential')}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                    onClick={() => setSelectedInclusionPlan(PLANS.find((p) => p.id === 'essential') || null)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
                   >
-                    <span>{expandedPlans['essential'] ? 'Hide full inclusions' : 'View full inclusions'}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans['essential'] ? 'rotate-180' : ''}`} />
+                    <span>View full inclusions</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
-
-                  {expandedPlans['essential'] && (
-                    <div className="mt-2.5 p-3 rounded-xl bg-[#122617] border border-white/10 space-y-2 text-xs">
-                      <div className="space-y-1 text-[#EBF2E8] font-semibold text-[11px]">
-                        <p className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                          <span>3 to 4 touchpoints / mo (weekly visit + call)</span>
-                        </p>
-                        <p className="flex items-center gap-1.5">
-                          <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                          <span>1 hospital trip / mo (up to 4 hrs buddy time)</span>
-                        </p>
-                      </div>
-                      <div className="pt-1.5 border-t border-white/10 space-y-1 text-[#E0EBDC] text-[11px]">
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>Initial Home Safety & fall-prevention audit</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>Digital Care Passport & monthly health report</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>2 Errands or bill payment runs per month</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>1 Companion Afternoon taster session / month</span>
-                        </p>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -991,49 +953,16 @@ export default function MobileHome() {
                   </li>
                 </ul>
 
-                {/* Progressive Disclosure Toggle */}
-                <div className="pt-1.5">
+                {/* View Full Inclusions Popup Trigger */}
+                <div className="pt-2">
                   <button
                     type="button"
-                    onClick={() => togglePlanExpanded('care_plus')}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                    onClick={() => setSelectedInclusionPlan(PLANS.find((p) => p.id === 'care_plus') || null)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
                   >
-                    <span>{expandedPlans['care_plus'] ? 'Hide full inclusions' : 'View full inclusions'}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans['care_plus'] ? 'rotate-180' : ''}`} />
+                    <span>View full inclusions</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
-
-                  {expandedPlans['care_plus'] && (
-                    <div className="mt-2.5 p-3 rounded-xl bg-[#122617] border border-white/10 space-y-2 text-xs">
-                      <div className="space-y-1 text-[#EBF2E8] font-semibold text-[11px]">
-                        <p className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                          <span>10 to 12 in-person visits (~18-20 hrs / mo)</span>
-                        </p>
-                        <p className="flex items-center gap-1.5">
-                          <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
-                          <span>2 hospital trips / mo (up to 5 hrs each)</span>
-                        </p>
-                      </div>
-                      <div className="pt-1.5 border-t border-white/10 space-y-1 text-[#E0EBDC] text-[11px]">
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>1 Planned doctor consult or tele-consult per quarter</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>Annual Home Safety & fall-prevention audit</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>Errands & utility bill payments included</span>
-                        </p>
-                        <p className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 text-[#F5D328] shrink-0 mt-0.5" />
-                          <span>2 Companion Afternoon tasters per month</span>
-                        </p>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -1895,6 +1824,121 @@ export default function MobileHome() {
           </div>
         </div>
       )}
+      {/* MODAL: FULL PLAN INCLUSIONS POPUP */}
+      {selectedInclusionPlan && (() => {
+        const finalPrice = selectedInclusionPlan.pricePerMonthSingle;
+        const finalPriceWithGst = Math.round(finalPrice * 1.18);
+        const finalUsd = Math.round(finalPrice / 83.5);
+
+        return (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in duration-200"
+            onClick={() => setSelectedInclusionPlan(null)}
+          >
+            <div
+              className="bg-[#142D1C] border-t sm:border border-[#F5D328]/30 text-[#EBF2E8] rounded-t-3xl sm:rounded-3xl w-full max-h-[85vh] flex flex-col relative shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="p-5 border-b border-[#F5D328]/20 relative bg-[#183825]/90">
+                <button
+                  type="button"
+                  onClick={() => setSelectedInclusionPlan(null)}
+                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-[#122617] border border-[#F5D328]/30 text-[#F5D328] hover:text-white flex items-center justify-center cursor-pointer transition"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                <div className="space-y-1 pr-6">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328] bg-[#F5D328]/15 px-2 py-0.5 rounded-full inline-block">
+                    Full Plan Scope &amp; Inclusions
+                  </span>
+                  <h3 className="text-xl font-bold text-white">
+                    {selectedInclusionPlan.name}
+                  </h3>
+                  <p className="text-xs font-bold text-[#E8F0C8]">
+                    {selectedInclusionPlan.tagline}
+                  </p>
+                  <div className="pt-2 flex flex-wrap items-baseline gap-1.5">
+                    <span className="text-2xl font-black text-[#F5D328]">
+                      ₹{finalPrice.toLocaleString('en-IN')}
+                    </span>
+                    <span className="text-xs font-bold text-[#EBF2E8]">
+                      / month plus GST
+                    </span>
+                    <span className="text-[11px] text-[#EBF2E8]/70">
+                      (₹{finalPriceWithGst.toLocaleString('en-IN')} incl. GST • ~${finalUsd} USD)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scrollable Body */}
+              <div className="overflow-y-auto p-5 space-y-4 text-xs">
+                {/* Touchpoint Highlights */}
+                <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/25 space-y-2">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    Care Metrics
+                  </p>
+                  <div className="space-y-1.5 text-xs font-semibold text-[#EBF2E8]">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.touchpoints}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.hospitalHours}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <HeartHandshake className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.companionTasters}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Features list */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    Inclusions Checklist
+                  </p>
+                  <ul className="space-y-2 text-xs text-[#E0EBDC]">
+                    {selectedInclusionPlan.features.map((feat: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                        <Check className="w-3.5 h-3.5 text-[#F5D328] shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-3 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
+                  Doctor consults, medicines, lab tests, and taxi rides paid directly at actuals with zero commission.
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-4 border-t border-[#F5D328]/20 bg-[#122617] flex items-center gap-2">
+                <a
+                  href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2.5 px-3 rounded-xl font-bold text-xs text-center bg-[#F5D328] text-[#122116] shadow-sm"
+                >
+                  Ask about {selectedInclusionPlan.name} on WhatsApp
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setSelectedInclusionPlan(null)}
+                  className="py-2.5 px-4 rounded-xl border border-white/20 text-[#EBF2E8] font-bold text-xs"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }

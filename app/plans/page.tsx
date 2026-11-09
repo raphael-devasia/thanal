@@ -18,6 +18,7 @@ import {
 import {
   PLANS,
   ParentMode,
+  PlanOption,
   COUNTRIES,
   TOP_NRK_COUNTRIES,
   ALL_COUNTRIES,
@@ -28,21 +29,26 @@ export default function PlansPage() {
   const [parentMode, setParentMode] = useState<ParentMode>('single');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'quarterly'>('monthly');
 
-  // Plan Accordion Inclusions State
-  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({});
-
-  const togglePlanExpanded = (planId: string) => {
-    setExpandedPlans((prev) => ({
-      ...prev,
-      [planId]: !prev[planId]
-    }));
-  };
+  // Plan Full Inclusions Popup Modal State
+  const [selectedInclusionPlan, setSelectedInclusionPlan] = useState<PlanOption | null>(null);
 
   // Companion Waitlist State
   const [showCompanionModal, setShowCompanionModal] = useState<boolean>(false);
   const [companionName, setCompanionName] = useState<string>('');
   const [companionCountryCode, setCompanionCountryCode] = useState<string>('');
   const [companionPhoneDigits, setCompanionPhoneDigits] = useState<string>('');
+
+  // Handle Escape key to close modals
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (selectedInclusionPlan) setSelectedInclusionPlan(null);
+        if (showCompanionModal) setShowCompanionModal(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [selectedInclusionPlan, showCompanionModal]);
   const [companionConsent, setCompanionConsent] = useState<boolean>(true);
   const [companionSubmitting, setCompanionSubmitting] = useState<boolean>(false);
   const [companionSubmitted, setCompanionSubmitted] = useState<boolean>(false);
@@ -354,54 +360,18 @@ export default function PlansPage() {
                       ))}
                     </ul>
 
-                    {/* Progressive Disclosure Toggle */}
-                    <div className="pt-1.5">
+                    {/* View Full Inclusions Popup Trigger */}
+                    <div className="pt-2">
                       <button
                         type="button"
-                        onClick={() => togglePlanExpanded(plan.id)}
-                        className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none ${
+                        onClick={() => setSelectedInclusionPlan(plan)}
+                        className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none group py-1 ${
                           plan.popular || plan.comingSoon ? 'text-[#F5D328] hover:text-[#FFE342]' : 'text-[#183825] hover:text-[#122617]'
                         }`}
                       >
-                        <span>{expandedPlans[plan.id] ? 'Hide full inclusions' : 'View full inclusions'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedPlans[plan.id] ? 'rotate-180' : ''}`} />
+                        <span>View full inclusions</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                       </button>
-
-                      {/* Expanded Full Inclusions Box */}
-                      {expandedPlans[plan.id] && (
-                        <div className={`mt-3 p-3.5 rounded-xl space-y-3 text-xs animate-in fade-in duration-200 ${
-                          plan.popular || plan.comingSoon ? 'bg-[#122617] border border-white/10' : 'bg-[#F2EFE6] border border-[#183825]/15'
-                        }`}>
-                          <div className="space-y-1.5 font-semibold">
-                            <div className="flex items-center gap-2">
-                              <Clock className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.touchpoints}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Stethoscope className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.hospitalHours}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <HeartHandshake className={`w-3.5 h-3.5 shrink-0 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                              <span className={plan.popular || plan.comingSoon ? 'text-[#EBF2E8]' : 'text-[#122617]'}>{plan.companionTasters}</span>
-                            </div>
-                          </div>
-
-                          <div className="pt-2 border-t border-current/10">
-                            <p className={`font-bold mb-2 uppercase text-[10px] tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
-                              Full Membership Inclusions:
-                            </p>
-                            <ul className={`space-y-1.5 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
-                              {plan.features.map((feat, fIdx) => (
-                                <li key={fIdx} className="flex items-start gap-2">
-                                  <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
-                                  <span className="leading-snug">{feat}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -507,6 +477,147 @@ export default function PlansPage() {
           </p>
         </div>
       </footer>
+
+      {/* MODAL: FULL PLAN INCLUSIONS POPUP */}
+      {selectedInclusionPlan && (() => {
+        const basePrice = parentMode === 'couple' ? selectedInclusionPlan.pricePerMonthCouple : selectedInclusionPlan.pricePerMonthSingle;
+        const finalPrice = billingCycle === 'quarterly' ? Math.round(basePrice * 0.9) : basePrice;
+        const finalPriceWithGst = Math.round(finalPrice * 1.18);
+        const finalUsd = Math.round(finalPrice / 83.5);
+
+        return (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+            onClick={() => setSelectedInclusionPlan(null)}
+          >
+            <div
+              className="bg-[#142D1C] border border-[#F5D328]/30 text-[#EBF2E8] rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col relative shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="p-6 sm:p-7 border-b border-[#F5D328]/20 relative bg-[#183825]/90">
+                <button
+                  type="button"
+                  onClick={() => setSelectedInclusionPlan(null)}
+                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#122617] border border-[#F5D328]/30 text-[#F5D328] hover:text-white flex items-center justify-center cursor-pointer transition"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                <div className="space-y-1.5 pr-8">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328] bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full inline-block">
+                    Full Plan Scope &amp; Inclusions
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                    {selectedInclusionPlan.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-bold text-[#E8F0C8]">
+                    {selectedInclusionPlan.tagline}
+                  </p>
+                  <p className="text-xs text-[#E0EBDC]/85 leading-relaxed pt-1">
+                    {selectedInclusionPlan.description}
+                  </p>
+
+                  <div className="pt-3 flex flex-wrap items-baseline gap-2">
+                    <span className="text-2xl sm:text-3xl font-black text-[#F5D328]">
+                      ₹{finalPrice.toLocaleString('en-IN')}
+                    </span>
+                    <span className="text-xs font-bold text-[#EBF2E8]">
+                      / month plus GST
+                    </span>
+                    <span className="text-xs text-[#EBF2E8]/70">
+                      (₹{finalPriceWithGst.toLocaleString('en-IN')} incl. 18% GST • ~${finalUsd} USD)
+                    </span>
+                  </div>
+                  {parentMode === 'couple' && (
+                    <p className="text-xs font-semibold text-[#25D366]">
+                      Covers both parents (2nd parent at 25% off)
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Scrollable Body */}
+              <div className="overflow-y-auto p-6 sm:p-7 space-y-5 text-xs sm:text-sm">
+                {/* Touchpoint Highlights */}
+                <div className="p-4 rounded-2xl bg-[#122617] border border-[#F5D328]/25 space-y-2.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    Core Care Metrics
+                  </p>
+                  <div className="space-y-2 text-xs font-semibold text-[#EBF2E8]">
+                    <div className="flex items-center gap-2.5">
+                      <Clock className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.touchpoints}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <Stethoscope className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.hospitalHours}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <HeartHandshake className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <span>{selectedInclusionPlan.companionTasters}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Full Features Checklist */}
+                <div className="space-y-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    Complete Inclusions Checklist
+                  </p>
+                  <ul className="space-y-2.5 text-xs text-[#E0EBDC]">
+                    {selectedInclusionPlan.features.map((feat: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                        <Check className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Assurance note */}
+                <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
+                  Direct actuals: doctor consults, medications, lab diagnostics, and taxi rides are paid directly at actuals with zero commission.
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-4 sm:p-5 border-t border-[#F5D328]/20 bg-[#122617] flex items-center gap-3">
+                {selectedInclusionPlan.comingSoon ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedInclusionPlan(null);
+                      setShowCompanionModal(true);
+                    }}
+                    className="flex-1 py-3 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                  >
+                    <span>Join the waitlist</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <a
+                    href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                  >
+                    Ask about {selectedInclusionPlan.name} on WhatsApp
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setSelectedInclusionPlan(null)}
+                  className="py-3 px-5 rounded-xl border border-white/20 hover:border-white/40 text-[#EBF2E8] font-bold text-xs transition cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Companion Waitlist Modal */}
       {showCompanionModal && (
