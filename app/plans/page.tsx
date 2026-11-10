@@ -121,12 +121,12 @@ export default function PlansPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Rodasi</span>
+            <span>Return to Greymatters</span>
           </Link>
           <Link href="/" className="inline-block">
             <img
               src="/images/logo.png"
-              alt="Rodasi"
+              alt="Greymatters"
               className="h-8 sm:h-9 w-auto object-contain brightness-110"
             />
           </Link>
@@ -205,7 +205,7 @@ export default function PlansPage() {
         {/* 1. Try us first: Single Hospital Visit Card (Above Plans) */}
         <div className="max-w-4xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
-            New to Rodasi? Start with one visit
+            New to Greymatters? Start with one visit
           </p>
 
           <div className="p-6 sm:p-7 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 text-[#122617] shadow-lg flex flex-col md:flex-row md:items-center gap-6">
@@ -238,7 +238,7 @@ export default function PlansPage() {
 
             <div className="shrink-0 flex flex-col items-center gap-2">
               <a
-                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
+                href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-3.5 px-6 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-extrabold text-xs sm:text-sm transition shadow-md whitespace-nowrap cursor-pointer text-center"
@@ -389,7 +389,7 @@ export default function PlansPage() {
                     </button>
                   ) : (
                     <a
-                      href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20my%20parents.`}
+                      href={`https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20my%20parents.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center ${
@@ -446,7 +446,7 @@ export default function PlansPage() {
             Unsure which plan fits your parents’ situation?
           </p>
           <a
-            href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20guidance%20on%20choosing%20the%20right%20care%20plan%20for%20my%20parents."
+            href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20guidance%20on%20choosing%20the%20right%20care%20plan%20for%20my%20parents."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 py-3 px-6 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm transition shadow-md"
@@ -473,7 +473,7 @@ export default function PlansPage() {
               <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="mailto:care@rodasi.com" className="hover:text-white transition">Contact</a>
+              <a href="mailto:care@greymatters.com" className="hover:text-white transition">Contact</a>
             </div>
           </div>
 
@@ -609,7 +609,7 @@ export default function PlansPage() {
                   </button>
                 ) : (
                   <a
-                    href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
+                    href={`https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
@@ -662,7 +662,7 @@ export default function PlansPage() {
                 </p>
                 <div className="pt-1">
                   <a
-                    href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
+                    href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#25D366] text-white text-xs font-bold"

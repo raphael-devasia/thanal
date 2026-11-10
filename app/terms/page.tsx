@@ -13,7 +13,7 @@ export default function TermsPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Rodasi</span>
+            <span>Return to Greymatters</span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -42,10 +42,10 @@ export default function TermsPage() {
               <span>Scope of Service & Care Buddy Role</span>
             </h2>
             <p>
-              Rodasi (a product of Zynthexion Technologies Private Limited, Calicut) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
+              Greymatters (a product of Zynthexion Technologies Private Limited, Calicut) provides personalized eldercare concierge and accompaniment services in Kochi, Kerala. Services include doctor visit accompaniment, hospital outpatient department (OPD) queue navigation, vital signs recording (blood pressure, pulse), checking medicines against prescriptions, coordinating doorstep pharmacy refills, and delivering real-time WhatsApp updates to families abroad.
             </p>
             <p>
-              <strong>Non-Emergency Disclaimer:</strong> Rodasi is an elder assistance and hospital accompaniment service. Rodasi is not a licensed hospital, ambulance service, or acute emergency room. If your parents can't call, we call 108, and your Care Buddy goes to the hospital. We keep you updated until you arrive or someone you name takes over.
+              <strong>Non-Emergency Disclaimer:</strong> Greymatters is an elder assistance and hospital accompaniment service. Greymatters is not a licensed hospital, ambulance service, or acute emergency room. If your parents can't call, we call 108, and your Care Buddy goes to the hospital. We keep you updated until you arrive or someone you name takes over.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ export default function TermsPage() {
               <span>Zero Upfront Online Payment & Enrollment</span>
             </h2>
             <p>
-              Submitting an enrollment request on Rodasi requires ₹0 payment today. Registration initiates a complimentary consultation call with your Care Buddy and coordinator on WhatsApp to review your parents' location, routine, and medical needs before any formal billing occurs.
+              Submitting an enrollment request on Greymatters requires ₹0 payment today. Registration initiates a complimentary consultation call with your Care Buddy and coordinator on WhatsApp to review your parents' location, routine, and medical needs before any formal billing occurs.
             </p>
           </section>
 
@@ -67,7 +67,7 @@ export default function TermsPage() {
               <span>Commitment, Refund & Cancellation Policy</span>
             </h2>
             <p>
-              To ensure continuity of care and build a trusted relationship between your parents and their named Care Buddy, Rodasi operates on an initial <strong>3-month minimum commitment</strong>.
+              To ensure continuity of care and build a trusted relationship between your parents and their named Care Buddy, Greymatters operates on an initial <strong>3-month minimum commitment</strong>.
             </p>
             <p>
               If your family decides to discontinue service for any reason, you may submit a cancellation request with <strong>15 days notice</strong>. All unused full calendar months will be refunded pro-rata with zero penalty fees.
@@ -105,7 +105,7 @@ export default function TermsPage() {
               </ul>
             </div>
             <p className="text-xs text-[#2D4533]">
-              Rodasi maintains a strict zero-commission policy: we never accept referral fees or kickbacks from hospitals, pharmacies, or diagnostic labs. Families pay direct actuals.
+              Greymatters maintains a strict zero-commission policy: we never accept referral fees or kickbacks from hospitals, pharmacies, or diagnostic labs. Families pay direct actuals.
             </p>
           </section>
 
@@ -116,7 +116,7 @@ export default function TermsPage() {
               <span>Parental Dignity & Safety</span>
             </h2>
             <p>
-              Every Care Buddy is background-checked before their first visit. Care Buddies operate with total respect for parental autonomy, religious preferences, and personal dignity. Rodasi reserves the right to suspend services if buddy safety is compromised.
+              Every Care Buddy is background-checked before their first visit. Care Buddies operate with total respect for parental autonomy, religious preferences, and personal dignity. Greymatters reserves the right to suspend services if buddy safety is compromised.
             </p>
           </section>
 
@@ -127,7 +127,7 @@ export default function TermsPage() {
               <span>Governing Law and Dispute Resolution</span>
             </h2>
             <p>
-              These terms are governed by the laws of India. Any legal dispute or claim arising out of or related to Rodasi services will be subject to the exclusive jurisdiction of the competent courts in Calicut, Kerala.
+              These terms are governed by the laws of India. Any legal dispute or claim arising out of or related to Greymatters services will be subject to the exclusive jurisdiction of the competent courts in Calicut, Kerala.
             </p>
           </section>
         </div>
@@ -136,9 +136,9 @@ export default function TermsPage() {
         <div className="pt-8 border-t border-[#122617]/15 flex items-center justify-between text-xs text-[#2D4533]">
           <Link href="/" className="font-bold text-[#183825] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Return to Rodasi Home</span>
+            <span>Return to Greymatters Home</span>
           </Link>
-          <span>Rodasi • A Zynthexion Product</span>
+          <span>Greymatters • A Zynthexion Product</span>
         </div>
       </main>
     </div>

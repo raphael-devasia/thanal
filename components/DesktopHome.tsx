@@ -206,7 +206,7 @@ export default function DesktopHome() {
 
   const getActivePlanName = () => {
     const plan = PLANS.find((p) => p.id === selectedPlanId);
-    return plan ? plan.name : 'Rodasi Care Plus Plan';
+    return plan ? plan.name : 'Greymatters Care Plus Plan';
   };
 
   // Scroll to Form and select plan
@@ -249,7 +249,7 @@ export default function DesktopHome() {
       setIsSubmitting(false);
 
       const waText = encodeURIComponent(
-        'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
+        'Hi Greymatters Team, please send me the sample WhatsApp update and voice note.'
       );
       if (typeof window !== 'undefined') {
         window.open(`https://wa.me/919496097611?text=${waText}`, '_blank');
@@ -287,7 +287,7 @@ export default function DesktopHome() {
 
       setIsSubmitting(false);
 
-      const messageText = 'Hi Rodasi Team, I would like to learn more about Care Buddy services for my parents in Kerala.';
+      const messageText = 'Hi Greymatters Team, I would like to learn more about Care Buddy services for my parents in Kerala.';
       const waUrl = `https://wa.me/919496097611?text=${encodeURIComponent(messageText)}`;
       if (typeof window !== 'undefined') {
         window.open(waUrl, '_blank');
@@ -299,7 +299,7 @@ export default function DesktopHome() {
 
   const faqs = [
     {
-      q: 'What is a Care Buddy, and how is Rodasi different from an agency?',
+      q: 'What is a Care Buddy, and how is Greymatters different from an agency?',
       a: "A Care Buddy is not an impersonal agency nurse or domestic helper. Think of them as your dedicated proxy: the child on the ground in Kerala. Your Care Buddy and a coordinator you can message work together for your family. Your Care Buddy is an educated, background-verified professional (MSW graduates, retired nurses, or trained care specialists) assigned personally to your parents. They visit regularly, get to know your parent's unique medical routine and personality, escort them to doctor appointments (up to 6 hours per hospital trip), coordinate hospital visits, run essential errands, and provide warm companionship. You receive direct WhatsApp voice briefings and photos after every single visit."
     },
     {
@@ -312,7 +312,7 @@ export default function DesktopHome() {
     },
     {
       q: 'How do you keep children abroad updated across different time zones (Gulf, UK, US, Australia)?',
-      a: "Unlike generic apps that require logging into an unfamiliar portal, Rodasi is WhatsApp-first. After every visit or hospital consult, your Care Buddy sends a 60-second Malayalam or English voice note and high-resolution photos of prescriptions or test slips. In addition, we schedule regular parent-and-child video calls hosted by the Care Buddy at a fixed day and time tailored to your international time zone."
+      a: "Unlike generic apps that require logging into an unfamiliar portal, Greymatters is WhatsApp-first. After every visit or hospital consult, your Care Buddy sends a 60-second Malayalam or English voice note and high-resolution photos of prescriptions or test slips. In addition, we schedule regular parent-and-child video calls hosted by the Care Buddy at a fixed day and time tailored to your international time zone."
     },
     {
       q: 'How does the couple discount work for both parents?',
@@ -324,7 +324,7 @@ export default function DesktopHome() {
     },
     {
       q: 'How are hospital bills, pharmacy refills, and taxi fares billed?',
-      a: 'With 100% financial transparency. Rodasi never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, and medications are paid directly at actuals to the service providers. For transport, your plan includes a refundable Zero-Markup Mobility Wallet float (₹1,500 to ₹4,000) with zero commissions and WhatsApp receipts sent at actuals, topped up monthly so there is zero cash friction for your parents. Your Care Buddy rides in the same vehicle so there is never a second fare.'
+      a: 'With 100% financial transparency. Greymatters never charges commissions or hidden markups on medical services. Doctor consultation fees, lab tests, and medications are paid directly at actuals to the service providers. For transport, your plan includes a refundable Zero-Markup Mobility Wallet float (₹1,500 to ₹4,000) with zero commissions and WhatsApp receipts sent at actuals, topped up monthly so there is zero cash friction for your parents. Your Care Buddy rides in the same vehicle so there is never a second fare.'
     },
     {
       q: 'How are Care Buddies vetted?',
@@ -402,7 +402,7 @@ export default function DesktopHome() {
           <Link href="/" className="flex items-center gap-2 group">
             <img
               src="/images/logo.png"
-              alt="Rodasi Eldercare Concierge"
+              alt="Greymatters Eldercare Concierge"
               className="h-10 sm:h-12 lg:h-14 w-auto object-contain brightness-110 group-hover:scale-102 transition"
             />
           </Link>
@@ -429,7 +429,7 @@ export default function DesktopHome() {
           {/* Right Action Button */}
           <div className="hidden sm:flex items-center gap-3">
             <a
-              href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20Care%20Buddy%20services%20for%20my%20parents%20in%20Kerala."
+              href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20Care%20Buddy%20services%20for%20my%20parents%20in%20Kerala."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs lg:text-sm shadow-md transition hover:scale-102 active:scale-98"
@@ -468,7 +468,7 @@ export default function DesktopHome() {
               </h1>
 
               <p className="text-[#EBF2E8]/90 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                <strong className="text-[#F1E5C6]">Rodasi</strong> pairs your parents with a dedicated{' '}
+                <strong className="text-[#F1E5C6]">Greymatters</strong> pairs your parents with a dedicated{' '}
                 <strong className="text-[#F1E5C6]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor
                 visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates
                 with you abroad.
@@ -477,7 +477,7 @@ export default function DesktopHome() {
               {/* Primary CTA + Secondary Link */}
               <div className="pt-2 flex flex-row items-center gap-4">
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
+                  href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F1E5C6]/25 transition hover:scale-[1.02] active:scale-[0.98]"
@@ -521,7 +521,7 @@ export default function DesktopHome() {
                 <div className="relative">
                   <img
                     src="/images/hero1.png"
-                    alt="Rodasi Care Buddy with elderly parent in Kerala"
+                    alt="Greymatters Care Buddy with elderly parent in Kerala"
                     className="w-full h-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.55)] select-none"
                   />
 
@@ -613,7 +613,7 @@ export default function DesktopHome() {
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
-                    <span>Rodasi Care Buddy</span>
+                    <span>Greymatters Care Buddy</span>
                     <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F1E5C6] text-[#122116]">
                       Sample
                     </span>
@@ -710,7 +710,7 @@ export default function DesktopHome() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <span className="bg-[#183825]/10 text-[#122617] border border-[#183825]/20 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3 inline-block uppercase tracking-wider">
-              The Heart of Rodasi
+              The Heart of Greymatters
             </span>
             <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 text-[#122617]">
               <GradientText colors={['#122617', '#1E4429', '#2E613B', '#122617']}>
@@ -719,7 +719,7 @@ export default function DesktopHome() {
               </GradientText>
             </h2>
             <p className="text-[#2D4533] text-sm lg:text-base leading-relaxed">
-              At Rodasi, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
+              At Greymatters, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
               knowing your parents’ health, quirks, favorite routines, and doctors by heart.
             </p>
           </div>
@@ -761,7 +761,7 @@ export default function DesktopHome() {
         </div>
       </section>
 
-      {/* 4B. THE THREE PILLARS OF RODASI CARE */}
+      {/* 4B. THE THREE PILLARS OF GREYMATTERS CARE */}
       <section id="three-pillars" className="py-16 sm:py-24 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F1E5C6]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
@@ -769,7 +769,7 @@ export default function DesktopHome() {
               Comprehensive Service Scope
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
-              The Three Pillars of Rodasi Care
+              The Three Pillars of Greymatters Care
             </h2>
             <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
               A comprehensive eldercare framework tailored specifically for Kerala households and Malayali families living across oceans. Click any pillar below to inspect our full capabilities and live escort logs.
@@ -1012,7 +1012,7 @@ export default function DesktopHome() {
           {/* Introductory Line & Single Hospital Visit Card (Moved Above Plans) */}
           <div className="max-w-4xl mx-auto mb-12">
             <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
-              New to Rodasi? Start with one visit
+              New to Greymatters? Start with one visit
             </p>
 
             <div className="p-6 sm:p-7 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 text-[#122617] shadow-lg flex flex-col md:flex-row md:items-center gap-6">
@@ -1045,7 +1045,7 @@ export default function DesktopHome() {
 
               <div className="shrink-0 flex flex-col items-center gap-2">
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
+                  href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="py-3.5 px-6 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-extrabold text-xs sm:text-sm transition shadow-md whitespace-nowrap cursor-pointer text-center"
@@ -1196,7 +1196,7 @@ export default function DesktopHome() {
                       </button>
                     ) : (
                       <a
-                        href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20my%20parents.`}
+                        href={`https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(plan.name)}%20plan%20for%20my%20parents.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center ${
@@ -1321,7 +1321,7 @@ export default function DesktopHome() {
               </p>
               <div className="pt-2">
                 <a
-                  href={`https://wa.me/919496097611?text=${encodeURIComponent('Hi Rodasi Team, please send me the sample WhatsApp update and voice note.')}`}
+                  href={`https://wa.me/919496097611?text=${encodeURIComponent('Hi Greymatters Team, please send me the sample WhatsApp update and voice note.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-xs sm:text-sm transition shadow-lg"
@@ -1465,7 +1465,7 @@ export default function DesktopHome() {
             <Link href="/" className="inline-block">
               <img
                 src="/images/logo.png"
-                alt="Rodasi"
+                alt="Greymatters"
                 className="h-10 sm:h-12 w-auto object-contain brightness-110"
               />
             </Link>
@@ -1494,7 +1494,7 @@ export default function DesktopHome() {
               <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="mailto:care@rodasi.com" className="hover:text-white transition">Contact</a>
+              <a href="mailto:care@greymatters.com" className="hover:text-white transition">Contact</a>
             </div>
           </div>
 
@@ -1630,7 +1630,7 @@ export default function DesktopHome() {
                   </button>
                 ) : (
                   <a
-                    href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
+                    href={`https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
@@ -1683,7 +1683,7 @@ export default function DesktopHome() {
                 </p>
                 <div className="pt-1">
                   <a
-                    href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
+                    href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#25D366] text-white text-xs font-bold"
@@ -1963,7 +1963,7 @@ export default function DesktopHome() {
                     </h3>
 
                     <p className="text-[#EBF2E8]/85 text-xs sm:text-sm leading-relaxed">
-                      Medical logistics is only half the battle. Rodasi provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
+                      Medical logistics is only half the battle. Greymatters provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-3 pt-2">

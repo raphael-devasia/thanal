@@ -13,7 +13,7 @@ export default function PrivacyPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Rodasi</span>
+            <span>Return to Greymatters</span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
             <span>Our Privacy Commitment to Families Across Oceans</span>
           </div>
           <p className="text-xs sm:text-sm text-[#EBF2E8]/85 leading-relaxed">
-            Rodasi is built for overseas families who entrust us with their elderly parents in Kerala. We collect only what is needed, protect it carefully, and never sell or monetize personal or health information.
+            Greymatters is built for overseas families who entrust us with their elderly parents in Kerala. We collect only what is needed, protect it carefully, and never sell or monetize personal or health information.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#EBF2E8]/90">
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
@@ -50,15 +50,15 @@ export default function PrivacyPage() {
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
               <span className="font-bold text-[#F1E5C6] block mb-1">Who Sees It</span>
-              Only the Rodasi care coordination team behind login. Zero contact details or health data in URL links or email alerts.
+              Only the Greymatters care coordination team behind login. Zero contact details or health data in URL links or email alerts.
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
               <span className="font-bold text-[#F1E5C6] block mb-1">How to Delete It</span>
-              Message "Delete my data" on WhatsApp or email care@rodasi.com to purge your records within 24 hours.
+              Message "Delete my data" on WhatsApp or email care@greymatters.com to purge your records within 24 hours.
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
               <span className="font-bold text-[#F1E5C6] block mb-1">Who to Contact</span>
-              Email: care@rodasi.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
+              Email: care@greymatters.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
             </div>
           </div>
         </div>
@@ -71,10 +71,10 @@ export default function PrivacyPage() {
               <span>Who Holds and Controls Your Data</span>
             </h2>
             <p>
-              The data controller responsible for all personal information collected through Rodasi is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Rodasi", "we", "us", or "our").
+              The data controller responsible for all personal information collected through Greymatters is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Greymatters", "we", "us", or "our").
             </p>
             <p>
-              If you have any questions regarding how your family's data is gathered, stored, or processed, you can reach our dedicated team directly at <a href="mailto:care@rodasi.com" className="text-[#183825] font-bold underline">care@rodasi.com</a>.
+              If you have any questions regarding how your family's data is gathered, stored, or processed, you can reach our dedicated team directly at <a href="mailto:care@greymatters.com" className="text-[#183825] font-bold underline">care@greymatters.com</a>.
             </p>
           </section>
 
@@ -178,7 +178,7 @@ export default function PrivacyPage() {
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <Mail className="w-4 h-4 text-[#183825]" />
                 <span>Email Deletion Request:</span>
-                <a href="mailto:care@rodasi.com" className="text-[#183825] underline">care@rodasi.com</a>
+                <a href="mailto:care@greymatters.com" className="text-[#183825] underline">care@greymatters.com</a>
               </div>
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <MessageCircle className="w-4 h-4 text-[#183825]" />
@@ -198,7 +198,7 @@ export default function PrivacyPage() {
               <span>Grievance Officer & Complaints Contact</span>
             </h2>
             <p>
-              In compliance with the Information Technology Act, 2000, and the Digital Personal Data Protection (DPDP) standards of India, the designated Grievance Officer for Rodasi is:
+              In compliance with the Information Technology Act, 2000, and the Digital Personal Data Protection (DPDP) standards of India, the designated Grievance Officer for Greymatters is:
             </p>
             <div className="p-4 rounded-xl bg-[#183825]/5 border border-[#183825]/15 space-y-1.5 text-xs">
               <p className="font-bold text-[#122617]">Care Operations Grievance Directorate</p>
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
                 Direct Grievance Email: <a href="mailto:grievance@zynthexion.com" className="font-bold text-[#183825] underline">grievance@zynthexion.com</a>
               </p>
               <p className="text-[#2D4533]">
-                General Support: <a href="mailto:care@rodasi.com" className="font-bold text-[#183825] underline">care@rodasi.com</a>
+                General Support: <a href="mailto:care@greymatters.com" className="font-bold text-[#183825] underline">care@greymatters.com</a>
               </p>
             </div>
           </section>
@@ -218,9 +218,9 @@ export default function PrivacyPage() {
         <div className="pt-8 border-t border-[#122617]/15 flex items-center justify-between text-xs text-[#2D4533]">
           <Link href="/" className="font-bold text-[#183825] hover:underline flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Return to Rodasi Home</span>
+            <span>Return to Greymatters Home</span>
           </Link>
-          <span>Rodasi • A Zynthexion Product</span>
+          <span>Greymatters • A Zynthexion Product</span>
         </div>
       </main>
     </div>

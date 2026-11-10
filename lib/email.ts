@@ -63,14 +63,14 @@ export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promi
             <div class="notice-box">
               <strong>Privacy Protection:</strong> Phone numbers and personal details are kept in the admin dashboard behind login.
               <div style="text-align: center;">
-                <a href="https://rodasi.com/admin" class="admin-btn" target="_blank">
+                <a href="https://greymatters.com/admin" class="admin-btn" target="_blank">
                   View in Admin Dashboard
                 </a>
               </div>
             </div>
           </div>
           <div class="footer">
-            Rodasi Eldercare • Product of Zynthexion Technologies Private Limited
+            Greymatters Eldercare • Product of Zynthexion Technologies Private Limited
           </div>
         </div>
       </body>
@@ -85,7 +85,7 @@ export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promi
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: 'Rodasi Leads <onboarding@resend.dev>',
+        from: 'Greymatters Leads <onboarding@resend.dev>',
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent
@@ -156,7 +156,7 @@ export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Prom
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: 'Rodasi Living <onboarding@resend.dev>',
+        from: 'Greymatters Living <onboarding@resend.dev>',
         to: [recipientEmail],
         subject: subjectText,
         html: htmlContent

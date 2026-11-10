@@ -163,7 +163,7 @@ export default function MobileHome() {
       setIsSubmitting(false);
 
       const waText = encodeURIComponent(
-        'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
+        'Hi Greymatters Team, please send me the sample WhatsApp update and voice note.'
       );
       if (typeof window !== 'undefined') {
         window.open(`https://wa.me/919496097611?text=${waText}`, '_blank');
@@ -226,7 +226,7 @@ export default function MobileHome() {
   const sampleWhatsAppUrl =
     'https://wa.me/919496097611?text=' +
     encodeURIComponent(
-      'Hi Rodasi Team, please send me a sample WhatsApp update and voice note that families receive for their parents in Kerala.'
+      'Hi Greymatters Team, please send me a sample WhatsApp update and voice note that families receive for their parents in Kerala.'
     );
 
   return (
@@ -237,7 +237,7 @@ export default function MobileHome() {
           <Link href="/" className="inline-flex items-center">
             <img
               src="/images/logo.png"
-              alt="Rodasi"
+              alt="Greymatters"
               className="h-8 w-auto object-contain brightness-110"
             />
           </Link>
@@ -557,7 +557,7 @@ export default function MobileHome() {
                     <span>Care Buddy Anjali</span>
                     <span className="text-[9px] bg-[#F1E5C6] text-[#122116] px-1 py-0.2 rounded font-extrabold uppercase">Sample</span>
                   </h4>
-                  <p className="text-[10px] text-[#F1E5C6]">Rodasi Care Team</p>
+                  <p className="text-[10px] text-[#F1E5C6]">Greymatters Care Team</p>
                 </div>
               </div>
               <span className="text-[10px] text-[#EBF2E8]/70">WhatsApp</span>
@@ -710,7 +710,7 @@ export default function MobileHome() {
         </div>
       </section>
 
-      {/* SCREEN 6B: THE THREE PILLARS OF RODASI CARE */}
+      {/* SCREEN 6B: THE THREE PILLARS OF GREYMATTERS CARE */}
       <section id="three-pillars" className="py-12 px-4 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F1E5C6]/20">
         <div className="max-w-md mx-auto space-y-6">
           <div className="text-center space-y-1.5">
@@ -805,7 +805,7 @@ export default function MobileHome() {
           {/* 1. Introductory Line and Single Hospital Visit Card (Moved Above Plans) */}
           <div className="space-y-2">
             <p className="text-xs font-semibold text-[#F1E5C6] uppercase tracking-wider text-center">
-              New to Rodasi? Start with one visit
+              New to Greymatters? Start with one visit
             </p>
 
             <div className="p-5 rounded-2xl bg-[#F9F8F3] border border-[#183825]/20 text-[#122617] space-y-3 shadow-md">
@@ -835,7 +835,7 @@ export default function MobileHome() {
               </div>
 
               <a
-                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
+                href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Single%20Hospital%20Visit%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-3 rounded-xl bg-[#122617] hover:bg-[#183825] text-white font-bold text-xs text-center block transition shadow-sm cursor-pointer"
@@ -903,7 +903,7 @@ export default function MobileHome() {
               </div>
 
               <a
-                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
+                href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-3 rounded-xl bg-white hover:bg-[#F2EFE6] text-[#122116] font-bold text-xs text-center block transition cursor-pointer"
@@ -968,7 +968,7 @@ export default function MobileHome() {
               </div>
 
               <a
-                href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
+                href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-3 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-xs text-center block transition cursor-pointer"
@@ -1083,7 +1083,7 @@ export default function MobileHome() {
               <div className="pt-2">
                 <a
                   href={`https://wa.me/919496097611?text=${encodeURIComponent(
-                    'Hi Rodasi Team, please send me the sample WhatsApp update and voice note.'
+                    'Hi Greymatters Team, please send me the sample WhatsApp update and voice note.'
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1215,7 +1215,7 @@ export default function MobileHome() {
           <Link href="/" className="inline-block">
             <img
               src="/images/logo.png"
-              alt="Rodasi"
+              alt="Greymatters"
               className="h-10 w-auto object-contain mx-auto brightness-110"
             />
           </Link>
@@ -1243,7 +1243,7 @@ export default function MobileHome() {
               Refund
             </Link>
             <span>·</span>
-            <a href="mailto:care@rodasi.com" className="hover:text-[#F1E5C6] transition">
+            <a href="mailto:care@greymatters.com" className="hover:text-[#F1E5C6] transition">
               Contact
             </a>
           </div>
@@ -1330,7 +1330,7 @@ export default function MobileHome() {
                   1 visit a week, 1 hospital escort (up to 4 hours), medicine check, WhatsApp update after every visit.
                 </p>
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
+                  href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Essential%20plan%20for%20my%20parents."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center block transition"
@@ -1352,7 +1352,7 @@ export default function MobileHome() {
                   2 visits a week, 2 escorts (up to 5 hours each), we book appointments, weekly medicine check, 24/7 emergency mobilization support, WhatsApp update after every visit.
                 </p>
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
+                  href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 rounded-lg bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs text-center block transition"
@@ -1374,7 +1374,7 @@ export default function MobileHome() {
                   3 visits a week, 3 escorts (up to 6 hours each), weekly companion afternoons, we book appointments, full medicine check, 24/7 emergency mobilization support, WhatsApp update after every visit.
                 </p>
                 <a
-                  href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Complete%20plan%20for%20my%20parents."
+                  href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Complete%20plan%20for%20my%20parents."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs text-center block transition"
@@ -1457,7 +1457,7 @@ export default function MobileHome() {
                 </p>
                 <div className="pt-1">
                   <a
-                    href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
+                    href="https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20have%20joined%20the%20waitlist%20for%20the%2022-day%20Companion%20plan."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#25D366] text-white text-xs font-bold"
@@ -1927,7 +1927,7 @@ export default function MobileHome() {
               {/* Footer */}
               <div className="p-4 border-t border-[#F1E5C6]/20 bg-[#122617] flex items-center gap-2">
                 <a
-                  href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
+                  href={`https://wa.me/919496097611?text=Hi%20Greymatters%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-2.5 px-3 rounded-xl font-bold text-xs text-center bg-[#F1E5C6] text-[#122116] shadow-sm"
