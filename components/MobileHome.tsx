@@ -230,9 +230,9 @@ export default function MobileHome() {
     );
 
   return (
-    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans pb-24 selection:bg-[#F5D328] selection:text-[#122116]">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans pb-24 selection:bg-[#F1E5C6] selection:text-[#122116]">
       {/* ALWAYS ON SCREEN: TOP BAR */}
-      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F5D328]/20 shadow-md">
+      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F1E5C6]/20 shadow-md">
         <div className="max-w-xl mx-auto px-3.5 py-2.5 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center">
             <img
@@ -259,7 +259,7 @@ export default function MobileHome() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-lg bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] hover:text-[#F5D328] transition cursor-pointer"
+              className="p-1.5 rounded-lg bg-[#183825] border border-[#F1E5C6]/25 text-[#EBF2E8] hover:text-[#F1E5C6] transition cursor-pointer"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -269,9 +269,9 @@ export default function MobileHome() {
 
         {/* MOBILE SLIDE-DOWN NAVIGATION DRAWER */}
         {mobileMenuOpen && (
-          <div className="bg-[#122617] border-t border-b border-[#F5D328]/30 shadow-2xl p-4 space-y-3 animate-in slide-in-from-top-1 duration-150">
+          <div className="bg-[#122617] border-t border-b border-[#F1E5C6]/30 shadow-2xl p-4 space-y-3 animate-in slide-in-from-top-1 duration-150">
             <div className="space-y-0.5">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">Menu Navigation</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">Menu Navigation</p>
               <p className="text-xs text-[#EBF2E8]/70">Explore eldercare services and plans</p>
             </div>
 
@@ -282,7 +282,7 @@ export default function MobileHome() {
                 className="flex items-center justify-between p-3 rounded-xl bg-[#183825] text-white font-bold text-xs hover:bg-[#1f452e] transition"
               >
                 <span>At-Home Eldercare in Kochi</span>
-                <span className="text-[10px] bg-[#F5D328] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Home</span>
+                <span className="text-[10px] bg-[#F1E5C6] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Home</span>
               </Link>
 
               <a
@@ -317,13 +317,13 @@ export default function MobileHome() {
       </header>
 
       {/* ALWAYS ON SCREEN: BOTTOM BAR */}
-      <aside aria-label="Quick action" className="fixed bottom-0 left-0 right-0 z-40 bg-[#122617] border-t border-[#F5D328]/30 p-3 shadow-2xl backdrop-blur-md">
+      <aside aria-label="Quick action" className="fixed bottom-0 left-0 right-0 z-40 bg-[#122617] border-t border-[#F1E5C6]/30 p-3 shadow-2xl backdrop-blur-md">
         <div className="max-w-md mx-auto">
           <a
             href={sampleWhatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 px-5 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#F5D328]/30 transition active:scale-98"
+            className="w-full py-3.5 px-5 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#F1E5C6]/30 transition active:scale-98"
           >
             <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116] shrink-0" />
             <span>Send me a sample update</span>
@@ -335,7 +335,7 @@ export default function MobileHome() {
       <section className="bg-[#122617] text-[#EBF2E8] pt-8 pb-12 px-4 border-b border-[#183825]">
         <div className="max-w-md mx-auto text-center space-y-5">
           {/* Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
             <span>Now enrolling founding families in Kochi</span>
           </div>
@@ -357,14 +357,14 @@ export default function MobileHome() {
               href={sampleWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm shadow-md transition active:scale-98"
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm shadow-md transition active:scale-98"
             >
               <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
               <span>Send me a sample update</span>
             </a>
             <a
               href="#plans-mobile"
-              className="text-xs text-[#EBF2E8]/75 hover:text-[#F5D328] underline underline-offset-4 font-semibold transition py-1"
+              className="text-xs text-[#EBF2E8]/75 hover:text-[#F1E5C6] underline underline-offset-4 font-semibold transition py-1"
             >
               See plans
             </a>
@@ -373,7 +373,7 @@ export default function MobileHome() {
           {/* Transparent Hero Image Blending into Section */}
           <div className="pt-3 relative max-w-sm mx-auto">
             {/* Ambient soft glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#F1E5C6]/15 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative">
               <img
@@ -383,14 +383,14 @@ export default function MobileHome() {
               />
 
               {/* Background-checked badge */}
-              <div className="absolute top-2 left-2 bg-[#122617]/90 backdrop-blur-md border border-[#F5D328]/40 text-[#F5D328] px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#F5D328]" />
+              <div className="absolute top-2 left-2 bg-[#122617]/90 backdrop-blur-md border border-[#F1E5C6]/40 text-[#F1E5C6] px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#F1E5C6]" />
                 <span>Background-checked</span>
               </div>
 
               {/* Sample card */}
-              <div className="mt-3 bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/30 rounded-xl p-3 text-left text-white shadow-xl space-y-1.5">
-                <div className="flex items-center justify-between text-[11px] text-[#F5D328] font-bold">
+              <div className="mt-3 bg-[#183825]/95 backdrop-blur-md border border-[#F1E5C6]/30 rounded-xl p-3 text-left text-white shadow-xl space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] text-[#F1E5C6] font-bold">
                   <span>Sample update to Dubai</span>
                   <span className="font-mono bg-[#122617] px-2 py-0.5 rounded text-[#EBF2E8]">0:48</span>
                 </div>
@@ -402,7 +402,7 @@ export default function MobileHome() {
           </div>
 
           {/* Three small trust lines */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs text-[#F5D328] font-medium">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs text-[#F1E5C6] font-medium">
             <span>Named Care Buddy</span>
             <span className="text-[#EBF2E8]/40">·</span>
             <span>No hospital commissions</span>
@@ -429,7 +429,7 @@ export default function MobileHome() {
               onClick={() => setSelectedWorry('hospital')}
               className={`py-2.5 px-2 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
                 selectedWorry === 'hospital'
-                  ? 'bg-[#122617] text-[#F5D328] shadow-md ring-2 ring-[#F5D328]/30'
+                  ? 'bg-[#122617] text-[#F1E5C6] shadow-md ring-2 ring-[#F1E5C6]/30'
                   : 'bg-white text-[#122617] border border-[#183825]/15 hover:bg-[#F2EFE6]'
               }`}
             >
@@ -440,7 +440,7 @@ export default function MobileHome() {
               onClick={() => setSelectedWorry('medicines')}
               className={`py-2.5 px-2 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
                 selectedWorry === 'medicines'
-                  ? 'bg-[#122617] text-[#F5D328] shadow-md ring-2 ring-[#F5D328]/30'
+                  ? 'bg-[#122617] text-[#F1E5C6] shadow-md ring-2 ring-[#F1E5C6]/30'
                   : 'bg-white text-[#122617] border border-[#183825]/15 hover:bg-[#F2EFE6]'
               }`}
             >
@@ -451,7 +451,7 @@ export default function MobileHome() {
               onClick={() => setSelectedWorry('afternoons')}
               className={`py-2.5 px-2 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
                 selectedWorry === 'afternoons'
-                  ? 'bg-[#122617] text-[#F5D328] shadow-md ring-2 ring-[#F5D328]/30'
+                  ? 'bg-[#122617] text-[#F1E5C6] shadow-md ring-2 ring-[#F1E5C6]/30'
                   : 'bg-white text-[#122617] border border-[#183825]/15 hover:bg-[#F2EFE6]'
               }`}
             >
@@ -487,7 +487,7 @@ export default function MobileHome() {
                 href={sampleWhatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition active:scale-98"
+                className="w-full py-3 px-4 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition active:scale-98"
               >
                 <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
                 <span>Send me a sample update</span>
@@ -522,7 +522,7 @@ export default function MobileHome() {
                 key={idx}
                 className="p-3.5 rounded-xl bg-white border border-[#183825]/10 shadow-xs flex items-start gap-3.5"
               >
-                <span className="text-xs font-mono font-bold text-[#183825] bg-[#F5D328]/25 border border-[#F5D328]/40 px-2 py-0.5 rounded shrink-0">
+                <span className="text-xs font-mono font-bold text-[#183825] bg-[#F1E5C6]/25 border border-[#F1E5C6]/40 px-2 py-0.5 rounded shrink-0">
                   {step.time}
                 </span>
                 <p className="text-xs text-[#243B2B] font-medium leading-relaxed">
@@ -549,15 +549,15 @@ export default function MobileHome() {
             {/* Header */}
             <div className="bg-[#122617] text-white p-3.5 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#183825] border border-[#F5D328] flex items-center justify-center text-xs font-bold text-[#F5D328]">
+                <div className="w-8 h-8 rounded-full bg-[#183825] border border-[#F1E5C6] flex items-center justify-center text-xs font-bold text-[#F1E5C6]">
                   CB
                 </div>
                 <div>
                   <h4 className="text-xs font-bold flex items-center gap-1.5 text-white">
                     <span>Care Buddy Anjali</span>
-                    <span className="text-[9px] bg-[#F5D328] text-[#122116] px-1 py-0.2 rounded font-extrabold uppercase">Sample</span>
+                    <span className="text-[9px] bg-[#F1E5C6] text-[#122116] px-1 py-0.2 rounded font-extrabold uppercase">Sample</span>
                   </h4>
-                  <p className="text-[10px] text-[#F5D328]">Rodasi Care Team</p>
+                  <p className="text-[10px] text-[#F1E5C6]">Rodasi Care Team</p>
                 </div>
               </div>
               <span className="text-[10px] text-[#EBF2E8]/70">WhatsApp</span>
@@ -587,7 +587,7 @@ export default function MobileHome() {
                   <button
                     type="button"
                     onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                    className="w-8 h-8 rounded-full bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] flex items-center justify-center shrink-0 transition active:scale-95 cursor-pointer shadow-xs"
+                    className="w-8 h-8 rounded-full bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] flex items-center justify-center shrink-0 transition active:scale-95 cursor-pointer shadow-xs"
                     aria-label={isPlayingAudio ? 'Pause sample' : 'Play sample'}
                   >
                     {isPlayingAudio ? (
@@ -642,7 +642,7 @@ export default function MobileHome() {
 
           <div className="space-y-3">
             <div className="p-4 rounded-xl bg-white border border-[#183825]/10 shadow-xs flex items-start gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
+              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
                 1
               </span>
               <p className="text-xs text-[#243B2B] leading-relaxed">
@@ -651,7 +651,7 @@ export default function MobileHome() {
             </div>
 
             <div className="p-4 rounded-xl bg-white border border-[#183825]/10 shadow-xs flex items-start gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
+              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
                 2
               </span>
               <p className="text-xs text-[#243B2B] leading-relaxed">
@@ -660,7 +660,7 @@ export default function MobileHome() {
             </div>
 
             <div className="p-4 rounded-xl bg-white border border-[#183825]/10 shadow-xs flex items-start gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
+              <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">
                 3
               </span>
               <p className="text-xs text-[#243B2B] leading-relaxed">
@@ -711,10 +711,10 @@ export default function MobileHome() {
       </section>
 
       {/* SCREEN 6B: THE THREE PILLARS OF RODASI CARE */}
-      <section id="three-pillars" className="py-12 px-4 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F5D328]/20">
+      <section id="three-pillars" className="py-12 px-4 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F1E5C6]/20">
         <div className="max-w-md mx-auto space-y-6">
           <div className="text-center space-y-1.5">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">
               Comprehensive Service Scope
             </span>
             <h2 className="text-2xl font-extrabold text-white tracking-tight">
@@ -729,19 +729,19 @@ export default function MobileHome() {
             {/* Card 1: Vitality & Care */}
             <div
               onClick={() => openPillarDrawer('vitality')}
-              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F1E5C6]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F1E5C6] text-[#122116]">
                   Pillar 01 : Health
                 </span>
-                <Stethoscope className="w-5 h-5 text-[#F5D328]" />
+                <Stethoscope className="w-5 h-5 text-[#F1E5C6]" />
               </div>
               <h3 className="text-base font-bold text-white">Vitality & Care</h3>
               <p className="text-xs text-[#E0EBDC] leading-relaxed">
                 24/7 emergency mobilization support, hospital OPD escorting, doctor consultation notes, medicine refills, and home diagnostic visits.
               </p>
-              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F1E5C6] font-bold">
                 <span>View full scope & live log</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </div>
@@ -750,19 +750,19 @@ export default function MobileHome() {
             {/* Card 2: Joy & Connection */}
             <div
               onClick={() => openPillarDrawer('joy')}
-              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F1E5C6]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F1E5C6] text-[#122116]">
                   Pillar 02 : Social & Mental
                 </span>
-                <HeartHandshake className="w-5 h-5 text-[#F5D328]" />
+                <HeartHandshake className="w-5 h-5 text-[#F1E5C6]" />
               </div>
               <h3 className="text-base font-bold text-white">Joy & Connection</h3>
               <p className="text-xs text-[#E0EBDC] leading-relaxed">
                 Unhurried companion tea chats, reading Malayalam news, tech coaching on WhatsApp video calls, and temple visits.
               </p>
-              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F1E5C6] font-bold">
                 <span>View full scope & visit note</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </div>
@@ -771,19 +771,19 @@ export default function MobileHome() {
             {/* Card 3: Ease & Daily Living */}
             <div
               onClick={() => openPillarDrawer('ease')}
-              className="p-4 rounded-2xl bg-[#183825] border border-[#F5D328]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
+              className="p-4 rounded-2xl bg-[#183825] border border-[#F1E5C6]/30 shadow-md active:scale-[0.98] transition cursor-pointer text-left space-y-2.5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F5D328] text-[#122116]">
+                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F1E5C6] text-[#122116]">
                   Pillar 03 : Home, Chores & Govt
                 </span>
-                <Home className="w-5 h-5 text-[#F5D328]" />
+                <Home className="w-5 h-5 text-[#F1E5C6]" />
               </div>
               <h3 className="text-base font-bold text-white">Ease & Daily Living</h3>
               <p className="text-xs text-[#E0EBDC] leading-relaxed">
                 Home safety fall audits, Jeevan Pramaan biometric pension certificates, utility bills, and verified handyman visits.
               </p>
-              <div className="pt-1 flex items-center justify-between text-xs text-[#F5D328] font-bold">
+              <div className="pt-1 flex items-center justify-between text-xs text-[#F1E5C6] font-bold">
                 <span>View full scope & audit card</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </div>
@@ -796,7 +796,7 @@ export default function MobileHome() {
       <section id="plans-mobile" className="py-12 px-4 bg-[#122617] text-white border-b border-[#183825]">
         <div className="max-w-md mx-auto space-y-6">
           <div className="text-center space-y-1.5">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Clear Membership</span>
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">Clear Membership</span>
             <h2 className="text-2xl font-extrabold text-white tracking-tight">
               Plans
             </h2>
@@ -804,7 +804,7 @@ export default function MobileHome() {
 
           {/* 1. Introductory Line and Single Hospital Visit Card (Moved Above Plans) */}
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-[#F5D328] uppercase tracking-wider text-center">
+            <p className="text-xs font-semibold text-[#F1E5C6] uppercase tracking-wider text-center">
               New to Rodasi? Start with one visit
             </p>
 
@@ -850,7 +850,7 @@ export default function MobileHome() {
           </div>
 
           {/* Second Parent Discount Note */}
-          <div className="p-3 rounded-xl bg-[#183825]/80 border border-[#F5D328]/30 text-center">
+          <div className="p-3 rounded-xl bg-[#183825]/80 border border-[#F1E5C6]/30 text-center">
             <p className="text-[11px] text-[#EBF2E8]/90 font-medium">
               Covering both parents? Add a second parent for just 75% of the base fee (25% discount on the second parent&apos;s fee).
             </p>
@@ -859,11 +859,11 @@ export default function MobileHome() {
           {/* 2. Monthly Plan Cards */}
           <div className="space-y-4 pt-1">
             {/* Plan 1: Care Essential */}
-            <div className="p-5 rounded-2xl bg-[#183825] border border-[#F5D328]/30 text-white space-y-4">
+            <div className="p-5 rounded-2xl bg-[#183825] border border-[#F1E5C6]/30 text-white space-y-4">
               <div>
                 <h3 className="text-lg font-bold text-white">Care Essential</h3>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className="text-2xl font-black text-[#F5D328]">₹6,000</span>
+                  <span className="text-2xl font-black text-[#F1E5C6]">₹6,000</span>
                   <span className="text-xs font-bold text-[#EBF2E8]">a month plus GST</span>
                 </div>
                 <p className="text-xs text-[#EBF2E8]/80 font-medium mt-0.5">
@@ -872,19 +872,19 @@ export default function MobileHome() {
 
                 <ul className="mt-3 space-y-1.5 text-xs text-[#EBF2E8]/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>1 visit a week</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>1 hospital escort (up to 4 hours)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>Medicine check</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>WhatsApp update after every visit</span>
                   </li>
                 </ul>
@@ -894,7 +894,7 @@ export default function MobileHome() {
                   <button
                     type="button"
                     onClick={() => setSelectedInclusionPlan(PLANS.find((p) => p.id === 'essential') || null)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F1E5C6] hover:underline cursor-pointer"
                   >
                     <span>View full inclusions</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -913,14 +913,14 @@ export default function MobileHome() {
             </div>
 
             {/* Plan 2: Care Plus (Recommended) */}
-            <div className="p-5 rounded-2xl bg-[#162D1D] border-2 border-[#F5D328] text-white space-y-4 relative shadow-xl">
-              <span className="absolute -top-2.5 right-4 bg-[#F5D328] text-[#122116] text-xs font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+            <div className="p-5 rounded-2xl bg-[#162D1D] border-2 border-[#F1E5C6] text-white space-y-4 relative shadow-xl">
+              <span className="absolute -top-2.5 right-4 bg-[#F1E5C6] text-[#122116] text-xs font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
                 Recommended
               </span>
               <div>
                 <h3 className="text-lg font-bold text-white">Care Plus</h3>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className="text-2xl font-black text-[#F5D328]">₹11,000</span>
+                  <span className="text-2xl font-black text-[#F1E5C6]">₹11,000</span>
                   <span className="text-xs font-bold text-[#EBF2E8]">a month plus GST</span>
                 </div>
                 <p className="text-xs text-[#EBF2E8]/80 font-medium mt-0.5">
@@ -929,27 +929,27 @@ export default function MobileHome() {
 
                 <ul className="mt-3 space-y-1.5 text-xs text-[#EBF2E8]/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>2 visits a week</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>2 escorts (up to 5 hours each)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>We book appointments for you</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>Weekly medicine check</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>24/7 Emergency mobilization support</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#F5D328] font-bold">•</span>
+                    <span className="text-[#F1E5C6] font-bold">•</span>
                     <span>WhatsApp update after every visit</span>
                   </li>
                 </ul>
@@ -959,7 +959,7 @@ export default function MobileHome() {
                   <button
                     type="button"
                     onClick={() => setSelectedInclusionPlan(PLANS.find((p) => p.id === 'care_plus') || null)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F5D328] hover:underline cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F1E5C6] hover:underline cursor-pointer"
                   >
                     <span>View full inclusions</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -971,7 +971,7 @@ export default function MobileHome() {
                 href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-3 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs text-center block transition cursor-pointer"
+                className="w-full py-3 px-3 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-xs text-center block transition cursor-pointer"
               >
                 Ask about Care Plus on WhatsApp
               </a>
@@ -986,7 +986,7 @@ export default function MobileHome() {
             <div className="flex flex-col gap-2 pt-1">
               <Link
                 href="/plans"
-                className="w-full py-3.5 px-4 rounded-xl bg-[#183825] hover:bg-[#1e452e] border border-[#F5D328]/40 text-[#F5D328] font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-md"
+                className="w-full py-3.5 px-4 rounded-xl bg-[#183825] hover:bg-[#1e452e] border border-[#F1E5C6]/40 text-[#F1E5C6] font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-md"
               >
                 <span>See all plans</span>
                 <ArrowRight className="w-4 h-4" />
@@ -1063,18 +1063,18 @@ export default function MobileHome() {
       <section id="sample-request-mobile" className="py-12 px-4 bg-[#122617] text-white border-b border-[#183825]">
         <div className="max-w-md mx-auto space-y-6">
           <div className="text-center space-y-1.5">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Final Step</span>
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">Final Step</span>
             <h2 className="text-2xl font-extrabold text-white tracking-tight">
               See a sample update for your parents’ town.
             </h2>
           </div>
 
           {formSubmitted ? (
-            <div className="p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/40 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+            <div className="p-6 rounded-2xl bg-[#183825] border border-[#F1E5C6]/40 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                <CheckCircle2 className="w-6 h-6 text-[#F1E5C6]" />
               </div>
-              <h3 className="text-lg font-bold text-[#F5D328]">
+              <h3 className="text-lg font-bold text-[#F1E5C6]">
                 Thank you. Your sample update is on its way to WhatsApp.
               </h3>
               <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
@@ -1087,7 +1087,7 @@ export default function MobileHome() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#F5D328] text-[#122116] font-extrabold text-xs"
+                  className="inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#F1E5C6] text-[#122116] font-extrabold text-xs"
                 >
                   <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
                   <span>Open WhatsApp Now</span>
@@ -1113,7 +1113,7 @@ export default function MobileHome() {
                   placeholder="e.g. Ramesh Menon"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs"
                 />
               </div>
 
@@ -1126,17 +1126,17 @@ export default function MobileHome() {
                   required
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs cursor-pointer"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs cursor-pointer"
                 >
                   <option value="">Choose country</option>
-                  <optgroup label="Popular Expats & NRK Regions" className="bg-[#183825] text-[#F5D328] font-bold">
+                  <optgroup label="Popular Expats & NRK Regions" className="bg-[#183825] text-[#F1E5C6] font-bold">
                     {TOP_NRK_COUNTRIES.map((c) => (
                       <option key={`top_${c.code}`} value={c.code} className="bg-[#183825] text-white font-normal">
                         {c.name} (+{c.dialCode})
                       </option>
                     ))}
                   </optgroup>
-                  <optgroup label="All Countries (A to Z)" className="bg-[#183825] text-[#F5D328] font-bold">
+                  <optgroup label="All Countries (A to Z)" className="bg-[#183825] text-[#F1E5C6] font-bold">
                     {ALL_COUNTRIES.map((c) => (
                       <option key={`all_${c.code}`} value={c.code} className="bg-[#183825] text-white font-normal">
                         {c.name} (+{c.dialCode})
@@ -1152,7 +1152,7 @@ export default function MobileHome() {
                   WhatsApp Number
                 </label>
                 <div className="relative flex items-center">
-                  <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                  <span className="absolute left-3.5 text-xs font-bold text-[#F1E5C6]">
                     {countryCode && COUNTRIES.find((c) => c.code === countryCode)
                       ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode.replace(/[^0-9]/g, '')}`
                       : '+'}
@@ -1163,7 +1163,7 @@ export default function MobileHome() {
                     placeholder="e.g. 50 123 4567"
                     value={phoneDigits}
                     onChange={(e) => setPhoneDigits(e.target.value)}
-                    className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                    className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs"
                   />
                 </div>
               </div>
@@ -1175,7 +1175,7 @@ export default function MobileHome() {
                     type="checkbox"
                     checked={consentGiven}
                     onChange={(e) => setConsentGiven(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
+                    className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
                   />
                   <span className="text-xs text-[#EBF2E8]/90 leading-snug">
                     OK to message me on WhatsApp.
@@ -1188,7 +1188,7 @@ export default function MobileHome() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
+                  className="w-full py-4 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
                 >
                   <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
                   <span>{isSubmitting ? 'Sending Request...' : 'Send me a sample update'}</span>
@@ -1197,7 +1197,7 @@ export default function MobileHome() {
 
               {/* Note under the form */}
               <div className="text-center space-y-1 pt-1">
-                <p className="text-xs font-medium text-[#F5D328]">
+                <p className="text-xs font-medium text-[#F1E5C6]">
                   Your parents don’t need to do anything yet.
                 </p>
                 <p className="text-[11px] text-[#EBF2E8]/70 font-normal">
@@ -1210,7 +1210,7 @@ export default function MobileHome() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0D1C11] text-[#EBF2E8] py-10 px-4 border-t border-[#F5D328]/20">
+      <footer className="bg-[#0D1C11] text-[#EBF2E8] py-10 px-4 border-t border-[#F1E5C6]/20">
         <div className="max-w-md mx-auto text-center space-y-6">
           <Link href="/" className="inline-block">
             <img
@@ -1221,7 +1221,7 @@ export default function MobileHome() {
           </Link>
 
           {/* Three Trust Lines */}
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[#F5D328] font-medium">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[#F1E5C6] font-medium">
             <span>Named Care Buddy</span>
             <span className="text-[#EBF2E8]/40">·</span>
             <span>No hospital commissions</span>
@@ -1231,19 +1231,19 @@ export default function MobileHome() {
 
           {/* Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/75">
-            <Link href="/privacy" className="hover:text-[#F5D328] transition">
+            <Link href="/privacy" className="hover:text-[#F1E5C6] transition">
               Privacy
             </Link>
             <span>·</span>
-            <Link href="/terms" className="hover:text-[#F5D328] transition">
+            <Link href="/terms" className="hover:text-[#F1E5C6] transition">
               Terms
             </Link>
             <span>·</span>
-            <Link href="/refund-policy" className="hover:text-[#F5D328] transition">
+            <Link href="/refund-policy" className="hover:text-[#F1E5C6] transition">
               Refund
             </Link>
             <span>·</span>
-            <a href="mailto:care@rodasi.com" className="hover:text-[#F5D328] transition">
+            <a href="mailto:care@rodasi.com" className="hover:text-[#F1E5C6] transition">
               Contact
             </a>
           </div>
@@ -1257,7 +1257,7 @@ export default function MobileHome() {
       {/* MODAL: HOW WE CHOOSE CARE BUDDIES */}
       {showHowWeChooseModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowHowWeChooseModal(false)}
@@ -1267,22 +1267,22 @@ export default function MobileHome() {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-2 text-[#F5D328] font-bold text-sm">
-              <ShieldCheck className="w-5 h-5 text-[#F5D328]" />
+            <div className="flex items-center gap-2 text-[#F1E5C6] font-bold text-sm">
+              <ShieldCheck className="w-5 h-5 text-[#F1E5C6]" />
               <span>How We Choose Care Buddies</span>
             </div>
 
             <div className="space-y-3 text-xs text-[#EBF2E8]/90 leading-relaxed">
-              <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">1. Background Verification</p>
+              <div className="p-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/20 space-y-1">
+                <p className="font-bold text-[#F1E5C6]">1. Background Verification</p>
                 <p>Every Care Buddy is background-checked before their first visit, including ID and reference verification.</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">2. Introduction Video Call</p>
+              <div className="p-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/20 space-y-1">
+                <p className="font-bold text-[#F1E5C6]">2. Introduction Video Call</p>
                 <p>You and your parents meet your primary Care Buddy and named backup on a video call before the inaugural home visit.</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-1">
-                <p className="font-bold text-[#F5D328]">3. Initial Care &amp; Personality Assessment</p>
+              <div className="p-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/20 space-y-1">
+                <p className="font-bold text-[#F1E5C6]">3. Initial Care &amp; Personality Assessment</p>
                 <p>Comprehensive initial profiling to document your parents&apos; medical history, allergies, dietary preferences, and daily hobbies before the first official visit.</p>
               </div>
             </div>
@@ -1290,7 +1290,7 @@ export default function MobileHome() {
             <button
               type="button"
               onClick={() => setShowHowWeChooseModal(false)}
-              className="w-full py-2.5 rounded-xl bg-[#F5D328] text-[#122116] font-bold text-xs hover:bg-[#FFE342] transition cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-[#F1E5C6] text-[#122116] font-bold text-xs hover:bg-[#F7EED8] transition cursor-pointer"
             >
               Close
             </button>
@@ -1301,7 +1301,7 @@ export default function MobileHome() {
       {/* MODAL: COMPARE ALL PLANS */}
       {showCompareAllModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-5 space-y-4 relative shadow-2xl max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowCompareAllModal(false)}
@@ -1312,14 +1312,14 @@ export default function MobileHome() {
             </button>
 
             <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Comprehensive Tiers</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6]">Comprehensive Tiers</span>
               <h3 className="text-lg font-bold text-white">Compare All Care Plans</h3>
             </div>
 
             <div className="space-y-3.5 text-xs">
               {/* Care Essential */}
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-2">
-                <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/20 space-y-2">
+                <div className="flex justify-between items-baseline font-bold text-[#F1E5C6]">
                   <span>Care Essential</span>
                   <span>₹6,000 / mo + GST</span>
                 </div>
@@ -1340,8 +1340,8 @@ export default function MobileHome() {
               </div>
 
               {/* Care Plus */}
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328] space-y-2">
-                <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F1E5C6] space-y-2">
+                <div className="flex justify-between items-baseline font-bold text-[#F1E5C6]">
                   <span>Care Plus (Recommended)</span>
                   <span>₹11,000 / mo + GST</span>
                 </div>
@@ -1355,15 +1355,15 @@ export default function MobileHome() {
                   href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20Care%20Plus%20plan%20for%20my%20parents."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-lg bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center block transition"
+                  className="w-full py-2.5 px-3 rounded-lg bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs text-center block transition"
                 >
                   Ask about Care Plus on WhatsApp
                 </a>
               </div>
 
               {/* Care Complete */}
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/20 space-y-2">
-                <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/20 space-y-2">
+                <div className="flex justify-between items-baseline font-bold text-[#F1E5C6]">
                   <span>Care Complete</span>
                   <span>₹18,000 / mo + GST</span>
                 </div>
@@ -1384,8 +1384,8 @@ export default function MobileHome() {
               </div>
 
               {/* Companion */}
-              <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F5D328]/50 space-y-2">
-                <div className="flex justify-between items-baseline font-bold text-[#F5D328]">
+              <div className="p-3.5 rounded-xl bg-[#122617] border border-dashed border-[#F1E5C6]/50 space-y-2">
+                <div className="flex justify-between items-baseline font-bold text-[#F1E5C6]">
                   <span>Companion (Launching Soon)</span>
                   <span>₹34,000 / mo + GST</span>
                 </div>
@@ -1401,7 +1401,7 @@ export default function MobileHome() {
                     setShowCompareAllModal(false);
                     setShowCompanionWaitlistModal(true);
                   }}
-                  className="w-full py-2.5 px-3 rounded-lg bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center block transition cursor-pointer"
+                  className="w-full py-2.5 px-3 rounded-lg bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs text-center block transition cursor-pointer"
                 >
                   Join the Companion waitlist
                 </button>
@@ -1416,7 +1416,7 @@ export default function MobileHome() {
               <Link
                 href="/plans"
                 onClick={() => setShowCompareAllModal(false)}
-                className="w-full py-3 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-[#F5D328] font-bold text-xs text-center block transition"
+                className="w-full py-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/40 text-[#F1E5C6] font-bold text-xs text-center block transition"
               >
                 Open Full Plans Page →
               </Link>
@@ -1428,7 +1428,7 @@ export default function MobileHome() {
       {/* MODAL: COMPANION WAITLIST */}
       {showCompanionWaitlistModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowCompanionWaitlistModal(false)}
@@ -1439,7 +1439,7 @@ export default function MobileHome() {
             </button>
 
             <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Waitlist</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6]">Waitlist</span>
               <h3 className="text-xl font-bold text-white">Join the Companion Waitlist</h3>
               <p className="text-xs text-[#EBF2E8]/80">
                 22 days a month of warm daily companionship. We will notify you first when enrollment opens.
@@ -1447,11 +1447,11 @@ export default function MobileHome() {
             </div>
 
             {companionSubmitted ? (
-              <div className="p-5 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                  <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+              <div className="p-5 rounded-xl bg-[#122617] border border-[#F1E5C6]/40 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                  <CheckCircle2 className="w-6 h-6 text-[#F1E5C6]" />
                 </div>
-                <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
+                <h4 className="text-base font-bold text-[#F1E5C6]">You are on the waitlist!</h4>
                 <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
                   Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open.
                 </p>
@@ -1485,7 +1485,7 @@ export default function MobileHome() {
                     placeholder="e.g. Ramesh Menon"
                     value={companionName}
                     onChange={(e) => setCompanionName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs"
                   />
                 </div>
 
@@ -1497,17 +1497,17 @@ export default function MobileHome() {
                     required
                     value={companionCountryCode || countryCode}
                     onChange={(e) => setCompanionCountryCode(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs cursor-pointer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs cursor-pointer"
                   >
                     <option value="">Choose country</option>
-                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {TOP_NRK_COUNTRIES.map((c) => (
                         <option key={`top_comp_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {ALL_COUNTRIES.map((c) => (
                         <option key={`all_comp_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
@@ -1522,7 +1522,7 @@ export default function MobileHome() {
                     WhatsApp Number
                   </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F1E5C6]">
                       {(companionCountryCode || countryCode) && COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))
                         ? `+${COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))?.dialCode.replace(/[^0-9]/g, '')}`
                         : '+'}
@@ -1533,7 +1533,7 @@ export default function MobileHome() {
                       placeholder="e.g. 50 123 4567"
                       value={companionPhoneDigits}
                       onChange={(e) => setCompanionPhoneDigits(e.target.value)}
-                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs"
+                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs"
                     />
                   </div>
                 </div>
@@ -1544,7 +1544,7 @@ export default function MobileHome() {
                       type="checkbox"
                       checked={companionConsent}
                       onChange={(e) => setCompanionConsent(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                      className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
                     />
                     <span className="text-xs text-[#EBF2E8]/90 leading-snug">
                       OK to message me on WhatsApp.
@@ -1555,7 +1555,7 @@ export default function MobileHome() {
                 <button
                   type="submit"
                   disabled={companionSubmitting}
-                  className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs transition cursor-pointer disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-xs transition cursor-pointer disabled:opacity-50"
                 >
                   {companionSubmitting ? 'Joining...' : 'Join Companion Waitlist'}
                 </button>
@@ -1575,23 +1575,23 @@ export default function MobileHome() {
           role="dialog"
           aria-modal="true"
         >
-          <div className="w-full max-h-[90vh] bg-[#15301E] text-[#EBF2E8] rounded-t-3xl border-t border-[#F5D328]/35 flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
+          <div className="w-full max-h-[90vh] bg-[#15301E] text-[#EBF2E8] rounded-t-3xl border-t border-[#F1E5C6]/35 flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200">
             {/* Top Drag Indicator & Switcher Tabs */}
-            <div className="pt-3 pb-3 px-4 border-b border-[#F5D328]/20 bg-[#122617] sticky top-0 z-20 space-y-2.5">
+            <div className="pt-3 pb-3 px-4 border-b border-[#F1E5C6]/20 bg-[#122617] sticky top-0 z-20 space-y-2.5">
               <div
-                className="w-10 h-1 rounded-full bg-[#F5D328]/40 mx-auto cursor-pointer"
+                className="w-10 h-1 rounded-full bg-[#F1E5C6]/40 mx-auto cursor-pointer"
                 onClick={() => setShowPillarDrawer(false)}
               />
 
               <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#183825] border border-[#F5D328]/25 text-xs font-bold overflow-x-auto no-scrollbar">
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 text-xs font-bold overflow-x-auto no-scrollbar">
                   <button
                     type="button"
                     onClick={() => setMobileDrawerPillar('vitality')}
                     className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
                       mobileDrawerPillar === 'vitality'
-                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                        ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                     }`}
                   >
                     <Stethoscope className="w-3.5 h-3.5" />
@@ -1602,8 +1602,8 @@ export default function MobileHome() {
                     onClick={() => setMobileDrawerPillar('joy')}
                     className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
                       mobileDrawerPillar === 'joy'
-                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                        ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                     }`}
                   >
                     <HeartHandshake className="w-3.5 h-3.5" />
@@ -1614,8 +1614,8 @@ export default function MobileHome() {
                     onClick={() => setMobileDrawerPillar('ease')}
                     className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition ${
                       mobileDrawerPillar === 'ease'
-                        ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                        : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                        ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                        : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                     }`}
                   >
                     <Home className="w-3.5 h-3.5" />
@@ -1626,7 +1626,7 @@ export default function MobileHome() {
                 <button
                   type="button"
                   onClick={() => setShowPillarDrawer(false)}
-                  className="w-8 h-8 rounded-full bg-[#183825] border border-[#F5D328]/30 hover:bg-[#1f452e] text-[#F5D328] flex items-center justify-center shrink-0 transition"
+                  className="w-8 h-8 rounded-full bg-[#183825] border border-[#F1E5C6]/30 hover:bg-[#1f452e] text-[#F1E5C6] flex items-center justify-center shrink-0 transition"
                   aria-label="Close drawer"
                 >
                   <X className="w-4 h-4" />
@@ -1639,7 +1639,7 @@ export default function MobileHome() {
               {mobileDrawerPillar === 'vitality' && (
                 <div className="space-y-4 animate-in fade-in duration-150">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                       Pillar 01 : Health
                     </span>
                     <h3 className="text-xl font-bold text-white">
@@ -1651,49 +1651,49 @@ export default function MobileHome() {
                   </div>
 
                   <div className="space-y-2 text-xs">
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Doctor of Choice</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Doctor of Choice</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Medicine Checks & Refills</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Medicine Checks & Refills</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Checked against prescription, verified with doctor or pharmacist, and coordinated refills.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">24/7 Emergency Mobilization Support</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">24/7 Emergency Mobilization Support</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Call 108 first for acute trauma; our emergency coordination mobilizes your Care Buddy directly to the hospital bedside.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Home Lab & ECG Visits</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Home Lab & ECG Visits</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Doorstep blood draws and tests with reports uploaded to Care Passport.</p>
                     </div>
                   </div>
 
                   {/* Simulated OPD Log */}
-                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F1E5C6]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2">
                       <div className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-                        <span className="text-xs font-bold text-[#F5D328]">Live OPD Escort Log</span>
+                        <span className="text-xs font-bold text-[#F1E5C6]">Live OPD Escort Log</span>
                       </div>
                       <span className="text-[10px] text-[#EBF2E8]/60 font-mono">Aster Medcity</span>
                     </div>
 
                     <div className="space-y-2 text-xs">
                       <div className="flex items-start gap-2 text-[11px]">
-                        <span className="font-mono text-[#F5D328] font-bold shrink-0">08:30 AM</span>
+                        <span className="font-mono text-[#F1E5C6] font-bold shrink-0">08:30 AM</span>
                         <p className="text-[#EBF2E8]/90">Doorstep AC Taxi Pickup by Care Buddy</p>
                       </div>
                       <div className="flex items-start gap-2 text-[11px]">
-                        <span className="font-mono text-[#F5D328] font-bold shrink-0">09:15 AM</span>
+                        <span className="font-mono text-[#F1E5C6] font-bold shrink-0">09:15 AM</span>
                         <p className="text-[#EBF2E8]/90">Fast-Track Registration Token Handled</p>
                       </div>
                       <div className="flex items-start gap-2 text-[11px]">
-                        <span className="font-mono text-[#F5D328] font-bold shrink-0">10:00 AM</span>
+                        <span className="font-mono text-[#F1E5C6] font-bold shrink-0">10:00 AM</span>
                         <p className="text-[#EBF2E8]/90">Doctor Consultation Notes Recorded</p>
                       </div>
                       <div className="flex items-start gap-2 text-[11px]">
-                        <span className="font-mono text-[#F5D328] font-bold shrink-0">10:45 AM</span>
+                        <span className="font-mono text-[#F1E5C6] font-bold shrink-0">10:45 AM</span>
                         <p className="text-[#EBF2E8]/90">Pharmacy Pickup & Prescription Photo Sent</p>
                       </div>
                     </div>
@@ -1704,7 +1704,7 @@ export default function MobileHome() {
               {mobileDrawerPillar === 'joy' && (
                 <div className="space-y-4 animate-in fade-in duration-150">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                       Pillar 02 : Social & Mental
                     </span>
                     <h3 className="text-xl font-bold text-white">
@@ -1716,30 +1716,30 @@ export default function MobileHome() {
                   </div>
 
                   <div className="space-y-2 text-xs">
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Companion Afternoon Tasters</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Companion Afternoon Tasters</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Dedicated 2 to 3 hour unhurried visits to read, chat, and relax.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Personal Shopper Service</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Personal Shopper Service</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Accompanied trips for local grocery or textile shopping and online ordering.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Technology Mentorship</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Technology Mentorship</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Friendly coaching on WhatsApp video calls, iPad, YouTube, and digital payments.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Celebrations & Faith Outings</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Celebrations & Faith Outings</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Birthday surprises, festival treats, and visits to temple, church, or clubs.</p>
                     </div>
                   </div>
 
                   {/* Simulated Companion Visit */}
-                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F1E5C6]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2">
                       <div className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#F5D328] animate-pulse" />
-                        <span className="text-xs font-bold text-[#F5D328]">Companion Afternoon Visit</span>
+                        <div className="w-2 h-2 rounded-full bg-[#F1E5C6] animate-pulse" />
+                        <span className="text-xs font-bold text-[#F1E5C6]">Companion Afternoon Visit</span>
                       </div>
                       <span className="text-[10px] text-[#EBF2E8]/60 font-mono">2.5 Hour Session</span>
                     </div>
@@ -1756,7 +1756,7 @@ export default function MobileHome() {
               {mobileDrawerPillar === 'ease' && (
                 <div className="space-y-4 animate-in fade-in duration-150">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                       Pillar 03 : Home, Chores & Govt
                     </span>
                     <h3 className="text-xl font-bold text-white">
@@ -1768,30 +1768,30 @@ export default function MobileHome() {
                   </div>
 
                   <div className="space-y-2 text-xs">
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Errands & Bill Payments</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Errands & Bill Payments</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">KSEB electricity bills, municipal water taxes, and courier pickups.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Jeevan Pramaan (Pension)</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Jeevan Pramaan (Pension)</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Biometric digital Life Certificate verification for central/state pension.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Home Safety Fall Audit</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Home Safety Fall Audit</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">In-home audit checking grab bars, anti-slip mats, night lights, and fall prevention.</p>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F5D328]/20 space-y-0.5">
-                      <p className="font-bold text-[#F5D328]">Verified Handyman Pool</p>
+                    <div className="p-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/20 space-y-0.5">
+                      <p className="font-bold text-[#F1E5C6]">Verified Handyman Pool</p>
                       <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Electricians, plumbers, AC technicians, and deep-cleaning referrals.</p>
                     </div>
                   </div>
 
                   {/* Simulated Safety Card */}
-                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F5D328]/30 space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2">
+                  <div className="p-4 rounded-xl bg-[#122116] border border-[#F1E5C6]/30 space-y-2.5">
+                    <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2">
                       <div className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-                        <span className="text-xs font-bold text-[#F5D328]">Home Safety Audit Card</span>
+                        <span className="text-xs font-bold text-[#F1E5C6]">Home Safety Audit Card</span>
                       </div>
                       <span className="text-[10px] text-[#EBF2E8]/60 font-mono">Score: 96 / 100</span>
                     </div>
@@ -1799,15 +1799,15 @@ export default function MobileHome() {
                     <div className="space-y-1.5 text-xs text-[11px]">
                       <div className="flex justify-between">
                         <span className="text-[#EBF2E8]/80">Bathroom Grab Bars:</span>
-                        <span className="font-bold text-[#F5D328]">Installed</span>
+                        <span className="font-bold text-[#F1E5C6]">Installed</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-[#EBF2E8]/80">Shower Non-Slip Mats:</span>
-                        <span className="font-bold text-[#F5D328]">Placed</span>
+                        <span className="font-bold text-[#F1E5C6]">Placed</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-[#EBF2E8]/80">Jeevan Pramaan (Pension):</span>
-                        <span className="font-bold text-[#F5D328]">Biometric Done</span>
+                        <span className="font-bold text-[#F1E5C6]">Biometric Done</span>
                       </div>
                     </div>
                   </div>
@@ -1817,7 +1817,7 @@ export default function MobileHome() {
               <button
                 type="button"
                 onClick={() => setShowPillarDrawer(false)}
-                className="w-full py-3 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs text-center transition"
+                className="w-full py-3 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs text-center transition"
               >
                 Close Details
               </button>
@@ -1837,22 +1837,22 @@ export default function MobileHome() {
             onClick={() => setSelectedInclusionPlan(null)}
           >
             <div
-              className="bg-[#142D1C] border-t sm:border border-[#F5D328]/30 text-[#EBF2E8] rounded-t-3xl sm:rounded-3xl w-full max-h-[85vh] flex flex-col relative shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200"
+              className="bg-[#142D1C] border-t sm:border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-t-3xl sm:rounded-3xl w-full max-h-[85vh] flex flex-col relative shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="p-5 border-b border-[#F5D328]/20 relative bg-[#183825]/90">
+              <div className="p-5 border-b border-[#F1E5C6]/20 relative bg-[#183825]/90">
                 <button
                   type="button"
                   onClick={() => setSelectedInclusionPlan(null)}
-                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-[#122617] border border-[#F5D328]/30 text-[#F5D328] hover:text-white flex items-center justify-center cursor-pointer transition"
+                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-[#122617] border border-[#F1E5C6]/30 text-[#F1E5C6] hover:text-white flex items-center justify-center cursor-pointer transition"
                   aria-label="Close"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 <div className="space-y-1 pr-6">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328] bg-[#F5D328]/15 px-2 py-0.5 rounded-full inline-block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6] bg-[#F1E5C6]/15 px-2 py-0.5 rounded-full inline-block">
                     Full Plan Scope &amp; Inclusions
                   </span>
                   <h3 className="text-xl font-bold text-white">
@@ -1862,7 +1862,7 @@ export default function MobileHome() {
                     {selectedInclusionPlan.tagline}
                   </p>
                   <div className="pt-2 flex flex-wrap items-baseline gap-1.5">
-                    <span className="text-2xl font-black text-[#F5D328]">
+                    <span className="text-2xl font-black text-[#F1E5C6]">
                       ₹{finalPrice.toLocaleString('en-IN')}
                     </span>
                     <span className="text-xs font-bold text-[#EBF2E8]">
@@ -1878,26 +1878,26 @@ export default function MobileHome() {
               {/* Scrollable Body */}
               <div className="overflow-y-auto p-5 space-y-4 text-xs">
                 {/* Touchpoint Highlights */}
-                <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F5D328]/25 space-y-2">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                <div className="p-3.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/25 space-y-2">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Care Metrics
                   </p>
                   <div className="space-y-1.5 text-xs font-semibold text-[#EBF2E8]">
                     <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.touchpoints}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Stethoscope className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <Stethoscope className="w-3.5 h-3.5 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.hospitalHours}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <HeartHandshake className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                      <HeartHandshake className="w-3.5 h-3.5 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.companionTasters}</span>
                     </div>
                     {selectedInclusionPlan.mobilityWallet && (
                       <div className="flex items-center gap-2">
-                        <Wallet className="w-3.5 h-3.5 text-[#F5D328] shrink-0" />
+                        <Wallet className="w-3.5 h-3.5 text-[#F1E5C6] shrink-0" />
                         <span>{selectedInclusionPlan.mobilityWallet}</span>
                       </div>
                     )}
@@ -1906,31 +1906,31 @@ export default function MobileHome() {
 
                 {/* Features list */}
                 <div className="space-y-2">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F5D328]">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Inclusions Checklist
                   </p>
                   <ul className="space-y-2 text-xs text-[#E0EBDC]">
                     {selectedInclusionPlan.features.map((feat: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2 leading-relaxed">
-                        <Check className="w-3.5 h-3.5 text-[#F5D328] shrink-0 mt-0.5" />
+                        <Check className="w-3.5 h-3.5 text-[#F1E5C6] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
+                <div className="p-3 rounded-xl bg-[#183825]/60 border border-[#F1E5C6]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
                   Doctor consults, medicines, and lab tests paid directly at actuals with zero commission. Transport is managed seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet float.
                 </div>
               </div>
 
               {/* Footer */}
-              <div className="p-4 border-t border-[#F5D328]/20 bg-[#122617] flex items-center gap-2">
+              <div className="p-4 border-t border-[#F1E5C6]/20 bg-[#122617] flex items-center gap-2">
                 <a
                   href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-3 rounded-xl font-bold text-xs text-center bg-[#F5D328] text-[#122116] shadow-sm"
+                  className="flex-1 py-2.5 px-3 rounded-xl font-bold text-xs text-center bg-[#F1E5C6] text-[#122116] shadow-sm"
                 >
                   Ask about {selectedInclusionPlan.name} on WhatsApp
                 </a>

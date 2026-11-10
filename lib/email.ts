@@ -26,15 +26,15 @@ export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promi
           body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; color: #333; }
           .container { max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e1e8ed; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
           .header { background: #122617; color: #ffffff; padding: 24px; text-align: center; }
-          .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: #F5D328; }
-          .badge { display: inline-block; background: #183825; color: #EBF2E8; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; border: 1px solid rgba(245, 211, 40, 0.3); }
+          .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: #F1E5C6; }
+          .badge { display: inline-block; background: #183825; color: #EBF2E8; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-top: 10px; text-transform: uppercase; border: 1px solid rgba(241, 229, 198, 0.3); }
           .content { padding: 24px; }
           .field-group { margin-bottom: 16px; border-bottom: 1px solid #f0f4f8; padding-bottom: 12px; }
           .field-group:last-child { border-bottom: none; }
           .label { font-size: 11px; font-weight: 700; color: #183825; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
           .value { font-size: 15px; font-weight: 600; color: #1e293b; }
           .notice-box { background: #F9F8F3; border: 1px solid #E8F0C8; border-radius: 12px; padding: 16px; margin-top: 20px; font-size: 12px; color: #374F3E; line-height: 1.5; }
-          .admin-btn { display: inline-block; background: #122617; color: #F5D328; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; margin-top: 14px; }
+          .admin-btn { display: inline-block; background: #122617; color: #F1E5C6; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; margin-top: 14px; }
           .footer { background: #f8fafc; padding: 14px 24px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; }
         </style>
       </head>

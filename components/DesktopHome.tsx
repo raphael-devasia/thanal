@@ -336,7 +336,7 @@ export default function DesktopHome() {
     {
       title: '1. A Dedicated Family Face',
       badge: 'Trusted Personal Bond',
-      badgeColor: '#F5D328',
+      badgeColor: '#F1E5C6',
       badgeTextColor: '#122617',
       description:
         'Your Care Buddy and a coordinator you can message work together for your parents. A single named companion assigned specifically to your family, visiting on a consistent schedule without rotating strangers.',
@@ -351,7 +351,7 @@ export default function DesktopHome() {
     {
       title: '2. Doctor Appointments & Hospital Escort',
       badge: 'Zero Hospital Stress',
-      badgeColor: '#F5D328',
+      badgeColor: '#F1E5C6',
       badgeTextColor: '#122617',
       description:
         'We book appointments for you and provide door-to-door AC taxi escort to hospitals across Kochi (up to 6 hours per hospital trip). Buddy navigates queues, sits beside the doctor, records audio notes, and coordinates pharmacy refills.',
@@ -366,7 +366,7 @@ export default function DesktopHome() {
     {
       title: '3. Medication Audits & Doorstep Refills',
       badge: 'Zero Dosage Confusion',
-      badgeColor: '#F5D328',
+      badgeColor: '#F1E5C6',
       badgeTextColor: '#122617',
       description:
         'Care Buddy checks medicines against the prescription and checks with the doctor or pharmacist if something does not match, then coordinates doorstep refills.',
@@ -380,7 +380,7 @@ export default function DesktopHome() {
     {
       title: '4. Active Companionship & Dignity',
       badge: 'Combatting Senior Loneliness',
-      badgeColor: '#F5D328',
+      badgeColor: '#F1E5C6',
       badgeTextColor: '#122617',
       description:
         'More than clinical checkups: company and help at home after a hospital stay, reading Malayalam newspapers, afternoon walks, and guided Sunday video calls with family abroad.',
@@ -394,9 +394,9 @@ export default function DesktopHome() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F5D328] selection:text-[#122116]">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F1E5C6] selection:text-[#122116]">
       {/* 1. TOP RESPONSIVE HEADER */}
-      <header className="sticky top-0 z-40 bg-[#122617]/95 backdrop-blur-md border-b border-[#F5D328]/20 transition-all shadow-md">
+      <header className="sticky top-0 z-40 bg-[#122617]/95 backdrop-blur-md border-b border-[#F1E5C6]/20 transition-all shadow-md">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -409,19 +409,19 @@ export default function DesktopHome() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs lg:text-sm font-semibold text-[#EBF2E8]">
-            <a href="#care-buddy-concept" className="hover:text-[#F5D328] transition py-1">
+            <a href="#care-buddy-concept" className="hover:text-[#F1E5C6] transition py-1">
               The Care Buddy
             </a>
-            <a href="#three-pillars" className="hover:text-[#F5D328] transition py-1">
+            <a href="#three-pillars" className="hover:text-[#F1E5C6] transition py-1">
               Three Pillars
             </a>
-            <a href="#whatsapp-experience" className="hover:text-[#F5D328] transition py-1">
+            <a href="#whatsapp-experience" className="hover:text-[#F1E5C6] transition py-1">
               How It Works
             </a>
-            <a href="#pricing-section" className="hover:text-[#F5D328] transition py-1">
+            <a href="#pricing-section" className="hover:text-[#F1E5C6] transition py-1">
               Care Plans
             </a>
-            <a href="#faq-section" className="hover:text-[#F5D328] transition py-1">
+            <a href="#faq-section" className="hover:text-[#F1E5C6] transition py-1">
               FAQs
             </a>
           </nav>
@@ -432,7 +432,7 @@ export default function DesktopHome() {
               href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20Care%20Buddy%20services%20for%20my%20parents%20in%20Kerala."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-bold text-xs lg:text-sm shadow-md transition hover:scale-102 active:scale-98"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-bold text-xs lg:text-sm shadow-md transition hover:scale-102 active:scale-98"
             >
               <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
               <span>Chat with our team</span>
@@ -444,9 +444,9 @@ export default function DesktopHome() {
       {/* 2. HERO SECTION */}
       <section className="relative overflow-x-clip pt-16 pb-16 lg:pt-24 lg:pb-24 bg-gradient-to-b from-[#18291D] via-[#183825] to-[#122617]">
         {/* Kerala Sanctuary Ambient Glows */}
-        <div className="absolute top-12 left-1/4 w-[380px] h-[380px] rounded-full bg-[#F5D328]/15 blur-3xl pointer-events-none" />
+        <div className="absolute top-12 left-1/4 w-[380px] h-[380px] rounded-full bg-[#F1E5C6]/15 blur-3xl pointer-events-none" />
         <div className="absolute top-1/2 left-10 w-[420px] h-[420px] rounded-full bg-[#24412C]/30 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-[#F5D328]/10 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-[#F1E5C6]/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -454,7 +454,7 @@ export default function DesktopHome() {
             <div className="col-span-12 lg:col-span-5 text-left space-y-6">
               {/* Badges: Founding Status */}
               <div className="flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/25 text-[#EBF2E8] text-xs font-semibold">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F1E5C6]/25 text-[#EBF2E8] text-xs font-semibold">
                   <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
                   <span>Now enrolling founding families in Kochi</span>
                 </div>
@@ -468,8 +468,8 @@ export default function DesktopHome() {
               </h1>
 
               <p className="text-[#EBF2E8]/90 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                <strong className="text-[#F5D328]">Rodasi</strong> pairs your parents with a dedicated{' '}
-                <strong className="text-[#F5D328]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor
+                <strong className="text-[#F1E5C6]">Rodasi</strong> pairs your parents with a dedicated{' '}
+                <strong className="text-[#F1E5C6]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor
                 visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates
                 with you abroad.
               </p>
@@ -480,7 +480,7 @@ export default function DesktopHome() {
                   href="https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20please%20send%20me%20a%20sample%20WhatsApp%20update%20and%20voice%20note%20that%20families%20abroad%20receive."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F5D328]/25 transition hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-base shadow-lg shadow-[#F1E5C6]/25 transition hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <MessageCircle className="w-5 h-5 text-[#122116]" />
                   <span>Send me a sample update</span>
@@ -488,24 +488,24 @@ export default function DesktopHome() {
 
                 <a
                   href="#pricing-section"
-                  className="text-sm text-[#EBF2E8]/75 hover:text-[#F5D328] underline underline-offset-4 font-semibold transition px-1"
+                  className="text-sm text-[#EBF2E8]/75 hover:text-[#F1E5C6] underline underline-offset-4 font-semibold transition px-1"
                 >
                   See plans →
                 </a>
               </div>
 
               {/* Trust Indicators */}
-              <div className="pt-3 border-t border-[#F5D328]/20 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#EBF2E8]/85 font-medium">
+              <div className="pt-3 border-t border-[#F1E5C6]/20 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#EBF2E8]/85 font-medium">
                 <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                   <span>Named Care Buddy</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                   <span>No commissions from hospitals. You pay actuals.</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#F5D328] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                   <span>Pro-Rata Refund Guarantee</span>
                 </div>
               </div>
@@ -515,7 +515,7 @@ export default function DesktopHome() {
             <div className="col-span-12 lg:col-span-7 flex flex-col items-center lg:items-end justify-center">
               <div className="relative w-full max-w-[680px] lg:max-w-[850px] xl:max-w-[960px]">
                 {/* Ambient Warm & Emerald Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[680px] lg:h-[680px] bg-[#F5D328]/15 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[680px] lg:h-[680px] bg-[#F1E5C6]/15 rounded-full blur-3xl pointer-events-none" />
 
                 {/* Entire Transparent Cutout Image - Doubled visual scale, blends directly with hero background */}
                 <div className="relative">
@@ -526,13 +526,13 @@ export default function DesktopHome() {
                   />
 
                   {/* Background-checked badge */}
-                  <div className="absolute top-3 left-3 sm:top-5 sm:left-5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F5D328] text-[#122116] font-extrabold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 sm:gap-2 shadow-xl shadow-black/50 z-20">
+                  <div className="absolute top-3 left-3 sm:top-5 sm:left-5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#F1E5C6] text-[#122116] font-extrabold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 sm:gap-2 shadow-xl shadow-black/50 z-20">
                     <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#122116]" />
                     <span>Background-checked</span>
                   </div>
 
                   {/* Floating WhatsApp Voice Briefing Card at bottom */}
-                  <div className="absolute bottom-2 left-2 right-2 sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-md bg-[#183825]/95 backdrop-blur-md border border-[#F5D328]/35 rounded-2xl p-3 sm:p-4 shadow-2xl z-20">
+                  <div className="absolute bottom-2 left-2 right-2 sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-md bg-[#183825]/95 backdrop-blur-md border border-[#F1E5C6]/35 rounded-2xl p-3 sm:p-4 shadow-2xl z-20">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 flex items-center justify-center shrink-0">
                         <Mic className="w-5 h-5 text-[#25D366]" />
@@ -543,16 +543,16 @@ export default function DesktopHome() {
                             <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse shrink-0" />
                             <p className="text-xs font-bold text-white truncate">Voice Note Sent to Dubai</p>
                           </div>
-                          <span className="text-[9px] font-bold text-[#122116] bg-[#F5D328] px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0">
+                          <span className="text-[9px] font-bold text-[#122116] bg-[#F1E5C6] px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0">
                             Sample
                           </span>
                         </div>
                         <div className="flex items-center gap-0.5 my-1">
-                          <div className="w-1 h-3 rounded-full bg-[#F5D328]" />
-                          <div className="w-1 h-5 rounded-full bg-[#F5D328]" />
-                          <div className="w-1 h-2 rounded-full bg-[#F5D328]" />
-                          <div className="w-1 h-6 rounded-full bg-[#F5D328]" />
-                          <div className="w-1 h-4 rounded-full bg-[#F5D328]" />
+                          <div className="w-1 h-3 rounded-full bg-[#F1E5C6]" />
+                          <div className="w-1 h-5 rounded-full bg-[#F1E5C6]" />
+                          <div className="w-1 h-2 rounded-full bg-[#F1E5C6]" />
+                          <div className="w-1 h-6 rounded-full bg-[#F1E5C6]" />
+                          <div className="w-1 h-4 rounded-full bg-[#F1E5C6]" />
                           <div className="w-1 h-3 rounded-full bg-[#EBF2E8]/40" />
                           <div className="w-1 h-5 rounded-full bg-[#EBF2E8]/40" />
                           <div className="w-1 h-2 rounded-full bg-[#EBF2E8]/40" />
@@ -571,9 +571,9 @@ export default function DesktopHome() {
       </section>
 
       {/* 2.5 NARRATIVE: THE REALITY ACROSS OCEANS */}
-      <section className="py-12 sm:py-16 bg-[#152B1B] border-t border-b border-[#F5D328]/20 text-[#EBF2E8]">
+      <section className="py-12 sm:py-16 bg-[#152B1B] border-t border-b border-[#F1E5C6]/20 text-[#EBF2E8]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#F5D328]">The Reality Across Oceans</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#F1E5C6]">The Reality Across Oceans</span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-balance">
             Long-distance phone calls aren’t enough when unexpected moments arise.
           </h2>
@@ -608,20 +608,20 @@ export default function DesktopHome() {
             {/* Header */}
             <div className="bg-[#122617] border-b border-[#183825]/40 text-white p-3.5 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 overflow-hidden border border-[#F5D328]/40 shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 overflow-hidden border border-[#F1E5C6]/40 shrink-0">
                   <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
                     <span>Rodasi Care Buddy</span>
-                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F5D328] text-[#122116]">
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F1E5C6] text-[#122116]">
                       Sample
                     </span>
                   </h4>
-                  <p className="text-[10px] text-[#F5D328] truncate">Assigned to Amma & Achan (Kochi)</p>
+                  <p className="text-[10px] text-[#F1E5C6] truncate">Assigned to Amma & Achan (Kochi)</p>
                 </div>
               </div>
-              <span className="text-[10px] bg-black/40 border border-[#F5D328]/20 px-2 py-0.5 rounded-full text-[#EBF2E8]/90 shrink-0">
+              <span className="text-[10px] bg-black/40 border border-[#F1E5C6]/20 px-2 py-0.5 rounded-full text-[#EBF2E8]/90 shrink-0">
                 11:45 AM IST
               </span>
             </div>
@@ -652,7 +652,7 @@ export default function DesktopHome() {
                     <button
                       type="button"
                       onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
-                      className="w-9 h-9 rounded-full bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition shadow-sm cursor-pointer"
+                      className="w-9 h-9 rounded-full bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition shadow-sm cursor-pointer"
                     >
                       {isPlayingAudioDemo ? (
                         <Volume2 className="w-4 h-4 text-[#122116]" />
@@ -684,8 +684,8 @@ export default function DesktopHome() {
               {/* Message 3: Prescription */}
               <div className="flex justify-start">
                 <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1.5">
-                  <div className="flex items-center gap-2 bg-[#122617] text-[#F5D328] p-2 rounded-xl border border-[#183825]/30 font-medium text-xs">
-                    <FileText className="w-4 h-4 text-[#F5D328] shrink-0" />
+                  <div className="flex items-center gap-2 bg-[#122617] text-[#F1E5C6] p-2 rounded-xl border border-[#183825]/30 font-medium text-xs">
+                    <FileText className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                     <span className="truncate">Sample_Prescription_Slip.pdf</span>
                   </div>
                   <p className="text-[#243B2B] leading-relaxed">
@@ -738,7 +738,7 @@ export default function DesktopHome() {
                       <div className="w-10 h-10 rounded-xl bg-[#183825]/10 border border-[#183825]/20 flex items-center justify-center">
                         <IconComp className="w-5 h-5 text-[#183825]" />
                       </div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#F5D328]/25 text-[#122116]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#F1E5C6]/25 text-[#122116]">
                         {pillar.badge}
                       </span>
                     </div>
@@ -762,10 +762,10 @@ export default function DesktopHome() {
       </section>
 
       {/* 4B. THE THREE PILLARS OF RODASI CARE */}
-      <section id="three-pillars" className="py-16 sm:py-24 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F5D328]/20">
+      <section id="three-pillars" className="py-16 sm:py-24 bg-[#142D1C] text-[#EBF2E8] border-b border-[#F1E5C6]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-            <span className="bg-[#183825] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
+            <span className="bg-[#183825] text-[#F1E5C6] border border-[#F1E5C6]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
               Comprehensive Service Scope
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
@@ -781,14 +781,14 @@ export default function DesktopHome() {
             {/* Card 1: Vitality & Care */}
             <div
               onClick={() => openPillarDrawer('vitality')}
-              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F1E5C6] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F1E5C6] text-[#122116] shadow-xs">
                     Pillar 01 : Health
                   </span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
                     <Stethoscope className="w-6 h-6" />
                   </div>
                 </div>
@@ -804,7 +804,7 @@ export default function DesktopHome() {
                 </p>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-[#F5D328] border border-[#F5D328]/30">
+                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-[#F1E5C6] border border-[#F1E5C6]/30">
                     24/7 Emergency Mobilization Support
                   </span>
                   <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#122617] text-white border border-white/10">
@@ -822,12 +822,12 @@ export default function DesktopHome() {
                 </div>
               </div>
 
-              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F1E5C6] transition">
                 <span className="inline-flex items-center gap-1.5">
                   <span>View Full Scope & Live Log</span>
-                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-[#F1E5C6] transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                <span className="text-[11px] font-semibold bg-[#F1E5C6]/15 px-2.5 py-0.5 rounded-full text-[#F1E5C6]">
                   Click to Expand
                 </span>
               </div>
@@ -836,14 +836,14 @@ export default function DesktopHome() {
             {/* Card 2: Joy & Connection */}
             <div
               onClick={() => openPillarDrawer('joy')}
-              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F1E5C6] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F1E5C6] text-[#122116] shadow-xs">
                     Pillar 02 : Social & Mental
                   </span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
                     <HeartHandshake className="w-6 h-6" />
                   </div>
                 </div>
@@ -874,12 +874,12 @@ export default function DesktopHome() {
                 </div>
               </div>
 
-              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F1E5C6] transition">
                 <span className="inline-flex items-center gap-1.5">
                   <span>View Full Scope & Visit Note</span>
-                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-[#F1E5C6] transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                <span className="text-[11px] font-semibold bg-[#F1E5C6]/15 px-2.5 py-0.5 rounded-full text-[#F1E5C6]">
                   Click to Expand
                 </span>
               </div>
@@ -888,14 +888,14 @@ export default function DesktopHome() {
             {/* Card 3: Ease & Daily Living */}
             <div
               onClick={() => openPillarDrawer('ease')}
-              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F5D328] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
+              className="group relative p-7 sm:p-8 rounded-3xl bg-[#183825] border-2 border-[#183825]/30 hover:border-[#F1E5C6] shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between text-white"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F5D328] text-[#122116] shadow-xs">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#F1E5C6] text-[#122116] shadow-xs">
                     Pillar 03 : Home, Chores & Govt
                   </span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-110">
                     <Home className="w-6 h-6" />
                   </div>
                 </div>
@@ -926,12 +926,12 @@ export default function DesktopHome() {
                 </div>
               </div>
 
-              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F5D328] transition">
+              <div className="pt-5 mt-6 border-t border-white/10 flex items-center justify-between text-xs font-black text-white group-hover:text-[#F1E5C6] transition">
                 <span className="inline-flex items-center gap-1.5">
                   <span>View Full Scope & Audit Card</span>
-                  <ArrowRight className="w-4 h-4 text-[#F5D328] transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 text-[#F1E5C6] transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-[11px] font-semibold bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full text-[#F5D328]">
+                <span className="text-[11px] font-semibold bg-[#F1E5C6]/15 px-2.5 py-0.5 rounded-full text-[#F1E5C6]">
                   Click to Expand
                 </span>
               </div>
@@ -941,10 +941,10 @@ export default function DesktopHome() {
       </section>
 
       {/* 5. TRANSPARENT MEMBERSHIP PLANS */}
-      <section id="pricing-section" className="py-16 sm:py-24 bg-[#122617] text-[#EBF2E8] border-b border-[#F5D328]/20">
+      <section id="pricing-section" className="py-16 sm:py-24 bg-[#122617] text-[#EBF2E8] border-b border-[#F1E5C6]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <span className="bg-[#183825] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
+            <span className="bg-[#183825] text-[#F1E5C6] border border-[#F1E5C6]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
               Transparent Membership
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
@@ -957,12 +957,12 @@ export default function DesktopHome() {
             {/* Parent Mode & Billing Cycle Toggles */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               {/* Single vs Couple */}
-              <div className="p-1 rounded-xl bg-[#183825] border border-[#F5D328]/30 flex items-center">
+              <div className="p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 flex items-center">
                 <button
                   type="button"
                   onClick={() => setParentMode('single')}
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    parentMode === 'single' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                    parentMode === 'single' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                   }`}
                 >
                   Single Parent
@@ -971,7 +971,7 @@ export default function DesktopHome() {
                   type="button"
                   onClick={() => setParentMode('couple')}
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
-                    parentMode === 'couple' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                    parentMode === 'couple' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                   }`}
                 >
                   <span>Both Parents</span>
@@ -980,12 +980,12 @@ export default function DesktopHome() {
               </div>
 
               {/* Billing Cycle */}
-              <div className="p-1 rounded-xl bg-[#183825] border border-[#F5D328]/30 flex items-center">
+              <div className="p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 flex items-center">
                 <button
                   type="button"
                   onClick={() => setBillingCycle('monthly')}
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    billingCycle === 'monthly' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                    billingCycle === 'monthly' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                   }`}
                 >
                   Monthly
@@ -994,7 +994,7 @@ export default function DesktopHome() {
                   type="button"
                   onClick={() => setBillingCycle('quarterly')}
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
-                    billingCycle === 'quarterly' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                    billingCycle === 'quarterly' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                   }`}
                 >
                   <span>Quarterly</span>
@@ -1011,7 +1011,7 @@ export default function DesktopHome() {
 
           {/* Introductory Line & Single Hospital Visit Card (Moved Above Plans) */}
           <div className="max-w-4xl mx-auto mb-12">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#F5D328] text-center mb-3">
+            <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
               New to Rodasi? Start with one visit
             </p>
 
@@ -1104,20 +1104,20 @@ export default function DesktopHome() {
                   key={plan.id}
                   className={`rounded-3xl p-6 lg:p-7 flex flex-col justify-between transition-all relative ${
                     plan.popular
-                      ? 'bg-[#183825] border-2 border-[#F5D328] shadow-2xl scale-[1.02] text-white'
+                      ? 'bg-[#183825] border-2 border-[#F1E5C6] shadow-2xl scale-[1.02] text-white'
                       : plan.comingSoon
-                      ? 'bg-[#152B1B] border-2 border-dashed border-[#F5D328]/60 text-white shadow-xl'
+                      ? 'bg-[#152B1B] border-2 border-dashed border-[#F1E5C6]/60 text-white shadow-xl'
                       : 'bg-white border-2 border-[#183825]/15 text-[#122617] shadow-md hover:border-[#183825]/30'
                   }`}
                 >
                   {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F5D328] text-[#122116] text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F1E5C6] text-[#122116] text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                       Recommended
                     </div>
                   )}
 
                   {plan.comingSoon && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F5D328] border border-[#F5D328]/50 text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F1E5C6] border border-[#F1E5C6]/50 text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                       Launching Soon • Waitlist
                     </div>
                   )}
@@ -1142,27 +1142,27 @@ export default function DesktopHome() {
                           / month plus GST
                         </span>
                       </div>
-                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                         (₹{finalPriceWithGst.toLocaleString('en-IN')} / month incl. 18% GST)
                       </p>
                       <p className={`text-xs mt-1 font-medium ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                         (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                       </p>
                       {parentMode === 'couple' && (
-                        <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                        <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                           Covers both parents (2nd parent at 25% off)
                         </p>
                       )}
                     </div>
 
                     <div className="space-y-2.5 mb-6">
-                      <p className={`text-xs font-bold uppercase tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                      <p className={`text-xs font-bold uppercase tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                         What is included:
                       </p>
                       <ul className={`space-y-2 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
                         {items.map((feat, idx) => (
                           <li key={idx} className="flex items-start gap-2">
-                            <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                            <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`} />
                             <span className="leading-snug">{feat}</span>
                           </li>
                         ))}
@@ -1174,7 +1174,7 @@ export default function DesktopHome() {
                           type="button"
                           onClick={() => setSelectedInclusionPlan(plan)}
                           className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none group py-1 ${
-                            plan.popular || plan.comingSoon ? 'text-[#F5D328] hover:text-[#FFE342]' : 'text-[#183825] hover:text-[#122617]'
+                            plan.popular || plan.comingSoon ? 'text-[#F1E5C6] hover:text-[#F7EED8]' : 'text-[#183825] hover:text-[#122617]'
                           }`}
                         >
                           <span>View full inclusions</span>
@@ -1189,7 +1189,7 @@ export default function DesktopHome() {
                       <button
                         type="button"
                         onClick={() => setShowCompanionWaitlistModal(true)}
-                        className="w-full py-3.5 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md active:scale-[0.98]"
+                        className="w-full py-3.5 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md active:scale-[0.98]"
                       >
                         <span>Join the waitlist</span>
                         <ArrowRight className="w-4 h-4" />
@@ -1201,7 +1201,7 @@ export default function DesktopHome() {
                         rel="noopener noreferrer"
                         className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center ${
                           plan.popular
-                            ? 'bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
+                            ? 'bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
                             : 'bg-[#122617] hover:bg-[#183825] text-white active:scale-[0.98]'
                         }`}
                       >
@@ -1223,7 +1223,7 @@ export default function DesktopHome() {
             <div className="flex justify-center">
               <Link
                 href="/plans"
-                className="inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl bg-[#183825] hover:bg-[#1f452e] border border-[#F5D328]/40 text-[#F5D328] font-black text-sm transition shadow-md cursor-pointer hover:border-[#F5D328]"
+                className="inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-xl bg-[#183825] hover:bg-[#1f452e] border border-[#F1E5C6]/40 text-[#F1E5C6] font-black text-sm transition shadow-md cursor-pointer hover:border-[#F1E5C6]"
               >
                 <span>See all plans</span>
                 <ArrowRight className="w-4 h-4" />
@@ -1232,9 +1232,9 @@ export default function DesktopHome() {
           </div>
 
           {/* Commercial & Operational Rules */}
-          <div className="mt-12 p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto space-y-4">
-            <h4 className="text-xs sm:text-sm font-bold text-[#F5D328] uppercase tracking-wider flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#F5D328]" />
+          <div className="mt-12 p-6 rounded-2xl bg-[#183825] border border-[#F1E5C6]/25 max-w-5xl mx-auto space-y-4">
+            <h4 className="text-xs sm:text-sm font-bold text-[#F1E5C6] uppercase tracking-wider flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#F1E5C6]" />
               <span>Transparent Commercial Rules & Operational Policies</span>
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-[#EBF2E8]/85">
@@ -1256,8 +1256,8 @@ export default function DesktopHome() {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#F5D328]/20 flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs text-[#EBF2E8]/90">
-              <span className="font-bold text-[#F5D328] shrink-0">What is Not Included:</span>
+            <div className="pt-3 border-t border-[#F1E5C6]/20 flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs text-[#EBF2E8]/90">
+              <span className="font-bold text-[#F1E5C6] shrink-0">What is Not Included:</span>
               <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, buddy overtime beyond included hours, and physical therapy or rehabilitation (therapy comes from licensed providers, paid directly with zero commission). Local transport is covered seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet.</span>
             </div>
           </div>
@@ -1300,20 +1300,20 @@ export default function DesktopHome() {
       </section>
 
       {/* 7. CHECKOUT & RESERVATION SECTION */}
-      <section id="checkout-section" className="py-16 sm:py-24 bg-[#122617] text-white border-b border-[#F5D328]/20">
+      <section id="checkout-section" className="py-16 sm:py-24 bg-[#122617] text-white border-b border-[#F1E5C6]/20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Try Us First</span>
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">Try Us First</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Get a Sample WhatsApp Update</h2>
             <p className="text-xs sm:text-sm text-[#EBF2E8]/80">Zero payment today. We will send you a real sample voice note and visit summary.</p>
           </div>
 
           {formSubmitted ? (
-            <div className="p-8 rounded-3xl bg-[#183825] border border-[#F5D328]/40 text-center space-y-4 shadow-2xl">
-              <div className="w-14 h-14 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                <CheckCircle2 className="w-8 h-8 text-[#F5D328]" />
+            <div className="p-8 rounded-3xl bg-[#183825] border border-[#F1E5C6]/40 text-center space-y-4 shadow-2xl">
+              <div className="w-14 h-14 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                <CheckCircle2 className="w-8 h-8 text-[#F1E5C6]" />
               </div>
-              <h3 className="text-2xl font-extrabold text-[#F5D328]">
+              <h3 className="text-2xl font-extrabold text-[#F1E5C6]">
                 Request Received!
               </h3>
               <p className="text-xs sm:text-sm text-[#EBF2E8]/90 max-w-md mx-auto leading-relaxed">
@@ -1332,7 +1332,7 @@ export default function DesktopHome() {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleLeadSubmit} className="space-y-5 bg-[#183825] p-6 sm:p-8 rounded-3xl border border-[#F5D328]/30 shadow-2xl">
+            <form onSubmit={handleLeadSubmit} className="space-y-5 bg-[#183825] p-6 sm:p-8 rounded-3xl border border-[#F1E5C6]/30 shadow-2xl">
               {errorMessage && (
                 <div className="p-3.5 rounded-xl bg-red-900/60 border border-red-500/50 text-red-200 text-xs">
                   {errorMessage}
@@ -1351,7 +1351,7 @@ export default function DesktopHome() {
                     placeholder="e.g. Ramesh Menon"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                   />
                 </div>
 
@@ -1364,17 +1364,17 @@ export default function DesktopHome() {
                     required
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
-                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                    className="w-full px-3.5 py-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm cursor-pointer"
                   >
                     <option value="">Choose country</option>
-                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {TOP_NRK_COUNTRIES.map((c) => (
                         <option key={`top_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {ALL_COUNTRIES.map((c) => (
                         <option key={`all_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
@@ -1390,7 +1390,7 @@ export default function DesktopHome() {
                     WhatsApp Number
                   </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F1E5C6]">
                       {countryCode && COUNTRIES.find((c) => c.code === countryCode)
                         ? `+${COUNTRIES.find((c) => c.code === countryCode)?.dialCode.replace(/[^0-9]/g, '')}`
                         : '+'}
@@ -1401,7 +1401,7 @@ export default function DesktopHome() {
                       placeholder="e.g. 50 123 4567"
                       value={phoneDigits}
                       onChange={(e) => setPhoneDigits(e.target.value)}
-                      className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                      className="w-full pl-16 pr-3.5 py-3 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -1413,7 +1413,7 @@ export default function DesktopHome() {
                       type="checkbox"
                       checked={consentGiven}
                       onChange={(e) => setConsentGiven(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                      className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
                     />
                     <span className="text-xs text-[#EBF2E8]/90 leading-snug">
                       OK to message me on WhatsApp.
@@ -1427,7 +1427,7 @@ export default function DesktopHome() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
+                  className="flex-1 py-4 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
                 >
                   <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
                   <span>{isSubmitting ? 'Sending Request...' : 'Send me a sample update'}</span>
@@ -1437,16 +1437,16 @@ export default function DesktopHome() {
                   type="button"
                   onClick={handleCallbackRequest}
                   disabled={isSubmitting}
-                  className="py-4 px-6 rounded-xl bg-[#122617] hover:bg-[#1f452e] text-[#F5D328] border border-[#F5D328]/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
+                  className="py-4 px-6 rounded-xl bg-[#122617] hover:bg-[#1f452e] text-[#F1E5C6] border border-[#F1E5C6]/40 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer"
                 >
-                  <MessageCircle className="w-4 h-4 fill-[#F5D328] text-[#122116]" />
+                  <MessageCircle className="w-4 h-4 fill-[#F1E5C6] text-[#122116]" />
                   <span>Talk to our team first</span>
                 </button>
               </div>
 
               {/* Note under the form */}
               <div className="text-center space-y-1 pt-1">
-                <p className="text-xs font-semibold text-[#F5D328]">
+                <p className="text-xs font-semibold text-[#F1E5C6]">
                   Your parents don’t need to do anything yet.
                 </p>
                 <p className="text-[11px] text-[#EBF2E8]/70 font-normal">
@@ -1459,9 +1459,9 @@ export default function DesktopHome() {
       </section>
 
       {/* 8. FOOTER */}
-      <footer className="bg-[#0A130C] text-[#EBF2E8] py-12 px-4 border-t border-[#F5D328]/20">
+      <footer className="bg-[#0A130C] text-[#EBF2E8] py-12 px-4 border-t border-[#F1E5C6]/20">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-[#F5D328]/15 pb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-[#F1E5C6]/15 pb-8">
             <Link href="/" className="inline-block">
               <img
                 src="/images/logo.png"
@@ -1471,18 +1471,18 @@ export default function DesktopHome() {
             </Link>
 
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/75">
-              <a href="#care-buddy-concept" className="hover:text-[#F5D328] transition">The Care Buddy</a>
+              <a href="#care-buddy-concept" className="hover:text-[#F1E5C6] transition">The Care Buddy</a>
               <span>·</span>
-              <a href="#whatsapp-experience" className="hover:text-[#F5D328] transition">How It Works</a>
+              <a href="#whatsapp-experience" className="hover:text-[#F1E5C6] transition">How It Works</a>
               <span>·</span>
-              <a href="#pricing-section" className="hover:text-[#F5D328] transition">Plans</a>
+              <a href="#pricing-section" className="hover:text-[#F1E5C6] transition">Plans</a>
               <span>·</span>
-              <a href="#faq-section" className="hover:text-[#F5D328] transition">FAQs</a>
+              <a href="#faq-section" className="hover:text-[#F1E5C6] transition">FAQs</a>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#EBF2E8]/60">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#F5D328] font-medium">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#F1E5C6] font-medium">
               <span>Named Care Buddy</span>
               <span className="text-[#EBF2E8]/30">·</span>
               <span>No hospital commissions</span>
@@ -1517,22 +1517,22 @@ export default function DesktopHome() {
             onClick={() => setSelectedInclusionPlan(null)}
           >
             <div
-              className="bg-[#142D1C] border border-[#F5D328]/30 text-[#EBF2E8] rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col relative shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+              className="bg-[#142D1C] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col relative shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="p-6 sm:p-7 border-b border-[#F5D328]/20 relative bg-[#183825]/90">
+              <div className="p-6 sm:p-7 border-b border-[#F1E5C6]/20 relative bg-[#183825]/90">
                 <button
                   type="button"
                   onClick={() => setSelectedInclusionPlan(null)}
-                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#122617] border border-[#F5D328]/30 text-[#F5D328] hover:text-white flex items-center justify-center cursor-pointer transition"
+                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#122617] border border-[#F1E5C6]/30 text-[#F1E5C6] hover:text-white flex items-center justify-center cursor-pointer transition"
                   aria-label="Close"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 <div className="space-y-1.5 pr-8">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328] bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full inline-block">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6] bg-[#F1E5C6]/15 px-2.5 py-0.5 rounded-full inline-block">
                     Full Plan Scope &amp; Inclusions
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
@@ -1546,7 +1546,7 @@ export default function DesktopHome() {
                   </p>
 
                   <div className="pt-3 flex flex-wrap items-baseline gap-2">
-                    <span className="text-2xl sm:text-3xl font-black text-[#F5D328]">
+                    <span className="text-2xl sm:text-3xl font-black text-[#F1E5C6]">
                       ₹{finalPrice.toLocaleString('en-IN')}
                     </span>
                     <span className="text-xs font-bold text-[#EBF2E8]">
@@ -1567,26 +1567,26 @@ export default function DesktopHome() {
               {/* Scrollable Body */}
               <div className="overflow-y-auto p-6 sm:p-7 space-y-5 text-xs sm:text-sm">
                 {/* Touchpoint Highlights */}
-                <div className="p-4 rounded-2xl bg-[#122617] border border-[#F5D328]/25 space-y-2.5">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                <div className="p-4 rounded-2xl bg-[#122617] border border-[#F1E5C6]/25 space-y-2.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Core Care Metrics
                   </p>
                   <div className="space-y-2 text-xs font-semibold text-[#EBF2E8]">
                     <div className="flex items-center gap-2.5">
-                      <Clock className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <Clock className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.touchpoints}</span>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <Stethoscope className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <Stethoscope className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.hospitalHours}</span>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <HeartHandshake className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <HeartHandshake className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.companionTasters}</span>
                     </div>
                     {selectedInclusionPlan.mobilityWallet && (
                       <div className="flex items-center gap-2.5">
-                        <Wallet className="w-4 h-4 text-[#F5D328] shrink-0" />
+                        <Wallet className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                         <span>{selectedInclusionPlan.mobilityWallet}</span>
                       </div>
                     )}
@@ -1595,13 +1595,13 @@ export default function DesktopHome() {
 
                 {/* Full Features Checklist */}
                 <div className="space-y-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Complete Inclusions Checklist
                   </p>
                   <ul className="space-y-2.5 text-xs text-[#E0EBDC]">
                     {selectedInclusionPlan.features.map((feat: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                        <Check className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[#F1E5C6] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -1609,13 +1609,13 @@ export default function DesktopHome() {
                 </div>
 
                 {/* Assurance note */}
-                <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F1E5C6]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
                   Doctor consults, medications, and lab diagnostics are paid directly at actuals with zero commission. Transport is managed seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet float.
                 </div>
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-5 border-t border-[#F5D328]/20 bg-[#122617] flex items-center gap-3">
+              <div className="p-4 sm:p-5 border-t border-[#F1E5C6]/20 bg-[#122617] flex items-center gap-3">
                 {selectedInclusionPlan.comingSoon ? (
                   <button
                     type="button"
@@ -1623,7 +1623,7 @@ export default function DesktopHome() {
                       setSelectedInclusionPlan(null);
                       setShowCompanionWaitlistModal(true);
                     }}
-                    className="flex-1 py-3 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                    className="flex-1 py-3 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
                   >
                     <span>Join the waitlist</span>
                     <ArrowRight className="w-4 h-4" />
@@ -1633,7 +1633,7 @@ export default function DesktopHome() {
                     href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
                   >
                     Ask about {selectedInclusionPlan.name} on WhatsApp
                   </a>
@@ -1654,7 +1654,7 @@ export default function DesktopHome() {
       {/* MODAL: COMPANION WAITLIST */}
       {showCompanionWaitlistModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 sm:p-7 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 sm:p-7 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowCompanionWaitlistModal(false)}
@@ -1665,7 +1665,7 @@ export default function DesktopHome() {
             </button>
 
             <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Waitlist</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6]">Waitlist</span>
               <h3 className="text-xl sm:text-2xl font-bold text-white">Join the Companion Waitlist</h3>
               <p className="text-xs sm:text-sm text-[#EBF2E8]/80 leading-relaxed">
                 22 days a month of warm daily companionship. We will notify you first when enrollment opens.
@@ -1673,11 +1673,11 @@ export default function DesktopHome() {
             </div>
 
             {companionSubmitted ? (
-              <div className="p-5 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                  <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+              <div className="p-5 rounded-xl bg-[#122617] border border-[#F1E5C6]/40 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                  <CheckCircle2 className="w-6 h-6 text-[#F1E5C6]" />
                 </div>
-                <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
+                <h4 className="text-base font-bold text-[#F1E5C6]">You are on the waitlist!</h4>
                 <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
                   Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open.
                 </p>
@@ -1711,7 +1711,7 @@ export default function DesktopHome() {
                     placeholder="e.g. Ramesh Menon"
                     value={companionName}
                     onChange={(e) => setCompanionName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                   />
                 </div>
 
@@ -1723,17 +1723,17 @@ export default function DesktopHome() {
                     required
                     value={companionCountryCode || countryCode}
                     onChange={(e) => setCompanionCountryCode(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm cursor-pointer"
                   >
                     <option value="">Choose country</option>
-                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {TOP_NRK_COUNTRIES.map((c) => (
                         <option key={`top_comp_desk_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {ALL_COUNTRIES.map((c) => (
                         <option key={`all_comp_desk_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
@@ -1748,7 +1748,7 @@ export default function DesktopHome() {
                     WhatsApp Number
                   </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F1E5C6]">
                       {(companionCountryCode || countryCode) && COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))
                         ? `+${COUNTRIES.find((c) => c.code === (companionCountryCode || countryCode))?.dialCode.replace(/[^0-9]/g, '')}`
                         : '+'}
@@ -1759,7 +1759,7 @@ export default function DesktopHome() {
                       placeholder="e.g. 50 123 4567"
                       value={companionPhoneDigits}
                       onChange={(e) => setCompanionPhoneDigits(e.target.value)}
-                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -1770,7 +1770,7 @@ export default function DesktopHome() {
                       type="checkbox"
                       checked={companionConsent}
                       onChange={(e) => setCompanionConsent(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                      className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
                     />
                     <span className="text-xs text-[#EBF2E8]/90 leading-snug">
                       OK to message me on WhatsApp.
@@ -1781,7 +1781,7 @@ export default function DesktopHome() {
                 <button
                   type="submit"
                   disabled={companionSubmitting}
-                  className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs sm:text-sm transition cursor-pointer disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-xs sm:text-sm transition cursor-pointer disabled:opacity-50"
                 >
                   {companionSubmitting ? 'Joining...' : 'Join Companion Waitlist'}
                 </button>
@@ -1802,17 +1802,17 @@ export default function DesktopHome() {
           role="dialog"
           aria-modal="true"
         >
-          <div className="relative w-full max-w-5xl bg-[#15301E] text-[#EBF2E8] rounded-3xl shadow-2xl border border-[#F5D328]/35 max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+          <div className="relative w-full max-w-5xl bg-[#15301E] text-[#EBF2E8] rounded-3xl shadow-2xl border border-[#F1E5C6]/35 max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header & Pillar Switcher */}
-            <div className="pt-4 pb-3.5 px-6 sm:px-8 border-b border-[#F5D328]/20 bg-[#122617] sticky top-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#183825] border border-[#F5D328]/25 text-xs font-bold overflow-x-auto no-scrollbar">
+            <div className="pt-4 pb-3.5 px-6 sm:px-8 border-b border-[#F1E5C6]/20 bg-[#122617] sticky top-0 z-20 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 text-xs font-bold overflow-x-auto no-scrollbar">
                 <button
                   type="button"
                   onClick={() => setDrawerPillar('vitality')}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
                     drawerPillar === 'vitality'
-                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                      ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                   }`}
                 >
                   <Stethoscope className="w-3.5 h-3.5" />
@@ -1823,8 +1823,8 @@ export default function DesktopHome() {
                   onClick={() => setDrawerPillar('joy')}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
                     drawerPillar === 'joy'
-                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                      ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                   }`}
                 >
                   <HeartHandshake className="w-3.5 h-3.5" />
@@ -1835,8 +1835,8 @@ export default function DesktopHome() {
                   onClick={() => setDrawerPillar('ease')}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer ${
                     drawerPillar === 'ease'
-                      ? 'bg-[#F5D328] text-[#122116] shadow-xs font-bold'
-                      : 'text-[#EBF2E8]/70 hover:text-[#F5D328]'
+                      ? 'bg-[#F1E5C6] text-[#122116] shadow-xs font-bold'
+                      : 'text-[#EBF2E8]/70 hover:text-[#F1E5C6]'
                   }`}
                 >
                   <Home className="w-3.5 h-3.5" />
@@ -1848,7 +1848,7 @@ export default function DesktopHome() {
               <button
                 type="button"
                 onClick={closePillarDrawer}
-                className="w-8 h-8 rounded-full bg-[#183825] border border-[#F5D328]/30 hover:bg-[#1f452e] text-[#F5D328] flex items-center justify-center shrink-0 transition cursor-pointer"
+                className="w-8 h-8 rounded-full bg-[#183825] border border-[#F1E5C6]/30 hover:bg-[#1f452e] text-[#F1E5C6] flex items-center justify-center shrink-0 transition cursor-pointer"
                 aria-label="Close details"
               >
                 <X className="w-4 h-4" />
@@ -1861,12 +1861,12 @@ export default function DesktopHome() {
                 <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
                   {/* Left Column: Narrative & Key Inclusions */}
                   <div className="lg:col-span-7 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
-                      <Stethoscope className="w-4 h-4 text-[#F5D328]" />
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] text-xs font-bold">
+                      <Stethoscope className="w-4 h-4 text-[#F1E5C6]" />
                       <span>Pillar 01 : Healthcare Coordination & Hospital Escorts</span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F1E5C6] leading-tight">
                       Healthcare Coordination & Door-to-Door Hospital Accompaniment
                     </h3>
 
@@ -1875,64 +1875,64 @@ export default function DesktopHome() {
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Doctor of Choice</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Doctor of Choice</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Hospitals across Kochi, such as Aster Medcity, Amrita, Lakeshore, Rajagiri, or your family doctor.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Medicine Checks & Refills</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Medicine Checks & Refills</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Care Buddy checks medicines against the prescription, checks with doctor or pharmacist, and coordinates doorstep refills.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">24/7 Emergency Mobilization Support</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">24/7 Emergency Mobilization Support</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Call 108 first for acute trauma; our emergency coordination mobilizes your Care Buddy directly to the hospital bedside.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Home Lab & ECG Visits</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Home Lab & ECG Visits</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Doorstep blood sample collection and diagnostic test coordination with digital reports uploaded to Care Passport.</p>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium">
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F1E5C6]/25 text-xs text-[#EBF2E8]/90 font-medium">
                       Zero hospital markups: all doctor fees, medicines, lab tests, and taxi fares paid at direct actuals.
                     </div>
                   </div>
 
                   {/* Right Column: Simulated Live Escort Snapshot */}
                   <div className="lg:col-span-5">
-                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
-                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F1E5C6]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2.5">
                         <div className="flex items-center gap-2">
                           <div className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
-                          <span className="text-xs font-bold text-[#F5D328]">Live OPD Escort Log</span>
+                          <span className="text-xs font-bold text-[#F1E5C6]">Live OPD Escort Log</span>
                         </div>
                         <span className="text-[10px] text-[#EBF2E8]/70 font-mono">Aster Medcity</span>
                       </div>
 
                       <div className="space-y-2.5 text-xs">
                         <div className="flex items-start gap-2.5">
-                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">08:30 AM</span>
+                          <span className="text-[11px] font-mono text-[#F1E5C6] font-bold w-16 shrink-0">08:30 AM</span>
                           <div>
                             <p className="font-bold text-[#EBF2E8]">Doorstep AC Taxi Pickup</p>
                             <p className="text-[11px] text-[#EBF2E8]/70">Buddy arrives at home in Panampilly Nagar.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2.5">
-                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">09:15 AM</span>
+                          <span className="text-[11px] font-mono text-[#F1E5C6] font-bold w-16 shrink-0">09:15 AM</span>
                           <div>
                             <p className="font-bold text-[#EBF2E8]">Fast-Track Registration</p>
                             <p className="text-[11px] text-[#EBF2E8]/70">Token handled by Buddy while parents seated in lounge.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2.5">
-                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">10:00 AM</span>
+                          <span className="text-[11px] font-mono text-[#F1E5C6] font-bold w-16 shrink-0">10:00 AM</span>
                           <div>
                             <p className="font-bold text-[#EBF2E8]">Doctor Consultation</p>
                             <p className="text-[11px] text-[#EBF2E8]/70">Care Buddy beside parents taking detailed consultation notes.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2.5">
-                          <span className="text-[11px] font-mono text-[#F5D328] font-bold w-16 shrink-0">10:45 AM</span>
+                          <span className="text-[11px] font-mono text-[#F1E5C6] font-bold w-16 shrink-0">10:45 AM</span>
                           <div>
                             <p className="font-bold text-[#EBF2E8]">Pharmacy Pickup & Report</p>
                             <p className="text-[11px] text-[#EBF2E8]/70">New prescription photo sent to family on WhatsApp.</p>
@@ -1940,9 +1940,9 @@ export default function DesktopHome() {
                         </div>
                       </div>
 
-                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                      <div className="pt-2.5 border-t border-[#F1E5C6]/20 flex items-center justify-between text-[11px]">
                         <span className="text-[#EBF2E8]/70">Care Buddy:</span>
-                        <span className="text-[#F5D328] font-bold">Anoop K. (Assigned Escort)</span>
+                        <span className="text-[#F1E5C6] font-bold">Anoop K. (Assigned Escort)</span>
                       </div>
                     </div>
                   </div>
@@ -1953,12 +1953,12 @@ export default function DesktopHome() {
                 <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
                   {/* Left Column: Narrative & Key Inclusions */}
                   <div className="lg:col-span-7 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
-                      <HeartHandshake className="w-4 h-4 text-[#F5D328]" />
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] text-xs font-bold">
+                      <HeartHandshake className="w-4 h-4 text-[#F1E5C6]" />
                       <span>Pillar 02 : Signature Companionship Core</span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F1E5C6] leading-tight">
                       Combating Loneliness Through Warmth, Conversation & Mentorship
                     </h3>
 
@@ -1967,70 +1967,70 @@ export default function DesktopHome() {
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Companion Afternoon Tasters</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Companion Afternoon Tasters</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Dedicated 2 to 3 hour unhurried visits included in plans to read, chat, and relax.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Personal Shopper Service</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Personal Shopper Service</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Accompanied trips for local grocery or textile shopping and online ordering assistance.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Technology Mentorship</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Technology Mentorship</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Friendly coaching on WhatsApp video calls, iPad, YouTube, and digital payments.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Celebrations & Faith Outings</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Celebrations & Faith Outings</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Birthday surprises, festival treats, and accompanied visits to temple, church, or clubs.</p>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#F5D328] shrink-0" />
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F1E5C6]/25 text-xs text-[#EBF2E8]/90 font-medium flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>Full 22-Day Daily Companion Plan launching soon for parents living alone.</span>
                     </div>
                   </div>
 
                   {/* Right Column: Simulated Companion Snapshot */}
                   <div className="lg:col-span-5">
-                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
-                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F1E5C6]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2.5">
                         <div className="flex items-center gap-2">
-                          <div className="w-2.5 h-2.5 rounded-full bg-[#F5D328] animate-pulse" />
-                          <span className="text-xs font-bold text-[#F5D328]">Companion Afternoon Visit</span>
+                          <div className="w-2.5 h-2.5 rounded-full bg-[#F1E5C6] animate-pulse" />
+                          <span className="text-xs font-bold text-[#F1E5C6]">Companion Afternoon Visit</span>
                         </div>
                         <span className="text-[10px] text-[#EBF2E8]/70 font-mono">2.5 Hour Session</span>
                       </div>
 
                       <div className="space-y-2.5 text-xs">
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
-                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 space-y-1">
+                          <p className="font-bold text-[#F1E5C6] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F1E5C6]" />
                             <span>Afternoon Tea & Mathrubhumi Editorial</span>
                           </p>
                           <p className="text-[11px] text-[#EBF2E8]/80">Care Buddy Lakshmi shared unhurried tea and discussed world news.</p>
                         </div>
 
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
-                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 space-y-1">
+                          <p className="font-bold text-[#F1E5C6] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F1E5C6]" />
                             <span>Grandchildren Video Call Hosted</span>
                           </p>
                           <p className="text-[11px] text-[#EBF2E8]/80">Set up WhatsApp video call with grandchildren in Dubai on iPad.</p>
                         </div>
 
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 space-y-1">
-                          <p className="font-bold text-[#F5D328] flex items-center gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-[#F5D328]" />
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 space-y-1">
+                          <p className="font-bold text-[#F1E5C6] flex items-center gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#F1E5C6]" />
                             <span>Garden Walk & Temple Visit</span>
                           </p>
                           <p className="text-[11px] text-[#EBF2E8]/80">Accompanied evening walk and peaceful local temple darshan.</p>
                         </div>
                       </div>
 
-                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                      <div className="pt-2.5 border-t border-[#F1E5C6]/20 flex items-center justify-between text-[11px]">
                         <span className="text-[#EBF2E8]/70">Audio Voice Note:</span>
-                        <span className="text-[#F5D328] font-bold">Sent to Rahul (Dubai)</span>
+                        <span className="text-[#F1E5C6] font-bold">Sent to Rahul (Dubai)</span>
                       </div>
                     </div>
                   </div>
@@ -2041,12 +2041,12 @@ export default function DesktopHome() {
                 <div className="grid lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
                   {/* Left Column: Narrative & Key Inclusions */}
                   <div className="lg:col-span-7 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5D328]/15 border border-[#F5D328]/30 text-[#F5D328] text-xs font-bold">
-                      <Home className="w-4 h-4 text-[#F5D328]" />
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 text-[#F1E5C6] text-xs font-bold">
+                      <Home className="w-4 h-4 text-[#F1E5C6]" />
                       <span>Pillar 03 : Daily Chores, Home Safety & Paperwork</span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5D328] leading-tight">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F1E5C6] leading-tight">
                       Zero Chores Burden, Home Safety Audits & Bureaucracy Handled
                     </h3>
 
@@ -2055,62 +2055,62 @@ export default function DesktopHome() {
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Errands & Bill Payments</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Errands & Bill Payments</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">KSEB electricity bills, municipal water taxes, local paperwork, and courier pickups.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Jeevan Pramaan (Pension)</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Jeevan Pramaan (Pension)</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Biometric digital Life Certificate assistance for central/state pension and bank paperwork.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Home Safety Fall Audit</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Home Safety Fall Audit</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">In-home audit checking grab bars, anti-slip mats, night lights, and fall prevention pathways.</p>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F5D328]/25">
-                        <p className="font-bold text-xs text-[#F5D328] mb-1">Verified Handyman Pool</p>
+                      <div className="p-3.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25">
+                        <p className="font-bold text-xs text-[#F1E5C6] mb-1">Verified Handyman Pool</p>
                         <p className="text-[11px] text-[#EBF2E8]/80 leading-relaxed">Background-checked electricians, plumbers, AC technicians, and deep-cleaning referrals.</p>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F5D328]/25 text-xs text-[#EBF2E8]/90 font-medium">
+                    <div className="p-3 rounded-xl bg-[#183825]/70 border border-[#F1E5C6]/25 text-xs text-[#EBF2E8]/90 font-medium">
                       Zero commissions on maintenance: local specialists paid directly at transparent actuals.
                     </div>
                   </div>
 
                   {/* Right Column: Simulated Audit Card */}
                   <div className="lg:col-span-5">
-                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F5D328]/30 space-y-3.5">
-                      <div className="flex items-center justify-between border-b border-[#F5D328]/20 pb-2.5">
+                    <div className="rounded-2xl bg-[#122116] text-[#EBF2E8] p-5 sm:p-6 shadow-xl border border-[#F1E5C6]/30 space-y-3.5">
+                      <div className="flex items-center justify-between border-b border-[#F1E5C6]/20 pb-2.5">
                         <div className="flex items-center gap-2">
                           <div className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
-                          <span className="text-xs font-bold text-[#F5D328]">Home Safety & Audit Card</span>
+                          <span className="text-xs font-bold text-[#F1E5C6]">Home Safety & Audit Card</span>
                         </div>
                         <span className="text-[10px] text-[#EBF2E8]/70 font-mono">Score: 96 / 100</span>
                       </div>
 
                       <div className="space-y-2.5 text-xs">
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 flex items-center justify-between">
                           <span className="text-[#EBF2E8]/80">Bathroom Grab Bars:</span>
-                          <span className="font-bold text-[#F5D328]">Installed & Verified</span>
+                          <span className="font-bold text-[#F1E5C6]">Installed & Verified</span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 flex items-center justify-between">
                           <span className="text-[#EBF2E8]/80">Non-Slip Wet Mats:</span>
-                          <span className="font-bold text-[#F5D328]">Placed in Shower Area</span>
+                          <span className="font-bold text-[#F1E5C6]">Placed in Shower Area</span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 flex items-center justify-between">
                           <span className="text-[#EBF2E8]/80">Jeevan Pramaan (Pension):</span>
-                          <span className="font-bold text-[#F5D328]">Digital Biometric Done</span>
+                          <span className="font-bold text-[#F1E5C6]">Digital Biometric Done</span>
                         </div>
-                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F5D328]/25 flex items-center justify-between">
+                        <div className="p-2.5 rounded-xl bg-[#183825] border border-[#F1E5C6]/25 flex items-center justify-between">
                           <span className="text-[#EBF2E8]/80">Inverter & AC Servicing:</span>
                           <span className="font-bold text-[#25D366]">Completed by Handyman</span>
                         </div>
                       </div>
 
-                      <div className="pt-2.5 border-t border-[#F5D328]/20 flex items-center justify-between text-[11px]">
+                      <div className="pt-2.5 border-t border-[#F1E5C6]/20 flex items-center justify-between text-[11px]">
                         <span className="text-[#EBF2E8]/70">Next Review:</span>
-                        <span className="text-[#F5D328] font-bold">Scheduled in 6 Months</span>
+                        <span className="text-[#F1E5C6] font-bold">Scheduled in 6 Months</span>
                       </div>
                     </div>
                   </div>

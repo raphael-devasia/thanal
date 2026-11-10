@@ -20,7 +20,7 @@
 }
 
 .depth-carousel:focus-visible {
-  outline: 2px solid rgba(245, 211, 40, 0.5);
+  outline: 2px solid rgba(241, 229, 198, 0.5);
   outline-offset: 4px;
   border-radius: 16px;
 }
@@ -38,7 +38,7 @@
   transform-origin: center center;
   overflow: hidden;
   background: #183825;
-  border: 1px solid rgba(245, 211, 40, 0.25);
+  border: 1px solid rgba(241, 229, 198, 0.25);
   box-shadow:
     0 24px 48px -12px rgba(0, 0, 0, 0.6),
     0 8px 20px -6px rgba(0, 0, 0, 0.4);
@@ -84,11 +84,11 @@
   height: 40px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(245, 211, 40, 0.35);
+  border: 1px solid rgba(241, 229, 198, 0.35);
   border-radius: 999px;
   background: rgba(18, 38, 23, 0.9);
   backdrop-filter: blur(8px);
-  color: #F5D328;
+  color: #F1E5C6;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition:
@@ -99,8 +99,8 @@
 }
 
 .depth-carousel__arrow:hover {
-  background: #F5D328;
-  border-color: #F5D328;
+  background: #F1E5C6;
+  border-color: #F1E5C6;
   color: #122617;
 }
 
@@ -127,7 +127,7 @@
   padding: 6px 14px;
   border-radius: 999px;
   background: rgba(18, 38, 23, 0.75);
-  border: 1px solid rgba(245, 211, 40, 0.25);
+  border: 1px solid rgba(241, 229, 198, 0.25);
   backdrop-filter: blur(8px);
 }
 
@@ -137,7 +137,7 @@
   padding: 0;
   border: none;
   border-radius: 999px;
-  background: rgba(245, 211, 40, 0.35);
+  background: rgba(241, 229, 198, 0.35);
   cursor: pointer;
   transition:
     width 0.25s ease,
@@ -146,7 +146,7 @@
 
 .depth-carousel__dot.is-active {
   width: 22px;
-  background: #F5D328;
+  background: #F1E5C6;
 }
 
 @media (prefers-reduced-motion: reduce) {

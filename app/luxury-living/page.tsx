@@ -141,9 +141,9 @@ export default function LuxuryLivingPage() {
     );
 
   return (
-    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F5D328] selection:text-[#122116] pb-16">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F1E5C6] selection:text-[#122116] pb-16">
       {/* TOP BAR */}
-      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F5D328]/20 shadow-md">
+      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F1E5C6]/20 shadow-md">
         <div className="max-w-3xl lg:max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2">
             <img
@@ -156,7 +156,7 @@ export default function LuxuryLivingPage() {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="text-xs text-[#EBF2E8]/90 hover:text-[#F5D328] font-bold px-2.5 py-1 rounded-full border border-[#F5D328]/30 bg-[#183825] transition inline-flex items-center gap-1"
+              className="text-xs text-[#EBF2E8]/90 hover:text-[#F1E5C6] font-bold px-2.5 py-1 rounded-full border border-[#F1E5C6]/30 bg-[#183825] transition inline-flex items-center gap-1"
             >
               <span>← At-Home Care</span>
             </Link>
@@ -177,8 +177,8 @@ export default function LuxuryLivingPage() {
       <section className="bg-[#122617] text-[#EBF2E8] pt-10 pb-12 sm:pt-16 sm:pb-20 px-4 border-b border-[#183825]">
         <div className="max-w-md sm:max-w-2xl mx-auto text-center space-y-5">
           {/* Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] text-xs font-semibold">
-            <Building className="w-3.5 h-3.5 text-[#F5D328]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] text-xs font-semibold">
+            <Building className="w-3.5 h-3.5 text-[#F1E5C6]" />
             <span>Senior living guidance for NRK families</span>
           </div>
 
@@ -196,7 +196,7 @@ export default function LuxuryLivingPage() {
           <div className="pt-2">
             <a
               href="#inquiry-form"
-              className="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base shadow-lg shadow-[#F5D328]/25 transition active:scale-98"
+              className="inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm sm:text-base shadow-lg shadow-[#F1E5C6]/25 transition active:scale-98"
             >
               <span>Tell us what you are looking for</span>
               <ArrowRight className="w-4 h-4 text-[#122116]" />
@@ -224,7 +224,7 @@ export default function LuxuryLivingPage() {
             {/* Step 1 */}
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
               <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
-                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-black flex items-center justify-center shrink-0">
                   1
                 </span>
                 <span>Tell us what you need.</span>
@@ -237,7 +237,7 @@ export default function LuxuryLivingPage() {
             {/* Step 2 */}
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
               <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
-                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-black flex items-center justify-center shrink-0">
                   2
                 </span>
                 <span>We shortlist.</span>
@@ -250,7 +250,7 @@ export default function LuxuryLivingPage() {
             {/* Step 3 */}
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#183825]/15 shadow-xs space-y-1">
               <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base text-[#122617]">
-                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F5D328] text-xs font-black flex items-center justify-center shrink-0">
+                <span className="w-6 h-6 rounded-full bg-[#122617] text-[#F1E5C6] text-xs font-black flex items-center justify-center shrink-0">
                   3
                 </span>
                 <span>You visit and decide.</span>
@@ -316,7 +316,7 @@ export default function LuxuryLivingPage() {
       <section className="py-12 sm:py-16 px-4 bg-[#122617] text-white border-b border-[#183825]">
         <div className="max-w-md sm:max-w-2xl mx-auto space-y-6">
           <div className="text-center space-y-1">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Buyer Due Diligence</span>
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">Buyer Due Diligence</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Questions to ask any developer
             </h2>
@@ -331,7 +331,7 @@ export default function LuxuryLivingPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl bg-[#183825] border border-[#F5D328]/25 overflow-hidden transition"
+                  className="rounded-xl bg-[#183825] border border-[#F1E5C6]/25 overflow-hidden transition"
                 >
                   <button
                     type="button"
@@ -339,13 +339,13 @@ export default function LuxuryLivingPage() {
                     className="w-full p-4 text-left font-bold text-xs sm:text-sm text-white flex items-center justify-between gap-2 cursor-pointer hover:bg-[#1f452e]"
                   >
                     <span className="flex items-center gap-2">
-                      <span className="text-[#F5D328] font-mono text-xs font-bold">#{idx + 1}</span>
+                      <span className="text-[#F1E5C6] font-mono text-xs font-bold">#{idx + 1}</span>
                       <span>{item.title}</span>
                     </span>
-                    <ChevronDown className={`w-4 h-4 text-[#F5D328] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 text-[#F1E5C6] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-4 pt-1 text-xs text-[#EBF2E8]/90 leading-relaxed border-t border-[#F5D328]/15 bg-[#142d1e]">
+                    <div className="px-4 pb-4 pt-1 text-xs text-[#EBF2E8]/90 leading-relaxed border-t border-[#F1E5C6]/15 bg-[#142d1e]">
                       {item.question}
                     </div>
                   )}
@@ -382,18 +382,18 @@ export default function LuxuryLivingPage() {
       <section id="inquiry-form" className="py-12 sm:py-16 px-4 bg-[#122617] text-white border-b border-[#183825]">
         <div className="max-w-md mx-auto space-y-6">
           <div className="text-center space-y-1.5">
-            <span className="text-xs font-bold text-[#F5D328] uppercase tracking-wider">Get in Touch</span>
+            <span className="text-xs font-bold text-[#F1E5C6] uppercase tracking-wider">Get in Touch</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Tell us what you are looking for
             </h2>
           </div>
 
           {submitted ? (
-            <div className="p-6 rounded-2xl bg-[#183825] border border-[#F5D328]/40 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+            <div className="p-6 rounded-2xl bg-[#183825] border border-[#F1E5C6]/40 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                <CheckCircle2 className="w-6 h-6 text-[#F1E5C6]" />
               </div>
-              <h3 className="text-lg font-bold text-[#F5D328]">
+              <h3 className="text-lg font-bold text-[#F1E5C6]">
                 Thank you. We will message you on WhatsApp within one working day with the next steps.
               </h3>
               <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
@@ -406,7 +406,7 @@ export default function LuxuryLivingPage() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#F5D328] text-[#122116] font-extrabold text-xs"
+                  className="inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#F1E5C6] text-[#122116] font-extrabold text-xs"
                 >
                   <MessageCircle className="w-4 h-4 fill-[#122116] text-[#122116]" />
                   <span>Chat on WhatsApp Now</span>
@@ -432,7 +432,7 @@ export default function LuxuryLivingPage() {
                   placeholder="e.g. Ramesh Nair"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                 />
               </div>
 
@@ -447,7 +447,7 @@ export default function LuxuryLivingPage() {
                   placeholder="e.g. +971 50 123 4567 or +91 98460 12345"
                   value={whatsapp}
                   onChange={(e) => setWhatsapp(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                 />
               </div>
 
@@ -464,8 +464,8 @@ export default function LuxuryLivingPage() {
                       onClick={() => setWhoFor(opt)}
                       className={`py-2 px-2 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
                         whoFor === opt
-                          ? 'bg-[#F5D328] text-[#122116] shadow-sm'
-                          : 'bg-[#183825] text-white border border-[#F5D328]/30 hover:border-[#F5D328]'
+                          ? 'bg-[#F1E5C6] text-[#122116] shadow-sm'
+                          : 'bg-[#183825] text-white border border-[#F1E5C6]/30 hover:border-[#F1E5C6]'
                       }`}
                     >
                       {opt}
@@ -482,7 +482,7 @@ export default function LuxuryLivingPage() {
                 <select
                   value={preferredDistrict}
                   onChange={(e) => setPreferredDistrict(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm cursor-pointer"
                 >
                   <option value="Ernakulam / Kochi">Ernakulam / Kochi</option>
                   <option value="Thrissur">Thrissur</option>
@@ -504,7 +504,7 @@ export default function LuxuryLivingPage() {
                 <select
                   value={budgetRange}
                   onChange={(e) => setBudgetRange(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                  className="w-full px-3.5 py-3 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm cursor-pointer"
                 >
                   <option value="Under ₹50 Lakhs">Under ₹50 Lakhs</option>
                   <option value="₹50 Lakhs to ₹75 Lakhs">₹50 Lakhs to ₹75 Lakhs</option>
@@ -528,8 +528,8 @@ export default function LuxuryLivingPage() {
                       onClick={() => setTimeline(opt)}
                       className={`py-2 px-2.5 rounded-xl text-xs font-bold transition text-center cursor-pointer ${
                         timeline === opt
-                          ? 'bg-[#F5D328] text-[#122116] shadow-sm'
-                          : 'bg-[#183825] text-white border border-[#F5D328]/30 hover:border-[#F5D328]'
+                          ? 'bg-[#F1E5C6] text-[#122116] shadow-sm'
+                          : 'bg-[#183825] text-white border border-[#F1E5C6]/30 hover:border-[#F1E5C6]'
                       }`}
                     >
                       {opt}
@@ -545,11 +545,11 @@ export default function LuxuryLivingPage() {
                     type="checkbox"
                     checked={consentAgreed}
                     onChange={(e) => setConsentAgreed(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
+                    className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#183825] focus:ring-0 cursor-pointer shrink-0"
                   />
                   <span className="text-[11px] text-[#EBF2E8]/85 leading-snug">
                     I agree that Rodasi may contact me on WhatsApp and may share these details with the developers I choose to hear from. I have read the{' '}
-                    <Link href="/privacy" target="_blank" className="text-[#F5D328] underline underline-offset-2">
+                    <Link href="/privacy" target="_blank" className="text-[#F1E5C6] underline underline-offset-2">
                       Privacy Policy
                     </Link>
                     .
@@ -562,7 +562,7 @@ export default function LuxuryLivingPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 px-6 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
+                  className="w-full py-4 px-6 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg transition active:scale-98 cursor-pointer disabled:opacity-50"
                 >
                   <span>{isSubmitting ? 'Sending Requirements...' : 'Send my requirements'}</span>
                   <ArrowRight className="w-4 h-4 text-[#122116]" />
@@ -579,7 +579,7 @@ export default function LuxuryLivingPage() {
       </section>
 
       {/* FOOTER NOTE & LEGAL */}
-      <footer className="bg-[#0D1C11] text-[#EBF2E8] py-10 px-4 border-t border-[#F5D328]/20">
+      <footer className="bg-[#0D1C11] text-[#EBF2E8] py-10 px-4 border-t border-[#F1E5C6]/20">
         <div className="max-w-md sm:max-w-xl mx-auto text-center space-y-4">
           <Link href="/" className="inline-block">
             <img
@@ -594,19 +594,19 @@ export default function LuxuryLivingPage() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/70 pt-1">
-            <Link href="/" className="hover:text-[#F5D328] transition">
+            <Link href="/" className="hover:text-[#F1E5C6] transition">
               Home
             </Link>
             <span>·</span>
-            <Link href="/privacy" className="hover:text-[#F5D328] transition">
+            <Link href="/privacy" className="hover:text-[#F1E5C6] transition">
               Privacy Policy
             </Link>
             <span>·</span>
-            <Link href="/terms" className="hover:text-[#F5D328] transition">
+            <Link href="/terms" className="hover:text-[#F1E5C6] transition">
               Terms & Conditions
             </Link>
             <span>·</span>
-            <Link href="/refund-policy" className="hover:text-[#F5D328] transition">
+            <Link href="/refund-policy" className="hover:text-[#F1E5C6] transition">
               Refund Policy
             </Link>
           </div>

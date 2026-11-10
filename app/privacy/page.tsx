@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Rodasi</span>
@@ -35,29 +35,29 @@ export default function PrivacyPage() {
         </div>
 
         {/* Highlight Callout */}
-        <div className="p-5 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-3 shadow-sm">
-          <div className="flex items-center gap-2 text-[#F5D328] font-bold text-sm">
-            <Lock className="w-4 h-4 text-[#F5D328]" />
+        <div className="p-5 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F1E5C6]/30 space-y-3 shadow-sm">
+          <div className="flex items-center gap-2 text-[#F1E5C6] font-bold text-sm">
+            <Lock className="w-4 h-4 text-[#F1E5C6]" />
             <span>Our Privacy Commitment to Families Across Oceans</span>
           </div>
           <p className="text-xs sm:text-sm text-[#EBF2E8]/85 leading-relaxed">
             Rodasi is built for overseas families who entrust us with their elderly parents in Kerala. We collect only what is needed, protect it carefully, and never sell or monetize personal or health information.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-[#EBF2E8]/90">
-            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
-              <span className="font-bold text-[#F5D328] block mb-1">Why We Collect Data</span>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
+              <span className="font-bold text-[#F1E5C6] block mb-1">Why We Collect Data</span>
               To send sample WhatsApp updates, answer your questions, and coordinate verified Care Buddy visits.
             </div>
-            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
-              <span className="font-bold text-[#F5D328] block mb-1">Who Sees It</span>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
+              <span className="font-bold text-[#F1E5C6] block mb-1">Who Sees It</span>
               Only the Rodasi care coordination team behind login. Zero contact details or health data in URL links or email alerts.
             </div>
-            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
-              <span className="font-bold text-[#F5D328] block mb-1">How to Delete It</span>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
+              <span className="font-bold text-[#F1E5C6] block mb-1">How to Delete It</span>
               Message "Delete my data" on WhatsApp or email care@rodasi.com to purge your records within 24 hours.
             </div>
-            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F5D328]/20">
-              <span className="font-bold text-[#F5D328] block mb-1">Who to Contact</span>
+            <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
+              <span className="font-bold text-[#F1E5C6] block mb-1">Who to Contact</span>
               Email: care@rodasi.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
             </div>
           </div>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
           {/* Section 1 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">1</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">1</span>
               <span>Who Holds and Controls Your Data</span>
             </h2>
             <p>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
           {/* Section 2 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">2</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">2</span>
               <span>What We Collect and Why</span>
             </h2>
             <p>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
           {/* Section 3 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">3</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">3</span>
               <span>Consent at Two Stages</span>
             </h2>
             <p>
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
           {/* Section 4 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">4</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">4</span>
               <span>How We Use Your Data</span>
             </h2>
             <p>We process collected data solely for the following legitimate care purposes:</p>
@@ -151,7 +151,7 @@ export default function PrivacyPage() {
           {/* Section 5 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">5</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">5</span>
               <span>Data Retention Period</span>
             </h2>
             <p>
@@ -165,7 +165,7 @@ export default function PrivacyPage() {
           {/* Section 6 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">6</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">6</span>
               <span>How to Delete Your Data (Right to Erasure)</span>
             </h2>
             <p>
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
           {/* Section 7 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">7</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">7</span>
               <span>Grievance Officer & Complaints Contact</span>
             </h2>
             <p>

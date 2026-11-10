@@ -114,11 +114,11 @@ export default function PlansPage() {
   return (
     <div className="min-h-screen bg-[#122617] text-[#EBF2E8] font-sans">
       {/* Navigation Header */}
-      <header className="border-b border-[#F5D328]/20 bg-[#0E1F13] py-5 px-4 sm:px-8 sticky top-0 z-40">
+      <header className="border-b border-[#F1E5C6]/20 bg-[#0E1F13] py-5 px-4 sm:px-8 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Rodasi</span>
@@ -137,7 +137,7 @@ export default function PlansPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="bg-[#183825] text-[#F5D328] border border-[#F5D328]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
+          <span className="bg-[#183825] text-[#F1E5C6] border border-[#F1E5C6]/30 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block uppercase tracking-wider">
             Transparent Membership
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
@@ -150,12 +150,12 @@ export default function PlansPage() {
           {/* Parent Mode & Billing Cycle Toggles */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             {/* Single vs Couple */}
-            <div className="p-1 rounded-xl bg-[#183825] border border-[#F5D328]/30 flex items-center">
+            <div className="p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 flex items-center">
               <button
                 type="button"
                 onClick={() => setParentMode('single')}
                 className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  parentMode === 'single' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                  parentMode === 'single' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                 }`}
               >
                 Single Parent
@@ -164,7 +164,7 @@ export default function PlansPage() {
                 type="button"
                 onClick={() => setParentMode('couple')}
                 className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
-                  parentMode === 'couple' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                  parentMode === 'couple' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                 }`}
               >
                 <span>Both Parents</span>
@@ -173,12 +173,12 @@ export default function PlansPage() {
             </div>
 
             {/* Billing Cycle */}
-            <div className="p-1 rounded-xl bg-[#183825] border border-[#F5D328]/30 flex items-center">
+            <div className="p-1 rounded-xl bg-[#183825] border border-[#F1E5C6]/30 flex items-center">
               <button
                 type="button"
                 onClick={() => setBillingCycle('monthly')}
                 className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  billingCycle === 'monthly' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                  billingCycle === 'monthly' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                 }`}
               >
                 Monthly
@@ -187,7 +187,7 @@ export default function PlansPage() {
                 type="button"
                 onClick={() => setBillingCycle('quarterly')}
                 className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
-                  billingCycle === 'quarterly' ? 'bg-[#F5D328] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
+                  billingCycle === 'quarterly' ? 'bg-[#F1E5C6] text-[#122116] shadow-sm' : 'text-[#EBF2E8] hover:text-white'
                 }`}
               >
                 <span>Quarterly</span>
@@ -204,7 +204,7 @@ export default function PlansPage() {
 
         {/* 1. Try us first: Single Hospital Visit Card (Above Plans) */}
         <div className="max-w-4xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#F5D328] text-center mb-3">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
             New to Rodasi? Start with one visit
           </p>
 
@@ -297,20 +297,20 @@ export default function PlansPage() {
                 key={plan.id}
                 className={`rounded-3xl p-6 lg:p-7 flex flex-col justify-between transition-all relative ${
                   plan.popular
-                    ? 'bg-[#183825] border-2 border-[#F5D328] shadow-2xl scale-[1.02] text-white'
+                    ? 'bg-[#183825] border-2 border-[#F1E5C6] shadow-2xl scale-[1.02] text-white'
                     : plan.comingSoon
-                    ? 'bg-[#152B1B] border-2 border-dashed border-[#F5D328]/60 text-white shadow-xl'
+                    ? 'bg-[#152B1B] border-2 border-dashed border-[#F1E5C6]/60 text-white shadow-xl'
                     : 'bg-white border-2 border-[#183825]/15 text-[#122617] shadow-md hover:border-[#183825]/30'
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F5D328] text-[#122116] text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#F1E5C6] text-[#122116] text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                     Recommended
                   </div>
                 )}
 
                 {plan.comingSoon && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F5D328] border border-[#F5D328]/50 text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#183825] text-[#F1E5C6] border border-[#F1E5C6]/50 text-xs uppercase font-black px-3.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
                     Launching Soon • Waitlist
                   </div>
                 )}
@@ -335,27 +335,27 @@ export default function PlansPage() {
                         / month plus GST
                       </span>
                     </div>
-                    <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                    <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                       (₹{finalPriceWithGst.toLocaleString('en-IN')} / month incl. 18% GST)
                     </p>
                     <p className={`text-xs mt-1 font-medium ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]/80' : 'text-[#374F3E]'}`}>
                       (~${finalUsd} USD / month {billingCycle === 'quarterly' ? '• with 10% quarterly prepay' : ''})
                     </p>
                     {parentMode === 'couple' && (
-                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                      <p className={`text-xs mt-1 font-semibold ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                         Covers both parents (2nd parent at 25% off)
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2.5 mb-6">
-                    <p className={`text-xs font-bold uppercase tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`}>
+                    <p className={`text-xs font-bold uppercase tracking-wider ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`}>
                       What is included:
                     </p>
                     <ul className={`space-y-2 text-xs ${plan.popular || plan.comingSoon ? 'text-[#E0EBDC]' : 'text-[#374F3E]'}`}>
                       {items.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F5D328]' : 'text-[#183825]'}`} />
+                          <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.popular || plan.comingSoon ? 'text-[#F1E5C6]' : 'text-[#183825]'}`} />
                           <span className="leading-snug">{feat}</span>
                         </li>
                       ))}
@@ -367,7 +367,7 @@ export default function PlansPage() {
                         type="button"
                         onClick={() => setSelectedInclusionPlan(plan)}
                         className={`inline-flex items-center gap-1.5 text-xs font-bold transition cursor-pointer select-none group py-1 ${
-                          plan.popular || plan.comingSoon ? 'text-[#F5D328] hover:text-[#FFE342]' : 'text-[#183825] hover:text-[#122617]'
+                          plan.popular || plan.comingSoon ? 'text-[#F1E5C6] hover:text-[#F7EED8]' : 'text-[#183825] hover:text-[#122617]'
                         }`}
                       >
                         <span>View full inclusions</span>
@@ -382,7 +382,7 @@ export default function PlansPage() {
                     <button
                       type="button"
                       onClick={() => setShowCompanionModal(true)}
-                      className="w-full py-3.5 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md active:scale-[0.98]"
+                      className="w-full py-3.5 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md active:scale-[0.98]"
                     >
                       <span>Join the waitlist</span>
                       <ArrowRight className="w-4 h-4" />
@@ -394,7 +394,7 @@ export default function PlansPage() {
                       rel="noopener noreferrer"
                       className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center ${
                         plan.popular
-                          ? 'bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
+                          ? 'bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold shadow-md active:scale-[0.98]'
                           : 'bg-[#122617] hover:bg-[#183825] text-white active:scale-[0.98]'
                       }`}
                     >
@@ -409,9 +409,9 @@ export default function PlansPage() {
         </div>
 
         {/* 3. Commercial & Operational Rules */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#183825] border border-[#F5D328]/25 max-w-5xl mx-auto space-y-6">
-          <div className="flex items-center gap-2 text-sm sm:text-base font-bold text-[#F5D328] uppercase tracking-wider">
-            <ShieldCheck className="w-5 h-5 text-[#F5D328]" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#183825] border border-[#F1E5C6]/25 max-w-5xl mx-auto space-y-6">
+          <div className="flex items-center gap-2 text-sm sm:text-base font-bold text-[#F1E5C6] uppercase tracking-wider">
+            <ShieldCheck className="w-5 h-5 text-[#F1E5C6]" />
             <span>Transparent Commercial Rules & Operational Policies</span>
           </div>
 
@@ -434,8 +434,8 @@ export default function PlansPage() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-[#F5D328]/20 text-xs text-[#EBF2E8]/90 leading-relaxed">
-            <strong className="text-[#F5D328]">What is Not Included: </strong>
+          <div className="pt-4 border-t border-[#F1E5C6]/20 text-xs text-[#EBF2E8]/90 leading-relaxed">
+            <strong className="text-[#F1E5C6]">What is Not Included: </strong>
             <span>Doctor consultation fees, nursing procedures, diagnostic lab tests, prescription medicines, buddy overtime beyond included hours, and physical therapy or rehabilitation (therapy comes from licensed providers, paid directly with zero commission). Local transport is covered seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet.</span>
           </div>
         </div>
@@ -458,10 +458,10 @@ export default function PlansPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#0A130C] text-[#EBF2E8] py-12 px-4 border-t border-[#F5D328]/20 mt-16">
+      <footer className="bg-[#0A130C] text-[#EBF2E8] py-12 px-4 border-t border-[#F1E5C6]/20 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#EBF2E8]/60">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#F5D328] font-medium">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#F1E5C6] font-medium">
               <span>Named Care Buddy</span>
               <span className="text-[#EBF2E8]/30">·</span>
               <span>No hospital commissions</span>
@@ -496,22 +496,22 @@ export default function PlansPage() {
             onClick={() => setSelectedInclusionPlan(null)}
           >
             <div
-              className="bg-[#142D1C] border border-[#F5D328]/30 text-[#EBF2E8] rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col relative shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+              className="bg-[#142D1C] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col relative shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="p-6 sm:p-7 border-b border-[#F5D328]/20 relative bg-[#183825]/90">
+              <div className="p-6 sm:p-7 border-b border-[#F1E5C6]/20 relative bg-[#183825]/90">
                 <button
                   type="button"
                   onClick={() => setSelectedInclusionPlan(null)}
-                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#122617] border border-[#F5D328]/30 text-[#F5D328] hover:text-white flex items-center justify-center cursor-pointer transition"
+                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#122617] border border-[#F1E5C6]/30 text-[#F1E5C6] hover:text-white flex items-center justify-center cursor-pointer transition"
                   aria-label="Close"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 <div className="space-y-1.5 pr-8">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328] bg-[#F5D328]/15 px-2.5 py-0.5 rounded-full inline-block">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6] bg-[#F1E5C6]/15 px-2.5 py-0.5 rounded-full inline-block">
                     Full Plan Scope &amp; Inclusions
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
@@ -525,7 +525,7 @@ export default function PlansPage() {
                   </p>
 
                   <div className="pt-3 flex flex-wrap items-baseline gap-2">
-                    <span className="text-2xl sm:text-3xl font-black text-[#F5D328]">
+                    <span className="text-2xl sm:text-3xl font-black text-[#F1E5C6]">
                       ₹{finalPrice.toLocaleString('en-IN')}
                     </span>
                     <span className="text-xs font-bold text-[#EBF2E8]">
@@ -546,26 +546,26 @@ export default function PlansPage() {
               {/* Scrollable Body */}
               <div className="overflow-y-auto p-6 sm:p-7 space-y-5 text-xs sm:text-sm">
                 {/* Touchpoint Highlights */}
-                <div className="p-4 rounded-2xl bg-[#122617] border border-[#F5D328]/25 space-y-2.5">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                <div className="p-4 rounded-2xl bg-[#122617] border border-[#F1E5C6]/25 space-y-2.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Core Care Metrics
                   </p>
                   <div className="space-y-2 text-xs font-semibold text-[#EBF2E8]">
                     <div className="flex items-center gap-2.5">
-                      <Clock className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <Clock className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.touchpoints}</span>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <Stethoscope className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <Stethoscope className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.hospitalHours}</span>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <HeartHandshake className="w-4 h-4 text-[#F5D328] shrink-0" />
+                      <HeartHandshake className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                       <span>{selectedInclusionPlan.companionTasters}</span>
                     </div>
                     {selectedInclusionPlan.mobilityWallet && (
                       <div className="flex items-center gap-2.5">
-                        <Wallet className="w-4 h-4 text-[#F5D328] shrink-0" />
+                        <Wallet className="w-4 h-4 text-[#F1E5C6] shrink-0" />
                         <span>{selectedInclusionPlan.mobilityWallet}</span>
                       </div>
                     )}
@@ -574,13 +574,13 @@ export default function PlansPage() {
 
                 {/* Full Features Checklist */}
                 <div className="space-y-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F5D328]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#F1E5C6]">
                     Complete Inclusions Checklist
                   </p>
                   <ul className="space-y-2.5 text-xs text-[#E0EBDC]">
                     {selectedInclusionPlan.features.map((feat: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
-                        <Check className="w-4 h-4 text-[#F5D328] shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[#F1E5C6] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -588,13 +588,13 @@ export default function PlansPage() {
                 </div>
 
                 {/* Assurance note */}
-                <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F5D328]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-[#183825]/60 border border-[#F1E5C6]/20 text-[11px] text-[#EBF2E8]/85 leading-relaxed">
                   Doctor consults, medications, and lab diagnostics are paid directly at actuals with zero commission. Transport is managed seamlessly via your plan&apos;s refundable Zero-Markup Mobility Wallet float.
                 </div>
               </div>
 
               {/* Footer */}
-              <div className="p-4 sm:p-5 border-t border-[#F5D328]/20 bg-[#122617] flex items-center gap-3">
+              <div className="p-4 sm:p-5 border-t border-[#F1E5C6]/20 bg-[#122617] flex items-center gap-3">
                 {selectedInclusionPlan.comingSoon ? (
                   <button
                     type="button"
@@ -602,7 +602,7 @@ export default function PlansPage() {
                       setSelectedInclusionPlan(null);
                       setShowCompanionModal(true);
                     }}
-                    className="flex-1 py-3 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                    className="flex-1 py-3 px-4 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
                   >
                     <span>Join the waitlist</span>
                     <ArrowRight className="w-4 h-4" />
@@ -612,7 +612,7 @@ export default function PlansPage() {
                     href={`https://wa.me/919496097611?text=Hi%20Rodasi%20Team%2C%20I%20would%20like%20to%20ask%20about%20the%20${encodeURIComponent(selectedInclusionPlan.name)}%20plan%20for%20my%20parents.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] shadow-md"
+                    className="flex-1 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition cursor-pointer text-center bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] shadow-md"
                   >
                     Ask about {selectedInclusionPlan.name} on WhatsApp
                   </a>
@@ -633,7 +633,7 @@ export default function PlansPage() {
       {/* Companion Waitlist Modal */}
       {showCompanionModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#183825] border border-[#F5D328]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 sm:p-7 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+          <div className="bg-[#183825] border border-[#F1E5C6]/30 text-[#EBF2E8] rounded-2xl max-w-md w-full p-6 sm:p-7 space-y-4 relative shadow-2xl animate-in fade-in zoom-in duration-150">
             <button
               type="button"
               onClick={() => setShowCompanionModal(false)}
@@ -644,7 +644,7 @@ export default function PlansPage() {
             </button>
 
             <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F5D328]">Waitlist</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6]">Waitlist</span>
               <h3 className="text-xl sm:text-2xl font-bold text-white">Join the Companion Waitlist</h3>
               <p className="text-xs sm:text-sm text-[#EBF2E8]/80 leading-relaxed">
                 22 days a month of warm daily companionship. We will notify you first when enrollment opens.
@@ -652,11 +652,11 @@ export default function PlansPage() {
             </div>
 
             {companionSubmitted ? (
-              <div className="p-5 rounded-xl bg-[#122617] border border-[#F5D328]/40 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#F5D328]/20 border border-[#F5D328] flex items-center justify-center text-[#F5D328] mx-auto">
-                  <CheckCircle2 className="w-6 h-6 text-[#F5D328]" />
+              <div className="p-5 rounded-xl bg-[#122617] border border-[#F1E5C6]/40 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#F1E5C6]/20 border border-[#F1E5C6] flex items-center justify-center text-[#F1E5C6] mx-auto">
+                  <CheckCircle2 className="w-6 h-6 text-[#F1E5C6]" />
                 </div>
-                <h4 className="text-base font-bold text-[#F5D328]">You are on the waitlist!</h4>
+                <h4 className="text-base font-bold text-[#F1E5C6]">You are on the waitlist!</h4>
                 <p className="text-xs text-[#EBF2E8]/85 leading-relaxed">
                   Thank you <strong>{companionName}</strong>. We will message you on WhatsApp as soon as Companion spots open.
                 </p>
@@ -690,7 +690,7 @@ export default function PlansPage() {
                     placeholder="e.g. Ramesh Menon"
                     value={companionName}
                     onChange={(e) => setCompanionName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                   />
                 </div>
 
@@ -702,17 +702,17 @@ export default function PlansPage() {
                     required
                     value={companionCountryCode}
                     onChange={(e) => setCompanionCountryCode(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm cursor-pointer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm cursor-pointer"
                   >
                     <option value="">Choose country</option>
-                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="Popular Expats & NRK Regions" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {TOP_NRK_COUNTRIES.map((c) => (
                         <option key={`plans_top_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F5D328] font-bold">
+                    <optgroup label="All Countries (A to Z)" className="bg-[#122617] text-[#F1E5C6] font-bold">
                       {ALL_COUNTRIES.map((c) => (
                         <option key={`plans_all_${c.code}`} value={c.code} className="bg-[#122617] text-white font-normal">
                           {c.name} (+{c.dialCode})
@@ -727,7 +727,7 @@ export default function PlansPage() {
                     WhatsApp Number
                   </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3.5 text-xs font-bold text-[#F5D328]">
+                    <span className="absolute left-3.5 text-xs font-bold text-[#F1E5C6]">
                       {companionCountryCode && COUNTRIES.find((c) => c.code === companionCountryCode)
                         ? `+${COUNTRIES.find((c) => c.code === companionCountryCode)?.dialCode.replace(/[^0-9]/g, '')}`
                         : '+'}
@@ -738,7 +738,7 @@ export default function PlansPage() {
                       placeholder="e.g. 50 123 4567"
                       value={companionPhoneDigits}
                       onChange={(e) => setCompanionPhoneDigits(e.target.value)}
-                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F5D328]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F5D328] text-xs sm:text-sm"
+                      className="w-full pl-16 pr-3.5 py-2.5 rounded-xl bg-[#122617] border border-[#F1E5C6]/30 text-white placeholder:text-[#EBF2E8]/40 focus:outline-none focus:border-[#F1E5C6] text-xs sm:text-sm"
                     />
                   </div>
                 </div>
@@ -749,7 +749,7 @@ export default function PlansPage() {
                       type="checkbox"
                       checked={companionConsent}
                       onChange={(e) => setCompanionConsent(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-[#F5D328]/40 text-[#F5D328] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
+                      className="mt-0.5 w-4 h-4 rounded border-[#F1E5C6]/40 text-[#F1E5C6] bg-[#122617] focus:ring-0 cursor-pointer shrink-0"
                     />
                     <span className="text-xs text-[#EBF2E8]/90 leading-snug">
                       OK to message me on WhatsApp.
@@ -760,7 +760,7 @@ export default function PlansPage() {
                 <button
                   type="submit"
                   disabled={companionSubmitting}
-                  className="w-full py-3 px-4 rounded-xl bg-[#F5D328] hover:bg-[#FFE342] text-[#122116] font-extrabold text-xs sm:text-sm transition cursor-pointer disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-xl bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] font-extrabold text-xs sm:text-sm transition cursor-pointer disabled:opacity-50"
                 >
                   {companionSubmitting ? 'Joining...' : 'Join Companion Waitlist'}
                 </button>

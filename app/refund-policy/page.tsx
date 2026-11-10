@@ -10,7 +10,7 @@ export default function RefundPolicyPage() {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Rodasi</span>
@@ -36,31 +36,31 @@ export default function RefundPolicyPage() {
 
         {/* Feature Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-1.5">
-            <div className="w-8 h-8 rounded-lg bg-[#F5D328]/15 border border-[#F5D328]/30 flex items-center justify-center text-[#F5D328] mb-1">
-              <RotateCcw className="w-4 h-4 text-[#F5D328]" />
+          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F1E5C6]/30 space-y-1.5">
+            <div className="w-8 h-8 rounded-lg bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 flex items-center justify-center text-[#F1E5C6] mb-1">
+              <RotateCcw className="w-4 h-4 text-[#F1E5C6]" />
             </div>
-            <h3 className="font-bold text-sm text-[#F5D328]">Pro-Rata Full Refund</h3>
+            <h3 className="font-bold text-sm text-[#F1E5C6]">Pro-Rata Full Refund</h3>
             <p className="text-xs text-[#EBF2E8]/80 leading-relaxed">
               Unused full months refunded with 15-day notice. Zero penalty fees.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-1.5">
-            <div className="w-8 h-8 rounded-lg bg-[#F5D328]/15 border border-[#F5D328]/30 flex items-center justify-center text-[#F5D328] mb-1">
-              <PauseCircle className="w-4 h-4 text-[#F5D328]" />
+          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F1E5C6]/30 space-y-1.5">
+            <div className="w-8 h-8 rounded-lg bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 flex items-center justify-center text-[#F1E5C6] mb-1">
+              <PauseCircle className="w-4 h-4 text-[#F1E5C6]" />
             </div>
-            <h3 className="font-bold text-sm text-[#F5D328]">Flexible Plan Pauses</h3>
+            <h3 className="font-bold text-sm text-[#F1E5C6]">Flexible Plan Pauses</h3>
             <p className="text-xs text-[#EBF2E8]/80 leading-relaxed">
               Pause for 14 to 60 days for family trips or hospital stays with 7-day notice.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F5D328]/30 space-y-1.5">
-            <div className="w-8 h-8 rounded-lg bg-[#F5D328]/15 border border-[#F5D328]/30 flex items-center justify-center text-[#F5D328] mb-1">
-              <Clock className="w-4 h-4 text-[#F5D328]" />
+          <div className="p-4 rounded-2xl bg-[#183825] text-[#EBF2E8] border border-[#F1E5C6]/30 space-y-1.5">
+            <div className="w-8 h-8 rounded-lg bg-[#F1E5C6]/15 border border-[#F1E5C6]/30 flex items-center justify-center text-[#F1E5C6] mb-1">
+              <Clock className="w-4 h-4 text-[#F1E5C6]" />
             </div>
-            <h3 className="font-bold text-sm text-[#F5D328]">5-7 Day Processing</h3>
+            <h3 className="font-bold text-sm text-[#F1E5C6]">5-7 Day Processing</h3>
             <p className="text-xs text-[#EBF2E8]/80 leading-relaxed">
               Direct refund back to your original payment channel via Razorpay.
             </p>
@@ -71,7 +71,7 @@ export default function RefundPolicyPage() {
           {/* Section 1 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">1</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">1</span>
               <span>Zero Upfront Payment & Free Consultation</span>
             </h2>
             <p>
@@ -82,7 +82,7 @@ export default function RefundPolicyPage() {
           {/* Section 2 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">2</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">2</span>
               <span>3-Month Minimum Commitment & Pro-Rata Refund</span>
             </h2>
             <p>
@@ -101,7 +101,7 @@ export default function RefundPolicyPage() {
           {/* Section 3 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">3</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">3</span>
               <span>Plan Pausing Rules (Family Travel & Hospital Stays)</span>
             </h2>
             <p>
@@ -126,7 +126,7 @@ export default function RefundPolicyPage() {
           {/* Section 4 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">4</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">4</span>
               <span>Refund Processing & Timeline</span>
             </h2>
             <p>

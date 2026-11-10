@@ -10,7 +10,7 @@ export default function TermsPage() {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#F5D328] hover:text-[#FFE342] transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Rodasi</span>
@@ -38,7 +38,7 @@ export default function TermsPage() {
           {/* Section 1 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">1</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">1</span>
               <span>Scope of Service & Care Buddy Role</span>
             </h2>
             <p>
@@ -52,7 +52,7 @@ export default function TermsPage() {
           {/* Section 2 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">2</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">2</span>
               <span>Zero Upfront Online Payment & Enrollment</span>
             </h2>
             <p>
@@ -63,7 +63,7 @@ export default function TermsPage() {
           {/* Section 3 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">3</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">3</span>
               <span>Commitment, Refund & Cancellation Policy</span>
             </h2>
             <p>
@@ -77,7 +77,7 @@ export default function TermsPage() {
           {/* Section 4 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">4</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">4</span>
               <span>Plan Pausing Policy</span>
             </h2>
             <p>
@@ -88,7 +88,7 @@ export default function TermsPage() {
           {/* Section 5 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">5</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">5</span>
               <span>Pricing, Taxes, and What is Not Included</span>
             </h2>
             <p>
@@ -112,7 +112,7 @@ export default function TermsPage() {
           {/* Section 6 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">6</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">6</span>
               <span>Parental Dignity & Safety</span>
             </h2>
             <p>
@@ -123,7 +123,7 @@ export default function TermsPage() {
           {/* Section 7 */}
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F5D328] text-xs font-black inline-flex items-center justify-center">7</span>
+              <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">7</span>
               <span>Governing Law and Dispute Resolution</span>
             </h2>
             <p>
