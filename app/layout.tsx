@@ -64,12 +64,20 @@ export const metadata: Metadata = {
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
     images: [
       {
-        url: "/og-image.png",
-        secureUrl: `${siteUrl}/og-image.png`,
+        url: "/og-image.png?v=3",
+        secureUrl: `${siteUrl}/og-image.png?v=3`,
         width: 1200,
         height: 630,
         alt: "graymatters Eldercare Concierge Kerala",
         type: "image/png",
+      },
+      {
+        url: "/og-image.jpg?v=3",
+        secureUrl: `${siteUrl}/og-image.jpg?v=3`,
+        width: 1200,
+        height: 630,
+        alt: "graymatters Eldercare Concierge Kerala",
+        type: "image/jpeg",
       }
     ]
   },
@@ -77,10 +85,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "graymatters | Dedicated Parent Care in Kerala for NRKs",
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteUrl}/og-image.png?v=3`],
   },
   other: {
-    "image_src": `${siteUrl}/og-image.png`,
+    "image_src": `${siteUrl}/og-image.png?v=3`,
   },
   robots: {
     index: true,
@@ -107,13 +115,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
     >
       <head>
-        <meta property="og:image" content={`${siteUrl}/og-image.png`} />
-        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image" content={`${siteUrl}/og-image.png?v=3`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.png?v=3`} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="graymatters Eldercare Concierge Kerala" />
-        <link rel="image_src" href={`${siteUrl}/og-image.png`} />
+        <link rel="image_src" href={`${siteUrl}/og-image.png?v=3`} />
       </head>
       <body className="min-h-full flex flex-col">
         {children}
