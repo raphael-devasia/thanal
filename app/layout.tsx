@@ -20,9 +20,67 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://greymatters.in";
+
 export const metadata: Metadata = {
-  title: "Greymatters Eldercare Concierge | Dedicated Parent Care in Kerala",
-  description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting & health logistics for families abroad with parents in Kerala.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Greymatters Eldercare Concierge | Dedicated Parent Care in Kerala for NRKs",
+    template: "%s | Greymatters Eldercare"
+  },
+  description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
+  keywords: [
+    "Kerala eldercare",
+    "elder care Kerala",
+    "NRK parents care",
+    "hospital companion Kerala",
+    "OPD escort Calicut Kochi",
+    "NRI parents care Kerala",
+    "Greymatters eldercare",
+    "elderly mobility service Kerala"
+  ],
+  authors: [{ name: "Zynthexion Technologies Private Limited" }],
+  creator: "Greymatters Eldercare Concierge",
+  publisher: "Zynthexion Technologies Private Limited",
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteUrl,
+    siteName: "Greymatters Eldercare Concierge",
+    title: "Greymatters Eldercare | Dedicated Parent Care in Kerala for NRKs",
+    description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Greymatters Eldercare Concierge Kerala",
+        type: "image/png",
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Greymatters Eldercare | Dedicated Parent Care in Kerala for NRKs",
+    description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
+    images: ["/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
