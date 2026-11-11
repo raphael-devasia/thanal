@@ -83,17 +83,17 @@ export default function RefundPolicyPage() {
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">2</span>
-              <span>3-Month Minimum Commitment & Pro-Rata Refund</span>
+              <span>Monthly Flexibility, No Lock-In & Pro-Rata Refund</span>
             </h2>
             <p>
-              Eldercare requires familiarity, trust, and continuity. To ensure your parents receive consistent care from a dedicated buddy rather than rotating faces, all Greymatters care memberships begin with an initial <strong>3-month minimum commitment</strong>.
+              Start with a single month. No lock-in. Cancel anytime with <strong>15 days notice</strong>.
             </p>
             <p>
-              If your family circumstances change or you wish to withdraw for any reason:
+              Refund policy across billing cycles:
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Provide written notice of <strong>15 days</strong> via WhatsApp or email.</li>
-              <li>You will receive a <strong>100% pro-rata refund for all unused full calendar months</strong>.</li>
+              <li><strong>Monthly plans:</strong> no refund for the current month, and you stop at the end of it.</li>
+              <li><strong>Quarterly prepaid plans:</strong> unused full months are refunded pro-rata within 5 to 7 business days. No cancellation fees.</li>
               <li>There are no hidden administrative charges, cancellation penalties, or exit fees.</li>
             </ul>
           </section>

@@ -417,8 +417,8 @@ export default function PlansPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-[#EBF2E8]/85 leading-relaxed">
             <div>
-              <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">3-Month Minimum & Pro-Rata Refund</p>
-              <p>Initial enrollment is a 3-month minimum commitment to build medical history and a trusted routine. 15-day notice required, with unused full months refunded pro-rata.</p>
+              <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">Monthly Flexibility & Pro-Rata Refund</p>
+              <p>Start with a single month. No lock-in. Cancel anytime with 15 days notice. Monthly plans: no refund for the current month, and you stop at the end of it. Quarterly prepaid plans: unused full months are refunded pro-rata within 5 to 7 business days. No cancellation fees.</p>
             </div>
             <div>
               <p className="font-bold text-[#EBF2E8] mb-1.5 text-sm">Flexible Plan Pausing</p>

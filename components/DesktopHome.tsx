@@ -320,7 +320,7 @@ export default function DesktopHome() {
     },
     {
       q: 'What is your refund, pause, and cancellation policy?',
-      a: 'We operate on a 3-month minimum commitment to establish a dependable care routine and build your parents’ Care Passport. If you need to cancel, provide 15 days notice and all unused full months are refunded pro-rata. If your family is traveling or your parents have a prolonged hospital stay, you can pause membership for 14 to 60 days with 7 days notice, freezing all billing until care resumes.'
+      a: 'Start with a single month. No lock-in. Cancel anytime with 15 days notice. Monthly plans: no refund for the current month, and you stop at the end of it. Quarterly prepaid plans: unused full months are refunded pro-rata within 5 to 7 business days. No cancellation fees. If your family is traveling or your parents have a prolonged hospital stay, you can pause membership for 14 to 60 days with 7 days notice, freezing all billing until care resumes.'
     },
     {
       q: 'How are hospital bills, pharmacy refills, and taxi fares billed?',
@@ -570,142 +570,148 @@ export default function DesktopHome() {
         </div>
       </section>
 
-      {/* 2.5 NARRATIVE: THE REALITY ACROSS OCEANS */}
-      <section className="py-12 sm:py-16 bg-[#152B1B] border-t border-b border-[#F1E5C6]/20 text-[#EBF2E8]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#F1E5C6]">The Reality Across Oceans</span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-balance">
-            Long-distance phone calls aren’t enough when unexpected moments arise.
-          </h2>
-          <p className="text-base sm:text-lg text-[#EBF2E8]/85 leading-relaxed max-w-2xl mx-auto font-normal">
-            You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues,
-            confusing prescriptions, banking paperwork, or quiet afternoons arise, your parents shouldn’t have to face them
-            alone.
-          </p>
-        </div>
-      </section>
+      {/* 2.5 NARRATIVE (LEFT) & INTERACTIVE WHATSAPP CHAT (RIGHT) */}
+      <section id="whatsapp-experience" className="py-14 sm:py-20 lg:py-24 bg-[#152B1B] border-t border-b border-[#F1E5C6]/20 text-[#EBF2E8]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left Column: The Reality Across Oceans Narrative */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#183825] border border-[#F1E5C6]/30 text-[#F1E5C6] text-xs font-bold uppercase tracking-widest">
+                <span>The Reality Across Oceans</span>
+              </div>
 
-      {/* 3. LIVE WHATSAPP EXPERIENCE */}
-      <section id="whatsapp-experience" className="py-14 sm:py-20 bg-[#F9F8F3] text-[#122617] border-t border-b border-[#122617]/10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-            <span className="bg-[#183825]/10 text-[#122617] border border-[#183825]/20 text-xs font-bold px-3.5 py-1.5 rounded-full mb-2.5 inline-block uppercase tracking-wider">
-              No Complex Portals • Just WhatsApp
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 text-[#122617]">
-              <GradientText colors={['#122617', '#1E4429', '#2E613B', '#122617']}>
-                Here is What You Receive on Your Phone
-              </GradientText>
-            </h2>
-            <p className="text-[#2D4533] text-xs sm:text-base leading-relaxed">
-              Whether you are at work in Dubai, London, or Dallas, you receive timely voice briefings, prescription scans, and
-              photo updates directly from your parents’ Care Buddy.
-            </p>
-          </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.2] text-balance">
+                Long-distance phone calls aren’t enough when unexpected moments arise.
+              </h2>
 
-          {/* Interactive Chat Mockup */}
-          <div className="max-w-xl mx-auto bg-white rounded-2xl sm:rounded-3xl border border-[#183825]/15 shadow-2xl overflow-hidden">
-            {/* Header */}
-            <div className="bg-[#122617] border-b border-[#183825]/40 text-white p-3.5 sm:p-4 flex items-center justify-between">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 overflow-hidden border border-[#F1E5C6]/40 shrink-0">
-                  <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
+              <p className="text-base sm:text-lg text-[#EBF2E8]/90 leading-relaxed font-normal">
+                You are building a future across oceans, but home never leaves your mind. When unexpected hospital OPD queues,
+                confusing prescriptions, banking paperwork, or quiet afternoons arise, your parents shouldn’t have to face them
+                alone.
+              </p>
+
+              <div className="pt-2 space-y-3 border-t border-[#F1E5C6]/20 text-sm text-[#EBF2E8]/85">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
+                  <span>Real-time WhatsApp audio notes and doctor summaries sent to your phone</span>
                 </div>
-                <div className="min-w-0">
-                  <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
-                    <span>Greymatters Care Buddy</span>
-                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F1E5C6] text-[#122116]">
-                      Sample
-                    </span>
-                  </h4>
-                  <p className="text-[10px] text-[#F1E5C6] truncate">Assigned to Amma & Achan (Kochi)</p>
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
+                  <span>No passwords to remember. You stay informed where you already spend your day.</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#F1E5C6] shrink-0" />
+                  <span>Prescription photos and test results uploaded immediately to your Care Passport</span>
                 </div>
               </div>
-              <span className="text-[10px] bg-black/40 border border-[#F1E5C6]/20 px-2 py-0.5 rounded-full text-[#EBF2E8]/90 shrink-0">
-                11:45 AM IST
-              </span>
             </div>
 
-            {/* Chat Messages */}
-            <div className="p-3 sm:p-5 space-y-3 bg-[#F8F5EE] min-h-[300px]">
-              {/* Message 1 */}
-              <div className="flex justify-start">
-                <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1">
-                  <div className="flex items-center justify-between">
-                    <p className="font-bold text-[#183825]">Care Buddy Anjali:</p>
-                    <span className="text-[9px] text-[#183825]/60 font-semibold bg-[#183825]/5 px-1.5 py-0.5 rounded">
-                      Sample
-                    </span>
-                  </div>
-                  <p className="leading-relaxed text-[#243B2B]">
-                    Namaskaram Ramesh! I picked up Amma from home on time. We have arrived at City Care Clinic for her 11 AM
-                    check-up with Dr. Varma. Queue token is #14.
-                  </p>
-                  <span className="text-[10px] text-[#183825]/60 block text-right">10:48 AM</span>
-                </div>
-              </div>
-
-              {/* Message 2: Voice Note */}
-              <div className="flex justify-start">
-                <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[95%] sm:max-w-[88%] shadow-xs space-y-2">
-                  <div className="flex items-center gap-2.5">
-                    <button
-                      type="button"
-                      onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
-                      className="w-9 h-9 rounded-full bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition shadow-sm cursor-pointer"
-                    >
-                      {isPlayingAudioDemo ? (
-                        <Volume2 className="w-4 h-4 text-[#122116]" />
-                      ) : (
-                        <Play className="w-3.5 h-3.5 ml-0.5 text-[#122116]" />
-                      )}
-                    </button>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1 h-5">
-                        <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-1' : 'h-2'}`} />
-                        <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-2' : 'h-3'}`} />
-                        <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-3' : 'h-5'}`} />
-                        <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-4' : 'h-3'}`} />
-                        <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-5' : 'h-4'}`} />
-                      </div>
-                      <div className="flex justify-between text-[10px] text-[#183825] mt-0.5 font-medium">
-                        <span>🎙️ 0:58 Voice Note (Sample)</span>
-                        <span>11:32 AM</span>
-                      </div>
+            {/* Right Column: The Interactive WhatsApp Chat Simulation */}
+            <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end">
+              <div className="w-full max-w-lg bg-white rounded-2xl sm:rounded-3xl border border-[#183825]/15 shadow-2xl overflow-hidden text-[#122617]">
+                {/* Header */}
+                <div className="bg-[#122617] border-b border-[#183825]/40 text-white p-3.5 sm:p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 overflow-hidden border border-[#F1E5C6]/40 shrink-0">
+                      <img src="/images/hero2.png" alt="Care Buddy Anjali" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
+                        <span>Greymatters Care Buddy</span>
+                        <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F1E5C6] text-[#122116]">
+                          Sample
+                        </span>
+                      </h4>
+                      <p className="text-[10px] text-[#F1E5C6] truncate">Assigned to Amma & Achan (Kochi)</p>
                     </div>
                   </div>
-                  <p className="text-[11px] text-[#183825] italic bg-[#EAF1E9] p-2.5 rounded-xl border border-[#183825]/15">
-                    "Dr. Varma reviewed Amma's ECG and recorded BP at 125/82. Everything looks stable! He slightly adjusted
-                    the morning tablet timing. Full audio summary above."
-                  </p>
+                  <span className="text-[10px] bg-black/40 border border-[#F1E5C6]/20 px-2 py-0.5 rounded-full text-[#EBF2E8]/90 shrink-0">
+                    11:45 AM IST
+                  </span>
                 </div>
-              </div>
 
-              {/* Message 3: Prescription */}
-              <div className="flex justify-start">
-                <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1.5">
-                  <div className="flex items-center gap-2 bg-[#122617] text-[#F1E5C6] p-2 rounded-xl border border-[#183825]/30 font-medium text-xs">
-                    <FileText className="w-4 h-4 text-[#F1E5C6] shrink-0" />
-                    <span className="truncate">Sample_Prescription_Slip.pdf</span>
+                {/* Chat Messages */}
+                <div className="p-3.5 sm:p-5 space-y-3 bg-[#F8F5EE] min-h-[300px]">
+                  {/* Message 1 */}
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1">
+                      <div className="flex items-center justify-between">
+                        <p className="font-bold text-[#183825]">Care Buddy Anjali:</p>
+                        <span className="text-[9px] text-[#183825]/60 font-semibold bg-[#183825]/5 px-1.5 py-0.5 rounded">
+                          Sample
+                        </span>
+                      </div>
+                      <p className="leading-relaxed text-[#243B2B]">
+                        Namaskaram Ramesh! I picked up Amma from home on time. We have arrived at City Care Clinic for her 11 AM
+                        check-up with Dr. Varma. Queue token is #14.
+                      </p>
+                      <span className="text-[10px] text-[#183825]/60 block text-right">10:48 AM</span>
+                    </div>
                   </div>
-                  <p className="text-[#243B2B] leading-relaxed">
-                    Uploaded to your Care Passport. Monthly medicine refills coordinated for doorstep delivery.
+
+                  {/* Message 2: Voice Note */}
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[95%] sm:max-w-[88%] shadow-xs space-y-2">
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => setIsPlayingAudioDemo(!isPlayingAudioDemo)}
+                          className="w-9 h-9 rounded-full bg-[#F1E5C6] hover:bg-[#F7EED8] text-[#122116] flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition shadow-sm cursor-pointer"
+                        >
+                          {isPlayingAudioDemo ? (
+                            <Volume2 className="w-4 h-4 text-[#122116]" />
+                          ) : (
+                            <Play className="w-3.5 h-3.5 ml-0.5 text-[#122116]" />
+                          )}
+                        </button>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1 h-5">
+                            <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-1' : 'h-2'}`} />
+                            <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-2' : 'h-3'}`} />
+                            <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-3' : 'h-5'}`} />
+                            <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-4' : 'h-3'}`} />
+                            <div className={`w-1 rounded-full bg-[#183825] ${isPlayingAudioDemo ? 'animate-wave-5' : 'h-4'}`} />
+                          </div>
+                          <div className="flex justify-between text-[10px] text-[#183825] mt-0.5 font-medium">
+                            <span>🎙️ 0:58 Voice Note (Sample)</span>
+                            <span>11:32 AM</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-[#183825] italic bg-[#EAF1E9] p-2.5 rounded-xl border border-[#183825]/15">
+                        &ldquo;Dr. Varma reviewed Amma&apos;s ECG and recorded BP at 125/82. Everything looks stable! He slightly adjusted
+                        the morning tablet timing. Full audio summary above.&rdquo;
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Message 3: Prescription */}
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-[#183825]/10 rounded-2xl rounded-tl-none p-3.5 max-w-[92%] sm:max-w-[85%] shadow-xs text-xs space-y-1.5">
+                      <div className="flex items-center gap-2 bg-[#122617] text-[#F1E5C6] p-2 rounded-xl border border-[#183825]/30 font-medium text-xs">
+                        <FileText className="w-4 h-4 text-[#F1E5C6] shrink-0" />
+                        <span className="truncate">Sample_Prescription_Slip.pdf</span>
+                      </div>
+                      <p className="text-[#243B2B] leading-relaxed">
+                        Uploaded to your Care Passport. Monthly medicine refills coordinated for doorstep delivery.
+                      </p>
+                      <span className="text-[10px] text-[#183825]/60 block text-right">11:40 AM</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[#F1ECE1] p-3 text-center border-t border-[#183825]/10">
+                  <p className="text-xs text-[#2D4533] font-medium">
+                    No passwords to remember. You stay informed where you already spend your day.
                   </p>
-                  <span className="text-[10px] text-[#183825]/60 block text-right">11:40 AM</span>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-[#F1ECE1] p-3 text-center border-t border-[#183825]/10">
-              <p className="text-xs text-[#2D4533] font-medium">
-                No passwords to remember. You stay informed where you already spend your day.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. THE CARE BUDDY CONCEPT */}
+      {/* 3. THE CARE BUDDY CONCEPT */}
       <section id="care-buddy-concept" className="py-14 sm:py-20 lg:py-24 bg-[#F9F8F3] text-[#122617] border-b border-[#122617]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
@@ -1218,7 +1224,7 @@ export default function DesktopHome() {
           {/* Under Cards Terms & Visible All Plans Button */}
           <div className="mt-10 text-center space-y-4 max-w-xl mx-auto">
             <p className="text-xs text-[#EBF2E8]/90 font-medium leading-relaxed">
-              3-month minimum commitment to build medical history and a trusted routine. Pause for 14 to 60 days. Unused full months refunded pro-rata.
+              Start with a single month. No lock-in. Cancel anytime with 15 days notice. Pause for 14 to 60 days.
             </p>
             <div className="flex justify-center">
               <Link
@@ -1239,8 +1245,8 @@ export default function DesktopHome() {
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs text-[#EBF2E8]/85">
               <div>
-                <p className="font-bold text-[#EBF2E8] mb-1">3-Month Minimum & Pro-Rata Refund</p>
-                <p>Initial enrollment is a 3-month minimum commitment to build medical history and a trusted routine. 15-day notice required, with unused full months refunded pro-rata.</p>
+                <p className="font-bold text-[#EBF2E8] mb-1">Monthly Flexibility & Pro-Rata Refund</p>
+                <p>Start with a single month. No lock-in. Cancel anytime with 15 days notice. Monthly plans: no refund for the current month, and you stop at the end of it. Quarterly prepaid plans: unused full months are refunded pro-rata within 5 to 7 business days. No cancellation fees.</p>
               </div>
               <div>
                 <p className="font-bold text-[#EBF2E8] mb-1">Flexible Plan Pausing</p>

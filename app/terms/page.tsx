@@ -64,13 +64,13 @@ export default function TermsPage() {
           <section className="space-y-2.5">
             <h2 className="text-lg font-extrabold text-[#122617] flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-[#183825] text-[#F1E5C6] text-xs font-black inline-flex items-center justify-center">3</span>
-              <span>Commitment, Refund & Cancellation Policy</span>
+              <span>No Lock-In, Cancellation & Refund Policy</span>
             </h2>
             <p>
-              To ensure continuity of care and build a trusted relationship between your parents and their named Care Buddy, Greymatters operates on an initial <strong>3-month minimum commitment</strong>.
+              Start with a single month. No lock-in. Cancel anytime with <strong>15 days notice</strong>.
             </p>
             <p>
-              If your family decides to discontinue service for any reason, you may submit a cancellation request with <strong>15 days notice</strong>. All unused full calendar months will be refunded pro-rata with zero penalty fees.
+              Monthly plans: no refund for the current month, and you stop at the end of it. Quarterly prepaid plans: unused full months are refunded pro-rata within 5 to 7 business days. No cancellation fees.
             </p>
           </section>
 

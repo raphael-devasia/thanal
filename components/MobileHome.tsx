@@ -981,7 +981,7 @@ export default function MobileHome() {
           {/* Under Cards Terms & Clear Visible Button */}
           <div className="text-center space-y-3 pt-2">
             <p className="text-xs text-[#EBF2E8]/90 leading-relaxed font-medium">
-              3-month minimum. Pause for 14 to 60 days. Unused full months refunded pro-rata.
+              Start with a single month. No lock-in. Cancel anytime with 15 days notice. Pause for 14 to 60 days.
             </p>
             <div className="flex flex-col gap-2 pt-1">
               <Link
@@ -1409,7 +1409,7 @@ export default function MobileHome() {
             </div>
 
             <div className="p-3 rounded-xl bg-[#122617]/70 text-xs text-[#EBF2E8]/80 leading-relaxed">
-              All plans include our 3-month minimum commitment, 14 to 60 day pause policy, and pro-rata refund for unused full months.
+              Start with a single month. No lock-in. Cancel anytime with 15 days notice. Pause for 14 to 60 days. Unused full months refunded pro-rata on quarterly plans.
             </div>
 
             <div className="pt-1">
