@@ -28,15 +28,13 @@ const poppins = Poppins({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   ? (process.env.NEXT_PUBLIC_SITE_URL.startsWith("http") ? process.env.NEXT_PUBLIC_SITE_URL : `https://${process.env.NEXT_PUBLIC_SITE_URL}`)
-  : process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "https://greymatters.in";
+  : "https://greymatterscare.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Greymatters Eldercare Concierge | Dedicated Parent Care in Kerala for NRKs",
-    template: "%s | Greymatters Eldercare"
+    default: "graymatters | Dedicated Parent Care in Kerala for NRKs",
+    template: "%s | graymatters"
   },
   description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
   keywords: [
@@ -46,11 +44,11 @@ export const metadata: Metadata = {
     "hospital companion Kerala",
     "OPD escort Calicut Kochi",
     "NRI parents care Kerala",
-    "Greymatters eldercare",
+    "graymatters eldercare",
     "elderly mobility service Kerala"
   ],
   authors: [{ name: "Zynthexion Technologies Private Limited" }],
-  creator: "Greymatters Eldercare Concierge",
+  creator: "graymatters Eldercare Concierge",
   publisher: "Zynthexion Technologies Private Limited",
   formatDetection: {
     telephone: false,
@@ -61,24 +59,28 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: siteUrl,
-    siteName: "Greymatters Eldercare Concierge",
-    title: "Greymatters Eldercare | Dedicated Parent Care in Kerala for NRKs",
+    siteName: "graymatters Eldercare Concierge",
+    title: "graymatters | Dedicated Parent Care in Kerala for NRKs",
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
     images: [
       {
         url: "/og-image.png",
+        secureUrl: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Greymatters Eldercare Concierge Kerala",
+        alt: "graymatters Eldercare Concierge Kerala",
         type: "image/png",
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Greymatters Eldercare | Dedicated Parent Care in Kerala for NRKs",
+    title: "graymatters | Dedicated Parent Care in Kerala for NRKs",
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
-    images: ["/og-image.png"],
+    images: [`${siteUrl}/og-image.png`],
+  },
+  other: {
+    "image_src": `${siteUrl}/og-image.png`,
   },
   robots: {
     index: true,
@@ -104,6 +106,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
     >
+      <head>
+        <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="graymatters Eldercare Concierge Kerala" />
+        <link rel="image_src" href={`${siteUrl}/og-image.png`} />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <Script

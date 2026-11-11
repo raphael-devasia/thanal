@@ -64,17 +64,11 @@ export default function Image() {
             >
               G
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: "30px",
-                  fontWeight: 800,
-                  letterSpacing: "-0.5px",
-                }}
-              >
-                Greymatters
-              </span>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
+              <div style={{ display: "flex", fontSize: "32px", fontWeight: 800 }}>
+                <span style={{ color: "#aca298" }}>gray</span>
+                <span style={{ color: "#d3901b" }}>matters</span>
+              </div>
               <span
                 style={{
                   color: "#F1E5C6",
@@ -87,36 +81,6 @@ export default function Image() {
                 Eldercare Concierge
               </span>
             </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              backgroundColor: "rgba(241, 229, 198, 0.12)",
-              border: "1px solid rgba(241, 229, 198, 0.25)",
-              padding: "8px 20px",
-              borderRadius: "9999px",
-            }}
-          >
-            <div
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                backgroundColor: "#4ADE80",
-              }}
-            />
-            <span
-              style={{
-                color: "#F1E5C6",
-                fontSize: "16px",
-                fontWeight: 600,
-              }}
-            >
-              Active Across Kerala
-            </span>
           </div>
         </div>
 
