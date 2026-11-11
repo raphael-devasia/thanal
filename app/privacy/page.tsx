@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Lock, Mail, MessageCircle, FileText } from 'lucide-react';
+import BrandName from '@/components/BrandName';
 
 export default function PrivacyPage() {
   return (
@@ -13,7 +14,7 @@ export default function PrivacyPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Greymatters</span>
+            <span>Return to <BrandName /></span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -54,11 +55,11 @@ export default function PrivacyPage() {
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
               <span className="font-bold text-[#F1E5C6] block mb-1">How to Delete It</span>
-              Message "Delete my data" on WhatsApp or email care@greymatters.com to purge your records within 24 hours.
+              Message "Delete my data" on WhatsApp or email info@zynthexion.com to purge your records within 24 hours.
             </div>
             <div className="p-3 rounded-xl bg-[#122617]/70 border border-[#F1E5C6]/20">
               <span className="font-bold text-[#F1E5C6] block mb-1">Who to Contact</span>
-              Email: care@greymatters.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
+              Email: info@zynthexion.com | WhatsApp: +91 94960 97611 | Zynthexion Technologies, Calicut.
             </div>
           </div>
         </div>
@@ -74,7 +75,7 @@ export default function PrivacyPage() {
               The data controller responsible for all personal information collected through Greymatters is <strong>Zynthexion Technologies Private Limited</strong>, an incorporated company registered in Kerala, India (referred to as "Greymatters", "we", "us", or "our").
             </p>
             <p>
-              If you have any questions regarding how your family's data is gathered, stored, or processed, you can reach our dedicated team directly at <a href="mailto:care@greymatters.com" className="text-[#183825] font-bold underline">care@greymatters.com</a>.
+              If you have any questions regarding how your family's data is gathered, stored, or processed, you can reach our dedicated team directly at <a href="mailto:info@zynthexion.com" className="text-[#183825] font-bold underline">info@zynthexion.com</a>.
             </p>
           </section>
 
@@ -178,7 +179,7 @@ export default function PrivacyPage() {
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <Mail className="w-4 h-4 text-[#183825]" />
                 <span>Email Deletion Request:</span>
-                <a href="mailto:care@greymatters.com" className="text-[#183825] underline">care@greymatters.com</a>
+                <a href="mailto:info@zynthexion.com" className="text-[#183825] underline">info@zynthexion.com</a>
               </div>
               <div className="flex items-center gap-2 font-bold text-[#183825]">
                 <MessageCircle className="w-4 h-4 text-[#183825]" />
@@ -208,7 +209,7 @@ export default function PrivacyPage() {
                 Direct Grievance Email: <a href="mailto:grievance@zynthexion.com" className="font-bold text-[#183825] underline">grievance@zynthexion.com</a>
               </p>
               <p className="text-[#2D4533]">
-                General Support: <a href="mailto:care@greymatters.com" className="font-bold text-[#183825] underline">care@greymatters.com</a>
+                General Support: <a href="mailto:info@zynthexion.com" className="font-bold text-[#183825] underline">info@zynthexion.com</a>
               </p>
             </div>
           </section>

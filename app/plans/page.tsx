@@ -25,6 +25,7 @@ import {
   ALL_COUNTRIES,
   detectVisitorCountry
 } from '@/types/waitlist';
+import BrandName from '@/components/BrandName';
 
 export default function PlansPage() {
   const [parentMode, setParentMode] = useState<ParentMode>('single');
@@ -114,20 +115,20 @@ export default function PlansPage() {
   return (
     <div className="min-h-screen bg-[#122617] text-[#EBF2E8] font-sans">
       {/* Navigation Header */}
-      <header className="border-b border-[#F1E5C6]/20 bg-[#0E1F13] py-5 px-4 sm:px-8 sticky top-0 z-40">
+      <header className="border-b border-[#F1E5C6]/30 bg-[#0E1F13] py-5 px-4 sm:px-8 sticky top-0 z-40 navbar-glow">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Greymatters</span>
+            <span>Return to <BrandName /></span>
           </Link>
           <Link href="/" className="inline-block">
             <img
               src="/images/logo.png"
               alt="Greymatters"
-              className="h-8 sm:h-9 w-auto object-contain brightness-110"
+              className="h-12 sm:h-14 w-auto object-contain brightness-110"
             />
           </Link>
         </div>
@@ -205,7 +206,7 @@ export default function PlansPage() {
         {/* 1. Try us first: Single Hospital Visit Card (Above Plans) */}
         <div className="max-w-4xl mx-auto">
           <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
-            New to Greymatters? Start with one visit
+            New to <BrandName />? Start with one visit
           </p>
 
           <div className="p-6 sm:p-7 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 text-[#122617] shadow-lg flex flex-col md:flex-row md:items-center gap-6">
@@ -473,7 +474,7 @@ export default function PlansPage() {
               <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="mailto:care@greymatters.com" className="hover:text-white transition">Contact</a>
+              <a href="mailto:info@zynthexion.com" className="hover:text-white transition">Contact</a>
             </div>
           </div>
 

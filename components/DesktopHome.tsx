@@ -50,6 +50,7 @@ import {
   ALL_COUNTRIES,
   detectVisitorCountry
 } from '@/types/waitlist';
+import BrandName from '@/components/BrandName';
 import GradientText from '@/components/GradientText';
 import DepthCarousel from '@/components/DepthCarousel';
 
@@ -396,7 +397,7 @@ export default function DesktopHome() {
   return (
     <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F1E5C6] selection:text-[#122116]">
       {/* 1. TOP RESPONSIVE HEADER */}
-      <header className="sticky top-0 z-40 bg-[#122617]/95 backdrop-blur-md border-b border-[#F1E5C6]/20 transition-all shadow-md">
+      <header className="sticky top-0 z-40 bg-[#122617]/95 backdrop-blur-md border-b border-[#F1E5C6]/30 transition-all navbar-glow">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -468,7 +469,7 @@ export default function DesktopHome() {
               </h1>
 
               <p className="text-[#EBF2E8]/90 text-base lg:text-lg leading-relaxed max-w-xl font-normal">
-                <strong className="text-[#F1E5C6]">Greymatters</strong> pairs your parents with a dedicated{' '}
+                <BrandName /> pairs your parents with a dedicated{' '}
                 <strong className="text-[#F1E5C6]">Care Buddy</strong> on the ground in Kochi: accompanying them to doctor
                 visits, managing medication refills, running essential errands, and sharing real-time WhatsApp voice updates
                 with you abroad.
@@ -617,7 +618,7 @@ export default function DesktopHome() {
                     </div>
                     <div className="min-w-0">
                       <h4 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate text-[#EBF2E8]">
-                        <span>Greymatters Care Buddy</span>
+                        <span className="inline-flex items-center gap-1"><BrandName /> Care Buddy</span>
                         <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#F1E5C6] text-[#122116]">
                           Sample
                         </span>
@@ -716,7 +717,7 @@ export default function DesktopHome() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <span className="bg-[#183825]/10 text-[#122617] border border-[#183825]/20 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3 inline-block uppercase tracking-wider">
-              The Heart of Greymatters
+              The Heart of <BrandName />
             </span>
             <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight mb-3 text-[#122617]">
               <GradientText colors={['#122617', '#1E4429', '#2E613B', '#122617']}>
@@ -725,7 +726,7 @@ export default function DesktopHome() {
               </GradientText>
             </h2>
             <p className="text-[#2D4533] text-sm lg:text-base leading-relaxed">
-              At Greymatters, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
+              At <BrandName />, peace of mind rests on one person: the Care Buddy. Someone who steps into your shoes on the ground,
               knowing your parents’ health, quirks, favorite routines, and doctors by heart.
             </p>
           </div>
@@ -775,7 +776,7 @@ export default function DesktopHome() {
               Comprehensive Service Scope
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
-              The Three Pillars of Greymatters Care
+              The Three Pillars of <BrandName /> Care
             </h2>
             <p className="text-[#EBF2E8]/85 text-sm sm:text-base leading-relaxed">
               A comprehensive eldercare framework tailored specifically for Kerala households and Malayali families living across oceans. Click any pillar below to inspect our full capabilities and live escort logs.
@@ -1018,7 +1019,7 @@ export default function DesktopHome() {
           {/* Introductory Line & Single Hospital Visit Card (Moved Above Plans) */}
           <div className="max-w-4xl mx-auto mb-12">
             <p className="text-xs font-bold uppercase tracking-wider text-[#F1E5C6] text-center mb-3">
-              New to Greymatters? Start with one visit
+              New to <BrandName />? Start with one visit
             </p>
 
             <div className="p-6 sm:p-7 rounded-3xl bg-[#F9F8F3] border-2 border-[#183825]/15 text-[#122617] shadow-lg flex flex-col md:flex-row md:items-center gap-6">
@@ -1302,6 +1303,17 @@ export default function DesktopHome() {
               );
             })}
           </div>
+
+          {/* Dedicated FAQ Page Permlink */}
+          <div className="pt-2 text-center">
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-[#183825]/20 text-[#122617] font-bold text-xs sm:text-sm hover:bg-[#183825] hover:text-[#F1E5C6] transition shadow-xs group"
+            >
+              <span>Explore full FAQ knowledge base</span>
+              <ArrowRight className="w-4 h-4 text-[#183825] group-hover:text-[#F1E5C6] group-hover:translate-x-0.5 transition" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -1483,7 +1495,7 @@ export default function DesktopHome() {
               <span>·</span>
               <a href="#pricing-section" className="hover:text-[#F1E5C6] transition">Plans</a>
               <span>·</span>
-              <a href="#faq-section" className="hover:text-[#F1E5C6] transition">FAQs</a>
+              <Link href="/faq" className="hover:text-[#F1E5C6] transition">FAQs</Link>
             </div>
           </div>
 
@@ -1500,7 +1512,7 @@ export default function DesktopHome() {
               <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition">Terms</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="mailto:care@greymatters.com" className="hover:text-white transition">Contact</a>
+              <a href="mailto:info@zynthexion.com" className="hover:text-white transition">Contact</a>
             </div>
           </div>
 
@@ -1969,7 +1981,7 @@ export default function DesktopHome() {
                     </h3>
 
                     <p className="text-[#EBF2E8]/85 text-xs sm:text-sm leading-relaxed">
-                      Medical logistics is only half the battle. Greymatters provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
+                      Medical logistics is only half the battle. <BrandName /> provides intellectual engagement, unhurried conversations, memory games, and accompanied outings so your parents feel loved, active, and socially connected every week.
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-3 pt-2">

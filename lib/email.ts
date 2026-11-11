@@ -7,6 +7,7 @@ export interface LeadEmailAlertData {
 export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promise<{ success: boolean; message?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const recipientEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@zynthexion.com';
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'info@zynthexion.com';
   
   if (!apiKey) {
     console.warn('RESEND_API_KEY is not configured in environment variables. Email notification skipped.');
@@ -85,8 +86,9 @@ export async function sendLeadNotificationEmail(data: LeadEmailAlertData): Promi
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: 'Greymatters Leads <onboarding@resend.dev>',
+        from: `graymatters Leads <${fromEmail}>`,
         to: [recipientEmail],
+        reply_to: fromEmail,
         subject: subjectText,
         html: htmlContent
       })
@@ -120,6 +122,7 @@ export interface LuxuryInquiryEmailData {
 export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Promise<{ success: boolean; message?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const recipientEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@zynthexion.com';
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'info@zynthexion.com';
 
   if (!apiKey) {
     console.warn('RESEND_API_KEY is not configured. Luxury email skipped.');
@@ -156,8 +159,9 @@ export async function sendLuxuryInquiryEmail(data: LuxuryInquiryEmailData): Prom
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        from: 'Greymatters Living <onboarding@resend.dev>',
+        from: `graymatters Living <${fromEmail}>`,
         to: [recipientEmail],
+        reply_to: fromEmail,
         subject: subjectText,
         html: htmlContent
       })

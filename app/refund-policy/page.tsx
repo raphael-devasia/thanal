@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, CheckCircle2, RotateCcw, PauseCircle, Clock } from 'lucide-react';
+import BrandName from '@/components/BrandName';
 
 export default function RefundPolicyPage() {
   return (
@@ -13,7 +14,7 @@ export default function RefundPolicyPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Greymatters</span>
+            <span>Return to <BrandName /></span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
@@ -135,7 +136,7 @@ export default function RefundPolicyPage() {
             <div className="p-4 rounded-xl bg-white border border-[#183825]/15 space-y-1.5 text-xs">
               <p className="font-bold text-[#183825]">How to Submit a Refund or Pause Request:</p>
               <p>• Official WhatsApp Support: <a href="https://wa.me/919496097611" className="font-bold text-[#183825] underline">+91 94960 97611</a></p>
-              <p>• Email Support: <a href="mailto:care@greymatters.com" className="font-bold text-[#183825] underline">care@greymatters.com</a></p>
+              <p>• Email Support: <a href="mailto:info@zynthexion.com" className="font-bold text-[#183825] underline">info@zynthexion.com</a></p>
               <p className="text-[#2D4533] pt-1">
                 Approved refunds are processed within <strong>5 to 7 business days</strong> back to the original bank account, debit/credit card, or international payment method used during billing.
               </p>

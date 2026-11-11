@@ -143,13 +143,13 @@ export default function LuxuryLivingPage() {
   return (
     <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans selection:bg-[#F1E5C6] selection:text-[#122116] pb-16">
       {/* TOP BAR */}
-      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F1E5C6]/20 shadow-md">
+      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F1E5C6]/30 navbar-glow">
         <div className="max-w-3xl lg:max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2">
             <img
               src="/images/logo.png"
               alt="Greymatters"
-              className="h-9 sm:h-11 w-auto object-contain brightness-110"
+              className="h-12 sm:h-14 w-auto object-contain brightness-110"
             />
           </Link>
 

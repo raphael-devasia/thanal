@@ -10,6 +10,7 @@ import {
   PLANS,
   PlanOption
 } from '@/types/waitlist';
+import BrandName from '@/components/BrandName';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -232,13 +233,13 @@ export default function MobileHome() {
   return (
     <div className="min-h-screen bg-[#F9F8F3] text-[#122617] font-sans pb-24 selection:bg-[#F1E5C6] selection:text-[#122116]">
       {/* ALWAYS ON SCREEN: TOP BAR */}
-      <header className="sticky top-0 z-40 bg-[#122617] text-white border-b border-[#F1E5C6]/20 shadow-md">
-        <div className="max-w-xl mx-auto px-3.5 py-2.5 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-[#122617] text-white border-b border-[#F1E5C6]/30 navbar-glow">
+        <div className="max-w-xl mx-auto px-3.5 py-1.5 sm:py-2 flex items-center justify-between relative z-10">
           <Link href="/" className="inline-flex items-center">
             <img
               src="/images/logo.png"
               alt="Greymatters"
-              className="h-8 w-auto object-contain brightness-110"
+              className="h-14 sm:h-16 w-auto object-contain brightness-110"
             />
           </Link>
 
@@ -267,52 +268,62 @@ export default function MobileHome() {
           </div>
         </div>
 
-        {/* MOBILE SLIDE-DOWN NAVIGATION DRAWER */}
+        {/* MOBILE OVERLAY NAVIGATION DRAWER (LAYOVER - DOES NOT PUSH CONTENT) */}
         {mobileMenuOpen && (
-          <div className="bg-[#122617] border-t border-b border-[#F1E5C6]/30 shadow-2xl p-4 space-y-3 animate-in slide-in-from-top-1 duration-150">
-            <div className="space-y-0.5">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">Menu Navigation</p>
-              <p className="text-xs text-[#EBF2E8]/70">Explore eldercare services and plans</p>
+          <>
+            {/* Backdrop Dimmer */}
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs z-0 transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+
+            {/* Floating Menu Panel Overlay */}
+            <div className="absolute top-full left-0 right-0 z-20 bg-[#122617]/98 backdrop-blur-md border-b border-[#F1E5C6]/30 shadow-[0_24px_50px_rgba(0,0,0,0.7)] p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-80px)] overflow-y-auto">
+              <div className="space-y-0.5">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#F1E5C6]">Menu Navigation</p>
+                <p className="text-xs text-[#EBF2E8]/70">Explore eldercare services and plans</p>
+              </div>
+
+              <div className="space-y-2 pt-1">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl bg-[#183825] text-white font-bold text-xs hover:bg-[#1f452e] transition"
+                >
+                  <span>At-Home Eldercare in Kochi</span>
+                  <span className="text-[10px] bg-[#F1E5C6] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Home</span>
+                </Link>
+
+                <a
+                  href="#three-pillars"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+                >
+                  <span>The Three Pillars of Care</span>
+                  <span className="text-[#EBF2E8]/60 text-[11px]">Health · Joy · Ease</span>
+                </a>
+
+                <a
+                  href="#plans-mobile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+                >
+                  <span>Care Plans & Pricing</span>
+                  <span className="text-[#EBF2E8]/60 text-[11px]">From ₹6,000/mo</span>
+                </a>
+
+                <a
+                  href="#sample-request-mobile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
+                >
+                  <span>Request Sample WhatsApp Update</span>
+                  <span className="text-[#EBF2E8]/60 text-[11px]">Free</span>
+                </a>
+              </div>
             </div>
-
-            <div className="space-y-2 pt-1">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#183825] text-white font-bold text-xs hover:bg-[#1f452e] transition"
-              >
-                <span>At-Home Eldercare in Kochi</span>
-                <span className="text-[10px] bg-[#F1E5C6] text-[#122116] px-2 py-0.5 rounded font-black uppercase">Home</span>
-              </Link>
-
-              <a
-                href="#three-pillars"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
-              >
-                <span>The Three Pillars of Care</span>
-                <span className="text-[#EBF2E8]/60 text-[11px]">Health · Joy · Ease</span>
-              </a>
-
-              <a
-                href="#plans-mobile"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
-              >
-                <span>Care Plans & Pricing</span>
-                <span className="text-[#EBF2E8]/60 text-[11px]">From ₹6,000/mo</span>
-              </a>
-
-              <a
-                href="#sample-request-mobile"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-[#183825]/60 text-white font-medium text-xs hover:bg-[#183825] transition"
-              >
-                <span>Request Sample WhatsApp Update</span>
-                <span className="text-[#EBF2E8]/60 text-[11px]">Free</span>
-              </a>
-            </div>
-          </div>
+          </>
         )}
       </header>
 
@@ -557,7 +568,7 @@ export default function MobileHome() {
                     <span>Care Buddy Anjali</span>
                     <span className="text-[9px] bg-[#F1E5C6] text-[#122116] px-1 py-0.2 rounded font-extrabold uppercase">Sample</span>
                   </h4>
-                  <p className="text-[10px] text-[#F1E5C6]">Greymatters Care Team</p>
+                  <p className="text-[10px] text-[#F1E5C6] inline-flex items-center gap-1"><BrandName /> Care Team</p>
                 </div>
               </div>
               <span className="text-[10px] text-[#EBF2E8]/70">WhatsApp</span>
@@ -805,7 +816,7 @@ export default function MobileHome() {
           {/* 1. Introductory Line and Single Hospital Visit Card (Moved Above Plans) */}
           <div className="space-y-2">
             <p className="text-xs font-semibold text-[#F1E5C6] uppercase tracking-wider text-center">
-              New to Greymatters? Start with one visit
+              New to <BrandName />? Start with one visit
             </p>
 
             <div className="p-5 rounded-2xl bg-[#F9F8F3] border border-[#183825]/20 text-[#122617] space-y-3 shadow-md">
@@ -1008,13 +1019,13 @@ export default function MobileHome() {
         </div>
       </section>
 
-      {/* SCREEN 9: THREE QUESTIONS (ACCORDIONS) */}
+      {/* SCREEN 9: FREQUENTLY ASKED QUESTIONS */}
       <section className="py-12 px-4 bg-[#F2EFE6] border-b border-[#122617]/10">
         <div className="max-w-md mx-auto space-y-5">
           <div className="text-center space-y-1">
             <span className="text-xs font-bold text-[#183825] uppercase tracking-wider">FAQs</span>
             <h2 className="text-2xl font-extrabold text-[#122617] tracking-tight">
-              Three questions
+              Frequently Asked Questions
             </h2>
           </div>
 
@@ -1055,6 +1066,17 @@ export default function MobileHome() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Link to Dedicated FAQ Page */}
+          <div className="pt-2 text-center">
+            <Link
+              href="/faq"
+              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-white border border-[#183825]/20 text-[#122617] font-bold text-xs hover:bg-[#183825] hover:text-[#F1E5C6] transition shadow-xs group"
+            >
+              <span>See more FAQs</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#183825] group-hover:text-[#F1E5C6] group-hover:translate-x-0.5 transition" />
+            </Link>
           </div>
         </div>
       </section>
@@ -1231,6 +1253,14 @@ export default function MobileHome() {
 
           {/* Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#EBF2E8]/75">
+            <Link href="/faq" className="hover:text-[#F1E5C6] transition">
+              FAQs
+            </Link>
+            <span>·</span>
+            <Link href="/plans" className="hover:text-[#F1E5C6] transition">
+              Plans
+            </Link>
+            <span>·</span>
             <Link href="/privacy" className="hover:text-[#F1E5C6] transition">
               Privacy
             </Link>
@@ -1242,10 +1272,6 @@ export default function MobileHome() {
             <Link href="/refund-policy" className="hover:text-[#F1E5C6] transition">
               Refund
             </Link>
-            <span>·</span>
-            <a href="mailto:care@greymatters.com" className="hover:text-[#F1E5C6] transition">
-              Contact
-            </a>
           </div>
 
           <p className="text-[11px] text-[#EBF2E8]/50">

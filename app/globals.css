@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -43,6 +43,10 @@
 
 .font-courgette {
   font-family: 'Courgette', cursive;
+}
+
+.font-poppins {
+  font-family: 'Poppins', var(--font-poppins), sans-serif;
 }
 
 body {
@@ -98,6 +102,14 @@ body {
 /* Ergonomic touch feel */
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Glowing navbar bottom shadow */
+.navbar-glow {
+  box-shadow: 
+    0 4px 20px -2px rgba(241, 229, 198, 0.4),
+    0 10px 32px 0 rgba(212, 175, 55, 0.25),
+    0 14px 28px -6px rgba(0, 0, 0, 0.45);
 }
 
 

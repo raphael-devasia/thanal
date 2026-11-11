@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
+import BrandName from '@/components/BrandName';
 
 export default function TermsPage() {
   return (
@@ -13,7 +14,7 @@ export default function TermsPage() {
             className="inline-flex items-center gap-2 text-xs font-bold text-[#F1E5C6] hover:text-[#F7EED8] transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Greymatters</span>
+            <span>Return to <BrandName /></span>
           </Link>
           <span className="text-xs text-[#EBF2E8]/70">Zynthexion Technologies Pvt. Ltd.</span>
         </div>
