@@ -20,7 +20,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://greymatters.in";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? (process.env.NEXT_PUBLIC_SITE_URL.startsWith("http") ? process.env.NEXT_PUBLIC_SITE_URL : `https://${process.env.NEXT_PUBLIC_SITE_URL}`)
+  : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://greymatters.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -56,7 +60,7 @@ export const metadata: Metadata = {
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Greymatters Eldercare Concierge Kerala",
@@ -68,7 +72,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Greymatters Eldercare | Dedicated Parent Care in Kerala for NRKs",
     description: "Ethical, zero-commission eldercare accompaniment, hospital OPD escorting, and mobility for parents in Kerala. Direct WhatsApp updates for NRI families abroad.",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
