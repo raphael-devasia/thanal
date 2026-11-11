@@ -7,7 +7,7 @@ interface BrandNameProps {
 export default function BrandName({ className = '' }: BrandNameProps) {
   return (
     <span className={`font-poppins font-bold lowercase tracking-normal inline ${className}`}>
-      <span className="text-[#aca298]">gray</span><span className="text-[#d3901b]">matters</span>
+      <span className="text-[#aca298]">grey</span><span className="text-[#d3901b]">matters</span>
     </span>
   );
 }

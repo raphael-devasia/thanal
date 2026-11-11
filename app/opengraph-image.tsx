@@ -66,7 +66,7 @@ export default function Image() {
             </div>
             <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
               <div style={{ display: "flex", fontSize: "32px", fontWeight: 800 }}>
-                <span style={{ color: "#aca298" }}>gray</span>
+                <span style={{ color: "#aca298" }}>grey</span>
                 <span style={{ color: "#d3901b" }}>matters</span>
               </div>
               <span
